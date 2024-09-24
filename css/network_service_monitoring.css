@@ -127,15 +127,12 @@ section.features{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
 }
 
 .features p{
+    gap: 5px;
     display: flex;
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
-    align-content: center;
     flex-direction: row;
     font-size: clamp(.9rem, 2vw, 1.4rem);
 }
