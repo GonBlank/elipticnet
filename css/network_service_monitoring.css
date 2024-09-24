@@ -89,43 +89,7 @@ section.register-form {
     justify-content: center;
 }
 
-/*
-.input-container input {
-    height: 38px;
-    padding: 3px;
-    border-radius: 6px 0px 0px 6px;
-    border: none;
-    flex: 3;
-    cursor: pointer;
-}
-
-.input-container input:focus-visible{
-    outline: 1px solid #7564ee;
-}
-
-
-.input-container button {
-    height: 100%;
-    padding: 3px;
-    flex: 1;
-    border: none;
-    background-color: #12a727;
-    color: #f4f6f0;
-    border-radius: 0px 6px 6px 0px;
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-
-    transition: background-color .2s;
-}
-*/
-
-
-
-.input-container button {
+.input-container a {
     height: 38px;
     padding: 3px;
     flex: 1;
@@ -142,17 +106,17 @@ section.register-form {
     cursor: pointer;
 }
 
-.input-container button svg {
+.input-container a svg {
     fill: #f4f6f0;
     background-color: transparent;
 }
 
-.input-container button:hover {
+.input-container a:hover {
     transform: scale(1.04);
     box-shadow: 0px 0px 8px 0px #9891f4;
 }
 
-.input-container button:active {
+.input-container a:active {
     background-color: #5332cf;
     transform: scale(1);
     box-shadow: none;
@@ -171,6 +135,7 @@ section.features {
     gap: 5px;
     display: flex;
     flex-direction: row;
+    align-items: center;
     font-size: clamp(.9rem, 2vw, 1.4rem);
 }
 
