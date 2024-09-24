@@ -54,8 +54,16 @@ div.title {
 
 div.title h1 {
     font-size: clamp(2rem, 6vw, 6rem);
-
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
+
+div.title h1 img {
+    width: clamp(30px, 10vw, 85px);
+}
+
+
 
 div.title h2 {
     font-size: clamp(.8rem, 2vw, 1.9rem);
