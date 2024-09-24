@@ -1,67 +1,146 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap');
 
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: "Lexend Deca", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
+    cursor: context-menu;
 }
 
-body{
-/*background-image: url('../img/background/background.jpg');*/
+body {
+    background-image: url('../img/background/background.jpg');
+    background-color: #1f1359;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    backdrop-filter: blur(10px);
 
-background-image: url('../img/background/background.jpg');
-background-color: #1f1359;
-background-repeat: no-repeat;
-background-size:cover;
-background-position: center;
-height: 100vh;
-backdrop-filter: blur(10px);
 }
 
-main{
+main {
     background-color: rgba(0, 0, 0, 0.397);
     height: 100%;
-    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
 }
 
-section{
-    color: whitesmoke;
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+section.principal {
+    color: #f4f6f0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    gap: 50px;
+}
+
+
+div.title{
+    text-align: center;
     text-wrap: nowrap;
 }
 
-section h1{
+div.title h1 {
     font-size: clamp(2rem, 6vw, 6rem);
-  
+
 }
 
-section h2{
+div.title h2 {
     font-size: clamp(.8rem, 2vw, 1.9rem);
 }
 
-section svg{
-    fill: whitesmoke;
-    width:   clamp(50px, 5vw, 100px);;
-    height:  clamp(50px, 5vw, 100px);
-    margin-top: 50px;
-    animation: spin 1.5s cubic-bezier(0.5, 1, 0.89, 1) infinite
+
+section.register-form {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: fit-content;
+    align-self: center;
 }
 
-@keyframes spin {
-    from {
-        transform:rotate(0deg);
-    }
-    to {
-        transform:rotate(360deg);
-    }
+.input-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.input-container input {
+    height: 38px;
+    padding: 3px;
+    border-radius: 6px 0px 0px 6px;
+    border: none;
+    flex: 3;
+    cursor: pointer;
+}
+
+.input-container input:focus-visible{
+    outline: 1px solid #7564ee;
+}
+
+.input-container button {
+    height: 100%;
+    padding: 3px;
+    flex: 1;
+    border: none;
+    background-color: #7564ee;
+    color: #f4f6f0;
+    border-radius: 0px 6px 6px 0px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    transition: background-color .2s;
+}
+
+.input-container button svg {
+fill: #f4f6f0;
+background-color: transparent;
+}
+
+.input-container button:hover{
+    cursor: pointer;
+    background-color: #6244e3;
+}
+
+.input-container button:active{
+    cursor: pointer;
+    background-color: #9891f4;
+}
+
+section.features{
+    width: 100%;
+    color: #f4f6f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.features p{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: row;
+    font-size: clamp(.9rem, 2vw, 1.4rem);
+}
+
+.features p svg{
+    fill: #f4f6f0;
+    height: 30px;
 }
