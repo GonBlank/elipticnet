@@ -130,7 +130,7 @@ section.register-form {
     align-items: center;
     justify-content: center;
     gap: 5px;
-    transition: transform 0.2s cubic-bezier(0.61, 1, 0.88, 1), box-shadow 0.2s cubic-bezier(0.61, 1, 0.88, 1);
+    transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1), box-shadow 0.2s cubic-bezier(0.33, 1, 0.68, 1);
     cursor: pointer;
 }
 
@@ -140,7 +140,7 @@ section.register-form {
 }
 
 .input-container button:hover {
-    transform: scale(1.06);
+    transform: scale(1.04);
     box-shadow: 0px 0px 8px 0px #9891f4;
 }
 
