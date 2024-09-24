@@ -132,14 +132,15 @@ section.features {
 }
 
 .features p {
-    gap: 5px;
+    gap: 8px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-size: clamp(.9rem, 2vw, 1.4rem);
+    font-size: clamp(.8rem, 1.8vw, 1.2rem);
 }
 
 .features p svg {
     fill: #f4f6f0;
-    height: 30px;
+    aspect-ratio: 1/1;
+    width: clamp(20px, 1.6vw, 35px);
 }
