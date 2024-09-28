@@ -1,0 +1,253 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 18px;
+    position: relative;
+    min-width: 340px;
+    grid-column: 1 / -1; 
+}
+
+
+.heartbeat-animation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.heartbeat-animation-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    /*background-color: #6ba010;/*var(--primary-700)*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1px;
+}
+
+.heartbeat-animation-core.down svg {
+    fill: #FF1F1F;
+}
+
+.heartbeat-animation-core svg {
+    fill: #8bc81a;
+    /*#edf7f6*/
+}
+
+.heartbeat-animation-heartbeat {
+    background-color: var(--accent-900);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: block;
+    animation: heartbeat 2s ease 0s infinite normal;
+}
+
+.heartbeat-animation-heartbeat.down {
+    background-color: #ff6464;
+}
+
+
+
+@keyframes heartbeat {
+    0% {
+        opacity: 0.8;
+        transform: scale(0.2);
+    }
+
+    80% {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(2.2);
+    }
+}
+
+.table {
+    display: flex;
+    flex-direction: column;
+    color: var(--primary-950);
+    background-color: transparent;
+    border: 1px solid var(--background-300);
+    border-radius: 8px;
+    transition: .1s;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--background-200);
+    background-color: var(--background-150);
+    animation: fadein 2s cubic-bezier(0.5, 1, 0.89, 1) 0s 1 normal forwards;
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+.row:last-child {
+    border-bottom: none;
+    border-radius: 0px 0px 8px 8px;
+}
+
+.row:nth-child(2) {
+    border-radius: 8px 8px 0px 0px;
+}
+
+.host-data h1 {
+    font-size: clamp(.85rem, 1.5vw, 1rem);
+
+}
+
+.host-data p {
+    font-size: clamp(.68rem, 1.5vw, .8rem);
+}
+
+.row:hover {
+    background-color: var(--background-200);
+}
+
+.area-statistics {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 5px 0px var(--background-200);
+}
+
+.statistics-card {
+    color: var(--primary-950);
+    background-color: var(--background-150);
+    border: 1px solid var(--background-300);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    flex: 1;
+    flex-wrap: wrap;
+    min-width: 150px;
+}
+
+.statistics-card h1 {
+    font-size: 1.5rem;
+}
+
+.statistics-card.up h1 {
+    color: #8bc81a;
+}
+
+.statistics-card.down h1 {
+    color: var(--red-600);
+}
+
+.statistics-card.monitored h1 {
+    color: var(--blue-500);
+}
+
+
+.monitored-hosts {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 5px 0px var(--background-200);
+    position: relative;
+}
+
+.add-monitor {
+    width: fit-content;
+    background-color: var(--violet-400);
+    border: none;
+    font-weight: 400;
+    font-size: .8rem;
+    border-radius: 5px;
+    padding: 8px;
+    cursor: pointer;
+    color: #edf7f6;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+}
+
+.add-monitor svg {
+    fill: #edf7f6;
+}
+
+.add-monitor:hover {
+    background-color: var(--violet-300);
+}
+
+.host-extra-info {
+    padding: 5px;
+    margin-left: auto;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+}
+
+.host-extra-info p {
+    font-size: clamp(.75rem, 1.5vw, .9rem);
+}
+
+.host-extra-info .up-since {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.up-since svg {
+    width: clamp(.8rem, 1.5vw, 1rem);
+}
+
+
+.last-check {
+    font-size: clamp(.6rem, 1.5vw, .77rem);
+}
+
+svg.red{
+    fill: var(--red-500);
+}
+
+svg.yellow{
+    fill: var(--yellow-700);
+}
+
+svg.blue{
+    fill: var(--blue-500);
+}
+
+.loader-hourglass svg{
+fill: var(--violet-500);
+}
+
+.loader-hourglass{
+    padding: 10px;
+}
