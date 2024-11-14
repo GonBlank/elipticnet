@@ -1,5 +1,10 @@
 <?php
+// Cargar las variables de entorno
 require_once 'env.php';
+include '../php/sesion/checkAuth.php';
+$user = checkAuth();
+$owner = $user['id'];
+
 
 try {
     // Conectar a la base de datos
@@ -7,16 +12,15 @@ try {
 
     // Verificar conexión
     if ($conn->connect_error) {
-        //throw new Exception("Connection Error: " . $conn->connect_error);
         echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => $conn->connect_error]);
     }
 
-    // Consulta SQL para obtener los hosts cuyo owner sea 'Admin'
-    $sql = "SELECT data FROM host_data WHERE JSON_EXTRACT(data, '$.owner') = 'Admin'";
+    // Consulta SQL para obtener los hosts del usuario
+    $sql = "SELECT data FROM host_data WHERE owner = $owner";
 
     // Ejecutar la consulta
     $result = $conn->query($sql);
-    
+
     // Comprobar si hay resultados
     if ($result === false) {
         throw new Exception("Query Error: " . $conn->error);
@@ -39,7 +43,6 @@ try {
         header('Content-Type: application/json');
         echo json_encode([]);
     }
-
 } catch (Exception $e) {
     // Manejo de errores
     echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
@@ -49,4 +52,3 @@ try {
         $conn->close();
     }
 }
-?>

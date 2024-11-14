@@ -5,7 +5,7 @@ function ShowAlert(image, title, message, type) {
 
     alertSection.innerHTML = `
         <div class="icon">
-            <img src="img/icons/${image}.png">
+            <img src="../img/icons/${image}.png">
         </div>
         <div class="body">
             <h1>${title}</h1>

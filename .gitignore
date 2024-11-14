@@ -1,2 +1,12 @@
 
 aplication/php/env.php
+
+aplication/config/config.json
+
+manuales/
+
+news.txt
+
+.tmp.driveupload/
+
+aplication/php/test.php

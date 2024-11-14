@@ -1,11 +1,12 @@
 document.addEventListener('click', (event) => {
     // Abrir el modal al hacer clic en un botón con la clase 'openModal'
     const openModalButton = event.target.closest('.openModal');
+
     if (openModalButton) {
         const modalId = openModalButton.getAttribute('data-modal');
         const modal = document.getElementById(modalId);
         if (modal) {
-            modal.showModal();
+            modal.showModal();  // Solo abre el modal, no intenta enfocar ningún campo
         }
         return; // Previene la ejecución del resto del código si ya se ha manejado el clic
     }

@@ -4,8 +4,36 @@ function fetchHosts() {
         .then(data => {
             if (data.error) {
                 ShowAlert(data.type, data.title, data.message, data.type);
+
+                document.getElementById('host-table').innerHTML = `
+                <a id="special-row-error" class="row special-row ">
+                <p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ff6a6a" class="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
+                <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                </svg>
+                We are experiencing problems</p>
+                </a>
+                `;
             } else {
 
+                if (Array.isArray(data) && data.length === 0) {
+                    // No hay hosts creados
+                    document.getElementById('host-table').innerHTML = `
+                        <a id="special-row-no-host" class="row special-row">
+                        <p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-arms-up" viewBox="0 0 16 16">
+                            <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+                            <path d="m5.93 6.704-.846 8.451a.768.768 0 0 0 1.523.203l.81-4.865a.59.59 0 0 1 1.165 0l.81 4.865a.768.768 0 0 0 1.523-.203l-.845-8.451A1.5 1.5 0 0 1 10.5 5.5L13 2.284a.796.796 0 0 0-1.239-.998L9.634 3.84a.7.7 0 0 1-.33.235c-.23.074-.665.176-1.304.176-.64 0-1.074-.102-1.305-.176a.7.7 0 0 1-.329-.235L4.239 1.286a.796.796 0 0 0-1.24.998l2.5 3.216c.317.316.475.758.43 1.204Z"/>
+                            </svg>
+                            No agents created
+                        </p>
+                        </a>
+                    `;
+                } else {
+                    deleteSpecialRow('no-host');
+                }
+
+                deleteSpecialRow('error');
                 updateOrCreateStatistics(data);
 
                 data.forEach(host => {
@@ -13,13 +41,32 @@ function fetchHosts() {
                 });
             }
         })
-        .catch(error => ShowAlert('error', 'Error', 'Error getting hosts', 'error'))
+        .catch(() => {
+
+            document.getElementById('host-table').innerHTML = `
+            <a id="special-row" class="row special-row ">
+            <p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ff6a6a" class="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
+            <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+            </svg>
+            We are experiencing problems</p>
+            </a>
+            `;
+        }
+        )
         .finally(() => {
             // quita el icono de carga
             const loaderDiv = document.getElementById('table-loader');
             loaderDiv.classList.add('hide');
             loaderDiv.classList.remove('show');
         });
+}
+
+function deleteSpecialRow(type) {
+    const specialRow = document.getElementById('special-row-' + type);
+    if (specialRow) {
+        specialRow.remove();
+    }
 }
 
 function updateOrCreateStatistics(data) {
@@ -57,52 +104,45 @@ function updateHost(row, host) {
     const hostName = row.querySelector('#host-name');
     const hostIp = row.querySelector('#host-ip');
     const upSince = row.querySelector('#up-since');
-    const lastCheck = row.querySelector('#last-check');
 
     hostName.textContent = host.name;
     hostIp.textContent = host.ip;
-    //upSince.textContent = `Up since ${host.last_up}`;
-
-    // Verificar si host.last_check tiene valor
-    if (host.last_check && host.state) {
-        const timeDiffText = getTimeDifference(host.last_check);
-        lastCheck.textContent = `Last check: ${timeDiffText}`;
-    } else if (!host.last_check && host.state) {
-        lastCheck.textContent = '';
-    }
 
     if (host.last_up) {
         upSince.textContent = 'Up ' + getTimeDifference(host.last_up);
 
     } else if (!host.last_up && host.state) {
-        upSince.innerHTML = `
-        <svg class="spinner-circle yellow" class="up-since" xmlns="http://www.w3.org/2000/svg" height="24px"
-            viewBox="0 -960 960 960" width="24px" >
-            <path
-                d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q17 0 28.5 11.5T520-840q0 17-11.5 28.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-17 11.5-28.5T840-520q17 0 28.5 11.5T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Z" />
-        </svg>
-        Waiting...
-    `;
+        upSince.textContent = `Awaiting first check`;
     }
 
     const heartbeat = row.querySelector('.heartbeat-animation-heartbeat');
     const heartbeatCore = row.querySelector('.heartbeat-animation-core');
 
-    if (!host.state) {
+    if (!host.last_up && host.state) {
+        heartbeat.classList.add('waiting');
+        heartbeatCore.classList.add('waiting');
+
+    } else if (!host.state) {
         heartbeat.classList.add('down');
         heartbeatCore.classList.add('down');
+
+        heartbeat.classList.remove('waiting');
+        heartbeatCore.classList.remove('waiting');
+
         upSince.innerHTML = `<svg class="red" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#f83b3b"><path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
         Host down`;
-        lastCheck.textContent = '';
     } else {
         heartbeat.classList.remove('down');
         heartbeatCore.classList.remove('down');
+
+        heartbeat.classList.remove('waiting');
+        heartbeatCore.classList.remove('waiting');
     }
 }
 
 function createHost(host) {
     const row = document.createElement('a');
-    row.setAttribute('href', `host.html?id=${host.id}`);
+    row.setAttribute('href', `host.php?id=${host.id}`);
     row.setAttribute('class', 'row');
     row.setAttribute('data-id', host.id);
 
@@ -126,13 +166,18 @@ function createHost(host) {
             <path d="M8.5 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0" />
         </svg>
     `;
-
-    if (!host.state) {
+    if (!host.last_up && host.state) {
+        heartbeat.classList.add('waiting');
+        heartbeatCore.classList.add('waiting');
+    } else if (!host.state) {
         heartbeat.classList.add('down');
         heartbeatCore.classList.add('down');
     } else {
         heartbeat.classList.remove('down');
         heartbeatCore.classList.remove('down');
+
+        heartbeat.classList.remove('waiting');
+        heartbeatCore.classList.remove('waiting');
     }
 
     heartbeatContainer.appendChild(heartbeat);
@@ -156,40 +201,19 @@ function createHost(host) {
     upSince.setAttribute('id', 'up-since');
     upSince.classList.add('up-since');
 
-    const lastCheck = document.createElement('small');
-    lastCheck.setAttribute('id', 'last-check');
-
     if (!host.state) {
         upSince.innerHTML = `<svg class="red" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#f83b3b"><path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
                             Host down`;
-        lastCheck.textContent = '';
     }
 
-
-    if (host.last_check && host.state) {
-        const timeDiffText = getTimeDifference(host.last_check);
-        lastCheck.textContent = `Last check: ${timeDiffText}`;
-    } else if (!host.last_check && host.state) {
-        lastCheck.textContent = '';
-    }
 
     if (host.last_up && host.state) {
         upSince.textContent = 'Up ' + getTimeDifference(host.last_up);
     } else if (!host.last_up && host.state) {
-
-        upSince.innerHTML = `
-        <svg class="spinner-circle yellow" xmlns="http://www.w3.org/2000/svg" height="24px"
-            viewBox="0 -960 960 960" width="24px">
-            <path
-                d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q17 0 28.5 11.5T520-840q0 17-11.5 28.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-17 11.5-28.5T840-520q17 0 28.5 11.5T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Z" />
-        </svg>
-        Waiting...
-    `;
+        upSince.textContent = `Awaiting first check`;
     }
 
     hostExtraInfo.appendChild(upSince);
-    hostExtraInfo.appendChild(lastCheck);
-
     row.appendChild(hostStatus);
     row.appendChild(hostData);
     row.appendChild(hostExtraInfo);
@@ -198,9 +222,9 @@ function createHost(host) {
     hostTable.appendChild(row);
 }
 
-function getTimeDifference(lastCheck) {
+function getTimeDifference(time) {
     const now = Date.now() / 1000;
-    let diff = Math.floor(now - lastCheck);
+    let diff = Math.floor(now - time);
 
     const days = Math.floor(diff / (24 * 3600));
     diff -= days * 24 * 3600;

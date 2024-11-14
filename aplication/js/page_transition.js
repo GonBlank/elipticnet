@@ -8,6 +8,6 @@
 
       setTimeout(function () {
         window.location.href = href;
-      }, 200); // Debe coincidir con la duración de la transición en el CSS
+      }, 300); // Debe coincidir con la duración de la transición en el CSS
     }
   });
