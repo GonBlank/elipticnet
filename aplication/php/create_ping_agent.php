@@ -20,7 +20,8 @@ try {
     $data = json_decode(file_get_contents('php://input'), true);
 
     // Función para validar la dirección IP
-    function validate_ip($ip) {
+    function validate_ip($ip)
+    {
         return filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) || filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
     }
 
@@ -32,8 +33,8 @@ try {
         }
 
         // Verificar si ya existe un host con la misma IP y owner
-        $check_query = "SELECT COUNT(*) FROM host_data WHERE JSON_EXTRACT(data, '$.ip') = ? AND JSON_EXTRACT(data, '$.owner') = ?";
-        
+        $check_query = "SELECT COUNT(*) FROM host_data WHERE ip = ? AND owner = ?";
+
         $stmt = $conn->prepare($check_query);
         if (!$stmt) {
             echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $conn->error]);
@@ -51,58 +52,45 @@ try {
             exit;
         }
 
-        // Crear la estructura del nuevo host
-        $newHost = array(
-            "ip" => $data['ip'],
-            "name" => $data['name'],
-            "description" => $data['description'],
-            "owner" => $owner,
-            "latency" => array(),
-            "log" => array(),
-            "transports" => $data['transports'],
-            "state" => true,
-            "last_check" => Null,
-            "last_down" => Null,
-            "last_up" => Null,
-        );
-
         // Insertar el host en la base de datos
-        //$sql = "INSERT INTO host_data (data) VALUES ('" . $conn->real_escape_string(json_encode($newHost)) . "')";
-        $sql = "INSERT INTO host_data (data, owner) VALUES ('" . $conn->real_escape_string(json_encode($newHost)) . "', '" . $conn->real_escape_string($owner) . "')";
+        $sql = "INSERT INTO host_data (owner, ip, name, description, state, latency, log, transports, extra, last_check, last_down, last_up) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        if (!$conn->query($sql)) {
-            echo json_encode(["error" => true, "type" => "error", "title" => "Insertion Error", "message" => $conn->error]);
+        $stmt = $conn->prepare($sql);
+
+        if (!$stmt) {
+            echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $conn->error]);
+            exit;
+        }
+
+        // Convertir los valores JSON
+        $latency_json = json_encode([]);
+        $log_json = json_encode([]);
+        $transports_json = json_encode($data['transports']);
+        $extra_json = json_encode([]);
+
+        $state = true;
+        $last_check = NULL;
+        $last_down = NULL;
+        $last_up = NULL;
+
+        // Bind parameters
+        $stmt->bind_param("isssssssssss", $owner, $data['ip'], $data['name'], $data['description'], $state, $latency_json, $log_json, $transports_json, $extra_json, $last_check, $last_down, $last_up);
+
+        if (!$stmt->execute()) {
+            echo json_encode(["error" => true, "type" => "error", "title" => "Insertion Error", "message" => $stmt->error]);
             exit;
         }
 
         // Obtener el ID generado
-        $hostId = $conn->insert_id;
-
-        // Actualizar el JSON en la base de datos con el ID
-        $update_query = "UPDATE host_data SET data = JSON_SET(data, '$.id', ?) WHERE id = ?";
-        $stmt = $conn->prepare($update_query);
-
-        if (!$stmt) {
-            echo json_encode(["error" => true, "type" => "error", "title" => "Update Query Error:", "message" => $conn->error]);
-            exit;
-        }
-
-        $stmt->bind_param("ii", $hostId, $hostId);
-
-        if (!$stmt->execute()) {
-            echo json_encode(["error" => true, "type" => "error", "title" => "ID Update Error:", "message" => $stmt->error]);
-            exit;
-        }
-
-        // Asignar el id de MySQL al campo id del nuevo host
-        $newHost['id'] = $hostId;
+        $newHost['id'] = $conn->insert_id;;
 
         // Devolver el host completo en formato JSON
         echo json_encode($newHost);
+
     } else {
         echo json_encode(["error" => true, "type" => "error", "title" => "Validation Error", "message" => "Incomplete data."]);
     }
-
 } catch (Exception $e) {
     echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
 } finally {
@@ -111,4 +99,3 @@ try {
         $conn->close();
     }
 }
-?>

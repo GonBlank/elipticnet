@@ -11,14 +11,11 @@ document.getElementById('host-name').value = urlParams.get('name');
 document.getElementById('host-ip').value = urlParams.get('ip');
 document.getElementById('host-description').value = urlParams.get('description');
 
-document.getElementById("email_transport").checked = (urlParams.get('email_transport') === 'true');
-document.getElementById("telegram_transport").checked = (urlParams.get('telegram_transport') === 'true');
-
 //---------------------------------------------------------------------------
 
 document.addEventListener("DOMContentLoaded", function () {
     const editHostButton = document.getElementById('update_agent');
-
+    console.log("CLICKL");
     function toggleButtonState(isLoading) {
         const textDiv = editHostButton.querySelector('.text');
         const loaderDiv = editHostButton.querySelector('.loader-hourglass');
@@ -77,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     editHostButton.addEventListener('click', function (event) {
         event.preventDefault(); // Previene el comportamiento por defecto del botón
-
+        
         if (!validateHostData()) {
             return; // No enviar datos si la validación falla
         }
@@ -109,6 +106,8 @@ document.addEventListener("DOMContentLoaded", function () {
             description: description,
             transports: transports // El objeto con todos los transportes seleccionados
         };
+
+        console.log(updatedHost)
 
         fetch(`../php/update_host_by_id.php?id=${hostId}`, {
             method: 'POST',

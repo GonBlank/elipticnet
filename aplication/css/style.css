@@ -11,6 +11,8 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+
+
 button {
     display: flex;
     flex-direction: row;
@@ -126,14 +128,12 @@ body {
     grid-template-areas:
         "nav nav"
         "lateral-menu dashboard";
+    opacity: 0;
     transition: opacity 0.3s ease;
     /*Must match transition duration in JS*/
 
 }
 
-body.fade-out {
-    opacity: 0;
-}
 
 nav {
     display: flex;
@@ -178,16 +178,22 @@ nav button:active {
 }
 
 
-section.dashboard {
+main.dashboard {
     grid-area: dashboard;
+    grid-column: 1 / -1;
+    color: var(--text-color);
+    padding: 20px;
+    min-width: 340px;
 }
 
+
+/*
 .card {
     padding: 8px;
     border-radius: 8px;
     box-shadow: 0px 0px 5px 0px var(--background-200);
 }
-
+*/
 
 /* WebKit-based browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
@@ -222,7 +228,7 @@ html {
     display: grid;
     grid-template-areas: "input";
     text-wrap: nowrap;
-    min-width: 125px;   
+    min-width: 125px;
 }
 
 .input {
@@ -238,11 +244,11 @@ html {
     transition: border-color .3s;
 }
 
-.input:disabled{
-    cursor:not-allowed;
+.input:disabled {
+    cursor: not-allowed;
 }
 
-.input:hover{
+.input:hover {
     border-color: var(--input-border-hover);
 }
 
@@ -445,8 +451,6 @@ section.alert {
     /* Asegura que el padding se incluya en el ancho */
 }
 
-
-
 section.alert.success {
     border: 2px solid var(--alert-success);
 }
@@ -477,7 +481,6 @@ section.alert .icon img {
     max-width: 40px;
 }
 
-
 @keyframes SlideInTop {
     0% {
         opacity: 0;
@@ -489,7 +492,6 @@ section.alert .icon img {
         transform: translateY(0);
     }
 }
-
 
 @keyframes SlideOutTop {
     0% {
@@ -504,10 +506,7 @@ section.alert .icon img {
 }
 
 
-
 /*MODAL*/
-
-
 dialog {
     position: relative;
     border: none;
@@ -541,19 +540,19 @@ dialog::backdrop {
 
 }
 
-.dialog-header h1{
-display: flex;
-align-items: center;
-gap: 8px;
+.dialog-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.close-modal{
+.close-modal {
     border-radius: 50%;
     height: 20px;
     width: 20px;
 }
 
-.close-modal:hover{
+.close-modal:hover {
     background-color: var(--dialog-background);
     transition: background-color .2s;
 }
@@ -622,7 +621,6 @@ gap: 8px;
 
 }
 
-
 /**/
 button .text {
     display: flex;
@@ -667,7 +665,7 @@ dialog form button .text.show {
     width: fit-content;
     position: relative;
     text-wrap: nowrap;
-    
+
 }
 
 .dropdown_menu {
@@ -681,7 +679,7 @@ dialog form button .text.show {
     overflow: hidden;
     list-style: none;
     transition: height .3s cubic-bezier(0, 0.55, 0.45, 1);
-    border-radius: 3px;    
+    border-radius: 3px;
 }
 
 .dropdown_menu a,
@@ -696,9 +694,8 @@ dialog form button .text.show {
     align-items: center;
     font-size: 1rem;
     gap: 10px;
-    
-}
 
+}
 
 .dropdown_menu a:hover,
 .dropdown_menu button:hover {
@@ -713,4 +710,27 @@ dialog form button .text.show {
 .dropdown_menu.collapsed {
     height: 0px;
     border: 0px;
+}
+
+
+/*
+╔══════════════════════════╗
+║ Transicion entre páginas ║
+╚══════════════════════════╝
+*/
+
+/* Transición de desvanecimiento */
+.fade-out {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.fade-out.hidden {
+    opacity: 0;
+}
+
+/* Transición de desvanecimiento al cargar la nueva página */
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }

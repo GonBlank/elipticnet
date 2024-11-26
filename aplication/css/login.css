@@ -10,8 +10,7 @@ body {
     color: var(--text-color);
 }
 
-main{
-    
+main {
     width: 100vw;
     height: 100vh;
     position: relative;
@@ -31,7 +30,6 @@ main{
 
 .card {
     padding: 0px;
-
 }
 
 .tittle {
@@ -94,10 +92,10 @@ main{
     align-items: center;
     gap: 20px;
     width: 100%;
-    
+
 }
 
-.link-options a{
+.link-options a {
     font-size: .76rem;
     text-decoration: none;
     cursor: pointer;
@@ -159,7 +157,6 @@ main{
     border-radius: 6px;
     width: 100%;
 }
-
 
 /*-checkbox-*/
 
@@ -267,24 +264,25 @@ main{
     box-sizing: inherit;
 }
 
-dialog{
+dialog {
     width: 352px;
 }
-.dialog-header{
+
+.dialog-header {
     justify-content: center;
 }
 
-.dialog-body{
+.dialog-body {
     background-color: var(--form-background);
 }
 
-.dialog-body .form-container{
+.dialog-body .form-container {
     display: flex;
     flex-direction: column;
     padding: 10px;
     align-items: center;
 }
 
-.dialog-body form button{
+.dialog-body form button {
     margin-top: 20px !important;
 }

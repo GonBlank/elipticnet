@@ -43,7 +43,7 @@ aside.lateral-menu svg {
     transition: filter 0.6s;
   }
 
-.lateral-menu a {
+.primary-options a, .support-options a {
     text-wrap: nowrap;
     overflow: hidden;
     display: flex;
@@ -61,15 +61,14 @@ aside.lateral-menu svg {
     background-color: var(--lateralMenuItem-locate-background);
 }
 
-.lateral-menu a:hover {
+.primary-options a:hover, .support-options a:hover {
     background-color: var(--lateralMenuItem-hover-background);
    /* box-shadow: 0px 0px 14px 0px var(--primary-200);*/
     transform: scale(1.05);
 }
 
-.lateral-menu a:active {
+.primary-options a:active, .support-options a:active {
     background-color: var(--lateralMenuItem-active-background);
-    /*box-shadow: 0px 0px 14px 0px var(--primary-200) inset;*/
     transform: scale(1);
 }
 
@@ -91,7 +90,6 @@ aside.lateral-menu svg {
     border-left: none;
     border-right: none;
     width: 95%;
-
     align-self: center;
     margin-top: 25px;
 }
@@ -117,7 +115,11 @@ aside.lateral-menu svg {
 .user-data {
     padding: 8px;
     color: var(--text-color);
+    display: flex;
+    flex-direction: column;
 }
+
+
 
 .user-data h1 {
     font-weight: 500;

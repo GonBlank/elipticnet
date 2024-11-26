@@ -1,9 +1,15 @@
 <?php
 // Cargar las variables de entorno
-require_once 'env.php';
-include '../php/sesion/checkAuth.php';
+require_once '../env.php';
+include '../sesion/checkAuth.php';
 $user = checkAuth();
 $owner = $user['id'];
+
+// Validar método
+if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+    echo json_encode(["error" => true, "type" => "error", "title" => "Invalid Request", "message" => "Invalid request method or missing id"]);
+    exit;
+}
 
 try {
     // Conectar a la base de datos
@@ -15,53 +21,34 @@ try {
         exit;
     }
 
-    // Obtener el hostId del parámetro GET
-    $hostId = isset($_GET['id']) ? $_GET['id'] : null;
-
-    // Validar el hostId
-    if ($hostId === null) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Data Error:", "message" => "Host ID is required."]);
-        exit;
-    }
 
     // Obtener los datos JSON enviados a través del POST
     $data = json_decode(file_get_contents('php://input'), true);
 
-    if (isset($data['name']) && isset($data['description']) && isset($data['transports'])) {
+    if (isset($data['username'])) {
         // Sanear los datos
-        $name = $data['name'];
-        $description = $data['description'];
-        $transports = json_encode($data['transports']); // Codificar el array transports como JSON
+        $username = $data['username'];
+
 
         // SQL para actualizar los campos
-        $sql = "UPDATE host_data 
-                SET name = ?, 
-                    description = ?, 
-                    transports = ? 
-                WHERE id = ? AND owner = ?";
+        $sql = "UPDATE users 
+                SET username = ? 
+                WHERE id = ?";
 
         $stmt = $conn->prepare($sql);
 
         // Pasar los valores al bind_param
         $stmt->bind_param(
-            "ssssi", 
-            $name, 
-            $description, 
-            $transports, 
-            $hostId, 
+            "si",
+            $username,
             $owner
         );
 
         // Ejecutar la consulta
         if ($stmt->execute()) {
-            // Devolver el host actualizado
-            $newHost = [
-                'id' => $hostId,
-                'name' => $name,
-                'description' => $description,
-                'transports' => $data['transports']
-            ];
-            echo json_encode($newHost);
+            $_SESSION['user']['username'] = $username;
+            $data['state'] = true;
+            echo json_encode($data);
         } else {
             echo json_encode(["error" => true, "type" => "error", "title" => "Update Error", "message" => "Failed to update host."]);
         }

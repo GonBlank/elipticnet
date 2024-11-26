@@ -4,7 +4,8 @@ function createChartDataLast24Hs(latencyData) {
 
     latencyData.forEach(dataPoint => {
         timestamps.push(dataPoint.time);
-        values.push(dataPoint.value !== null ? dataPoint.value : null); // Agregar null cuando el valor es null
+        // Si el valor es null, lo reemplazamos por 0
+        values.push(dataPoint.value !== null ? dataPoint.value : 0); 
     });
 
     const option = {
@@ -24,12 +25,11 @@ function createChartDataLast24Hs(latencyData) {
             data: timestamps,
             axisLabel: {
                 interval: function (index, value) {
-                    // Si solo hay un dato, siempre mostrar una etiqueta
                     if (timestamps.length === 1) return true;
                     const totalDataPoints = timestamps.length;
-                    const maxLabels = 10; // Número máximo de etiquetas visibles en el eje X
+                    const maxLabels = 10;
                     const step = Math.floor(totalDataPoints / maxLabels);
-                    return index % step === 0; // Muestra etiquetas solo en intervalos calculados
+                    return index % step === 0;
                 },
                 formatter: function (value) {
                     const date = new Date(value * 1000);
@@ -61,15 +61,19 @@ function createChartDataLast24Hs(latencyData) {
             lineStyle: {
                 color: '#b499ff'
             },
-            showSymbol: true, // Mostrar los puntos
-            symbolSize: 2, // Tamaño de los puntos
+            showSymbol: true,
+            symbolSize: 2,
             itemStyle: {
-                color: '#5e3dc2'
+                // Aquí se asigna color rojo solo para los valores que fueron originalmente null
+                color: function(params) {
+                    // Si el valor es 0, pero fue originalmente null, se le asigna color rojo
+                    return latencyData[params.dataIndex].value === null ? '#FF0000' : '#5e3dc2';
+                }
             },
             animation: true,
             animationDuration: 1000,
             animationEasing: 'cubicInOut',
-            connectNulls: false // Interrumpir la línea cuando el valor sea null
+            connectNulls: false
         }],
         tooltip: {
             trigger: 'axis',
@@ -77,7 +81,11 @@ function createChartDataLast24Hs(latencyData) {
                 const date = new Date(params[0].name * 1000);
                 const formattedDate = date.toLocaleDateString('es-ES', { weekday: 'short' }) + ' ' +
                                       date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-                return `${formattedDate} <br/> ${params[0].value} ms`;
+                
+                // Verificamos si el valor original es null
+                const isNullValue = latencyData[params[0].dataIndex].value === null;
+                
+                return `${formattedDate} <br/> ${isNullValue ? 'No reply' : params[0].value + ' ms'}`;
             },
             backgroundColor: '#130c27',
             textStyle: {

@@ -54,11 +54,11 @@ def update_host_latency(host, latency_result):
         # Convert host_data back to JSON and update the database
         update_query = """
         UPDATE host_data 
-        SET data = %s
+        SET latency = %s
         WHERE id = %s
         """
         # Directly update the whole data field
-        cursor.execute(update_query, (json.dumps(host), host["id"]))
+        cursor.execute(update_query, (json.dumps(host["latency"]), host["id"]))
         connection.commit()
 
         cursor.close()
@@ -100,11 +100,11 @@ def update_host_log(host, state, ping_response):
         # Convert host_data back to JSON and update the database
         update_query = """
         UPDATE host_data 
-        SET data = %s
+        SET log = %s
         WHERE id = %s
         """
         # Directly update the whole data field
-        cursor.execute(update_query, (json.dumps(host), host["id"]))
+        cursor.execute(update_query, (json.dumps(host["log"]), host["id"]))
         connection.commit()
 
         cursor.close()
@@ -120,15 +120,15 @@ def update_last_check(host):
         connection = mysql.connector.connect(**db_config)
         cursor = connection.cursor()
 
-        host["last_check"] = int(time.time())
-        # Convert host_data back to JSON and update the database
+        host["last_check"] = int(time.time())  # Actualizar el campo last_check
+
+        # Consulta SQL para actualizar el campo 'last_check'
         update_query = """
-        UPDATE host_data 
-        SET data = %s
+        UPDATE host_data
+        SET last_check = %s
         WHERE id = %s
         """
-        # Directly update the whole data field
-        cursor.execute(update_query, (json.dumps(host), host["id"]))
+        cursor.execute(update_query, (host["last_check"], host["id"]))
         connection.commit()
 
         cursor.close()
@@ -144,15 +144,15 @@ def update_last_up(host):
         connection = mysql.connector.connect(**db_config)
         cursor = connection.cursor()
 
-        host["last_up"] = int(time.time())
-        # Convert host_data back to JSON and update the database
+        host["last_up"] = int(time.time())  # Actualizar el campo last_up
+
+        # Consulta SQL para actualizar el campo 'last_up'
         update_query = """
-        UPDATE host_data 
-        SET data = %s
+        UPDATE host_data
+        SET last_up = %s
         WHERE id = %s
         """
-        # Directly update the whole data field
-        cursor.execute(update_query, (json.dumps(host), host["id"]))
+        cursor.execute(update_query, (host["last_up"], host["id"]))
         connection.commit()
 
         cursor.close()
@@ -168,15 +168,15 @@ def update_last_down(host):
         connection = mysql.connector.connect(**db_config)
         cursor = connection.cursor()
 
-        host["last_down"] = int(time.time())
-        # Convert host_data back to JSON and update the database
+        host["last_down"] = int(time.time())  # Actualizar el campo last_down
+
+        # Consulta SQL para actualizar el campo 'last_down'
         update_query = """
-        UPDATE host_data 
-        SET data = %s
+        UPDATE host_data
+        SET last_down = %s
         WHERE id = %s
         """
-        # Directly update the whole data field
-        cursor.execute(update_query, (json.dumps(host), host["id"]))
+        cursor.execute(update_query, (host["last_down"], host["id"]))
         connection.commit()
 
         cursor.close()
@@ -192,16 +192,15 @@ def update_state(host, new_state):
         connection = mysql.connector.connect(**db_config)
         cursor = connection.cursor()
 
-        host["state"] = new_state
+        host["state"] = new_state  # Actualizamos el campo 'state'
 
-        # Convert host_data back to JSON and update the database
+        # Consulta SQL para actualizar el campo 'state'
         update_query = """
-        UPDATE host_data 
-        SET data = %s
+        UPDATE host_data
+        SET state = %s
         WHERE id = %s
         """
-        # Directly update the whole data field
-        cursor.execute(update_query, (json.dumps(host), host["id"]))
+        cursor.execute(update_query, (host["state"], host["id"]))
         connection.commit()
 
         cursor.close()
@@ -226,6 +225,7 @@ def check_state(host, new_state):
 
 ##MAIN PROGRAM
 
+# PROGRAMA PRINCIPAL
 if __name__ == "__main__":
     while True:
         print("[INFO] START RUNNING")
@@ -234,13 +234,41 @@ if __name__ == "__main__":
             connection = mysql.connector.connect(**db_config)
             cursor = connection.cursor()
 
-            # Consultar los hosts
-            select_query = "SELECT data FROM host_data"
+            # Consultar todos los hosts con los campos id, ip, name, state, transports, latency
+            select_query = (
+                "SELECT id, ip, name, state,last_up, transports, log, latency FROM host_data"
+            )
             cursor.execute(select_query)
 
-            # Obtener los resultados
+            # Obtener los resultados y convertir cada fila en un diccionario con claves correspondientes
+            column_names = [
+                desc[0] for desc in cursor.description
+            ]  # Obtener los nombres de las columnas
             hosts = cursor.fetchall()
-            host_list = [json.loads(host[0]) for host in hosts]  # Decodificar JSON
+
+            host_list = []
+            for host in hosts:
+                # Crear un diccionario para cada host
+                host_dict = dict(zip(column_names, host))
+
+                # Decodificar el valor de transports si existe
+                host_dict["transports"] = (
+                    json.loads(host_dict["transports"])
+                    if host_dict["transports"]
+                    else {}
+                )
+
+                # Decodificar el valor de latency como array si existe
+                host_dict["latency"] = (
+                    json.loads(host_dict["latency"]) if host_dict["latency"] else []
+                )
+                
+                                # Decodificar el valor de latency como array si existe
+                host_dict["log"] = (
+                    json.loads(host_dict["log"]) if host_dict["log"] else []
+                )
+
+                host_list.append(host_dict)
 
             # Cerrar la conexión
             cursor.close()
@@ -248,14 +276,17 @@ if __name__ == "__main__":
         except Error as e:
             print(f"ERROR: {e}")
 
+        # Procesar cada host
         for host in host_list:
-            print("[INFO] Check host ", host["ip"])
+            print(f"[INFO] Checking host {host['ip']}")
             new_state = ping_host(host)  # Actualiza la latencia del host
-            check_state(host, new_state)  # Actualiza la de disponibilidad del host
+            check_state(host, new_state)  # Actualiza el estado de disponibilidad
             update_last_check(host)
-            # first check
-            if host["last_up"] is None and new_state["state"]:
-                update_last_up(host)
-                print("first check")
 
+            # Primer chequeo: si no ha sido marcado como "last_up", lo actualizamos
+            if host["last_up"] is None and new_state["state"]:
+               update_last_up(host)
+               print("First check, updating last_up")
+
+        # Pausa de 60 segundos entre ciclos
         time.sleep(60)

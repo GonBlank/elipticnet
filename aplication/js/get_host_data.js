@@ -1,10 +1,10 @@
 
 function get_host_by_id() {
 
-    fetch(`../php/get_host_by_id.php?hostId=${hostId}`)
+    fetch(`../php/get_host_by_id.php?id=${hostId}`)
         .then(response => response.json())
         .then(data => {
-
+            console.log(data)
             document.querySelectorAll('.placeholder-load-container').forEach(element => {
                 element.classList.add('hide');
             });

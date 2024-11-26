@@ -1,0 +1,36 @@
+main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--form-background);
+    gap: 8px;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 700px;
+    height: 100%;
+}
+
+.form-container h1 {
+    font-size: 1.5rem;
+    text-wrap: nowrap;
+}
+
+.form-container h2 {
+    font-size: 1rem;
+}
+
+.form-container p {
+    font-size: 1rem;
+}
+
+.form-container a {
+    text-wrap: nowrap;
+    color: #b499ff;
+    text-decoration: underline;
+}

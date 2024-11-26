@@ -53,7 +53,7 @@ try {
     $conn = null;
     error_log("[ERROR]: Connection to the database signup.php:" . $e->getMessage());
     //temp_message('Fatal error', "Database connection failed", 'error', '../html/login.html');
-    echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Database connection failed."]);
+    echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Database connection failed." . $e->getMessage()]);
 }
 
 //check if the email already exists in the "users" table
@@ -67,7 +67,7 @@ try {
     $conn = null;
     error_log("[ERROR]:Check if the email already exists in the users table signup.php:" . $e->getMessage());
     //temp_message('Fatal error', "Database connection failed", 'error', '../html/login.html');
-    echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Database connection failed."]);
+    echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Database connection failed." . $e->getMessage()]);
     exit;
 }
 
