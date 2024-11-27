@@ -186,6 +186,8 @@
   --background: #130c27;
   --text-color: #F5F0FE;/*Falta aplicar en algunas paginas*/
   --text-color-dark: #130c27;
+  --special-text-color: #7230f7;
+
   /*Lateral Menu*/
   --lateralMenu-background: #170F2F; /*#11003F*/
   --lateralMenuIcon-background: #641ee3;
