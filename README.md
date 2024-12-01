@@ -1,12 +1,10 @@
-#  [Elipticnet](http://elipticnet.com/)
+#  [Elipticnet](http://elipticnet.com/) ![](https://img.shields.io/badge/version-0.0.0-blue)
 
 
 
-## 🚀 Pre-Alpha Version (v0.0.0)
+## 🚀 Pre-Alpha Version  ![](https://img.shields.io/badge/available-February_2025-yellow) 
 
 The first version for testers will be available in **February 2025**. Join our community and help shape the future of Elipticnet!
-
----
 
 ## 📋 What is Elipticnet?
 
