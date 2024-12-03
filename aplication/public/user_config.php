@@ -1,5 +1,5 @@
 <?php
-include '../php/sesion/checkAuth.php';
+require_once '../php/sesion/checkAuth.php';
 $user = checkAuth();
 define('MENU_ALLOWED', true);
 ?>
@@ -186,6 +186,21 @@ define('MENU_ALLOWED', true);
                         New password</span>
                     <div class="error-message" id="new-password-error"></div>
                 </label>
+
+
+                <label class="label" for="repeat-new-password">
+                    <input type="password" placeholder=" " class="input" id="repeat-new-password"
+                        name="repeat-new-password" autocomplete="password" required minlength="8"
+                        maxlength="20" />
+                    <span class="label__name">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                            fill="#e8eaed">
+                            <path
+                                d="M280-240q-100 0-170-70T40-480q0-100 70-170t170-70q66 0 121 33t87 87h432v240h-80v120H600v-120H488q-32 54-87 87t-121 33Zm0-80q66 0 106-40.5t48-79.5h246v120h80v-120h80v-80H434q-8-39-48-79.5T280-640q-66 0-113 47t-47 113q0 66 47 113t113 47Zm0-80q33 0 56.5-23.5T360-480q0-33-23.5-56.5T280-560q-33 0-56.5 23.5T200-480q0 33 23.5 56.5T280-400Zm0-80Z" />
+                        </svg>
+                        Repeat new password</span>
+                    <div class="error-message" id="repeat-new-password-error"></div>
+                </label>
             </div>
 
             <button id="update-password-btn" class="update-btn">
@@ -235,11 +250,6 @@ define('MENU_ALLOWED', true);
         </section>
     </main>
 
-
-
-
-
-
     <dialog id="delete-account">
         <div class="dialog-header">
             <h1>Attention!</h1>
@@ -253,7 +263,7 @@ define('MENU_ALLOWED', true);
             </button>
         </div>
         <div class="dialog-body">
-            <p>This can't be undone</p>
+            <p>This action is immediate and cannot be undone</p>
         </div>
         <div class="dialog-options">
             <button id="cancel-btn" class="close-btn">Cancel</button>
@@ -272,46 +282,14 @@ define('MENU_ALLOWED', true);
         </div>
     </dialog>
 
-    <dialog id="logout">
-        <div class="dialog-header">
-            <h1>Log out</h1>
-            <button class="close-modal close-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-                </svg>
-
-            </button>
-        </div>
-        <div class="dialog-body">
-            <p>Are you sure you want to log out?</p>
-        </div>
-        <div class="dialog-options">
-            <button id="cancel-btn" class="close-btn">Cancel</button>
-            <a href="../php/sesion/logout.php" id="logout-btn">
-
-                <div class="text show">
-                    Logout
-                </div>
-
-                <div class="loader-hourglass hide">
-                    <svg class="spinner-hourglass" xmlns="http://www.w3.org/2000/svg" height="20px"
-                        viewBox="0 -960 960 960" width="20px" fill="#e8eaed">
-                        <path
-                            d="M320-160h320v-120q0-66-47-113t-113-47q-66 0-113 47t-47 113v120Zm160-360q66 0 113-47t47-113v-120H320v120q0 66 47 113t113 47ZM160-80v-80h80v-120q0-61 28.5-114.5T348-480q-51-32-79.5-85.5T240-680v-120h-80v-80h640v80h-80v120q0 61-28.5 114.5T612-480q51 32 79.5 85.5T720-280v120h80v80H160Z" />
-                    </svg>
-                </div>
-
-            </a>
-        </div>
-    </dialog>
-
 
     <script src="../js/page_transition.js"></script>
     <script src="../js/show_alert.js"></script>
     <script src="../js/modal.js"></script>
-    <script src="../js/user_config/update_name.js"></script>
+    <script src="../js/sesion/update_name.js"></script>
+    <script src="../js/sesion/update_password.js"></script>
+    <script src="../js/sesion/delete_account_new.js"></script>
+
 
 </body>
 

@@ -5,9 +5,11 @@ body {
     background-size: cover;
     background-position: center;
     backdrop-filter: blur(15px);
+    opacity: 1;
     width: 100vw;
     height: 100vh;
     color: var(--text-color);
+    display: block;
 }
 
 main {
@@ -26,11 +28,9 @@ main {
     flex-direction: row;
     gap: 15px;
     cursor: context-menu;
+    border-radius: 8px;
 }
 
-.card {
-    padding: 0px;
-}
 
 .tittle {
     display: flex;

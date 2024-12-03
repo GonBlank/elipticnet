@@ -1,6 +1,7 @@
 <?php
 require_once '../env.php';
 require_once '../email/email.php';
+require_once '../email/templates/validate_email.php';
 
 
 //Validate request method
@@ -26,7 +27,6 @@ $raw_password = $user['password'];
 // Validate password length
 $password_length = strlen($raw_password);
 if ($password_length < 8 || $password_length > 20) {
-    //temp_message('Warn', 'Invalid password length', 'warn', '../html/login.html');
     echo json_encode(["error" => true, "type" => "error", "title" => "Invalid password length", "message" => "Password must be between 8 and 20 characters."]);
     exit;
 }
@@ -40,7 +40,6 @@ if ($name_length < 8 || $name_length > 20) {
 
 // Validate email format
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    //temp_message('Warn', 'Invalid email format', 'warn', '../html/login.html');
     echo json_encode(["error" => true, "type" => "error", "title" => "Invalid email format", "message" => "Check the email format."]);
     exit;
 }
@@ -52,7 +51,6 @@ try {
 } catch (PDOException $e) {
     $conn = null;
     error_log("[ERROR]: Connection to the database signup.php:" . $e->getMessage());
-    //temp_message('Fatal error', "Database connection failed", 'error', '../html/login.html');
     echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Database connection failed." . $e->getMessage()]);
 }
 
@@ -66,14 +64,12 @@ try {
 } catch (PDOException $e) {
     $conn = null;
     error_log("[ERROR]:Check if the email already exists in the users table signup.php:" . $e->getMessage());
-    //temp_message('Fatal error', "Database connection failed", 'error', '../html/login.html');
     echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Database connection failed." . $e->getMessage()]);
     exit;
 }
 
 if ($email_exists) {
     $conn = null;
-    //temp_message('Information', "The email $email already exist.", 'information', '../html/login.html', "To recover your account", "restore_password.html");
     echo json_encode(["error" => true, "type" => "error", "title" => "Duplicated email", "message" => "$email already exist."]);
     exit;
 }
@@ -124,13 +120,19 @@ try {
     echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Insert transport email."]);
     exit;
 }
-
-// send email verification
-$body = "Please verify your email: http://127.0.0.1/Loging%20template/html/login.html?hash=$validation_hash";
-//send_email($body, "Verify your email", $email);
 $conn = null;
+
+
+/*
+╔═════════════════════════╗
+║ Send email verification ║
+╚═════════════════════════╝
+*/
+$body = validate_email_template ($name, $validation_hash);
+send_email($body, "Verify your email", $email);
+
+
 
 $data['state'] = true;
 echo json_encode($data);
-//echo json_encode(["error" => true, "type" => "error", "title" => "salio ok", "message" => "test."]);
-//temp_message('User created!', 'Check your email to finish the registration', 'success', '../html/login.html');
+

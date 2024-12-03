@@ -1,15 +1,18 @@
-function ShowAlert(image, title, message, type) {
+function ShowAlert(image, title, message, type, link_text = null, link = null) {
     // Crear la estructura de la alerta
     const alertSection = document.createElement('section');
     alertSection.className = `alert show ${type}`;
 
+    // Contenido dinámico del cuerpo de la alerta
+    const linkHTML = link_text && link ? `<a href="${link}">${link_text}</a>` : '';
     alertSection.innerHTML = `
         <div class="icon">
-            <img src="../img/icons/${image}.png">
+            <img src="../img/icons/${image}.png" alt="${title}">
         </div>
         <div class="body">
             <h1>${title}</h1>
             <p>${message}</p>
+            ${linkHTML}
         </div>
     `;
 
@@ -19,15 +22,9 @@ function ShowAlert(image, title, message, type) {
         dashboard.appendChild(alertSection);
     }
 
-    // Mostrar la alerta durante 2 segundos
+    // Manejo del tiempo de visibilidad de la alerta
     setTimeout(() => {
-        // Cambiar la clase para iniciar la animación de ocultar
-        alertSection.classList.remove('show');
-        alertSection.classList.add('hide');
-
-        // Remover la alerta del DOM después de que la animación termine
-        setTimeout(() => {
-            alertSection.remove();
-        }, 900); // Duración de la animación .9s
-    }, 3500); // Duración en pantalla .5s
+        alertSection.classList.replace('show', 'hide'); // Reemplazar clase directamente
+        setTimeout(() => alertSection.remove(), 900); // Remover tras la animación
+    }, 3900);
 }

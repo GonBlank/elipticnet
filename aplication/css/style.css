@@ -184,6 +184,7 @@ main.dashboard {
     color: var(--text-color);
     padding: 20px;
     min-width: 340px;
+    overflow: auto;
 }
 
 
@@ -451,12 +452,18 @@ section.alert {
     /* Asegura que el padding se incluya en el ancho */
 }
 
+section.alert .body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 section.alert.success {
     border: 2px solid var(--alert-success);
 }
 
-section.alert.warn {
-    border: 2px solid var(--alert-warn);
+section.alert.warning {
+    border: 2px solid var(--alert-warning);
 }
 
 section.alert.error {
@@ -479,6 +486,11 @@ section.alert .icon {
 
 section.alert .icon img {
     max-width: 40px;
+}
+
+section.alert a{
+    color: var(--special-text-color);
+    text-decoration: underline;
 }
 
 @keyframes SlideInTop {
@@ -544,6 +556,12 @@ dialog::backdrop {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.dialog-header h1 svg{
+    fill: var(--text-color);
+    width: 26px;
+    height: 26px;
 }
 
 .close-modal {

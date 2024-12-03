@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +21,7 @@
 
         body {
             background-color: transparent;
-            color: #edf7f6;
+            color: #F5F0FE;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -39,7 +40,8 @@
             height: fit-content;
             cursor: context-menu;  
             border-radius: 8px;
-            box-shadow: 0px 0px 5px 0px #bfb0e8;
+            box-shadow: 0px 0px 2px 0px #bfb0e8;
+            background-color: #170F2F;
             text-align: center;
         }
 
@@ -50,7 +52,7 @@
         }
 
         main h1 svg{
-            fill: #7230f7;
+            fill: #B5F730;
         }
 
         main small {
@@ -58,7 +60,7 @@
         }
 
         main small a {
-            color: #7230f7;
+            color: #b499ff;
         }
 
         .validate {
@@ -67,10 +69,13 @@
             justify-content: center;
             padding: 12px;
             border-radius: 8px;
-            background-color: #B5F730;
-            color: #130c27;
+            background-color: #7230f7;
             font-weight: 400;
-            font-size: 1.15rem;
+            font-size: 1rem;
+        }
+
+        .validate:hover{
+            background-color: #641ee3;
         }
     </style>
 
@@ -88,7 +93,8 @@
                 <path d="M8.5 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/>
               </svg>
 
-            Hello USER</h2>
+            Hello $name</h2>
+
         <p>Validate your account and start monitoring now!</p>
 
         <a class="validate" href="#">Validate account</a>

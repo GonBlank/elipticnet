@@ -1,0 +1,123 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const updatePassBtn = document.getElementById('update-password-btn');
+
+    // Animación de carga del formulario
+    function toggleButtonState(isLoading) {
+        const textDiv = updatePassBtn.querySelector('.text');
+        const loaderDiv = updatePassBtn.querySelector('.loader-hourglass');
+
+        if (isLoading) {
+            textDiv.classList.remove('show');
+            textDiv.classList.add('hide');
+            loaderDiv.classList.remove('hide');
+            loaderDiv.classList.add('show');
+            updatePassBtn.disabled = true;
+        } else {
+            textDiv.classList.remove('hide');
+            textDiv.classList.add('show');
+            loaderDiv.classList.remove('show');
+            loaderDiv.classList.add('hide');
+            updatePassBtn.disabled = false;
+        }
+    }
+
+    function validateUserData() {
+        // Limpiar errores anteriores
+        const inputs = document.querySelectorAll('.input');
+        inputs.forEach(input => {
+            input.classList.remove('error');
+            const errorMessage = document.getElementById(`${input.id}-error`);
+            if (errorMessage) errorMessage.textContent = '';
+        });
+
+        // Obtener los valores del formulario
+        const actualPassword = document.getElementById('actual-password');
+        const newPassword = document.getElementById('new-password');
+        const newPasswordRepeat = document.getElementById('repeat-new-password');
+
+        let isValid = true;
+
+        // Validar actual password
+        if (!actualPassword || actualPassword.value.trim() === '') {
+            isValid = false;
+            actualPassword.classList.add('error');
+            document.getElementById('actual-password-error').textContent = 'Password is required.';
+        } else if (actualPassword.value.length < 8 || actualPassword.value.length > 20) {
+            isValid = false;
+            actualPassword.classList.add('error');
+            document.getElementById('actual-password-error').textContent = 'Password must be between 8 and 20 characters.';
+        }
+
+        // Validar new password
+        if (!newPassword || newPassword.value.trim() === '') {
+            isValid = false;
+            newPassword.classList.add('error');
+            document.getElementById('new-password-error').textContent = 'Password is required.';
+        } else if (newPassword.value.length < 8 || newPassword.value.length > 20) {
+            isValid = false;
+            newPassword.classList.add('error');
+            document.getElementById('new-password-error').textContent = 'Password must be between 8 and 20 characters.';
+        }
+
+        // Validar repeat new password
+        if (!newPasswordRepeat || newPasswordRepeat.value.trim() === '') {
+            isValid = false;
+            newPasswordRepeat.classList.add('error');
+            document.getElementById('repeat-new-password-error').textContent = 'Password is required.';
+        } else if (newPasswordRepeat.value !== newPassword.value) {
+            isValid = false;
+            newPasswordRepeat.classList.add('error');
+            document.getElementById('new-password-error').textContent = 'The passwords do not match.';
+        }
+
+        return isValid;
+    }
+
+
+    updatePassBtn.addEventListener('click', function (event) {
+        event.preventDefault(); // Previene el comportamiento por defecto del botón
+
+        if (!validateUserData()) {
+            return; // No enviar datos si la validación falla
+        }
+
+        // Cambiar el estado del botón para mostrar el loader
+        toggleButtonState(true);
+
+        // Obtener los valores del formulario
+        const actualPassword = document.getElementById('actual-password');
+        const newPassword = document.getElementById('new-password');
+        const newPasswordRepeat = document.getElementById('repeat-new-password');
+
+
+        const password_vector = {
+            old_password: actualPassword.value,
+            new_password: newPassword.value,
+            repeat_new_password: newPasswordRepeat.value,
+        };
+
+        console.log(password_vector);
+
+        // Enviar los datos al backend usando fetch
+        fetch('../php/sesion/update_password.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(password_vector),
+        })
+            .then(response => response.json())
+            .then(data => {
+                ShowAlert(data.type, data.title, data.message, data.type);
+            })
+            .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
+            .finally(() => {
+                // Restablecer el estado del botón y cerrar el diálogo
+                toggleButtonState(false);
+
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 4000); // 4000 ms = 4 segundos
+            });
+    });
+});

@@ -121,10 +121,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     email.value = '';
                     password.value = '';
 
-                    // Cerrar el diálogo
-                    const dialog = document.getElementById('sign-up');
-                    dialog.close(); // Cerrar el diálogo
-
 
                 } else if (data.error) {
                     ShowAlert(data.type, data.title, data.message, data.type);
@@ -132,8 +128,12 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
             .finally(() => {
-                // Restablecer el estado del botón y cerrar el diálogo
+                // Restablecer el estado del botón
                 toggleButtonState(false);
+
+                // Cerrar el diálogo
+                const dialog = document.getElementById('sign-up');
+                dialog.close(); // Cerrar el diálogo
             });
     });
 });

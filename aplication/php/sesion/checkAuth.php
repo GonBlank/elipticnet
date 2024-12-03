@@ -1,4 +1,11 @@
 <?php
+
+/*
+╔═════════════════╗
+║ Para desarrollo ║
+╚═════════════════╝
+*/
+
 function checkAuth()
 {
     //Login with secure cookie parameters
@@ -22,7 +29,6 @@ function checkAuth()
 }
 
 /*
-
 ╔═════════════════╗
 ║ Para producción ║
 ╚═════════════════╝
