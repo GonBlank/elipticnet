@@ -80,27 +80,68 @@
     border-color: var(--dividingLine-color);
 }
 
-.alert-transports {
+.additional_checks {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.threshold {
+    border: 1px solid var(--border-content-color);
     display: flex;
     flex-direction: column;
+    width: auto;
+    gap: 10px;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    transition: height 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+    overflow: hidden;
+}
+
+.threshold.init {
+    height: 40px;
+}
+
+.threshold.expand {
+    height: 105px;
+}
+
+.threshold .label__name {
+    justify-content: center;
+    width: 100%;
+    margin-left: 0px;
+}
+
+.threshold .input {
+    text-align: center;
+    width: 100px;
+    padding-left: 0px;
+}
+
+.threshold .label {
+    width: auto;
+    min-width: 0px;
+}
+
+.alert-transports {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column-reverse;
     gap: 20px;
     height: 100%;
 }
 
 .transport {
-
     display: flex;
     flex-direction: row;
-
     align-items: center;
     justify-content: space-between;
-
     gap: 8px;
-    border: 1px solid var(--background-200);
+    border: 1px solid var(--border-content-color);
     padding: 10px;
     border-radius: 8px;
     width: 100%;
-
 }
 
 .transport a {
@@ -142,13 +183,13 @@ button.create-agent:disabled {
     background-color: var(--button-primary-disabled);
 }
 
-.add-transport{
+.add-transport {
     display: flex;
     justify-content: center;
     margin-top: 15px;
 }
 
-.add-transport a{
+.add-transport a {
     color: var(--text-color);
     font-size: .8rem;
     gap: 10px;
@@ -156,13 +197,14 @@ button.create-agent:disabled {
     align-items: center;
     border-bottom: 1px solid transparent;
     padding-bottom: 3px;
-    
+
 }
 
-.add-transport a:hover{
+.add-transport a:hover {
     border-bottom: 1px solid var(--text-color);
     transition: border-bottom .35s;
 }
+
 /*
 .comming-soon{
     display: flex;
@@ -302,9 +344,17 @@ button.create-agent:disabled {
 
 .checkbox-wrapper-13 * {
     box-sizing: inherit;
+
+
 }
 
 .checkbox-wrapper-13 *:before,
 .checkbox-wrapper-13 *:after {
     box-sizing: inherit;
+}
+
+.checkbox-text{
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }

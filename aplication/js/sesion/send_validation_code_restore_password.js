@@ -1,22 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const updateNameBtn = document.getElementById('update-name-btn');
+    const recoveryBtn = document.getElementById('recovery_btn');
+
     // Animación de carga del formulario
     function toggleButtonState(isLoading) {
-        const textDiv = updateNameBtn.querySelector('.text');
-        const loaderDiv = updateNameBtn.querySelector('.loader-hourglass');
+        const textDiv = recoveryBtn.querySelector('.text');
+        const loaderDiv = recoveryBtn.querySelector('.loader-hourglass');
 
         if (isLoading) {
             textDiv.classList.remove('show');
             textDiv.classList.add('hide');
             loaderDiv.classList.remove('hide');
             loaderDiv.classList.add('show');
-            updateNameBtn.disabled = true;
+            recoveryBtn.disabled = true;
         } else {
             textDiv.classList.remove('hide');
             textDiv.classList.add('show');
             loaderDiv.classList.remove('show');
             loaderDiv.classList.add('hide');
-            updateNameBtn.disabled = false;
+            recoveryBtn.disabled = false;
         }
     }
 
@@ -30,26 +31,26 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Obtener los valores del formulario
-        const username = document.getElementById('user-name');
+        const email = document.getElementById('recovery-email');
+
         let isValid = true;
 
-        // Validar los datos del formulario
-        if (!username || username.value.trim() === '') {
+        if (!email || email.value.trim() === '') {
             isValid = false;
-            document.getElementById('user-name').classList.add('error');
-            document.getElementById('user-name-error').textContent = 'Username is required.';
+            document.getElementById('recovery-email').classList.add('error');
+            document.getElementById('recovery-email-error').textContent = 'Email is required.';
         } else {
-            const usernameLength = username.value.length;
-            if (usernameLength < 8 || usernameLength > 20) {
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailRegex.test(email.value)) {
                 isValid = false;
-                document.getElementById('user-name').classList.add('error');
-                document.getElementById('user-name-error').textContent = 'Username must be between 8 and 20 characters.';
+                document.getElementById('recovery-email').classList.add('error');
+                document.getElementById('recovery-email-error').textContent = 'Invalid email format.';
             }
         }
         return isValid;
     }
 
-    updateNameBtn.addEventListener('click', function (event) {
+    recoveryBtn.addEventListener('click', function (event) {
         event.preventDefault(); // Previene el comportamiento por defecto del botón
 
         if (!validateUserData()) {
@@ -60,39 +61,28 @@ document.addEventListener("DOMContentLoaded", function () {
         toggleButtonState(true);
 
         // Obtener los valores del formulario
-        const username = document.getElementById('user-name');
+        const email = document.getElementById('recovery-email').value;
 
-        const updatedUser = {
-            username: username.value,
-        };
-
-        console.log(updatedUser);
-
+        const formData = new FormData();
+        formData.append('email', email);
 
         // Enviar los datos al backend usando fetch
-        fetch('../php/user_config/update_username.php', {
+        fetch('../php/sesion/send_validation_code_restore_password.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(updatedUser),
+            body: formData
         })
             .then(response => response.json())
             .then(data => {
-                if (data.state) {
-                    // Capturar el ID y el mensaje de respuesta
-                    ShowAlert('success', 'Success', 'Name updated successfully', 'success');
-
-                   document.getElementById('lateralMenu-username').textContent = username.value;
-
-                } else if (data.error) {
-                    ShowAlert(data.type, data.title, data.message, data.type);
-                }
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
             })
             .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
             .finally(() => {
                 // Restablecer el estado del botón y cerrar el diálogo
                 toggleButtonState(false);
+
+                const dialog = document.getElementById('forgot-password');
+                dialog.close(); // Cerrar el diálogo
+                document.getElementById('recovery-email').value = '';
             });
     });
 });

@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Verificar si el usuario está autenticado
+if (isset($_SESSION['user'])) {
+    // Redirige al login si no está autenticado
+    header("Location: /aplication/public/home.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 
@@ -147,7 +157,7 @@
                 <div class="input-container">
                     <label class="label" for="register-username">
                         <input type="text" placeholder=" " class="input" id="register-username" name="register-username"
-                            autocomplete="username" required minlength="8" maxlength="20" />
+                            autocomplete="username" required minlength="3" maxlength="15" />
                         <span class="label__name">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-person-badge" viewBox="0 0 16 16">
@@ -252,6 +262,8 @@
     <script src="../js/sesion/login.js"></script>
     <script src="../js/sesion/signup.js"></script>
     <script src="../js/sesion/validate_email.js"></script>
+    <script src="../js/sesion/send_validation_code_restore_password.js"></script>
+
 </body>
 
 </html>

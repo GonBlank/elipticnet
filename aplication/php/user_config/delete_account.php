@@ -3,8 +3,8 @@
 require_once '../env.php';
 require_once '../email/email.php';
 require_once '../email/templates/delete_account.php';
-require_once 'close_sesion.php';
-require_once 'checkAuth.php';
+require_once '../sesion/close_sesion.php';
+require_once '../sesion/checkAuth.php';
 $user = checkAuth();
 $owner = $user['id'];
 
@@ -44,7 +44,7 @@ try {
             $body=delete_account_email_template();
             send_email($body, "Deleted account", $user['email']);
 
-            close_sesion();
+            close_session();
 
             echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Your account was deleted."]);
         } else if ($stmt->affected_rows == 0) {

@@ -118,9 +118,10 @@ main {
     width: 20px;
 }
 
-.action_btn:hover {
+.action_btn:not(.disable):hover {
     background-color: var(--button-primary-hover);
 }
+
 
 .divisor {
     position: relative;

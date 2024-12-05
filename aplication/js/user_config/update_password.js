@@ -96,10 +96,10 @@ document.addEventListener("DOMContentLoaded", function () {
             repeat_new_password: newPasswordRepeat.value,
         };
 
-        console.log(password_vector);
+        
 
         // Enviar los datos al backend usando fetch
-        fetch('../php/sesion/update_password.php', {
+        fetch('../php/user_config/update_password.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -109,15 +109,16 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.json())
             .then(data => {
                 ShowAlert(data.type, data.title, data.message, data.type);
+                if (!data.error){
+                    setTimeout(() => {
+                        window.location.href = "login.php";
+                    }, 4000); // 4000 ms = 4 segundos
+                }
             })
             .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
             .finally(() => {
                 // Restablecer el estado del botón y cerrar el diálogo
                 toggleButtonState(false);
-
-                setTimeout(() => {
-                    window.location.href = "login.html";
-                }, 4000); // 4000 ms = 4 segundos
             });
     });
 });

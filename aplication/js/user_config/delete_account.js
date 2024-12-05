@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         toggleButtonState(true);
 
         // Enviar los datos al backend usando fetch
-        fetch('../php/sesion/delete_account.php', {
+        fetch('../php/user_config/delete_account.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (!data.error) {
                     setTimeout(() => {
-                        window.location.href = "login.html";
+                        window.location.href = "login.php";
                     }, 4000); // 4000 ms = 4 segundos
                 }
 

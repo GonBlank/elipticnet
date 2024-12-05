@@ -26,7 +26,7 @@ define('MENU_ALLOWED', true);
 
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/palette.css" />
-    <link rel="stylesheet" href="../css/style_new_ping_agent.css" />
+    <link rel="stylesheet" href="../css/ping_agent.css" />
 
 </head>
 
@@ -114,27 +114,75 @@ define('MENU_ALLOWED', true);
 
             <div class="divider">
                 <hr>
+                <p>Additional checks</p>
+            </div>
+
+            <div class="additional_checks">
+
+                <span class="tooltip">
+                    <div id="threshold-box" class="threshold init">
+                        <div class="checkbox-wrapper-13">
+                            <input id="threshold-checkbox" name="threshold" type="checkbox" onchange="toggleInput(this)">
+                            <label for="threshold-checkbox">Threshold</label>
+                        </div>
+
+                        <label class="label" id="threshold-input-wrapper" style="display: none;">
+                            <input tabindex="1" type="number" placeholder=" " class="input" id="threshold_value" name="threshold"
+                                autocomplete="name" max="999" />
+                            <span class="label__name">100ms</span>
+                            <div class="error-message" id="threshold_value-error"></div>
+                        </label>
+                    </div>
+                    <span class="tooltip-text">If the latency is higher than the threshold we will send a warning.<br>
+                        - Value [ms]</span>
+                </span>
+
+                <script>
+                    function toggleInput(checkbox) {
+                        const inputWrapper = document.getElementById('threshold-input-wrapper');
+                        const thresholdBox = document.getElementById('threshold-box');
+
+                        if (checkbox.checked) {
+                            thresholdBox.classList.remove('init');
+                            thresholdBox.classList.add('expand');
+                        } else {
+                            thresholdBox.classList.remove('expand');
+                            thresholdBox.classList.add('init');
+                        }
+
+                        inputWrapper.style.display = checkbox.checked ? '' : 'none';
+                    }
+                </script>
+            </div>
+
+            <div class="divider">
+                <hr>
                 <p>Alert transport</p>
             </div>
 
-            <div class="alert-transports">
-                <!--
-                <div class="transport">
+            <section class="alert-transports">
+
+                <!-- <article class="transport">
                     <div class="checkbox-wrapper-13">
-                        <input id="email_transport" name="email_transport" type="checkbox">
-                        <label for="email_transport">Email</label>
+                        <input id="id_del_transporte" type="checkbox">
+                        <label for="id_del_transporte">
+                            <div class="checkbox-text">
+                                <img src="../img/svg/email.svg">
+                                <p>Alias</p>
+                            </div>
+                        </label>
                     </div>
-                    <a class="transition-link">
+                    <a href="transports.html" class="transition-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-wrench" viewBox="0 0 16 16">
                             <path
                                 d="M.102 2.223A3.004 3.004 0 0 0 3.78 5.897l6.341 6.252A3.003 3.003 0 0 0 13 16a3 3 0 1 0-.851-5.878L5.897 3.781A3.004 3.004 0 0 0 2.223.1l2.141 2.142L4 4l-1.757.364zm13.37 9.019.528.026.287.445.445.287.026.529L15 13l-.242.471-.026.529-.445.287-.287.445-.529.026L13 15l-.471-.242-.529-.026-.287-.445-.445-.287-.026-.529L11 13l.242-.471.026-.529.445-.287.287-.445.529-.026L13 11z" />
                         </svg>
                         test.testing@gmail.com</a>
-                </div>
-                -->
+                </article> -->
+
                 <div class="add-transport">
-                    <a href="#">
+                    <a href="transports.html">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-send-plus-fill" viewBox="0 0 16 16">
                             <path
@@ -144,7 +192,7 @@ define('MENU_ALLOWED', true);
                         </svg>
                         ADD TRANSPORT</a>
                 </div>
-            </div>
+            </section>
             <button id="create_agent" class="create-agent">
 
                 <div class="text show">

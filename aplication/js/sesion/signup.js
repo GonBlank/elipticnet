@@ -44,10 +44,10 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('register-username-error').textContent = 'Username is required.';
         } else {
             const usernameLength = username.value.length;
-            if (usernameLength < 8 || usernameLength > 20) {
+            if (usernameLength < 3 || usernameLength > 15) {
                 isValid = false;
                 document.getElementById('register-username').classList.add('error');
-                document.getElementById('register-username-error').textContent = 'Username must be between 8 and 20 characters.';
+                document.getElementById('register-username-error').textContent = 'Username must be between 3 and 15 characters.';
             }
         }
 

@@ -196,33 +196,14 @@ main.dashboard {
 }
 */
 
-/* WebKit-based browsers (Chrome, Safari, Edge) */
-::-webkit-scrollbar {
-    width: 12px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--scrolBar-background);
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: var(--scrolBar-bar);
-    border-radius: 10px;
-    border: 2px solid var(--scrolBar-background);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background-color: var(--scrolBar-hover);
-}
-
-/* Firefox */
-html {
-    scrollbar-width: thin;
-    scrollbar-color: var(--scrolBar-bar) var(--scrolBar-background);
-}
 
 
-/*inputs*/
+
+/*
+╔════════╗
+║ inputs ║
+╚════════╝
+*/
 
 .label {
     width: 100%;
@@ -247,6 +228,7 @@ html {
 
 .input:disabled {
     cursor: not-allowed;
+    background-color: red;
 }
 
 .input:hover {
@@ -271,7 +253,7 @@ html {
     transition: .2s;
     cursor: pointer;
     justify-self: start;
-    color: var(--text-color);
+    color: var(--text-color-label_name);
     margin-left: 8px;
     pointer-events: none;
     font-size: clamp(.75rem, 1.5vw, .8rem);
@@ -302,7 +284,6 @@ span.textarea {
     transition: opacity .3s;
 }
 
-
 textarea {
     border: 1px solid var(--input-border)
 }
@@ -316,7 +297,41 @@ textarea:focus {
     border: 1px solid var(--input-focus);
 }
 
-/* General scroll bar */
+/* Ocultar flechas para input number
+ para todos los navegadores */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    /* Firefox */
+}
+
+.input.error {
+    border: 2px solid var(--accent-red);
+}
+
+.input.error:focus-visible {
+    outline: 0px;
+}
+
+.error-message {
+    color: var(--accent-red);
+    font-size: 0.675em;
+    margin-top: 0.25rem;
+    text-wrap: nowrap;
+}
+
+
+/*
+╔════════════╗
+║ Scroll bar ║
+╚════════════╝
+*/
+
 .scrollable-content::-webkit-scrollbar {
     width: 12px;
     height: 12px;
@@ -336,6 +351,37 @@ textarea:focus {
     background-color: var(--primary-200);
 }
 
+
+/* WebKit-based browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrolBar-background);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrolBar-bar);
+    border-radius: 10px;
+    border: 2px solid var(--scrolBar-background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrolBar-hover);
+}
+
+/* Firefox */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrolBar-bar) var(--scrolBar-background);
+}
+
+/*
+╔═════════╗
+║ Loaders ║
+╚═════════╝
+*/
 
 /* Loader hourglass */
 .loader-hourglass {
@@ -429,7 +475,12 @@ textarea:focus {
 
 /*<div class="placeholder-text loader"></div>*/
 
-/*Alert*/
+
+/*
+╔════════╗
+║ Alerts ║
+╚════════╝
+*/
 
 section.alert {
     display: flex;
@@ -452,7 +503,7 @@ section.alert {
     /* Asegura que el padding se incluya en el ancho */
 }
 
-section.alert .body{
+section.alert .body {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -488,7 +539,7 @@ section.alert .icon img {
     max-width: 40px;
 }
 
-section.alert a{
+section.alert a {
     color: var(--special-text-color);
     text-decoration: underline;
 }
@@ -518,7 +569,13 @@ section.alert a{
 }
 
 
-/*MODAL*/
+
+/*
+╔════════╗
+║ Modals ║
+╚════════╝
+*/
+
 dialog {
     position: relative;
     border: none;
@@ -558,7 +615,7 @@ dialog::backdrop {
     gap: 8px;
 }
 
-.dialog-header h1 svg{
+.dialog-header h1 svg {
     fill: var(--text-color);
     width: 26px;
     height: 26px;
@@ -639,7 +696,6 @@ dialog::backdrop {
 
 }
 
-/**/
 button .text {
     display: flex;
     flex-direction: row;
@@ -656,27 +712,17 @@ dialog form button .text.show {
     display: contents;
 }
 
-
-.input.error {
-    border: 2px solid var(--red-500);
-}
-
-.input.error:focus-visible {
-    outline: 0px;
-}
-
-.error-message {
-    color: var(--red-500);
-    font-size: 0.675em;
-    margin-top: 0.25rem;
-    text-wrap: nowrap;
-}
-
 .input-row-group {
     display: flex;
     flex-direction: row;
     gap: 10px;
 }
+
+/*
+╔══════════╗
+║ Dropdown ║
+╚══════════╝
+*/
 
 /*Dropdown*/
 .dropdown_menu_container {
@@ -737,7 +783,6 @@ dialog form button .text.show {
 ╚══════════════════════════╝
 */
 
-/* Transición de desvanecimiento */
 .fade-out {
     opacity: 1;
     transition: opacity 0.3s ease;
@@ -747,8 +792,66 @@ dialog form button .text.show {
     opacity: 0;
 }
 
-/* Transición de desvanecimiento al cargar la nueva página */
 .fade-in {
     opacity: 0;
     transition: opacity 0.3s ease;
+}
+
+/*
+╔═════════╗
+║ Tooltip ║
+╚═════════╝
+*/
+
+/* Estilo para el contenedor del elemento */
+.tooltip {
+    position: relative;
+    /* Necesario para posicionar el tooltip */
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* Estilo para el tooltip */
+.tooltip .tooltip-text {
+    visibility: hidden;
+    background-color: var(--tooltip-background);
+    /* Color de fondo */
+    color: var(--text-color);
+    /* Color del texto */
+    text-align: left;
+    padding: 8px;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    /* Posición encima del elemento */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    /* Ancho del tooltip */
+    opacity: 0;
+    /* Transparencia inicial */
+    transition: opacity 0.3s;
+    /* Suaviza la aparición */
+    font-size: 0.9rem;
+}
+
+/* Flecha del tooltip */
+.tooltip .tooltip-text::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    /* Posicionada en la parte inferior */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--tooltip-background) transparent transparent transparent;
+    /* Flecha hacia arriba */
+}
+
+/* Mostrar el tooltip al hacer hover */
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
 }

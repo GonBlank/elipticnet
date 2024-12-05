@@ -2,10 +2,9 @@
 <?php
 require_once '../env.php';
 
-function validate_email_template($name, $hash)
+function restore_password_template($hash)
 {
-
-    $validation_url = DOMAIN . "/aplication/public/login.php?validation_hash=" . $hash;
+    $validation_url = DOMAIN . "/aplication/public/restore_password.html?validation_hash=" . $hash;
 
     return <<<HTML
 <!DOCTYPE html>
@@ -14,7 +13,7 @@ function validate_email_template($name, $hash)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello! Validate your account</title>
+    <title>🔒 Restore password</title>
 </head>
 
 <body
@@ -30,22 +29,23 @@ function validate_email_template($name, $hash)
                     <tr>
                         <td>
                             <h1 style="color: #B5F730; font-size: 24px; margin: 20px 0;">
-                                👋 Hello $name
+                            🔒 Restore your password
                             </h1>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <p style="color: #F5F0FE; font-size: 16px; margin: 20px 0;">
-                                Validate your account and start monitoring now!
+                                We receive a password recovery request.<br>
+                                Recover your password by clicking on the following button.
                             </p>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <a href="$validation_url"
+                        <a href="$validation_url"
                                 style="display: inline-block; padding: 12px 20px; background-color: #7230f7; color: white; text-decoration: none; border-radius: 8px; font-size: 16px; margin: 25px 0;">
-                                Validate account
+                                Recover password
                             </a>
                         </td>
                     </tr>
@@ -53,8 +53,7 @@ function validate_email_template($name, $hash)
                         <td>
                             <small style="color: #F5F0FE; font-size: 12px; margin-top: 20px; display: inline-block;">
                                 This email was sent by <a href="https://elipticnet.com"
-                                    style="color: #b499ff; text-decoration: none;">elipticnet.com</a>. If you didn't
-                                request the account, ignore the email.
+                                    style="color: #b499ff; text-decoration: none;">elipticnet.com</a>. If you did not request the change you can dismiss the email.
                             </small>
                         </td>
                     </tr>
@@ -62,6 +61,7 @@ function validate_email_template($name, $hash)
             </td>
         </tr>
     </table>
+
 </body>
 
 </html>

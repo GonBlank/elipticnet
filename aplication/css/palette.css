@@ -185,6 +185,7 @@
   /*General*/
   --background: #130c27;
   --text-color: #F5F0FE;/*Falta aplicar en algunas paginas*/
+  --text-color-label_name:#f5f0fe62;
   --text-color-dark: #130c27;
   --special-text-color: #7230f7;
 
@@ -210,6 +211,9 @@
 
   /*Forms*/
   --form-background: #170F2F;
+  --border-content-color: #26184e;
+
+
   
 
   /*Inputs*/
@@ -241,6 +245,9 @@
   --scrolBar-background:#170F2F;
   --scrolBar-bar:#392574;
   --scrolBar-hover:#392574;
+
+  /*tooltip*/
+  --tooltip-background:#26184e;
 
   /*dropdown menu*/
   --dropdownMenu-background:#26184e;

@@ -70,7 +70,7 @@ define('MENU_ALLOWED', true);
             <div class="input-form">
                 <label class="label">
                     <input tabindex="1" type="text" placeholder=" " class="input" id="user-name" name="user-name"
-                        autocomplete="name" maxlength="20" value="<?php echo htmlspecialchars($user['username']); ?>" required />
+                        autocomplete="name" minlength="3" maxlength="15" value="<?php echo htmlspecialchars($user['username']); ?>" required />
                     <span class="label__name">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="bi bi-person-badge" viewBox="0 0 16 16">
@@ -84,51 +84,6 @@ define('MENU_ALLOWED', true);
             </div>
 
             <button id="update-name-btn" class="update-btn">
-
-                <div class="text show">
-                    Update
-                </div>
-
-                <div class="loader-hourglass hide"> <!-- Cambiado a hide para que esté oculto por defecto -->
-                    <svg class="spinner-hourglass" xmlns="http://www.w3.org/2000/svg" height="24px"
-                        viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                        <path
-                            d="M320-160h320v-120q0-66-47-113t-113-47q-66 0-113 47t-47 113v120Zm160-360q66 0 113-47t47-113v-120H320v120q0 66 47 113t113 47ZM160-80v-80h80v-120q0-61 28.5-114.5T348-480q-51-32-79.5-85.5T240-680v-120h-80v-80h640v80h-80v120q0 61-28.5 114.5T612-480q51 32 79.5 85.5T720-280v120h80v80H160Z" />
-                    </svg>
-                </div>
-
-
-            </button>
-        </section>
-
-        <section class="form-container">
-            <div class="tittle">
-                <h1>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
-                        <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2zm-2 9.8V4.698l5.803 3.546zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.5 4.5 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586zM16 9.671V4.697l-5.803 3.546.338.208A4.5 4.5 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671" />
-                        <path d="M15.834 12.244c0 1.168-.577 2.025-1.587 2.025-.503 0-1.002-.228-1.12-.648h-.043c-.118.416-.543.643-1.015.643-.77 0-1.259-.542-1.259-1.434v-.529c0-.844.481-1.4 1.26-1.4.585 0 .87.333.953.63h.03v-.568h.905v2.19c0 .272.18.42.411.42.315 0 .639-.415.639-1.39v-.118c0-1.277-.95-2.326-2.484-2.326h-.04c-1.582 0-2.64 1.067-2.64 2.724v.157c0 1.867 1.237 2.654 2.57 2.654h.045c.507 0 .935-.07 1.18-.18v.731c-.219.1-.643.175-1.237.175h-.044C10.438 16 9 14.82 9 12.646v-.214C9 10.36 10.421 9 12.485 9h.035c2.12 0 3.314 1.43 3.314 3.034zm-4.04.21v.227c0 .586.227.8.581.8.31 0 .564-.17.564-.743v-.367c0-.516-.275-.708-.572-.708-.346 0-.573.245-.573.791" />
-                    </svg>
-                    Email contact.
-                </h1>
-                <p>We will use this email to send you notifications and as the main transport.</p>
-            </div>
-
-            <div class="input-form">
-                <label class="label" for="user-email">
-                    <input tabindex="2" type="email" placeholder=" " class="input" id="user-email" name="user-email"
-                        autocomplete="email" value="<?php echo htmlspecialchars($user['email']); ?>" required />
-                    <span class="label__name">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                            fill="#e8eaed">
-                            <path
-                                d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480v58q0 59-40.5 100.5T740-280q-35 0-66-15t-52-43q-29 29-65.5 43.5T480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480v58q0 26 17 44t43 18q26 0 43-18t17-44v-58q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93h200v80H480Zm0-280q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Z" />
-                        </svg> Email</span>
-                    <div class="error-message" id="user-email-error"></div>
-                </label>
-
-            </div>
-
-            <button id="update-contact-btn" class="update-btn">
 
                 <div class="text show">
                     Update
@@ -286,9 +241,9 @@ define('MENU_ALLOWED', true);
     <script src="../js/page_transition.js"></script>
     <script src="../js/show_alert.js"></script>
     <script src="../js/modal.js"></script>
-    <script src="../js/sesion/update_name.js"></script>
-    <script src="../js/sesion/update_password.js"></script>
-    <script src="../js/sesion/delete_account_new.js"></script>
+    <script src="../js/user_config/update_name.js"></script>
+    <script src="../js/user_config/update_password.js"></script>
+    <script src="../js/user_config/delete_account.js"></script>
 
 
 </body>

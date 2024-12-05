@@ -33,8 +33,8 @@ if ($password_length < 8 || $password_length > 20) {
 
 // Validate name length
 $name_length = strlen($name);
-if ($name_length < 8 || $name_length > 20) {
-    echo json_encode(["error" => true, "type" => "error", "title" => "Invalid username length", "message" => "Username must be between 8 and 20 characters."]);
+if ($name_length < 3 || $name_length > 15) {
+    echo json_encode(["error" => true, "type" => "error", "title" => "Invalid username length", "message" => "Username must be between 3 and 15 characters."]);
     exit;
 }
 
@@ -103,12 +103,13 @@ try {
 }
 
 try {
-    $type= 'email';
+    $type = 'email';
     // Insert transport email con el ID del usuario como owner
-    $sql_insert_transport_email = "INSERT INTO transports (owner, type, transport_id, validation_hash, hash_date) 
-                                   VALUES (:owner,:type, :email, :validation_hash, :hash_date)";
+    $sql_insert_transport_email = "INSERT INTO transports (owner, type, alias, transport_id, validation_hash, hash_date) 
+                                   VALUES (:owner,:type,:name, :email, :validation_hash, :hash_date)";
     $stmt_insert_transport_email = $conn->prepare($sql_insert_transport_email);
     $stmt_insert_transport_email->bindParam(':owner', $user_id);  // Usamos el id del usuario
+    $stmt_insert_transport_email->bindParam(':name', $name);
     $stmt_insert_transport_email->bindParam(':type', $type);
     $stmt_insert_transport_email->bindParam(':email', $email);
     $stmt_insert_transport_email->bindParam(':validation_hash', $validation_hash);
@@ -128,11 +129,10 @@ $conn = null;
 ║ Send email verification ║
 ╚═════════════════════════╝
 */
-$body = validate_email_template ($name, $validation_hash);
+$body = validate_email_template($name, $validation_hash);
 send_email($body, "Verify your email", $email);
 
 
 
 $data['state'] = true;
 echo json_encode($data);
-

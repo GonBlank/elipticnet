@@ -1,23 +1,22 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const resendBtn = document.getElementById('resend_btn');
-
+    const updateNameBtn = document.getElementById('update-name-btn');
     // Animación de carga del formulario
     function toggleButtonState(isLoading) {
-        const textDiv = resendBtn.querySelector('.text');
-        const loaderDiv = resendBtn.querySelector('.loader-hourglass');
+        const textDiv = updateNameBtn.querySelector('.text');
+        const loaderDiv = updateNameBtn.querySelector('.loader-hourglass');
 
         if (isLoading) {
             textDiv.classList.remove('show');
             textDiv.classList.add('hide');
             loaderDiv.classList.remove('hide');
             loaderDiv.classList.add('show');
-            resendBtn.disabled = true;
+            updateNameBtn.disabled = true;
         } else {
             textDiv.classList.remove('hide');
             textDiv.classList.add('show');
             loaderDiv.classList.remove('show');
             loaderDiv.classList.add('hide');
-            resendBtn.disabled = false;
+            updateNameBtn.disabled = false;
         }
     }
 
@@ -31,26 +30,26 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Obtener los valores del formulario
-        const email = document.getElementById('user-email');
-
+        const username = document.getElementById('user-name');
         let isValid = true;
 
-        if (!email || email.value.trim() === '') {
+        // Validar los datos del formulario
+        if (!username || username.value.trim() === '') {
             isValid = false;
-            document.getElementById('user-email').classList.add('error');
-            document.getElementById('user-email-error').textContent = 'Email is required.';
+            document.getElementById('user-name').classList.add('error');
+            document.getElementById('user-name-error').textContent = 'Username is required.';
         } else {
-            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-            if (!emailRegex.test(email.value)) {
+            const usernameLength = username.value.length;
+            if (usernameLength < 3 || usernameLength > 15) {
                 isValid = false;
-                document.getElementById('user-email').classList.add('error');
-                document.getElementById('user-email-error').textContent = 'Invalid email format.';
+                document.getElementById('user-name').classList.add('error');
+                document.getElementById('user-name-error').textContent = 'Username must be between 3 and 15 characters.';
             }
         }
         return isValid;
     }
 
-    resendBtn.addEventListener('click', function (event) {
+    updateNameBtn.addEventListener('click', function (event) {
         event.preventDefault(); // Previene el comportamiento por defecto del botón
 
         if (!validateUserData()) {
@@ -61,19 +60,31 @@ document.addEventListener("DOMContentLoaded", function () {
         toggleButtonState(true);
 
         // Obtener los valores del formulario
-        const email = document.getElementById('user-email').value;
+        const username = document.getElementById('user-name');
 
-        const formData = new FormData();
-        formData.append('email', email);
+        const updatedUser = {
+            username: username.value,
+        };
 
         // Enviar los datos al backend usando fetch
-        fetch('../php/sesion/resend_validation_code.php', {
+        fetch('../php/user_config/update_username.php', {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedUser),
         })
             .then(response => response.json())
             .then(data => {
-                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
+                if (data.state) {
+                    // Capturar el ID y el mensaje de respuesta
+                    ShowAlert('success', 'Success', 'Name updated successfully', 'success');
+
+                    document.getElementById('lateralMenu-username').textContent = username.value;
+
+                } else if (data.error) {
+                    ShowAlert(data.type, data.title, data.message, data.type);
+                }
             })
             .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
             .finally(() => {

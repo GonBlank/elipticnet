@@ -1,12 +1,12 @@
 <?php
 require_once '../env.php';
 require_once '../email/email.php';
-require_once '../email/templates/validate_email.php';
+require_once '../email/templates/restore_password.php';
 
 
-// Validar el método de la solicitud
+// Validate request method
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    echo json_encode(["error" => true, "type" => "error", "title" => "Invalid request", "message" => "Invalid request method"]);
+    echo json_encode(["error" => true, "type" => "error", "title" => "Invalid request", "message" => "Data not set"]);
     exit;
 }
 
@@ -37,7 +37,8 @@ try {
     }
 
     // Preparar consulta de actualización
-    $update_query = "UPDATE transports SET validation_hash = ?, hash_date = ? WHERE transport_id = ? AND valid = FALSE";
+    $update_query = "UPDATE users SET validation_hash = ?, hash_date = ? WHERE email = ?";
+
     $hash_date = date('Y-m-d H:i:s');
     $validation_hash = bin2hex(random_bytes(12));
 
@@ -52,18 +53,24 @@ try {
 
     // Ejecutar la consulta
     if ($update_stmt->execute()) {
-        if ($update_stmt->affected_rows > 0) {
-            // Cerrar el statement y la conexión
+        if ($update_stmt->affected_rows == 1) {
+            //enviar email
+            $body = restore_password_template($validation_hash);
+            send_email($body, "Restore your password", $email);
+
+            //Cerrar conexión
             $update_stmt->close();
             $conn->close();
-            //Enviar email
-            $body = validate_email_template($name, $validation_hash);
-            send_email($body, "Verify your email", $email);
-            echo json_encode(["error" => false, "type" => "success", "message" => "If your email is registered we will send a new validation link."]);
+
+            echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "If your email is registered, we will send you a link to recover your password."]);
             exit;
-        } else {
+        } else if ($update_stmt->affected_rows == 0) {
             //No se modifica ningun registro
-            echo json_encode(["error" => true, "type" => "error", "message" => "If your email is registered we will send a new validation link."]);
+            echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "If your email is registered, we will send you a link to recover your password."]);
+            exit;
+        } else if ($update_stmt->affected_rows > 1) {
+            //Se modificó más de un registro. Nunca se debería llegar acá
+            echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Fatal error, please contact", "link_text" => "support.", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
             exit;
         }
     } else {

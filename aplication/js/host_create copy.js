@@ -33,19 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Obtener los valores del formulario
         const hostName = document.getElementById('host-name').value;
         const hostIp = document.getElementById('host-ip').value;
-        const threshold_check = document.getElementById('threshold-checkbox').checked;
-        const threshold_value = document.getElementById('threshold_value').value;
+
         let isValid = true;
-
-        if (threshold_check) {
-            if (!threshold_value) {
-                isValid = false;
-                document.getElementById('threshold_value').classList.add('error');
-                document.getElementById('threshold_value-error').textContent = 'Value required.';
-            }
-        }
-
-
 
         // Validar los datos del formulario
         if (!hostName) {
@@ -87,36 +76,29 @@ document.addEventListener("DOMContentLoaded", function () {
         const hostName = document.getElementById('host-name');
         const hostIp = document.getElementById('host-ip');
         const description = document.getElementById('host-description');
-        const threshold_check = document.getElementById('threshold-checkbox').checked;
-        const threshold = document.getElementById('threshold_value');
 
-        // Seleccionar el contenedor de transportes
-        const transportSection = document.querySelector('.alert-transports');
+        
+        // Seleccionar todos los checkboxes de tipo 'transport' en el formulario
+        let transportCheckboxes = document.querySelectorAll("input[name$='_transport']"); // Selecciona todos los input con nombre que termine en '_transport'
 
-        // Seleccionar solo los checkboxes dentro de .alert-transports que estén marcados
-        const selectedCheckboxes = transportSection.querySelectorAll('.checkbox-wrapper-13 input[type="checkbox"]:checked');
+        // Crear un objeto para almacenar los transportes seleccionados
+        const transports = {};
 
-        // Obtener los IDs de los checkboxes seleccionados
-        const TransportsSelected = Array.from(selectedCheckboxes).map(checkbox => checkbox.id);
+        // Recorrer todos los checkboxes y almacenar si están seleccionados
+        transportCheckboxes.forEach(checkbox => {
+            transports[checkbox.name] = checkbox.checked; // Usamos el 'name' del checkbox como clave, el valor es si está marcado
+        });
 
-
-        console.log(TransportsSelected)
         // Crear un objeto con los datos del nuevo host
         const newHost = {
             name: hostName.value,
             ip: hostIp.value,
             description: description.value,
-            transports: TransportsSelected
+            transports: transports // El objeto con todos los transportes seleccionados
         };
 
-        // Agregar threshold_value si threshold_check está en true
-        if (threshold_check) {
-            newHost.threshold = Math.floor(threshold.value); // Toma siempre la parte entera
-        }
-
-        console.log(newHost);
-
-        fetch('../php/API/create_ping_agent.php', {
+        // Enviar los datos al backend usando fetch
+        fetch('../php/create_ping_agent.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -125,19 +107,25 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then(response => response.json())
             .then(data => {
-                ShowAlert(data.type, data.title, data.message, data.type);
-                if (!data.error) {
+                if (data.id) {
+                    // Capturar el ID y el mensaje de respuesta
+                    ShowAlert('success', 'Success', 'Host created successfully', 'success');
+
                     hostName.value = '';
                     hostIp.value = '';
                     description.value = '';
-                    threshold.value = '';
+
+                    // Redireccionar a home.html
                     setTimeout(() => {
                         window.location.href = 'home.php';
-                    }, 2000);
+                    }, 2000); //delay
+                } else if (data.error) {
+                    ShowAlert(data.type, data.title, data.message, data.type);
                 }
             })
             .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
             .finally(() => {
+                // Restablecer el estado del botón y cerrar el diálogo
                 toggleButtonState(false);
             });
     });

@@ -164,13 +164,7 @@ define('MENU_ALLOWED', true);
 
             </div>
         </section>
-
-
     </main>
-
-
-
-
 
 
     <script src="../js/modal.js"></script>

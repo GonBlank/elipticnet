@@ -28,7 +28,6 @@ main {
     flex-direction: row;
     gap: 8px;
     align-items: center;
-    
 }
 
 .form-container .tittle svg {

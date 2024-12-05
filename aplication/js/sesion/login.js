@@ -100,18 +100,13 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then(response => response.json())
             .then(data => {
-                if (data.state) {
-                    // Capturar el ID y el mensaje de respuesta
-                    ShowAlert('success', 'Success', 'Successful login', 'success');
-  
+                ShowAlert(data.type, data.title, data.message, data.type);
+                if (!data.error) {
                     email.value = '';
                     password.value = '';
-
                     window.location.assign('home.php'); // Redirige a home.html
-
-                } else if (data.error) {
-                    ShowAlert(data.type, data.title, data.message, data.type);
                 }
+
             })
             .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
             .finally(() => {

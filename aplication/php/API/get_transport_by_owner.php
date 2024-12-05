@@ -1,6 +1,6 @@
 <?php
-require_once 'env.php';
-include '../php/sesion/checkAuth.php';
+require_once '../env.php';
+include '../sesion/checkAuth.php';
 $user = checkAuth();
 $owner = $user['id'];
 
@@ -21,7 +21,7 @@ try {
     }
 
     // Consulta SQL para obtener todos los transportes del owner especificado
-    $sql = "SELECT type, transport_id FROM transports WHERE owner = ? AND valid = true";
+    $sql = "SELECT id, type, alias ,transport_id FROM transports WHERE owner = ? AND valid = true";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         throw new Exception("Prepare statement error: " . $conn->error);
@@ -38,8 +38,10 @@ try {
     // Recorrer cada registro y agregarlo al array $transports
     while ($row = $result->fetch_assoc()) {
         $transports[] = [
+            "id" => $row['id'],
             "type" => $row['type'],
-            "transport_id" => $row['transport_id']
+            "transport_id" => $row['transport_id'],
+            "alias" => $row['alias']
         ];
     }
 

@@ -17,7 +17,7 @@ if (!defined('MENU_ALLOWED')) {
             </svg>
             Home</a>
 
-        <a class="transition-link" href="#alerts">
+        <a class="transition-link" href="transports.html">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-plus" viewBox="0 0 16 16">
                 <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372zm-2.54 1.183L5.93 9.363 1.591 6.602z" />
                 <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5" />
@@ -25,13 +25,6 @@ if (!defined('MENU_ALLOWED')) {
             Transports</a>
     </div>
     <div class="support-options">
-        <!--
-        <a class="transition-link" href="#settings">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-wide" viewBox="0 0 16 16">
-                <path d="M8.932.727c-.243-.97-1.62-.97-1.864 0l-.071.286a.96.96 0 0 1-1.622.434l-.205-.211c-.695-.719-1.888-.03-1.613.931l.08.284a.96.96 0 0 1-1.186 1.187l-.284-.081c-.96-.275-1.65.918-.931 1.613l.211.205a.96.96 0 0 1-.434 1.622l-.286.071c-.97.243-.97 1.62 0 1.864l.286.071a.96.96 0 0 1 .434 1.622l-.211.205c-.719.695-.03 1.888.931 1.613l.284-.08a.96.96 0 0 1 1.187 1.187l-.081.283c-.275.96.918 1.65 1.613.931l.205-.211a.96.96 0 0 1 1.622.434l.071.286c.243.97 1.62.97 1.864 0l.071-.286a.96.96 0 0 1 1.622-.434l.205.211c.695.719 1.888.03 1.613-.931l-.08-.284a.96.96 0 0 1 1.187-1.187l.283.081c.96.275 1.65-.918.931-1.613l-.211-.205a.96.96 0 0 1 .434-1.622l.286-.071c.97-.243.97-1.62 0-1.864l-.286-.071a.96.96 0 0 1-.434-1.622l.211-.205c.719-.695.03-1.888-.931-1.613l-.284.08a.96.96 0 0 1-1.187-1.186l.081-.284c.275-.96-.918-1.65-1.613-.931l-.205.211a.96.96 0 0 1-1.622-.434zM8 12.997a4.998 4.998 0 1 1 0-9.995 4.998 4.998 0 0 1 0 9.996z" />
-            </svg>
-            Settings</a>
--->
         <a class="transition-link" href="support.php">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                 fill="#e8eaed">
@@ -58,38 +51,38 @@ if (!defined('MENU_ALLOWED')) {
 </aside>
 
 <dialog id="logout">
-        <div class="dialog-header">
-            <h1>Log out</h1>
-            <button class="close-modal close-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x"
-                    viewBox="0 0 16 16">
+    <div class="dialog-header">
+        <h1>Log out</h1>
+        <button class="close-modal close-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x"
+                viewBox="0 0 16 16">
+                <path
+                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+            </svg>
+
+        </button>
+    </div>
+    <div class="dialog-body">
+        <p>Are you sure you want to log out?</p>
+    </div>
+    <div class="dialog-options">
+        <button id="cancel-btn" class="close-btn">Cancel</button>
+        <a href="../php/sesion/logout.php" id="logout-btn">
+
+            <div class="text show">
+                Logout
+            </div>
+
+            <div class="loader-hourglass hide">
+                <svg class="spinner-hourglass" xmlns="http://www.w3.org/2000/svg" height="20px"
+                    viewBox="0 -960 960 960" width="20px" fill="#e8eaed">
                     <path
-                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                        d="M320-160h320v-120q0-66-47-113t-113-47q-66 0-113 47t-47 113v120Zm160-360q66 0 113-47t47-113v-120H320v120q0 66 47 113t113 47ZM160-80v-80h80v-120q0-61 28.5-114.5T348-480q-51-32-79.5-85.5T240-680v-120h-80v-80h640v80h-80v120q0 61-28.5 114.5T612-480q51 32 79.5 85.5T720-280v120h80v80H160Z" />
                 </svg>
+            </div>
 
-            </button>
-        </div>
-        <div class="dialog-body">
-            <p>Are you sure you want to log out?</p>
-        </div>
-        <div class="dialog-options">
-            <button id="cancel-btn" class="close-btn">Cancel</button>
-            <a href="../php/sesion/logout.php" id="logout-btn">
-
-                <div class="text show">
-                    Logout
-                </div>
-
-                <div class="loader-hourglass hide">
-                    <svg class="spinner-hourglass" xmlns="http://www.w3.org/2000/svg" height="20px"
-                        viewBox="0 -960 960 960" width="20px" fill="#e8eaed">
-                        <path
-                            d="M320-160h320v-120q0-66-47-113t-113-47q-66 0-113 47t-47 113v120Zm160-360q66 0 113-47t47-113v-120H320v120q0 66 47 113t113 47ZM160-80v-80h80v-120q0-61 28.5-114.5T348-480q-51-32-79.5-85.5T240-680v-120h-80v-80h640v80h-80v120q0 61-28.5 114.5T612-480q51 32 79.5 85.5T720-280v120h80v80H160Z" />
-                    </svg>
-                </div>
-
-            </a>
-        </div>
-    </dialog>
+        </a>
+    </div>
+</dialog>
 
 <script src="../js/lateral_menu.js"></script>

@@ -2,8 +2,8 @@
 require_once '../env.php';
 require_once '../email/email.php';
 require_once '../email/templates/password_updated.php';
-require_once 'close_sesion.php';
-require_once 'checkAuth.php';
+require_once '../sesion/close_sesion.php';
+require_once '../sesion/checkAuth.php';
 $user = checkAuth();
 $owner = $user['id'];
 
@@ -118,7 +118,7 @@ try {
             //enviar email
             $body = password_updated_email_template($user['username']);
             send_email($body, "Password change detected", $user['email']);
-            close_sesion();
+            close_session();
             echo json_encode(["error" => false, "type" => "success", "title" => "Password updated", "message" => "Log in again to continue."]);
         } else {
             //No se modifica ningun registro
