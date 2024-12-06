@@ -235,6 +235,10 @@
 
   /*row*/
   --row-hover:#26184e;
+  --row-background-down: #f7305127;
+  --row-background-down-hover: #f7305156;
+  --row-background-warning: #ffd00027;
+  --row-background-warning-hover: #ffd00056;
   /*Alert*/
   --alert-background:#170F2F;
   --alert-success:#B5F730;
@@ -249,9 +253,13 @@
   /*tooltip*/
   --tooltip-background:#26184e;
 
+  /*Loaders*/
+  --spinner-loader:#f5f0fe88;
+  
   /*dropdown menu*/
   --dropdownMenu-background:#26184e;
   --dropdownMenuItem-hover:#392574;
+  --dropdownMenuItem-option-divider:#1e133d;
 
   /*Dialog*/
   --dialog-background: #26184e;
@@ -259,10 +267,12 @@
 
   /*Special colors*/
   --accent-green: #B5F730;
+  --soft-green: #8bc81a;
   --accent-red: #F73051;
   --accent-red-hover:#D12945;
+  --soft-red: #ff6a6a;
   --accent-yellow: #ffef41;
-
+  --soft-violete:#5853ff;
   --accent-blue: #0600EF;
   --accent-blue-hover: #1300D0;
 

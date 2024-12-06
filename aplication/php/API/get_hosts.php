@@ -1,7 +1,7 @@
 <?php
 // Cargar las variables de entorno
-require_once 'env.php';
-include '../php/sesion/checkAuth.php';
+require_once '../env.php';
+include '../sesion/checkAuth.php';
 $user = checkAuth();
 $owner = $user['id'];
 
@@ -16,7 +16,7 @@ try {
     }
 
     // Consulta SQL para obtener los hosts del usuario
-    $sql = "SELECT id, ip, name, state, last_up FROM host_data WHERE owner = ?";
+    $sql = "SELECT id, ip, name, state, last_check, last_up FROM host_data WHERE owner = ?";
 
     // Preparar la consulta
     $stmt = $conn->prepare($sql);
@@ -24,13 +24,8 @@ try {
         throw new Exception("Query preparation failed: " . $conn->error);
     }
 
-    // Vincular el parámetro
     $stmt->bind_param("i", $owner);
-
-    // Ejecutar la consulta
     $stmt->execute();
-    
-    // Obtener los resultados
     $result = $stmt->get_result();
 
     // Comprobar si hay resultados
@@ -45,8 +40,9 @@ try {
                 "id" => $row['id'],
                 "ip" => $row['ip'],
                 "name" => $row['name'],
-                'state' => ($row['state'] == 1) ? true : false, //Para que java interprete bien los estados
-                "last_up" => $row['last_up']
+                'state' => $row['state'], // ($row['state'] == 1) ? true : false Para que java interprete bien los estados
+                "last_up" => $row['last_up'],
+                "last_check" => $row['last_check']
             );
         }
 
@@ -59,15 +55,10 @@ try {
         echo json_encode([]);
     }
 
-    // Cerrar el statement
-    $stmt->close();
 } catch (Exception $e) {
     // Manejo de errores
     echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
 } finally {
-    // Cerrar la conexión
-    if (isset($conn) && $conn) {
-        $conn->close();
-    }
+    $conn->close();
+    $stmt->close();
 }
-?>

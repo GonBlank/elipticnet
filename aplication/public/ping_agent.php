@@ -213,8 +213,8 @@ define('MENU_ALLOWED', true);
     </main>
 
     <script src="../js/modal.js"></script>
-    <script src="../js/get_transports.js"></script>
-    <script src="../js/host_create.js"></script>
+    <script src="../js/API/get_transports.js"></script>
+    <script src="../js/API/host_create.js"></script>
     <script src="../js/page_transition.js"></script>
     <script src="../js/show_alert.js"></script>
 </body>
