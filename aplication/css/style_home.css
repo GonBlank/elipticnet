@@ -310,16 +310,17 @@
 }
 
 
-.dropdown_menu_container.full #ping_agent::after{
+.dropdown_menu_container.full #ping_agent::after {
     content: "Check the availability and latency of the devices";
     text-wrap: wrap;
     text-align: center;
-    font-size: .9rem;
+    font-size: .75rem;
 }
 
-.dropdown_menu_container.full a{
+.dropdown_menu_container.full a {
     flex-direction: column;
     border-bottom: 1px solid var(--dropdownMenuItem-option-divider);
+    gap: 5px;
 }
 
 .dropdown_menu svg {

@@ -1,33 +1,62 @@
 function fetchHosts() {
     fetch('../php/API/get_hosts.php')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.error) {
                 ShowAlert(data.type, data.title, data.message, data.type);
+                place_holder_manager('error');
+            } else {
+                place_holder_manager('delete');
+                if (Array.isArray(data) && data.length === 0) {
+                    const agents_menu_container = document.getElementById('agents_menu_container');
+                    agents_menu_container.classList.add('full');
+                }
+
+                data.forEach(host => {
+                    updateOrCreateHost(host);
+                });
+
+                updateOrCreateStatistics(data);
             }
-
-            if (Array.isArray(data) && data.length === 0) {
-                place_holder_manage('no_hosts');
-            }
-
-            place_holder_manage('delete');
-            data.forEach(host => {
-                updateOrCreateHost(host);
-            });
-
-            //updateOrCreateStatistics(data);
 
         })
         .catch(error => {
             ShowAlert('error', 'Error', `Error: ${error.message}`, 'error')
-            place_holder_manage('error');
+            place_holder_manager('error');
         })//
         .finally(() => {
-            //Quita el icono de carga
+            //Quitar el icono de carga
         });
 }
 
-function place_holder_manage(row_type) {
+
+function updateOrCreateStatistics(data) {
+    const hosts_monitored = document.getElementById('hosts_monitored');
+    const hosts_up = document.getElementById('hosts_up');
+    const hosts_down = document.getElementById('hosts_down');
+
+
+    const hosts_monitored_h2Element = hosts_monitored.querySelector('h2');
+    const hosts_up_h2Element = hosts_up.querySelector('h2');
+    const hosts_down_h2Element = hosts_down.querySelector('h2');
+
+    //contadores
+    const hostCount = data.length;
+    const upHosts = data.filter(host => host.state === 1).length;
+    const downHosts = data.filter(host => host.state === 0).length;
+
+    hosts_monitored_h2Element.textContent = hostCount;
+    hosts_up_h2Element.textContent = upHosts;
+    hosts_down_h2Element.textContent = downHosts;
+
+}
+
+function place_holder_manager(row_type) {
     const place_holder = document.getElementById('row_place_holder');
 
     switch (row_type) {
@@ -35,9 +64,7 @@ function place_holder_manage(row_type) {
             place_holder.innerHTML = `<img src="../img/icons/error.png" width="20" height="20">
             <p id="place_holder_message">ERROR</p>`;
             return;
-        case 'no_hosts':
-            const agents_menu_container = document.getElementById('agents_menu_container');
-            agents_menu_container.classList.add('full');
+        case 'delete':
             if (place_holder) {
                 place_holder.remove();
             }
@@ -57,7 +84,9 @@ function updateOrCreateHost(host) {
 }
 
 function createHost(host) {
-    //const hostTable = document.getElementById('host_table');
+    const agents_menu_container = document.getElementById('agents_menu_container');
+    agents_menu_container.classList.remove('full'); //Acomoda el boton a un costado
+
     const host_row = document.createElement('a');
     host_row.classList.add('row');
     state = state_class(host.state);//waiting/up/down/warning

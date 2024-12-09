@@ -54,7 +54,7 @@ define('MENU_ALLOWED', true);
 
     </nav>
 
-     <?php include '../php/global/lateral_menu/lateral_menu.php'; ?>
+    <?php include '../php/global/lateral_menu/lateral_menu.php'; ?>
 
 
     <main class="dashboard">
@@ -137,11 +137,11 @@ define('MENU_ALLOWED', true);
                     </h4>
                     <div class="timers">
                         <p id="up_since">
-                        <div class="placeholder-load-container" style="width: 60%; height: .7rem;">
+                        <div id="up_since_placeholder" class="placeholder-load-container" style="width: 60%; height: .7rem;">
                         </div>
                         </p>
                         <p id="last_check">
-                        <div class="placeholder-load-container" style="width: 60%; height: .7rem;">
+                        <div id="last_check_placeholder" class="placeholder-load-container" style="width: 60%; height: .7rem;">
                         </div>
                         </p>
                     </div>
@@ -205,73 +205,77 @@ define('MENU_ALLOWED', true);
             <section id="latency_graph_container">
                 <div id="latency_graph" style="width: 100%; height: 100%;"></div>
             </section>
+
+
             <article class="log">
                 <h1>Latest incidents</h1>
 
                 <div id="log_table" class="table">
-                    <div class="header">
-                        <p>Status</p>
-                        <p>Cause</p>
-                        <p>Started</p>
-                        <p>Duration</p>
-                    </div>
-                    <div id="table_body" class="table-body">
-                        <div class="row row-loader">
-                            <svg class="spinner-circle blue" class="up-since" xmlns="http://www.w3.org/2000/svg"
-                                height="24px" viewBox="0 -960 960 960" width="24px">
-                                <path
-                                    d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q17 0 28.5 11.5T520-840q0 17-11.5 28.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-17 11.5-28.5T840-520q17 0 28.5 11.5T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Z" />
-                            </svg>
+                    <div class="log_row table-header">
+                        <div class="log_event">
+                            <p>Event</p>
                         </div>
 
+                        <div class="cause">
+                            <p>Cause</p>
+                        </div>
+
+                        <div class="started">
+                            <p>Started</p>
+                        </div>
 
                     </div>
-                    <!--
-                    <div class="row">
-                        <p class="unsolved">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                            </svg>
-                            Unsolved
-                        </p>
-                        <p>No response</p>
-                        <p>Sep 26, 2024 09:26AM GMT-3</p>
-                        <p>1h 27m 44s</p>
-                    </div>
 
-                    <div class="row">
-                        <p class="resolved">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                            </svg>
 
-                            Resolved
-                        </p>
-                        <p>No response</p>
-                        <p>Sep 26, 2024 09:26AM GMT-3</p>
-                        <p>1h 27m 44s</p>
-                    </div>
+                    <div id="table_body" class="table-body">
+                        <!--
+                    <article class="log_row">
+                            <div class="log_event">
+                                <img src="../img/svg/host/host_down.svg">
+                                <p>Host down</p>
+                            </div>
 
-                    <div class="row">
-                        <p class="resolved">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                            </svg>
-                            Resolved
-                        </p>
-                        <p>No response</p>
-                        <p>Sep 26, 2024 09:26AM GMT-3</p>
-                        <p>1h 27m 44s</p>
+                            <div class="cause">
+                                <p>Host down because is unreacheble</p>
+                            </div>
+
+                            <div class="started">
+                                <p>12/02/2024 15:02:23</p>
+                            </div>
+
+                        </article>
+
+                        <article class="log_row">
+                            <div class="log_event">
+                                <img src="../img/svg/host/host_up.svg">
+                                <p>Host UP</p>
+                            </div>
+                            <div class="cause">
+                                <p>Host up againd</p>
+                            </div>
+                            <div class="started">
+                                <p>12/02/2024 16:02:23</p>
+                            </div>
+                        </article>
+
+                        <article class="log_row">
+                            <div class="log_event">
+                                <img src="../img/svg/host/host_alert.svg">
+                                <p>Threshhold sobrepass</p>
+                            </div>
+                            <div class="cause">
+                                <p>the ping is 123ms</p>
+                            </div>
+                            <div class="started">
+                                <p>12/02/2024 17:02:23</p>
+                            </div>
+                        </article>
+                        -->
                     </div>
-                    -->
                 </div>
             </article>
+
+
         </section>
     </main>
 
@@ -319,8 +323,10 @@ define('MENU_ALLOWED', true);
 
     <script src="../js/functions/get_url_param_id.js"></script>
     <script src="../modules/echart/node_modules/echarts/dist/echarts.min.js"></script>
-    <script src="../js/get_host_data.js"></script>
-    <script src="../js/latency_graph.js"></script>
+
+    <script src="../js/API/get_host_data.js"></script>
+    <script src="../js/API/get_host_statistics.js"></script>
+    <!-- <script src="../js/latency_graph.js"></script> -->
     <script src="../js/host_delete.js"></script>
 </body>
 

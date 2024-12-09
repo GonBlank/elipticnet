@@ -45,15 +45,18 @@ try {
         ];
     }
 
-    // Cerrar la conexión
-    $stmt->close();
-    $conn->close();
-
     // Devolver el JSON con los transportes
     echo json_encode(["transports" => $transports], JSON_PRETTY_PRINT);
 
 } catch (Exception $e) {
     // Manejar errores
     echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
+}finally {
+    if (isset($stmt) && $stmt !== false) {
+        $stmt->close();
+    }
+    if (isset($conn) && $conn !== false) {
+        $conn->close();
+    }
 }
 ?>
