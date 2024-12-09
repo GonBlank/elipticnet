@@ -92,15 +92,16 @@ try {
     ║ HOST CREADO  ║
     ╚══════════════╝
     */
-    $stmt->close();
-    $conn->close();
+
     echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Hostess created successfully"]);
     exit;
 } catch (Exception $e) {
     echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
 } finally {
-    // Cerrar la conexión
-    if ($conn) {
+    if (isset($stmt) && $stmt !== false) {
+        $stmt->close();
+    }
+    if (isset($conn) && $conn !== false) {
         $conn->close();
     }
 }

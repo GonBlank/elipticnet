@@ -260,54 +260,6 @@
     text-wrap: nowrap
 }
 
-
-.log_row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-bottom: 3px;
-    gap: 8px;
-    border-bottom: 1px solid var(--LogRowdividingLine-color);
-    text-align: center;
-    width: 100%;
-}
-
-.log_row p {
-    font-size: .8rem;
-}
-
-.log_row.table-header p {
-    font-size: .9rem;
-}
-
-.log_row .log_event {
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-    padding: 5px;
-    text-align: left;
-    flex:1;
-}
-
-.log_row .cause {
-    text-align: center;
-    padding: 5px;
-    flex: 2;
-}
-
-.log_row .started {
-    text-align: center;
-    text-align: right;
-    padding: 5px;
-    flex: 1;
-}
-
-.table-header {
-    margin-top: 15px;
-    border-bottom: none;
-    font-size: 1rem !important;
-}
-
 .table-body {
     display: flex;
     flex-direction: column-reverse;
@@ -315,7 +267,74 @@
 }
 
 
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    text-align: center;
+}
 
+.header p {
+    font-size: .75rem;
+    width: 100%;
+    padding: 5px;
+    flex: 1;
+    min-width: 150px;
+
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 3px;
+    gap: 8px;
+    border-bottom: 1px solid var(--dividingLine-color);
+    text-align: center;
+}
+
+.row p {
+    width: 100%;
+    font-size: .8rem;
+    flex: 1;
+    padding: 5px;
+}
+
+.row p:first-child,
+.header p:first-child {
+    display: flex;
+    gap: 5px;
+    min-width: 90px;
+}
+
+.row p.resolved svg {
+    fill: var(--alert-success);
+}
+
+.row p.unsolved svg {
+    fill: var(--accent-red);
+}
+
+.row p:nth-child(3),
+.row p:nth-child(4),
+.header p:nth-child(3),
+.header p:nth-child(4) {
+    flex: 2;
+    min-width: 150px;
+}
+
+.row.special {
+    border-bottom: none;
+}
+
+.row.special p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    gap: 10px;
+    margin-top: 20px;
+}
 
 
 .dropdown_menu {
@@ -359,6 +378,8 @@
     /* Color al pasar el ratón */
 }
 
+
+
 @media (max-width: 500px) {
 
     /* Estilos específicos para pantallas menores a 500px */
@@ -397,6 +418,17 @@
 .placeholder-load-container.hide {
     display: none;
 }
+
+.row.row-loader {
+    justify-content: center;
+    border-bottom: none;
+    margin-top: 20px;
+}
+
+.row.row-loader.hide {
+    display: none;
+}
+
 
 .dialog-body {
     padding: 20px;

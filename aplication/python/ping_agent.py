@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import mysql.connector
 import json
 from ping3 import ping
@@ -8,8 +10,9 @@ from datetime import datetime, timezone
 #║ CONFIGURATIONS  ║
 #╚═════════════════╝
 
-
-with open("../config/config.json", "r") as file:
+#/var/www/elipticnet/aplication/config/config.json
+#../config/config.json
+with open("/var/www/elipticnet/aplication/config/config.json", "r") as file:
     config = json.load(file)
 
 db_config = {
@@ -93,13 +96,13 @@ def check_state(host, new_state):
     if host["state"] == True and new_state["state"] == False:
         print("[INFO] DETECT HOST DOWN")
         update_state(host, new_state["state"])
-        update_host_log(host, "down", "Host down", log_message(new_state["response"]))
+        update_host_log(host, "host_down", "Host down", log_message(new_state["response"]))
         update_last_up_down(False, host['id'])
         #send_alert(host['transports'])
     elif host["state"] == False and new_state["state"] == True:
         print("[INFO] DETECT HOST UP")
         update_state(host, new_state["state"])
-        update_host_log(host, "up", "Recovered host")
+        update_host_log(host, "host_up", "Recovered host", "The host is back online")
         update_last_up_down(True, host['id'])
         #send_alert(host['transports'])
         
@@ -112,7 +115,6 @@ def check_state(host, new_state):
             update_state(host, new_state["state"])
             update_last_up_down(False, host['id'])
         
-
 def update_state(host, new_state):
     print("[INFO] UPDATING STATE")
     try:

@@ -58,7 +58,11 @@ try {
 } catch (Exception $e) {
     // Manejo de errores
     echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
-} finally {
-    $conn->close();
-    $stmt->close();
+}finally {
+    if (isset($stmt) && $stmt !== false) {
+        $stmt->close();
+    }
+    if (isset($conn) && $conn !== false) {
+        $conn->close();
+    }
 }
