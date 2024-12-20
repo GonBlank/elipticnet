@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
             toggleButtonState(true);
 
             // Realizar la solicitud de eliminación
-            const response = await fetch(`../php/delete_host_by_id.php?hostId=${hostId}`);
+            const response = await fetch(`../php/API/ping_agent_delete.php?hostId=${hostId}`);
 
             if (response.ok) {
                 // Llamar a la función ShowAlert

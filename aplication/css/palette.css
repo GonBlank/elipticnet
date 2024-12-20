@@ -213,17 +213,27 @@
   --form-background: #170F2F;
   --border-content-color: #26184e;
 
+  /*Graps*/
+  --LatencyGraphDot-color:#B5F730;
+  --LatencyGraphLine-color:#b5f730a1;
+  --LatencyGraphArea-color:#5e3dc22a;
+  --LatencyGraphGrid-color: #f5f0fe13;
 
+  --LatencyGraphTooltip-border-color: #26184e;
+  --LatencyGraphTooltip-text-color: var(--text-color);
+  --LatencyGraphTooltipBg-color: #26184e;
   
 
   /*Inputs*/
-  --input-background: #160E2D;
+  --input-background: #17102c;
+  --input-disabled-bg: #170F2F;
+  --input-disabled-border: #26184e;
   --input-border: #26184e;
   --input-border-hover: #5e3dc2;
   --input-focus: #26184e;
   --input-focus-visible: #26184e;
-  
 
+  
   /*Checkbox*/
   --checkbox-active: #b499ff;
   --checkbox-active-inner: #07001a;

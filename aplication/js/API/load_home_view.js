@@ -92,7 +92,7 @@ function createHost(host) {
     state = state_class(host.state);//waiting/up/down/warning
     host_row.classList.add(state.class);
     host_row.setAttribute('host-id', host.id);
-    host_row.setAttribute('href', `host.php?id=${host.id}`);
+    host_row.setAttribute('href', `ping_agent_view.php?id=${host.id}`);
 
     host_row.innerHTML = `
         <div class="host-satus">

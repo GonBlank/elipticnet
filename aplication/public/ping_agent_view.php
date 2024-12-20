@@ -10,7 +10,7 @@ define('MENU_ALLOWED', true);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Host view</title>
+    <title>Elipticnet || Ping agent view</title>
 
     <!--Favicon-->
     <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-touch-icon.png">
@@ -26,7 +26,7 @@ define('MENU_ALLOWED', true);
 
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/palette.css" />
-    <link rel="stylesheet" href="../css/style_host.css" />
+    <link rel="stylesheet" href="../css/ping_agent_view.css" />
 
 </head>
 
@@ -39,18 +39,12 @@ define('MENU_ALLOWED', true);
             </svg>
         </button>
         <div class="nav-icon" id="nav-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-router-fill"
-                viewBox="0 0 16 16">
-                <path
-                    d="M5.525 3.025a3.5 3.5 0 0 1 4.95 0 .5.5 0 1 0 .707-.707 4.5 4.5 0 0 0-6.364 0 .5.5 0 0 0 .707.707" />
-                <path
-                    d="M6.94 4.44a1.5 1.5 0 0 1 2.12 0 .5.5 0 0 0 .708-.708 2.5 2.5 0 0 0-3.536 0 .5.5 0 0 0 .707.707Z" />
-                <path
-                    d="M2.974 2.342a.5.5 0 1 0-.948.316L3.806 8H1.5A1.5 1.5 0 0 0 0 9.5v2A1.5 1.5 0 0 0 1.5 13H2a.5.5 0 0 0 .5.5h2A.5.5 0 0 0 5 13h6a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5h.5a1.5 1.5 0 0 0 1.5-1.5v-2A1.5 1.5 0 0 0 14.5 8h-2.306l1.78-5.342a.5.5 0 1 0-.948-.316L11.14 8H4.86zM2.5 11a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m4.5-.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0m2.5.5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m1.5-.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0m2 0a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0" />
-                <path d="M8.5 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
+                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
             </svg>
         </div>
-        <h1 id="nav-tittle"> Host view</h1>
+        <h1 id="nav-tittle">Ping agent view</h1>
 
     </nav>
 
@@ -100,26 +94,18 @@ define('MENU_ALLOWED', true);
                         </button>
                     </div>
                 </div>
-                <!--
-                <div class="time-interval">
-                    <button class="lastDay" onclick="updateChartData('24h')">Last day</button>
-                    <button class="lastMonth" onclick="updateChartData('1m')">Last month</button>
-                    <button class="lastYear" onclick="updateChartData('1y')">Last Year</button>
-                </div>
-            -->
-
                 <div class="time-interval">
                     <label>
-                        <input checked type="radio" name="timeRange" value="24h"
+                        <input checked type="radio" name="timeRange" value="1"
                             onclick="updateSelectedRange(this.value)">
                         <span>Last day</span>
                     </label>
                     <label>
-                        <input type="radio" name="timeRange" value="1m" onclick="updateSelectedRange(this.value)">
+                        <input type="radio" name="timeRange" value="2" onclick="updateSelectedRange(this.value)">
                         <span>Last month</span>
                     </label>
                     <label>
-                        <input type="radio" name="timeRange" value="1y" onclick="updateSelectedRange(this.value)">
+                        <input type="radio" name="timeRange" value="3" onclick="updateSelectedRange(this.value)">
                         <span>Last year</span>
                     </label>
                 </div>
@@ -202,30 +188,22 @@ define('MENU_ALLOWED', true);
                 </div>
             </article>
 
-            <section id="latency_graph_container">
+            <article id="latency_graph_container">
                 <div id="latency_graph" style="width: 100%; height: 100%;"></div>
-            </section>
+            </article>
 
 
             <article class="log">
-                <h1>Latest incidents</h1>
+                <h1>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                        <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                        <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
+                        <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
+                    </svg>
+                    Latest events
+                </h1>
 
                 <div id="log_table" class="table">
-                    <div class="log_row table-header">
-                        <div class="log_event">
-                            <p>Event</p>
-                        </div>
-
-                        <div class="cause">
-                            <p>Cause</p>
-                        </div>
-
-                        <div class="started">
-                            <p>Started</p>
-                        </div>
-
-                    </div>
-
 
                     <div id="table_body" class="table-body">
                         <!--
@@ -324,10 +302,9 @@ define('MENU_ALLOWED', true);
     <script src="../js/functions/get_url_param_id.js"></script>
     <script src="../modules/echart/node_modules/echarts/dist/echarts.min.js"></script>
 
-    <script src="../js/API/get_host_data.js"></script>
-    <script src="../js/API/get_host_statistics.js"></script>
-    <!-- <script src="../js/latency_graph.js"></script> -->
-    <script src="../js/host_delete.js"></script>
+    <script src="../js/API/ping_agent_get_data.js"></script>
+    <script src="../js/API/ping_agent_get_statistics.js"></script>
+    <script src="../js/API/ping_agent_delete.js"></script>
 </body>
 
 </html>

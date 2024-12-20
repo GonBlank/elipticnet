@@ -108,12 +108,14 @@ def check_state(host, new_state):
         
     elif host["state"] == None:
         print("[INFO] FIRST CHECK")
+        update_host_log(host, "host_start", "First check", "The host begins to be monitored")
         if new_state["state"] == True:
             update_state(host, new_state["state"])
             update_last_up_down(True, host['id'])
         else:
             update_state(host, new_state["state"])
             update_last_up_down(False, host['id'])
+            update_host_log(host, "host_down", "Host down", log_message(new_state["response"]))
         
 def update_state(host, new_state):
     print("[INFO] UPDATING STATE")

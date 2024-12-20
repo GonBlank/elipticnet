@@ -99,8 +99,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // Obtener los IDs de los checkboxes seleccionados
         const TransportsSelected = Array.from(selectedCheckboxes).map(checkbox => checkbox.id);
 
-
-        console.log(TransportsSelected)
         // Crear un objeto con los datos del nuevo host
         const newHost = {
             name: hostName.value,
@@ -114,9 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
             newHost.threshold = Math.floor(threshold.value); // Toma siempre la parte entera
         }
 
-        console.log(newHost);
-
-        fetch('../php/API/create_ping_agent.php', {
+        fetch('../php/API/ping_agent_create.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

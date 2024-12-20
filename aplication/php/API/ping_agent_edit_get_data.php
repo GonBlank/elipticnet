@@ -21,51 +21,50 @@ if (empty($hostId) || !is_numeric($hostId)) {
 
 $hostId = (int)$hostId;
 
-
 try {
     // Conectar a la base de datos
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
     // Verificar conexión
     if ($conn->connect_error) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => $conn->connect_error]);
-        exit;
+        throw new Exception("Connection error: " . $conn->connect_error);
     }
-    $time_range = '1 DAY'; // Cambiar entre '1 DAY', '1 MONTH', '1 YEAR'
 
-    $sql = "SELECT 
-        AVG(l.latency) AS average_latency,
-        MIN(l.latency) AS minimum_latency,
-        MAX(l.latency) AS maximum_latency
-    FROM 
-        latency l
-    JOIN 
-        host_data h 
-    ON 
-        l.host_id = h.id
-    WHERE 
-        l.host_id = ?
-        AND h.owner = ?
-        AND l.time >= NOW() - INTERVAL $time_range"; // El intervalo ya está definido aquí
-
-    // Preparar la consulta
+    // Consulta SQL para obtener el host con el id y owner correspondiente
+    $sql = "SELECT ip, name, description, transports, threshold 
+            FROM host_data WHERE id = ? AND owner = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
-        throw new Exception("Query preparation failed: " . $conn->error);
+        throw new Exception("Prepare statement error: " . $conn->error);
     }
 
-    $stmt->bind_param("ii", $hostId, $owner);
+    // Vincular parámetros
+    $stmt->bind_param("ii", $hostId, $owner);  // Usamos 'ii' para indicar que son dos enteros
     $stmt->execute();
     $result = $stmt->get_result();
-    $statistics = $result->fetch_assoc();
-    echo json_encode($statistics, JSON_PRETTY_PRINT);
+
+    if ($result->num_rows == 0) {
+        echo json_encode(["error" => true, "type" => "warning", "title" => "Not Found", "message" => "No host found."]);
+        exit;
+    }
+
+    // Obtener el host
+    $host = $result->fetch_assoc();
+
+    // Decodificar los campos JSON, si existen
+    if ($host['threshold']) {
+        $host['threshold'] = json_decode($host['threshold'], true); // Convertir a array
+    }
+
+    // Devolver el host en formato JSON
+    echo json_encode($host, JSON_PRETTY_PRINT);
+    exit;
 } catch (Exception $e) {
-    // Manejo de errores
+    // Manejar errores
     echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
 } finally {
-    
     if (isset($stmt) && $stmt !== false) {
-        $stmt->close(); // Aquí se lanza el error si $stmt ya estaba cerrado.
+        $stmt->close();
     }
     if (isset($conn) && $conn !== false) {
         $conn->close();

@@ -1,6 +1,6 @@
 function get_host_by_id() {
 
-    fetch(`../php/API/get_host_data.php?id=${hostId}`)
+    fetch(`../php/API/ping_agent_get_data.php?id=${hostId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -71,7 +71,7 @@ function load_host_data(host) {
     host_description.textContent = host.description;
 
     // Construir la URL base con los parámetros id, ip, name y description
-    let href = `host_edit.php?id=${hostId}`;
+    let href = `ping_agent_edit.php?id=${hostId}`;
     edit_host.setAttribute('href', href);
 
 
@@ -96,8 +96,7 @@ function load_host_data(host) {
         up_since.textContent = '';
     }
 
-    last_check.textContent = 'Last check ' + uptime_formatter(uptime_calculator(host.last_check)) + ' ago';
-
+    last_check.textContent = 'Last check: ' + uptime_formatter(uptime_calculator(host.last_check)) + ' ago';
 }
 
 function uptime_calculator(time) {
@@ -187,9 +186,5 @@ function log_time_formatter(time) {
     return formattedDate;
 }
 
-
-
-let selectedRange = '24h';
 get_host_by_id();
-//setInterval(get_host_by_id, 60000); // Ejecuta cada 1 minuto
-setInterval(get_host_by_id, 30000);
+setInterval(get_host_by_id, 60000);

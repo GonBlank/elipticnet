@@ -232,10 +232,8 @@
     background-color: var(--form-background);
     border-radius: 8px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 0px;
 }
 
 .log {
@@ -248,10 +246,18 @@
 }
 
 .log h1 {
-    font-size: .97rem;
+    font-size: 1rem;
     font-weight: 400;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
 }
-
+.log h1 svg{
+    width: 16px;
+    height: 16px;
+}
 
 .table {
     display: flex;
@@ -276,9 +282,7 @@
     font-size: .8rem;
 }
 
-.log_row.table-header p {
-    font-size: .9rem;
-}
+
 
 .log_row .log_event {
     display: flex;
@@ -300,12 +304,6 @@
     text-align: right;
     padding: 5px;
     flex: 1;
-}
-
-.table-header {
-    margin-top: 15px;
-    border-bottom: none;
-    font-size: 1rem !important;
 }
 
 .table-body {

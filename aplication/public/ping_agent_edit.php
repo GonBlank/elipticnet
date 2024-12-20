@@ -10,7 +10,7 @@ define('MENU_ALLOWED', true);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New agent</title>
+    <title>Edit agent</title>
 
     <!--Favicon-->
     <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-touch-icon.png">
@@ -39,13 +39,11 @@ define('MENU_ALLOWED', true);
             </svg>
         </button>
         <div class="nav-icon" id="nav-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
-                viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001" />
             </svg>
         </div>
-        <h1 id="nav-tittle"> New agent</h1>
+        <h1 id="nav-tittle"> Edit agent</h1>
 
     </nav>
 
@@ -56,16 +54,12 @@ define('MENU_ALLOWED', true);
         <section class="form-container">
             <div class="tittle">
                 <h1>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-vinyl" viewBox="0 0 16 16">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                        <path d="M8 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4M4 8a4 4 0 1 1 8 0 4 4 0 0 1-8 0" />
-                        <path d="M9 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001" />
                     </svg>
-                    Ping agent
+                    Edit ping agent
                 </h1>
-                <p>The agent uses ping to check the availability and latency of the devices, storing the data
-                    obtained.</p>
+              
             </div>
             <div class="input-form">
                 <div class="input-row-group">
@@ -85,7 +79,7 @@ define('MENU_ALLOWED', true);
 
                     <label class="label">
                         <input tabindex="2" type="text" placeholder=" " class="input" id="host-ip" name="host-ip"
-                            autocomplete="ip" required />
+                            autocomplete="ip" disabled />
                         <span class="label__name">
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                                 fill="#e8eaed">
@@ -160,7 +154,7 @@ define('MENU_ALLOWED', true);
                 <p>Alert transport</p>
             </div>
 
-            <section class="alert-transports">
+            <section id="alert_transports_table" class="alert-transports">
 
                 <!-- <article class="transport">
                     <div class="checkbox-wrapper-13">
@@ -193,10 +187,10 @@ define('MENU_ALLOWED', true);
                         ADD TRANSPORT</a>
                 </div>
             </section>
-            <button id="create_agent" class="create-agent">
+            <button id="update_agent" class="create-agent">
 
                 <div class="text show">
-                    Create
+                    UPDATE
                 </div>
 
                 <div class="loader-hourglass hide"> <!-- Cambiado a hide para que esté oculto por defecto -->
@@ -214,7 +208,9 @@ define('MENU_ALLOWED', true);
 
     <script src="../js/modal.js"></script>
     <script src="../js/API/get_transports.js"></script>
-    <script src="../js/API/host_create.js"></script>
+    <script src="../js/functions/get_url_param_id.js"></script>
+    <script src="../js/API/ping_agent_edit_get_data.js"></script>
+    <script src="../js/API/ping_agent_edit_update_data.js"></script>
     <script src="../js/page_transition.js"></script>
     <script src="../js/show_alert.js"></script>
 </body>
