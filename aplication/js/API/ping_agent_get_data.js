@@ -77,8 +77,19 @@ function load_host_data(host) {
 
     // Verificar y actualizar last_check
     if (host.state === null) {
-        current_status.textContent = 'Waiting';
+        current_status.textContent = 'Waiting...';
         current_status.className = `waiting`;
+
+        // Cambiar el display de #waiting-curtain a 'flex'
+        const waitingCurtain = document.getElementById('waiting-curtain');
+        waitingCurtain.style.display = 'flex';
+    } else {
+        // Verificar si el elemento #waiting-curtain existe antes de intentar ocultarlo y eliminarlo
+        const waitingCurtain = document.getElementById('waiting-curtain');
+        if (waitingCurtain) {
+            //waitingCurtain.style.display = 'none';
+            waitingCurtain.remove();  // Eliminarlo del DOM por completo
+        }
     }
 
     if (host.state === 1) {
@@ -86,15 +97,16 @@ function load_host_data(host) {
         current_status.className = `up`;
         up_since.textContent = 'Uptime: ' + uptime_formatter(uptime_calculator(host.last_up));
 
-        place_holder_manager('up_since_placeholder');
-        place_holder_manager('last_check_placeholder');
-
     }
     if (host.state === 0) {
         current_status.textContent = 'DOWN';
         current_status.className = `down`;
         up_since.textContent = '';
+        up_since.textContent = 'Uptime: - ';
     }
+
+    place_holder_manager('up_since_placeholder');
+    place_holder_manager('last_check_placeholder');
 
     last_check.textContent = 'Last check: ' + uptime_formatter(uptime_calculator(host.last_check)) + ' ago';
 }

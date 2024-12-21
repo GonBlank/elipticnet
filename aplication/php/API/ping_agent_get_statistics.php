@@ -33,7 +33,7 @@ try {
         exit;
     }
 
-    $sql = sql_data_range ($time_range);
+    $sql = sql_data_range($time_range);
 
     // Preparar la consulta
     $stmt = $conn->prepare($sql);
@@ -61,123 +61,139 @@ try {
 
 
 
-function sql_data_range ($time_range){
+function sql_data_range($time_range)
+{
     switch ($time_range) {
         case 1:
             //'1 DAY'
             return "
             SELECT 
-                JSON_ARRAYAGG(
-                    JSON_OBJECT(
-                        'latency', ROUND(l.latency, 2),
-                        'time', l.time
-                    )
-                ) AS latency_time_json,
-                ROUND(AVG(l.latency),2) AS average_latency,
-                ROUND(MIN(l.latency),2) AS minimum_latency,
-                ROUND(MAX(l.latency),2) AS maximum_latency
+            JSON_ARRAYAGG(
+            JSON_OBJECT(
+            'latency', ROUND(l.latency, 2),
+            'time', l.time
+            )
+            ) AS latency_time_json,
+            ROUND(AVG(l.latency), 2) AS average_latency,
+            ROUND(MIN(l.latency), 2) AS minimum_latency,
+            ROUND(MAX(l.latency), 2) AS maximum_latency,
+            ROUND(
+            100 * SUM(CASE WHEN l.latency IS NOT NULL THEN 1 ELSE 0 END) / COUNT(*),
+            2
+            ) AS uptime_percentage
             FROM 
-                latency l
+            latency l
             JOIN 
-                host_data h 
+            host_data h 
             ON 
-                l.host_id = h.id
+            l.host_id = h.id
             WHERE 
-                l.host_id = ?
-                AND h.owner = ?
-                AND l.time >= NOW() - INTERVAL 1 DAY;
+            l.host_id = ?
+            AND h.owner = ?
+            AND l.time >= NOW() - INTERVAL 1 DAY;
             ";
             break;
-    
+
         case 2:
             //'1 MONTH'
             return "
             SELECT 
-                JSON_ARRAYAGG(
-                    JSON_OBJECT(
-                        'time', time,
-                        'latency', ROUND(latency, 2)
-                    )
-                ) AS latency_time_json,
-                AVG(latency) AS average_latency,
-                ROUND(MIN(latency),2) AS minimum_latency,
-                ROUND(MAX(latency),2) AS maximum_latency
+            JSON_ARRAYAGG(
+            JSON_OBJECT(
+            'time', time,
+            'latency', ROUND(latency, 2)
+            )
+            ) AS latency_time_json,
+            AVG(latency) AS average_latency,
+            ROUND(MIN(latency), 2) AS minimum_latency,
+            ROUND(MAX(latency), 2) AS maximum_latency,
+            ROUND(
+            100 * SUM(CASE WHEN latency IS NOT NULL THEN 1 ELSE 0 END) / COUNT(*),
+            2
+            ) AS uptime_percentage
             FROM (
-                SELECT 
-                    DATE(l.time) AS time,
-                    AVG(l.latency) AS latency
-                FROM 
-                    latency l
-                JOIN 
-                    host_data h 
-                ON 
-                    l.host_id = h.id
-                WHERE 
-                    l.host_id = ?
-                    AND h.owner = ?
-                    AND l.time >= NOW() - INTERVAL 1 MONTH
-                GROUP BY 
-                    DATE(l.time)
+            SELECT 
+            DATE(l.time) AS time,
+            AVG(l.latency) AS latency,
+            SUM(CASE WHEN l.latency IS NOT NULL THEN 1 ELSE 0 END) AS up_count,
+            COUNT(*) AS total_count
+            FROM 
+            latency l
+            JOIN 
+            host_data h 
+            ON 
+            l.host_id = h.id
+            WHERE 
+            l.host_id = ?
+            AND h.owner = ?
+            AND l.time >= NOW() - INTERVAL 1 MONTH
+            GROUP BY 
+            DATE(l.time)
             ) AS subquery;
+
             ";
             break;
-    
+
         case 3:
             //'1 YEAR'
             return "
             SELECT 
-                JSON_ARRAYAGG(
-                    JSON_OBJECT(
-                        'time', time,
-                        'latency', ROUND(latency, 2)
-                    )
-                ) AS latency_time_json,
-                AVG(latency) AS average_latency,
-                ROUND(MIN(latency),2) AS minimum_latency,
-                ROUND(MAX(latency),2) AS maximum_latency
+            JSON_ARRAYAGG(
+            JSON_OBJECT(
+                'time', time,
+                'latency', ROUND(latency, 2)
+            )
+            ) AS latency_time_json,
+            AVG(latency) AS average_latency,
+            ROUND(MIN(latency),2) AS minimum_latency,
+            ROUND(MAX(latency),2) AS maximum_latency
             FROM (
-                SELECT 
-                    DATE_FORMAT(l.time, '%Y-%m') AS time,
-                    AVG(l.latency) AS latency
-                FROM 
-                    latency l
-                JOIN 
-                    host_data h 
-                ON 
-                    l.host_id = h.id
-                WHERE 
-                    l.host_id = ?
-                    AND h.owner = ?
-                    AND l.time >= NOW() - INTERVAL 1 YEAR
-                GROUP BY 
-                    DATE_FORMAT(l.time, '%Y-%m')
+            SELECT 
+            DATE_FORMAT(l.time, '%Y-%m') AS time,
+            AVG(l.latency) AS latency
+            FROM 
+            latency l
+            JOIN 
+            host_data h 
+            ON 
+            l.host_id = h.id
+            WHERE 
+            l.host_id = ?
+            AND h.owner = ?
+            AND l.time >= NOW() - INTERVAL 1 YEAR
+            GROUP BY 
+            DATE_FORMAT(l.time, '%Y-%m')
             ) AS subquery;
             ";
             break;
-    
+
         default:
             // Default '1 DAY'
             return "
             SELECT 
-                JSON_ARRAYAGG(
-                    JSON_OBJECT(
-                        'latency', ROUND(l.latency, 2),
-                        'time', l.time
-                    )
-                ) AS latency_time_json,
-                AVG(l.latency) AS average_latency,
-                MIN(l.latency) AS minimum_latency,
-                MAX(l.latency) AS maximum_latency
+            JSON_ARRAYAGG(
+            JSON_OBJECT(
+                'latency', ROUND(l.latency, 2),
+                'time', l.time
+            )
+            ) AS latency_time_json,
+            ROUND(AVG(l.latency), 2) AS average_latency,
+            ROUND(MIN(l.latency), 2) AS minimum_latency,
+            ROUND(MAX(l.latency), 2) AS maximum_latency,
+            ROUND(
+            100 * SUM(CASE WHEN l.latency IS NOT NULL THEN 1 ELSE 0 END) / COUNT(*),
+            2
+            ) AS uptime_percentage
             FROM 
-                latency l
+            latency l
             JOIN 
-                host_data h 
+            host_data h 
             ON 
-                l.host_id = h.id
+            l.host_id = h.id
             WHERE 
-                l.host_id = ?
-                AND h.owner = ?
-                AND l.time >= NOW() - INTERVAL 1 DAY;
+            l.host_id = ?
+            AND h.owner = ?
+            AND l.time >= NOW() - INTERVAL 1 DAY;
             ";
             break;
     }

@@ -53,6 +53,10 @@ define('MENU_ALLOWED', true);
 
     <main class="dashboard">
 
+    <div id="waiting-curtain">
+        <h1>Waiting for the first check.</h1>
+        <p>( it won't be long )</p>
+    </div>
         <section class="container">
             <article class="presentation">
                 <div class="title">

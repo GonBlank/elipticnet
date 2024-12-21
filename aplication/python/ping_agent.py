@@ -57,13 +57,15 @@ def fetch_host_data():
 
 def ping_host(host):
     ping_response = ping(host["ip"], timeout=2, unit="ms")
-    update_host_latency(host["id"], ping_response)  # round(ping_response, 2)
+    
 
     if ping_response != None and ping_response != False or type(ping_response) == float:
         print("[INFO] HOST UP")
+        update_host_latency(host["id"], ping_response)  # round(ping_response, 2)
         return {"state": True, "response": ping_response}
     else:
         print("[INFO] HOST DOWN")
+        update_host_latency(host["id"], None)  # round(ping_response, 2)
         return {"state": False, "response": ping_response}
 
 def update_host_latency(host_id, latency):
