@@ -16,7 +16,7 @@ try {
     }
 
     // Consulta SQL para obtener los hosts del usuario
-    $sql = "SELECT id, ip, name, state, last_check, last_up FROM host_data WHERE owner = ?";
+    $sql = "SELECT id, ip, name, state, last_check, last_up, threshold_exceeded FROM host_data WHERE owner = ?";
 
     // Preparar la consulta
     $stmt = $conn->prepare($sql);
@@ -42,7 +42,8 @@ try {
                 "name" => $row['name'],
                 'state' => $row['state'], // ($row['state'] == 1) ? true : false Para que java interprete bien los estados
                 "last_up" => $row['last_up'],
-                "last_check" => $row['last_check']
+                "last_check" => $row['last_check'], 
+                "threshold_exceeded" => $row['threshold_exceeded']
             );
         }
 

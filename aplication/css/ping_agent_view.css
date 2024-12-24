@@ -40,8 +40,6 @@
 	}
 }
 
-
-
 .container {
     width: 90%;
     padding: 10px;
@@ -134,24 +132,6 @@
     color: var(--text-color);
 }
 
-
-
-/*
-.time-interval button {
-    border: 1px solid var(--dividingLine-color);
-    padding: 5px;
-    border-radius: 8px;
-    font-size: .8rem;
-    text-align: center;
-    width: 82px;
-}
-
-.time-interval button:disabled {
-    border: 1px solid #26184e;
-    color: #f5f0fe57;
-}
-*/
-
 .status {
     margin-top: 20px;
     width: 100%;
@@ -159,8 +139,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     cursor: context-menu;
-    gap: 15px;
-
+    gap: 10px;
 }
 
 .current-status {
@@ -206,15 +185,19 @@
     gap: 1px;
 }
 
+
+.card{
+    padding: 15px;
+    background-color: var(--form-background);
+    border-radius: 8px;
+}
+
 .statistics {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: nowrap;
-    padding: 15px;
     gap: 20px;
-    background-color: var(--form-background);
-    border-radius: 8px;
     flex: 2;
 }
 
@@ -261,6 +244,56 @@
     margin-top: auto;
 }
 
+.circle-percent.box {
+    border: 1px solid var(--tooltip-background);
+    padding: 9px;
+}
+
+.circle-percent.core {
+    border: 1px solid var(--tooltip-background);
+    background-color: var(--background);
+    box-shadow: 0px 0px 10px 0px var(--background);
+    padding: 4px;
+    display: flex;
+    width: fit-content;
+}
+
+.circle-percent.core p{
+    font-size: .9rem;
+    min-width: 53px;
+    min-height: 20px;
+    text-align: center;
+}
+
+.circle-percent {
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.availability{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.availability h3{
+    font-size: .97rem;
+    font-weight: 400;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.availability h3 svg{
+    fill: var(--accent-green);
+}
+
 #latency_graph_container {
     width: 100%;
     height: auto;
@@ -303,7 +336,6 @@
     text-wrap: nowrap
 }
 
-
 .log_row {
     display: flex;
     flex-direction: row;
@@ -318,8 +350,6 @@
 .log_row p {
     font-size: .8rem;
 }
-
-
 
 .log_row .log_event {
     display: flex;
@@ -348,10 +378,6 @@
     flex-direction: column-reverse;
     gap: 10px;
 }
-
-
-
-
 
 .dropdown_menu {
     height: 82px;

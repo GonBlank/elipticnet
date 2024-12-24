@@ -31,7 +31,7 @@ try {
     }
 
     // Actualizar el host en la base de datos
-    $sql = "UPDATE host_data SET name = ?, description = ?, threshold = ?, transports = ? WHERE id = ? AND owner = ? ";
+    $sql = "UPDATE host_data SET name = ?, description = ?, threshold = ?, threshold_exceeded = ?, transports = ? WHERE id = ? AND owner = ? ";
 
     $stmt = $conn->prepare($sql);
 
@@ -45,10 +45,11 @@ try {
     $log_json = json_encode([]);
     $transports_json = json_encode($data['transports']);
     $threshold = isset($data['threshold']) && is_numeric($data['threshold']) ? (int) $data['threshold'] : null;
+    $threshold_exceeded = $threshold !== null ? 0 : null; // false si threshold tiene un valor
 
 
     // Bind parameters
-    $stmt->bind_param("ssisii", $data['name'], $data['description'], $threshold, $transports_json, $data['id'], $owner);
+    $stmt->bind_param("ssissii", $data['name'], $data['description'], $threshold, $threshold_exceeded, $transports_json, $data['id'], $owner);
 
     if (!$stmt->execute()) {
         echo json_encode(["error" => true, "type" => "error", "title" => "Insertion Error", "message" => $stmt->error]);

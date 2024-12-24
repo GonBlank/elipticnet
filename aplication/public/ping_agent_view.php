@@ -53,10 +53,10 @@ define('MENU_ALLOWED', true);
 
     <main class="dashboard">
 
-    <div id="waiting-curtain">
-        <h1>Waiting for the first check.</h1>
-        <p>( it won't be long )</p>
-    </div>
+        <div id="waiting-curtain">
+            <h1>Waiting for the first check.</h1>
+            <p>( it won't be long )</p>
+        </div>
         <section class="container">
             <article class="presentation">
                 <div class="title">
@@ -116,7 +116,7 @@ define('MENU_ALLOWED', true);
             </article>
 
             <article class="status">
-                <div class="current-status">
+                <div class="current-status card">
                     <h3>Current status</h3>
                     <h4 id="current_status" class="up">
                         <svg class="spinner-circle blue" class="up-since" xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +137,27 @@ define('MENU_ALLOWED', true);
                     </div>
                 </div>
 
-                <div class="statistics">
+                <div class="availability card">
+
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-activity" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2" />
+                        </svg>
+                        Availability
+                    </h3>
+
+                    <div id="availability_percentage">
+                        <!--
+                        <div class="circle-percent box" style="background: conic-gradient(var(--accent-green) 0% 90%, transparent 90% 100%);">
+                            <div class="circle-percent core">
+                                <p id="uptime_percentage">90%</p>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+
+                </div>
+                <div class="statistics card">
                     <div>
                         <h3>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"

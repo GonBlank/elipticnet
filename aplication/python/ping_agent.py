@@ -6,12 +6,12 @@ from ping3 import ping
 from datetime import datetime, timezone
 
 
-#╔═════════════════╗
-#║ CONFIGURATIONS  ║
-#╚═════════════════╝
+# ╔═════════════════╗
+# ║ CONFIGURATIONS  ║
+# ╚═════════════════╝
 
-#/var/www/elipticnet/aplication/config/config.json
-#../config/config.json
+# /var/www/elipticnet/aplication/config/config.json
+# ../config/config.json
 with open("/var/www/elipticnet/aplication/config/config.json", "r") as file:
     config = json.load(file)
 
@@ -26,9 +26,9 @@ db_config = {
 time = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
 
 
-#╔════════════╗
-#║ FUNCTIONS  ║
-#╚════════════╝
+# ╔════════════╗
+# ║ FUNCTIONS  ║
+# ╚════════════╝
 
 
 def fetch_host_data():
@@ -39,7 +39,7 @@ def fetch_host_data():
         cursor = connection.cursor(dictionary=True)
 
         query = """
-        SELECT id, ip, state, threshold, last_check, log, transports
+        SELECT id, ip, state, threshold, threshold_exceeded, last_check, log, transports
         FROM host_data;
         """
         cursor.execute(query)
@@ -55,21 +55,22 @@ def fetch_host_data():
         if connection is not None and connection.is_connected():
             connection.close()
 
+
 def ping_host(host):
     ping_response = ping(host["ip"], timeout=2, unit="ms")
-    
 
     if ping_response != None and ping_response != False or type(ping_response) == float:
-        print("[INFO] HOST UP")
+        # print("[INFO] HOST UP")
         update_host_latency(host["id"], ping_response)  # round(ping_response, 2)
         return {"state": True, "response": ping_response}
     else:
-        print("[INFO] HOST DOWN")
+        # print("[INFO] HOST DOWN")
         update_host_latency(host["id"], None)  # round(ping_response, 2)
-        return {"state": False, "response": ping_response}
+        return {"state": False, "response": False}
+
 
 def update_host_latency(host_id, latency):
-    print("[INFO] UPDATING HOST LATENCY")
+    # print("[INFO] UPDATING HOST LATENCY")
 
     # Verificar si latency no es None
     if latency is not None:
@@ -85,7 +86,7 @@ def update_host_latency(host_id, latency):
         cursor.execute(update_query, (host_id, latency))
         connection.commit()
 
-        print("[INFO] Host latency updated successfully.")
+        # print("[INFO] Host latency updated successfully.")
 
     except mysql.connector.Error as e:
         print(f"ERROR: {e}")
@@ -94,33 +95,41 @@ def update_host_latency(host_id, latency):
         cursor.close()
         connection.close()
 
+
 def check_state(host, new_state):
     if host["state"] == True and new_state["state"] == False:
-        print("[INFO] DETECT HOST DOWN")
+        print("[DOWN] DETECT HOST DOWN")
         update_state(host, new_state["state"])
-        update_host_log(host, "host_down", "Host down", log_message(new_state["response"]))
-        update_last_up_down(False, host['id'])
-        #send_alert(host['transports'])
+        update_host_log(
+            host, "host_down", "Host down", log_message(new_state["response"])
+        )
+        update_last_up_down(False, host["id"])
+        # send_alert(host['transports'])
     elif host["state"] == False and new_state["state"] == True:
         print("[INFO] DETECT HOST UP")
         update_state(host, new_state["state"])
         update_host_log(host, "host_up", "Recovered host", "The host is back online")
-        update_last_up_down(True, host['id'])
-        #send_alert(host['transports'])
-        
+        update_last_up_down(True, host["id"])
+        # send_alert(host['transports'])
+
     elif host["state"] == None:
-        print("[INFO] FIRST CHECK")
-        update_host_log(host, "host_start", "First check", "The host begins to be monitored")
+        print("[UP] FIRST CHECK")
+        update_host_log(
+            host, "host_start", "First check", "The host begins to be monitored"
+        )
         if new_state["state"] == True:
             update_state(host, new_state["state"])
-            update_last_up_down(True, host['id'])
+            update_last_up_down(True, host["id"])
         else:
             update_state(host, new_state["state"])
-            update_last_up_down(False, host['id'])
-            update_host_log(host, "host_down", "Host down", log_message(new_state["response"]))
-        
+            update_last_up_down(False, host["id"])
+            update_host_log(
+                host, "host_down", "Host down", log_message(new_state["response"])
+            )
+
+
 def update_state(host, new_state):
-    print("[INFO] UPDATING STATE")
+    # print("[INFO] UPDATING STATE")
     try:
         connection = mysql.connector.connect(**db_config)
         cursor = connection.cursor()
@@ -138,8 +147,9 @@ def update_state(host, new_state):
         cursor.close()
         connection.close()
 
+
 def update_host_log(host, icon, cause, message=None):
-    print("[INFO] UPDATING HOST LOG")
+    # print("[INFO] UPDATING HOST LOG")
 
     # Convertir el log del host (si es una cadena JSON) a un objeto Python
     if isinstance(host["log"], str):  # Si el log es una cadena JSON
@@ -181,6 +191,7 @@ def update_host_log(host, icon, cause, message=None):
         cursor.close()
         connection.close()
 
+
 def log_message(ping_response):
     if ping_response == False and type(ping_response) != float:
         return "Host unknown (cannot resolve)"
@@ -191,8 +202,9 @@ def log_message(ping_response):
     else:
         return "Unknow"
 
+
 def update_last_up_down(state, id):
-    print("[INFO] UPDATING LAST UP/DOWN")
+    # print("[INFO] UPDATING LAST UP/DOWN")
 
     try:
         connection = mysql.connector.connect(**db_config)
@@ -212,9 +224,40 @@ def update_last_up_down(state, id):
         cursor.close()
         connection.close()
 
-def update_last_check(id):
-    print("[INFO] UPDATING LAST CHECK")
 
+def check_threshold(host, ping_response):
+    threshold = host.get("threshold")
+    threshold_exceeded = host.get("threshold_exceeded", False)
+
+    if ping_response and threshold is not None:
+        if ping_response > threshold and not threshold_exceeded:
+            print("[WARN] THRESHOLD EXCEEDED")
+            update_check_threshold(host["id"], True)
+            update_host_log(host, "host_alert", "Threshold exceeded", f"The latency is above {threshold} ms.")
+            # send_alert(host.get('transports'))
+        elif ping_response < threshold and threshold_exceeded:
+            print("[OK] THRESHOLD RECOVERED")
+            update_check_threshold(host["id"], False)
+            update_host_log(host, "host_check", "Threshold recovered", f"The latency is now below {threshold} ms.")
+            # send_alert(host.get('transports'))
+
+
+def update_check_threshold(id, threshold_state):
+    try:
+        connection = mysql.connector.connect(**db_config)
+        cursor = connection.cursor()
+        update_query = """UPDATE host_data SET threshold_exceeded = %s WHERE id = %s"""
+        cursor.execute(update_query, (threshold_state, id))
+        connection.commit()
+
+    except mysql.connector.Error as e:
+        print(f"ERROR: {e}")
+    finally:
+        cursor.close()
+        connection.close()
+
+
+def update_last_check(id):
     try:
         connection = mysql.connector.connect(**db_config)
         cursor = connection.cursor()
@@ -229,16 +272,16 @@ def update_last_check(id):
         connection.close()
 
 
-
-#╔═══════════════╗
-#║ MAIN PROGRAM  ║
-#╚═══════════════╝
+# ╔═══════════════╗
+# ║ MAIN PROGRAM  ║
+# ╚═══════════════╝
 
 if __name__ == "__main__":
     host_list = fetch_host_data()
 
     for host in host_list:
+        print(f"[INFO] PINGING {host['ip']}")
         new_state = ping_host(host)
         check_state(host, new_state)  # Actualizador
-        update_last_check(host['id'])
-
+        update_last_check(host["id"])
+        check_threshold(host, new_state["response"])
