@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
             description: description.value,
             transports: TransportsSelected
         };
-        console.log (newHost);
+
 
         // Agregar threshold_value si threshold_check está en true
         if (threshold_check) {

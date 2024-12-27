@@ -38,6 +38,26 @@ main {
 .form-container .subtittle{
     font-size: .85rem;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.subtittle a{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    cursor: pointer;
+    border: 1px solid var(--border-content-color);
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    align-items: center;
+}
+
+.subtittle a:active {
+    transform: scale(.95);
 }
 
 .form-container .add_transport {
@@ -91,9 +111,16 @@ main {
     font-weight: 500;
 }
 
-.row h1.transport_alias {
+.row .transport_alias {
     flex: 1;
     max-width: 150px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.row .transport_alias.validated svg{
+fill: var(--alert-success);
 }
 
 .row h1.transport_id {
@@ -131,6 +158,11 @@ main {
 .transport_options button.edit:hover svg {
     fill: var(--accent-blue-hover);
 }
+
+.transport_options button.resend svg {
+    fill: var(--text-color);
+}
+
 
 
 /*

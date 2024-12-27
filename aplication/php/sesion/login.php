@@ -1,6 +1,5 @@
 <?php
 require_once '../env.php';
-require_once 'generate_random_hash.php';
 
 // Validate request method
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {

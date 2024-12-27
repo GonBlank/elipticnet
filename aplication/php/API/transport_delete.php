@@ -6,22 +6,19 @@ $user = checkAuth();
 $owner = $user['id'];
 
 
-
 // Validate request method
 if ($_SERVER["REQUEST_METHOD"] !== "GET") {
     echo json_encode(["error" => true, "type" => "error", "title" => "Invalid request", "message" => "Method not allowed"]);
     exit;
 }
 
-
-// Verificar si se proporcionó el hostId en la URL (GET)
-if (!isset($_GET['hostId'])) {
-    echo json_encode(["error" => true, "type" => "error", "title" => "Validation Error", "message" => "Host ID is required"]);
+// Verificar si se proporcionó el transportId en la URL (GET)
+if (!isset($_GET['transportId'])) {
+    echo json_encode(["error" => true, "type" => "error", "title" => "Validation Error", "message" => "Transport id is required"]);
     exit;
 }
 
-$hostId = $_GET['hostId'];
-
+$transportId = $_GET['transportId'];
 
 
 try {
@@ -35,7 +32,7 @@ try {
     }
 
     // Consulta SQL para eliminar el host por id y owner
-    $delete_query = "DELETE FROM host_data WHERE id = ? AND owner = ?";
+    $delete_query = "DELETE FROM transports WHERE id = ? AND owner = ?";
 
     // Preparar la consulta
     $stmt = $conn->prepare($delete_query);
@@ -45,15 +42,17 @@ try {
     }
 
     // Vincular los parámetros
-    $stmt->bind_param("is", $hostId, $owner);
+    $stmt->bind_param("is", $transportId, $owner);
 
     // Ejecutar la consulta
     if ($stmt->execute()) {
         // Comprobar si realmente se eliminó una fila
-        if ($stmt->affected_rows > 0) {
-            echo json_encode(["success" => true, "message" => "Host deleted successfully."]);
-        } else {
-            echo json_encode(["error" => true, "type" => "warning", "title" => "Not Found", "message" => "Host not found."]);
+        if ($stmt->affected_rows == 1) {
+            echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Transport deleted successfully."]);
+        } else if ($stmt->affected_rows == 0) {
+            echo json_encode(["error" => true, "type" => "warning", "title" => "Not Found", "message" => "Transport not found."]);
+        } else if ($stmt->affected_rows > 1) {
+            echo json_encode(["error" => true, "type" => "Error", "title" => "Error", "message" => "Transport deleted with errors."]);
         }
     } else {
         echo json_encode(["error" => true, "type" => "error", "title" => "Execution Error", "message" => $stmt->error]);

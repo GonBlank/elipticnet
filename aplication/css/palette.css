@@ -272,7 +272,7 @@
   --dropdownMenuItem-option-divider:#1e133d;
 
   /*Dialog*/
-  --dialog-background: #26184e;
+  --dialog-background: #1e133b;
   --dialog-header-background:#170F2F;
 
   /*Special colors*/
@@ -290,6 +290,9 @@
   --dividingLine-color: #5e3dc2;
   --LogRowdividingLine-color: #5e3dc27c;
   /*#ff33ff*/
+
+  /*Lines*/
+  --line-soft-background: #150E2B;
   
 
 }

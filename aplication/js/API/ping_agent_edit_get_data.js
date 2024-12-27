@@ -8,8 +8,6 @@ function ping_agent_edit_get_data() {
             return response.json();
         })
         .then(data => {
-            //load_ping_agent_data(data);
-            console.log(data);
             load_ping_agent_data(data);
         })
         .catch(error => {

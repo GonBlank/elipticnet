@@ -31,7 +31,7 @@ try {
     }
 
     // Consulta SQL para obtener el host con el id y owner correspondiente
-    $sql = "SELECT id, ip, name, description, state, last_check, last_down, last_up, log 
+    $sql = "SELECT id, ip, name, description, state, last_check, last_down, last_up, log, threshold, threshold_exceeded
             FROM host_data WHERE id = ? AND owner = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {

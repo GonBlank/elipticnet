@@ -29,37 +29,37 @@ try {
     $result = $stmt->get_result();
 
     // Comprobar si hay resultados
-    if ($result->num_rows > 0) {
-        // Crear un array para almacenar los datos
-        $hosts = array();
-
-        // Recorrer cada fila y agregar al array
-        while ($row = $result->fetch_assoc()) {
-            // Agregar los datos directamente, no es necesario JSON decode
-            $hosts[] = array(
-                "id" => $row['id'],
-                "ip" => $row['ip'],
-                "name" => $row['name'],
-                'state' => $row['state'], // ($row['state'] == 1) ? true : false Para que java interprete bien los estados
-                "last_up" => $row['last_up'],
-                "last_check" => $row['last_check'], 
-                "threshold_exceeded" => $row['threshold_exceeded']
-            );
-        }
-
-        // Devolver los resultados en formato JSON
-        header('Content-Type: application/json');
-        echo json_encode($hosts, JSON_PRETTY_PRINT);
-    } else {
+    if ($result->num_rows == 0) {
         // Si no hay resultados, devolver un mensaje vacío
         header('Content-Type: application/json');
         echo json_encode([]);
+        exit;
     }
 
+    // Crear un array para almacenar los datos
+    $hosts = array();
+
+    // Recorrer cada fila y agregar al array
+    while ($row = $result->fetch_assoc()) {
+        // Agregar los datos directamente, no es necesario JSON decode
+        $hosts[] = array(
+            "id" => $row['id'],
+            "ip" => $row['ip'],
+            "name" => $row['name'],
+            'state' => $row['state'], // ($row['state'] == 1) ? true : false Para que java interprete bien los estados
+            "last_up" => $row['last_up'],
+            "last_check" => $row['last_check'],
+            "threshold_exceeded" => $row['threshold_exceeded']
+        );
+    }
+
+    // Devolver los resultados en formato JSON
+    header('Content-Type: application/json');
+    echo json_encode($hosts, JSON_PRETTY_PRINT);
 } catch (Exception $e) {
     // Manejo de errores
     echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
-}finally {
+} finally {
     if (isset($stmt) && $stmt !== false) {
         $stmt->close();
     }

@@ -110,12 +110,15 @@
 
 
     <main class="dashboard">
-        <section id="email_transports" class="form-container">
+        <section class="form-container">
             <div class="tittle">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
-                    <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2zm-2 9.8V4.698l5.803 3.546zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.5 4.5 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586zM16 9.671V4.697l-5.803 3.546.338.208A4.5 4.5 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671"/>
-                    <path d="M15.834 12.244c0 1.168-.577 2.025-1.587 2.025-.503 0-1.002-.228-1.12-.648h-.043c-.118.416-.543.643-1.015.643-.77 0-1.259-.542-1.259-1.434v-.529c0-.844.481-1.4 1.26-1.4.585 0 .87.333.953.63h.03v-.568h.905v2.19c0 .272.18.42.411.42.315 0 .639-.415.639-1.39v-.118c0-1.277-.95-2.326-2.484-2.326h-.04c-1.582 0-2.64 1.067-2.64 2.724v.157c0 1.867 1.237 2.654 2.57 2.654h.045c.507 0 .935-.07 1.18-.18v.731c-.219.1-.643.175-1.237.175h-.044C10.438 16 9 14.82 9 12.646v-.214C9 10.36 10.421 9 12.485 9h.035c2.12 0 3.314 1.43 3.314 3.034zm-4.04.21v.227c0 .586.227.8.581.8.31 0 .564-.17.564-.743v-.367c0-.516-.275-.708-.572-.708-.346 0-.573.245-.573.791"/>
-                  </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2zm-2 9.8V4.698l5.803 3.546zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.5 4.5 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586zM16 9.671V4.697l-5.803 3.546.338.208A4.5 4.5 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671" />
+                    <path
+                        d="M15.834 12.244c0 1.168-.577 2.025-1.587 2.025-.503 0-1.002-.228-1.12-.648h-.043c-.118.416-.543.643-1.015.643-.77 0-1.259-.542-1.259-1.434v-.529c0-.844.481-1.4 1.26-1.4.585 0 .87.333.953.63h.03v-.568h.905v2.19c0 .272.18.42.411.42.315 0 .639-.415.639-1.39v-.118c0-1.277-.95-2.326-2.484-2.326h-.04c-1.582 0-2.64 1.067-2.64 2.724v.157c0 1.867 1.237 2.654 2.57 2.654h.045c.507 0 .935-.07 1.18-.18v.731c-.219.1-.643.175-1.237.175h-.044C10.438 16 9 14.82 9 12.646v-.214C9 10.36 10.421 9 12.485 9h.035c2.12 0 3.314 1.43 3.314 3.034zm-4.04.21v.227c0 .586.227.8.581.8.31 0 .564-.17.564-.743v-.367c0-.516-.275-.708-.572-.708-.346 0-.573.245-.573.791" />
+                </svg>
                 <h1>Email</h1>
                 <button data-modal="add_email" class="add_transport openModal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -129,11 +132,33 @@
                 The emails listed here will be available to be selected as recipients of notices on the monitors.
             </p>
 
-            <div id="transport_table" class="table">
+            <div id="emailTransportTable" class="table">
                 <div class="row">
-                    <h1 class="transport_alias">Gonzalo2121</h1>
+                    <div class="transport_alias validated">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                        </svg>
+                        <h1>Gonzalo2121</h1>
+                    </div>
                     <h1 class="transport_id"> blanco.gonzalo.v@gmail.com</h1>
                     <div class="transport_options">
+
+                        <span class="tooltip">
+                            <button class="resend">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z" />
+                                    <path
+                                        d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
+                                </svg>
+                            </button>
+                            <span class="tooltip-text">Resend validation link</span>
+                        </span>
+
+
                         <button class="edit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -143,7 +168,7 @@
                                     d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                             </svg>
                         </button>
-                        <button class="delete openModal" data-modal="delete_transport">
+                        <button class="delete openModal" data-modal="delete_transport" data-id="${data.id}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-trash" viewBox="0 0 16 16">
                                 <path
@@ -156,10 +181,31 @@
                 </div>
 
                 <div class="row">
-                    <h1 class="transport_alias">Gonzalo2121</h1>
-                    <h1 class="transport_id"> blanco.blanco.blanco.gonzalosgonzalogonzalo.blanco.gonzalo.v@gmail.com
-                    </h1>
+                    <div class="transport_alias no_validated">
+                        <span class="tooltip">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-question-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247m2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z" />
+                            </svg>
+                            <span class="tooltip-text">Waiting for validation</span>
+                        </span>
+                        <h1>Gonzalo2121</h1>
+                    </div>
+                    <h1 class="transport_id"> blanco.gonzalo.v@gmail.com</h1>
                     <div class="transport_options">
+                        <span class="tooltip">
+                            <button class="resend">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z" />
+                                    <path
+                                        d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
+                                </svg>
+                            </button>
+                            <span class="tooltip-text">Resend validation code</span>
+                        </span>
                         <button class="edit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -185,7 +231,7 @@
             </div>
         </section>
 
-        <section id="telegram_transports" class="form-container">
+        <section class="form-container">
             <div class="tittle">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-telegram" viewBox="0 0 16 16">
@@ -193,7 +239,7 @@
                         d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09" />
                 </svg>
                 <h1>Telegram</h1>
-                <button class="add_transport hide">
+                <button class="add_transport hide openModal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-plus" viewBox="0 0 16 16">
                         <path
@@ -202,14 +248,24 @@
                 </button>
             </div>
             <p class="subtittle">
-                The Telegram IDs listed here will be available to be selected as recipients of notices on the monitors.
+                The Telegram IDs listed here will be available to be selected as recipients of notices on the
+                monitors.<br>
+                Please ensure you add the bot to your Telegram account to receive the validation code correctly.
+                <a href="https://t.me/elipticnet_bot" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-plus" viewBox="0 0 16 16">
+                        <path
+                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                    </svg> @elipticnet_bot
+                </a>
+
+
             </p>
-            <div id="transport_table" class="table">
-                <button class="add_transport solo openModal" data-modal="add_telegram">ADD</button>
+            <div id="telegramTransportTable" class="table">
+                <button id="addTelegramBtn" class="add_transport solo openModal" data-modal="add_telegram">ADD</button>
             </div>
         </section>
     </main>
-
 
     <!--
     
@@ -226,7 +282,6 @@
                     <path
                         d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
                 </svg>
-
             </button>
         </div>
         <div class="dialog-body">
@@ -235,8 +290,8 @@
                     <input tabindex="1" type="text" placeholder=" " class="input" id="email_alias" name="email_alias"
                         autocomplete="name" maxlength="20" required />
                     <span class="label__name">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                            class="bi bi-person-badge" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-person-badge"
+                            viewBox="0 0 16 16">
                             <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                             <path
                                 d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492z" />
@@ -244,19 +299,31 @@
                         Alias</span>
                     <div class="error-message" id="email_alias-error"></div>
                 </label>
-                <label class="label" for="user-email">
-                    <input tabindex="1" type="email" placeholder=" " class="input" id="user-email"
-                        name="user-email" autocomplete="email" required />
+                <label class="label" for="transport-email">
+                    <input tabindex="1" type="email" placeholder=" " class="input" id="transport-email"
+                        name="transport-email" autocomplete="email" required />
                     <span class="label__name">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
-                            width="24px" fill="#e8eaed">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                            fill="#e8eaed">
                             <path
                                 d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480v58q0 59-40.5 100.5T740-280q-35 0-66-15t-52-43q-29 29-65.5 43.5T480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480v58q0 26 17 44t43 18q26 0 43-18t17-44v-58q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93h200v80H480Zm0-280q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Z" />
                         </svg> Email</span>
-                    <div class="error-message" id="user-email-error"></div>
+                    <div class="error-message" id="transport-email-error"></div>
                 </label>
+                <button id="add_email_btn" type="submit" class="add_email">
+                    <div class="text show">
+                        ADD
+                    </div>
+                    <div class="loader-hourglass hide"> <!-- Cambiado a hide para que esté oculto por defecto -->
+                        <svg class="spinner-hourglass" xmlns="http://www.w3.org/2000/svg" height="24px"
+                            viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                            <path
+                                d="M320-160h320v-120q0-66-47-113t-113-47q-66 0-113 47t-47 113v120Zm160-360q66 0 113-47t47-113v-120H320v120q0 66 47 113t113 47ZM160-80v-80h80v-120q0-61 28.5-114.5T348-480q-51-32-79.5-85.5T240-680v-120h-80v-80h640v80h-80v120q0 61-28.5 114.5T612-480q51 32 79.5 85.5T720-280v120h80v80H160Z" />
+                        </svg>
+                    </div>
+                </button>
 
-                <button class="add_email">ADD</button>
+
             </form>
         </div>
     </dialog>
@@ -276,29 +343,31 @@
         <div class="dialog-body">
             <form>
                 <label class="label">
-                    <input tabindex="1" type="text" placeholder=" " class="input" id="email_alias" name="email_alias"
-                        autocomplete="name" maxlength="20" required />
+                    <input tabindex="1" type="text" placeholder=" " class="input" id="telegram_alias"
+                        name="telegram_alias" autocomplete="name" maxlength="20" required />
                     <span class="label__name">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                            class="bi bi-person-badge" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-person-badge"
+                            viewBox="0 0 16 16">
                             <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                             <path
                                 d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492z" />
                         </svg>
                         Alias</span>
-                    <div class="error-message" id="email_alias-error"></div>
+                    <div class="error-message" id="telegram_alias-error"></div>
                 </label>
-                <label class="label" for="user-email">
-                    <input tabindex="1" type="email" placeholder=" " class="input" id="user-email"
-                        name="user-email" autocomplete="email" required />
+                <label class="label" for="telegram_id">
+                    <input tabindex="2" type="email" placeholder=" " class="input" id="telegram_id" name="telegram_id"
+                        autocomplete="email" required />
                     <span class="label__name">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16">
-                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/>
-                          </svg> Telegram ID</span>
-                    <div class="error-message" id="user-email-error"></div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-telegram" viewBox="0 0 16 16">
+                            <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09" />
+                        </svg> Telegram ID</span>
+                    <div class="error-message" id="telegram_id-error"></div>
                 </label>
 
-                <button class="add_email">ADD</button>
+                <button class="add_telegram_btn">ADD</button>
             </form>
         </div>
     </dialog>
@@ -340,11 +409,14 @@
 
 
 
-
-
-    <script src="../js/modal.js"></script>
-    <script src="../js/lateral_menu.js"></script>
     <script src="../js/page_transition.js"></script>
+    <script src="../js/lateral_menu.js"></script>
+    <script src="../js/show_alert.js"></script>
+    <script src="../js/modal.js"></script>
+    <script src="../js/API/transport_get_all_transports.js"></script>
+    <script src="../js/API/transport_email_add.js"></script>
+    <script src="../js/API/transport_delete.js"></script>
+    
 
 </body>
 

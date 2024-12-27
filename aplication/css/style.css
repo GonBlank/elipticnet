@@ -701,7 +701,12 @@ dialog::backdrop {
 
 }
 
+button svg{
+    pointer-events: none;
+}
+
 button .text {
+    pointer-events: none;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -812,7 +817,8 @@ dialog form button .text.show {
 .tooltip {
     position: relative;
     /* Necesario para posicionar el tooltip */
-    display: inline-block;
+   /* display: inline-block;*/
+    display: flex;
     cursor: pointer;
 }
 

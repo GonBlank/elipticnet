@@ -10,6 +10,9 @@ function get_host_by_id() {
         .then(data => {
             load_host_data(data);
             create_log_table(data.log);
+            threshold_notification(data.threshold, data.threshold_exceeded);
+            globalVariable_threshold = data.threshold; //Se usa para marcar el valor del threshold en el grafico de latencia
+            console.log(globalVariable_threshold);
         })
 
         .catch(error => {
@@ -34,6 +37,33 @@ function create_log_table(log_array) {
             table_body.appendChild(log_row_element);
         }
     });
+}
+
+function threshold_notification(threshold, threshold_exceeded) {
+    const ping_agent_status = document.getElementById('ping_agent_status');
+    //Failed to load host data: ReferenceError: warning_trheshold is not defined
+
+    if (threshold_exceeded && !document.getElementById('warning_threshold')) {
+        ping_agent_status.innerHTML += `<div id="warning_threshold" class="warning-trheshold card">
+                    <div class="heartbeat-animation-container">
+                        <div class="heartbeat-animation-heartbeat"></div>
+                        <div class="heartbeat-animation-core">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                            </svg>
+                        </div>
+                    </div>
+                    <p>Threshold exceeded - The latency is above ${threshold} ms</p>
+
+                </div>`;
+                return;
+    }
+
+    if (!threshold_exceeded && document.getElementById('warning_threshold')) {
+        document.getElementById('warning_threshold').remove();
+    }
 }
 
 function create_log_row(icon, cause, message, time, logId) {
@@ -198,5 +228,7 @@ function log_time_formatter(time) {
     return formattedDate;
 }
 
+
+globalVariable_threshold = null;
 get_host_by_id();
 setInterval(get_host_by_id, 60000);

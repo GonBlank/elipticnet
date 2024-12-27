@@ -235,6 +235,7 @@
     margin: auto;
     width: 100%;
     text-align: center;
+    animation: FadeInCenter 2s ease 0s 1 normal forwards;
 }
 
 .statistics div p.waiting {
@@ -303,6 +304,88 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+
+.heartbeat-animation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.heartbeat-animation-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1px;
+}
+
+.heartbeat-animation-heartbeat {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: block;
+    animation: heartbeat 2s ease 0s infinite normal;
+
+}
+
+@keyframes heartbeat {
+    0% {
+        opacity: 0.8;
+        transform: scale(0.2);
+    }
+
+    80% {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(2.2);
+    }
+}
+
+.warning-trheshold .heartbeat-animation-heartbeat {
+    background-color: var(--alert-warning);
+}
+
+.warning-trheshold .heartbeat-animation-core svg {
+    fill: var(--alert-warning);
+}
+
+.warning-trheshold{
+    padding: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 100%;
+    border: 1px solid var(--row-background-warning);
+    font-size: .9rem;
+    animation: FadeInCenter 2s ease 0s 1 normal forwards;
+}
+
+@keyframes FadeInCenter {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
 }
 
 .log {
