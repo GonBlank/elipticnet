@@ -133,6 +133,7 @@
             </p>
 
             <div id="emailTransportTable" class="table">
+                <!--
                 <div class="row">
                     <div class="transport_alias validated">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -140,9 +141,9 @@
                             <path
                                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                         </svg>
-                        <h1>Gonzalo2121</h1>
+                        <h1>Alias Test</h1>
                     </div>
-                    <h1 class="transport_id"> blanco.gonzalo.v@gmail.com</h1>
+                    <h1 class="transport_id"> test@gmail.com</h1>
                     <div class="transport_options">
 
                         <span class="tooltip">
@@ -190,9 +191,9 @@
                             </svg>
                             <span class="tooltip-text">Waiting for validation</span>
                         </span>
-                        <h1>Gonzalo2121</h1>
+                        <h1>Alias Test 1</h1>
                     </div>
-                    <h1 class="transport_id"> blanco.gonzalo.v@gmail.com</h1>
+                    <h1 class="transport_id"> test1@gmail.com</h1>
                     <div class="transport_options">
                         <span class="tooltip">
                             <button class="resend">
@@ -226,7 +227,7 @@
                         </button>
                     </div>
                 </div>
-
+                -->
                 <button class="add_transport solo openModal hide" data-modal="add_email">ADD</button>
             </div>
         </section>
@@ -288,7 +289,7 @@
             <form>
                 <label class="label">
                     <input tabindex="1" type="text" placeholder=" " class="input" id="email_alias" name="email_alias"
-                        autocomplete="name" maxlength="20" required />
+                        autocomplete="name" maxlength="15" required />
                     <span class="label__name">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-person-badge"
                             viewBox="0 0 16 16">
@@ -416,7 +417,8 @@
     <script src="../js/API/transport_get_all_transports.js"></script>
     <script src="../js/API/transport_email_add.js"></script>
     <script src="../js/API/transport_delete.js"></script>
-    
+    <script src="../js/API/transport_resend_validation_code.js"></script>
+
 
 </body>
 

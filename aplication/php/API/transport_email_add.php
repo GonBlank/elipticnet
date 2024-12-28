@@ -3,6 +3,10 @@
 require_once '../env.php';
 include '../sesion/checkAuth.php';
 include_once '../functions/generate_random_hash.php';
+
+require_once '../email/email.php';
+require_once '../email/templates/validate_transport_email.php';
+
 $user = checkAuth();
 $owner = $user['id'];
 
@@ -80,12 +84,17 @@ try {
     // Bind parameters
     $stmt->bind_param("isssss", $owner, $type, $alias, $email, $validation_hash, $hash_date);
 
+
     if (!$stmt->execute()) {
         echo json_encode(["error" => true, "type" => "error", "title" => "Insertion Error", "message" => $stmt->error]);
         exit;
     }
 
-    echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Check your email to validate the transport"]);
+    // Enviar correo electrónico de validación
+    $body = validate_transport_email_template($validation_hash);
+    send_email($body, "Verification required", $email);
+
+    echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Check the added email to validate the transport"]);
     exit;
 } catch (Exception $e) {
     echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);

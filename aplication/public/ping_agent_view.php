@@ -242,7 +242,7 @@ define('MENU_ALLOWED', true);
                     Latest events
                 </h1>
 
-                <div id="log_table" class="table">
+                <div id="log_table">
 
                     <div id="table_body" class="table-body">
                         <!--

@@ -60,7 +60,7 @@ document.body.addEventListener('click', function (event) {
                 if (!response.ok) {
                     throw new Error('La solicitud falló con el código de estado ' + response.status);
                 }
-                return response.json(); // Asumiendo que el servidor responde con JSON
+                return response.json();
             })
             .then((data) => {
                 // Cerrar el modal

@@ -392,7 +392,7 @@
     border-radius: 8px;
     padding: 15px;
     background-color: var(--form-background);
-    overflow-x: auto;
+    overflow-y: auto;
     cursor: context-menu;
     max-height: 500px;
 }
@@ -412,11 +412,11 @@
     height: 16px;
 }
 
-.table {
+#log_table {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    text-wrap: nowrap
+    text-wrap: nowrap;
 }
 
 .log_row {

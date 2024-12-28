@@ -7,6 +7,17 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     exit;
 }
 
+
+// Verificar si se proporcionó el hash en el cuerpo de la solicitud (POST)
+if (!isset($_POST['validation_hash'])) {
+    echo json_encode(["error" => true, "type" => "error", "title" => "Validation Error", "message" => "Validation hash is required"]);
+    exit;
+}
+
+// Obtener el validation_hash desde POST
+$validation_hash = $_POST['validation_hash'];
+
+
 try {
     // Conectar a la base de datos
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -16,15 +27,6 @@ try {
         echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => $conn->connect_error]);
         exit;
     }
-
-    // Verificar si se proporcionó el hash en el cuerpo de la solicitud (POST)
-    if (!isset($_POST['validation_hash'])) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Validation Error", "message" => "Validation hash is required"]);
-        exit;
-    }
-
-    // Obtener el validation_hash desde POST
-    $validation_hash = $_POST['validation_hash'];
 
     // Consulta SQL para obtener el owner y hash_date asociado al validation_hash
     $select_query = "SELECT owner, hash_date FROM transports WHERE validation_hash = ?";
@@ -48,7 +50,7 @@ try {
     // Verificar cuántos registros fueron encontrados
     if ($result->num_rows > 1) {
         //More than one owner found for the provided validation hash
-        echo json_encode(["error" => true, "type" => "error", "title" => "Validation hash error", "message" => "Please contact support"]);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Validation hash error", "message" => "please contact support"]);
     } elseif ($result->num_rows === 1) {
         // Si hay exactamente un owner, validar el hash_date
         $row = $result->fetch_assoc();
@@ -61,7 +63,7 @@ try {
         $interval = $current_time->diff($hash_time);
 
         if ($interval->h > 1 || $interval->days > 0) {
-            echo json_encode(["error" => true, "type" => "warning", "title" => "Validation Error", "message" => "Validation hash expired", "link_text" => "Resend the code", "link" => "resend_validation_code.html"]);
+            echo json_encode(["error" => true, "type" => "warning", "title" => "Validation Error", "message" => "hash is expired", "link_text" => "Resend the code", "link" => "/aplication/public/transports.html"]);
             exit;
         }
 
@@ -78,7 +80,7 @@ try {
 
         // Ejecutar la consulta de actualización
         if ($update_stmt->execute()) {
-            echo json_encode(["error" => false, "type" => "success", "message" => "Validation updated successfully", "owner" => $owner]);
+            echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "you can close the page"]);
         } else {
             echo json_encode(["error" => true, "type" => "error", "title" => "Update Failed", "message" => $conn->error]);
         }
@@ -86,7 +88,7 @@ try {
         $update_stmt->close();
     } else {
         // Si no se encontró ningún owner
-        echo json_encode(["error" => true, "type" => "error", "title" => "Error", "message" => "Invalid validation hash"]);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Error", "message" => "invalid hash"]);
     }
 
     // Cerrar la consulta y la conexión
