@@ -2,6 +2,7 @@
 require_once '../env.php';
 require_once '../email/email.php';
 require_once '../email/templates/restore_password.php';
+include_once '../functions/generate_random_hash.php';
 
 
 // Validate request method
@@ -40,7 +41,8 @@ try {
     $update_query = "UPDATE users SET validation_hash = ?, hash_date = ? WHERE email = ?";
 
     $hash_date = date('Y-m-d H:i:s');
-    $validation_hash = bin2hex(random_bytes(12));
+    //$validation_hash = bin2hex(random_bytes(12));
+    $validation_hash = generate_random_hash($conn, "users", "validation_hash");
 
     $update_stmt = $conn->prepare($update_query);
     if (!$update_stmt) {

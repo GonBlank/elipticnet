@@ -1,25 +1,7 @@
+import { toggleButtonState } from '../functions/toggleButtonState.js';
+
 document.addEventListener("DOMContentLoaded", function () {
-    const add_email_btn = document.getElementById('add_email_btn');
-
-    // Animación de carga del formulario
-    function toggleButtonState(isLoading) {
-        const textDiv = add_email_btn.querySelector('.text');
-        const loaderDiv = add_email_btn.querySelector('.loader-hourglass');
-
-        if (isLoading) {
-            textDiv.classList.remove('show');
-            textDiv.classList.add('hide');
-            loaderDiv.classList.remove('hide');
-            loaderDiv.classList.add('show');
-            add_email_btn.disabled = true;
-        } else {
-            textDiv.classList.remove('hide');
-            textDiv.classList.add('show');
-            loaderDiv.classList.remove('show');
-            loaderDiv.classList.add('hide');
-            add_email_btn.disabled = false;
-        }
-    }
+    const addEmailBtn = document.getElementById('addEmailBtn');
 
     function validateUserData() {
         // Limpiar errores anteriores
@@ -66,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return isValid;
     }
 
-    add_email_btn.addEventListener('click', function (event) {
+    addEmailBtn.addEventListener('click', function (event) {
         event.preventDefault(); // Previene el comportamiento por defecto del botón
 
         if (!validateUserData()) {
@@ -74,22 +56,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Cambiar el estado del botón para mostrar el loader
-        toggleButtonState(true);
+        toggleButtonState('addEmailBtn', true);
 
         // Obtener los valores del formulario
         const alias = document.getElementById('email_alias');
-        const email = document.getElementById('transport-email');
+        const transport_id = document.getElementById('transport-email');
 
         // Crear un objeto con los datos del nuevo host
         // Crear un objeto con los datos del nuevo usuario
         const newTransport = {
             alias: alias.value,
-            email: email.value,
+            transport_id: transport_id.value,
             type: 'email'
         };
 
         // Enviar los datos al backend usando fetch
-        fetch('../php/API/transport_email_add.php', {
+        fetch('../php/API/transport_add.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -101,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 ShowAlert(data.type, data.title, data.message, data.type);
                 if (!data.error) {
                     alias.value = '';
-                    email.value = '';
+                    transport_id.value = '';
 
                     setTimeout(function () {
                         location.reload();
@@ -112,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
             .finally(() => {
                 // Restablecer el estado del botón
-                toggleButtonState(false);
+                toggleButtonState('addEmailBtn', false);
 
                 // Cerrar el diálogo
                 const dialog = document.getElementById('add_email');

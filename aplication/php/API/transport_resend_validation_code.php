@@ -24,7 +24,7 @@ if (!isset($_GET['transportId'])) {
     exit;
 }
 
-$id = $_GET['transportId'];
+$id = (int)$_GET['transportId'];
 
 
 try {
@@ -86,19 +86,8 @@ try {
         exit;
     }
 
-
     // Vincular los parámetros
     $update_stmt->bind_param("ssii", $validation_hash, $hash_date, $id, $owner);
-
-
-    //resend_validation_code($type, $id); //Envía el mensaje la transporte
-
-    //update the hash
-
-    //echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "El tipo de transporte es: $type"]);
-
-    /**/
-
 
     // Ejecutar la consulta
     if ($update_stmt->execute()) {

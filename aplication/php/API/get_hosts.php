@@ -21,7 +21,9 @@ try {
     // Preparar la consulta
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
-        throw new Exception("Query preparation failed: " . $conn->error);
+        error_log("[ERROR] login" . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "DB error", "message" => $conn->error]);
+        exit;
     }
 
     $stmt->bind_param("i", $owner);

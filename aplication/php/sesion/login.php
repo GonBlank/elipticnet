@@ -31,63 +31,76 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-// Connection to the database
-try {
-    $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    error_log("[ERROR]: Connection to the database login.php:" . $e->getMessage());
-    echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Database connection failed." . $e->getMessage()]);
-    exit;
-}
+/*------------------------------------*/
 
-// Check if the user exists
 try {
-    $stmt = $conn->prepare("SELECT id, password, username, email, enable, type FROM users WHERE email = :email");
-    $stmt->bindParam(':email', $email);
+    // Conectar a la base de datos
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+    // Verificar conexión
+    if ($conn->connect_error) {
+        error_log("[ERROR] login:" . $conn->connect_error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => $conn->connect_error]);
+        exit;
+    }
+
+
+
+    $sql = "SELECT id, password, username, email, enable, type FROM users WHERE email = ?";
+
+    // Preparar la consulta
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        error_log("[ERROR] login" . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "DB error", "message" => $conn->error]);
+        exit;
+    }
+
+    $stmt->bind_param("s", $email);
     $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("[ERROR]:Check if the email exists login.php:" . $e->getMessage());
-    echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Database connection failed." . $e->getMessage()]);
-    exit;
-}
+    $result = $stmt->get_result();
+    $user_db = $result->fetch_assoc();
 
-if (!$user || !password_verify($raw_password, $user['password'])) {
-    echo json_encode(["error" => true, "type" => "error", "title" => "Ups!", "message" => "Invalid email/password combination."]);
-    exit;
-}
+    if (!$user_db || !password_verify($raw_password, $user_db['password'])) {
+        echo json_encode(["error" => true, "type" => "error", "title" => "Ups!", "message" => "Invalid email/password combination."]);
+        exit;
+    }
 
-// Verify email validation
-try {
-    $stmt = $conn->prepare("SELECT valid FROM transports WHERE transport_id = :email AND owner = :owner");
-    $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':owner', $user['id']);
+
+    $sql = "SELECT valid FROM transports WHERE transport_id = ? AND owner = ?";
+
+    // Preparar la consulta
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        error_log("[ERROR] login" . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "DB error", "message" => $conn->error]);
+        exit;
+    }
+
+    $stmt->bind_param("si", $email, $user_db['id']);
     $stmt->execute();
-    $valid_email = $stmt->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("[ERROR]:Check email validation login.php:" . $e->getMessage());
-    echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Database connection failed." . $e->getMessage()]);
-    exit;
-}
+    $result = $stmt->get_result();
+    $valid_email =  $result->fetch_assoc();
 
-if (!$valid_email['valid'] || !$user['enable']) {
-    echo json_encode(["error" => true, "type" => "error", "title" => "Account issue", "message" => "Your account is not enabled or email not validated."]);
-    exit;
-}
 
-// Set session duration based on "remember me"
-$lifetime = $remember_me ? (30 * 24 * 3600) : 3600; // 30 days or 1 hour
-// Configuración para ENTORNO DE DESARROLLO (HTTP)
-session_set_cookie_params([
-    'lifetime' => $lifetime,
-    'path' => '/',
-    'secure' => false, // No requiere HTTPS en desarrollo
-    'httponly' => true, // Protege contra XSS
-    'samesite' => 'Lax' // Mitiga CSRF en solicitudes de terceros
-]);
+    if (!$valid_email['valid'] || !$user_db['enable']) {
+        echo json_encode(["error" => true, "type" => "error", "title" => "Account issue", "message" => "Your account is not enabled or email not validated."]);
+        exit;
+    }
 
-/*
+
+    // Set session duration based on "remember me"
+    $lifetime = $remember_me ? (30 * 24 * 3600) : 3600; // 30 days or 1 hour
+    // Configuración para ENTORNO DE DESARROLLO (HTTP)
+    session_set_cookie_params([
+        'lifetime' => $lifetime,
+        'path' => '/',
+        'secure' => false, // No requiere HTTPS en desarrollo
+        'httponly' => true, // Protege contra XSS
+        'samesite' => 'Lax' // Mitiga CSRF en solicitudes de terceros
+    ]);
+
+    /*
 // Configuración para PRODUCCIÓN (HTTPS)
 session_set_cookie_params([
     'lifetime' => $lifetime,
@@ -98,16 +111,16 @@ session_set_cookie_params([
 ]);
 */
 
-session_start();
-session_regenerate_id(true); // Prevent session fixation
+    session_start();
+    session_regenerate_id(true); // Prevent session fixation
 
-$_SESSION['user'] = [
-    'id' => $user['id'],
-    'username' => $user['username'],
-    'email' => $user['email'],
-    'type' => $user['type']
-];
-/*
+    $_SESSION['user'] = [
+        'id' => $user_db['id'],
+        'username' => $user_db['username'],
+        'email' => $user_db['email'],
+        'type' => $user_db['type']
+    ];
+    /*
 // Optionally set a remember me cookie
 if ($remember_me) {
     $cookie_hash = generate_random_hash($conn, "users", "cookie_hash");
@@ -120,7 +133,19 @@ if ($remember_me) {
     }
 }
 */
-//echo json_encode(['state' => true]);
-echo json_encode(["error" => false, "type" => "success", "title" => "Successful login", "message" => "success."]);
+    //echo json_encode(['state' => true]);
+    echo json_encode(["error" => false, "type" => "success", "title" => "Successful login", "message" => "success."]);
 
-exit;
+    exit;
+} catch (Exception $e) {
+    // Manejo de errores
+    error_log("[ERROR] login:" . $e->getMessage());
+    echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
+} finally {
+    if (isset($stmt) && $stmt !== false) {
+        $stmt->close();
+    }
+    if (isset($conn) && $conn !== false) {
+        $conn->close();
+    }
+}

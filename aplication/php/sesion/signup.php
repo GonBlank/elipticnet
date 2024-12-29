@@ -2,6 +2,7 @@
 require_once '../env.php';
 require_once '../email/email.php';
 require_once '../email/templates/validate_email.php';
+include_once '../functions/generate_random_hash.php';
 
 
 //Validate request method
@@ -17,6 +18,7 @@ if (!isset($user['username']) || !isset($user['email']) || !isset($user['passwor
     echo json_encode(["error" => true, "type" => "error", "title" => "Invalid request", "message" => "data no set"]);
     exit;
 }
+
 
 $name = $user['username'];
 $email = $user['email'];
@@ -44,95 +46,111 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-//connection to the database
 try {
-    $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    $conn = null;
-    error_log("[ERROR]: Connection to the database signup.php:" . $e->getMessage());
-    echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Database connection failed." . $e->getMessage()]);
-}
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-//check if the email already exists in the "users" table
-try {
-    $sql_check_email = "SELECT COUNT(*) FROM users WHERE email = :email";
-    $stmt_check_email = $conn->prepare($sql_check_email);
-    $stmt_check_email->bindParam(':email', $email);
-    $stmt_check_email->execute();
-    $email_exists = $stmt_check_email->fetchColumn();
-} catch (PDOException $e) {
-    $conn = null;
-    error_log("[ERROR]:Check if the email already exists in the users table signup.php:" . $e->getMessage());
-    echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Database connection failed." . $e->getMessage()]);
-    exit;
-}
+    // Verificar conexión
+    if ($conn->connect_error) {
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => $conn->connect_error]);
+        exit;
+    }
 
-if ($email_exists) {
-    $conn = null;
-    echo json_encode(["error" => true, "type" => "error", "title" => "Duplicated email", "message" => "$email already exist."]);
-    exit;
-}
+    //check if the email already exists in the "users" table
+
+    $check_query = "SELECT COUNT(*) FROM users WHERE email = ?";
 
 
-// Generate the password hash
-$hashed_password = password_hash($raw_password, PASSWORD_DEFAULT);
+    $stmt = $conn->prepare($check_query);
+    if (!$stmt) {
+        echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $conn->error]);
+        exit;
+    }
 
-// Generate a random 24-character hash to validate the email
-$validation_hash = bin2hex(random_bytes(12));
-$hash_date = date('Y-m-d H:i:s');
-$user_type = 0; //default free user
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->bind_result($count);
+    $stmt->fetch();
+    $stmt->close();
 
-// Insert new user
-try {
-    $sql_insert_user = "INSERT INTO users (username, email, password, type) VALUES (:name, :email, :password, :type)";
-    $stmt_insert_user = $conn->prepare($sql_insert_user);
-    $stmt_insert_user->bindParam(':name', $name);
-    $stmt_insert_user->bindParam(':email', $email);
-    $stmt_insert_user->bindParam(':password', $hashed_password);
-    $stmt_insert_user->bindParam(':type', $user_type);
-    $stmt_insert_user->execute();
+    if ($count > 0) {
+        echo json_encode(["error" => true, "type" => "warning", "title" => "Duplicated email", "message" => "$email already exist."]);
+        exit;
+    }
 
-    // Obtener el id del usuario recién insertado
-    $user_id = $conn->lastInsertId();  // Esto devuelve el ID del último registro insertado
-} catch (PDOException $e) {
-    $conn = null;
-    error_log("[ERROR]: Insert new user signup.php:" . $e->getMessage());
-    echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Insert new user." . $e->getMessage()]);
-    exit;
-}
+    // Generate the password hash
+    $hashed_password = password_hash($raw_password, PASSWORD_DEFAULT);
+    $validation_hash = generate_random_hash($conn, "users", "validation_hash");
+    $hash_date = date('Y-m-d H:i:s');
+    $user_type = 0; //default free user
 
-try {
-    $type = 'email';
+    // Insert new user
+    $sql = "INSERT INTO users  (username, email, password, type) VALUES (?, ?, ?, ?)";
+
+    $stmt = $conn->prepare($sql);
+
+    if (!$stmt) {
+        echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $conn->error]);
+        exit;
+    }
+
+    $validation_hash = generate_random_hash($conn, "transports", "validation_hash");
+    $hash_date = date('Y-m-d H:i:s');
+
+    $stmt->bind_param("ssss", $name, $email, $hashed_password, $user_type);
+
+
+    if (!$stmt->execute()) {
+        error_log("[ERROR]: Insert new user signup.php:" . $e->getMessage());
+        echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Insert new user." . $e->getMessage()]);
+        exit;
+    }
+
+    // Obtener el ID del registro insertado
+    $user_id = $conn->insert_id;
+
+
+    /**/
     // Insert transport email con el ID del usuario como owner
-    $sql_insert_transport_email = "INSERT INTO transports (owner, type, alias, transport_id, validation_hash, hash_date) 
-                                   VALUES (:owner,:type,:name, :email, :validation_hash, :hash_date)";
-    $stmt_insert_transport_email = $conn->prepare($sql_insert_transport_email);
-    $stmt_insert_transport_email->bindParam(':owner', $user_id);  // Usamos el id del usuario
-    $stmt_insert_transport_email->bindParam(':name', $name);
-    $stmt_insert_transport_email->bindParam(':type', $type);
-    $stmt_insert_transport_email->bindParam(':email', $email);
-    $stmt_insert_transport_email->bindParam(':validation_hash', $validation_hash);
-    $stmt_insert_transport_email->bindParam(':hash_date', $hash_date);
-    $stmt_insert_transport_email->execute();  // Ejecución de la sentencia preparada
-} catch (PDOException $e) {
-    $conn = null;
-    error_log("[ERROR]: Insert transport email user signup.php:" . $e->getMessage());
-    echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Insert transport email."]);
-    exit;
+    $sql = "INSERT INTO transports (owner, type, alias, transport_id, validation_hash, hash_date) 
+                                   VALUES ( ?, ?, ?, ?, ?, ?)";
+
+    $stmt = $conn->prepare($sql);
+
+    if (!$stmt) {
+        echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $conn->error]);
+        exit;
+    }
+
+    $validation_hash = generate_random_hash($conn, "transports", "validation_hash");
+    $hash_date = date('Y-m-d H:i:s');
+    $type = "email";
+
+    $stmt->bind_param("isssss", $user_id, $type, $name, $email, $validation_hash, $hash_date);
+
+
+    if (!$stmt->execute()) {
+        error_log("[ERROR]: Insert transport email user signup.php:" . $e->getMessage());
+        echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Insert transport email."]);
+        exit;
+    }
+
+
+    /*
+    ╔═════════════════════════╗
+    ║ Send email verification ║
+    ╚═════════════════════════╝
+    */
+    $body = validate_email_template($name, $validation_hash);
+    send_email($body, "Verify your email", $email);
+    echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Check your email to finish registration"]);
+} catch (Exception $e) {
+    // Manejo de errores
+    echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
+} finally {
+    if (isset($stmt) && $stmt !== false) {
+        $stmt->close();
+    }
+    if (isset($conn) && $conn !== false) {
+        $conn->close();
+    }
 }
-$conn = null;
-
-
-/*
-╔═════════════════════════╗
-║ Send email verification ║
-╚═════════════════════════╝
-*/
-$body = validate_email_template($name, $validation_hash);
-send_email($body, "Verify your email", $email);
-
-
-
-$data['state'] = true;
-echo json_encode($data);

@@ -1,3 +1,17 @@
+body {
+    background-image: url('../img/background/login_background.jpg');
+    background-color: var(--background);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(15px);
+    opacity: 1;
+    width: 100vw;
+    height: 100vh;
+    color: var(--text-color);
+    display: block;
+}
+
 main {
     position: absolute;
     top: 50%;

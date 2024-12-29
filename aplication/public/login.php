@@ -149,8 +149,6 @@ if (isset($_SESSION['user'])) {
                 </svg>
                 Sign up!
             </h1>
-            <button class="close-modal close-btn">
-            </button>
         </div>
         <div class="dialog-body">
             <form class="form-container">
@@ -222,8 +220,6 @@ if (isset($_SESSION['user'])) {
                 </svg>
                 Forgot Password?
             </h1>
-            <button class="close-modal close-btn">
-            </button>
         </div>
         <div class="dialog-body">
             <form class="form-container">

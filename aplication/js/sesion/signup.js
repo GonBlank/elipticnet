@@ -113,17 +113,12 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then(response => response.json())
             .then(data => {
-                if (data.state) {
-                    // Capturar el ID y el mensaje de respuesta
-                    ShowAlert('success', 'Success', 'Check your email to finish registration', 'success');
-
+                ShowAlert(data.type, data.title, data.message, data.type);
+                if (!data.error) {
                     username.value = '';
                     email.value = '';
                     password.value = '';
 
-
-                } else if (data.error) {
-                    ShowAlert(data.type, data.title, data.message, data.type);
                 }
             })
             .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//

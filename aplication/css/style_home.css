@@ -306,7 +306,7 @@
 }
 
 .dropdown_menu_container.full .dropdown_menu:not(.collapsed) {
-    height: 95px;
+    height: 80px;
 }
 
 
