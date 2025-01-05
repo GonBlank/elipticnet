@@ -235,9 +235,6 @@
 
 .statistics-card {
     color: var(--text-color);
-    background-color: var(--form-background);
-    border-radius: 8px;
-    padding: 10px;
     text-align: center;
     flex: 1;
     flex-wrap: wrap;
@@ -270,10 +267,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     gap: 8px;
-    padding: 10px;
-    border-radius: 8px;
     position: relative;
-    background-color: var(--form-background);
 }
 
 .spinner-circle {

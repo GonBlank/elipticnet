@@ -146,10 +146,7 @@
     text-wrap: nowrap;
     display: flex;
     flex-direction: column;
-    padding: 15px;
     gap: 5px;
-    background-color: var(--form-background);
-    border-radius: 8px;
     flex: 1;
 }
 
@@ -183,13 +180,6 @@
     display: flex;
     flex-direction: column;
     gap: 1px;
-}
-
-
-.card{
-    padding: 15px;
-    background-color: var(--form-background);
-    border-radius: 8px;
 }
 
 .statistics {
@@ -299,11 +289,10 @@
     width: 100%;
     height: auto;
     min-height: 250px;
-    background-color: var(--form-background);
-    border-radius: 8px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 0px;
 }
 
 
@@ -389,9 +378,6 @@
 }
 
 .log {
-    border-radius: 8px;
-    padding: 15px;
-    background-color: var(--form-background);
     overflow-y: auto;
     cursor: context-menu;
     max-height: 500px;

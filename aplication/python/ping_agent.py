@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import mysql.connector
 import json
 from ping3 import ping
@@ -10,12 +8,11 @@ from datetime import datetime, timezone
 # ║ CONFIGURATIONS  ║
 # ╚═════════════════╝
 
-# /var/www/elipticnet/aplication/config/config.json
-# ../config/config.json
-with open("/var/www/elipticnet/aplication/config/config.json", "r") as file:
+CONFIG_PATH = "/var/www/elipticnet/aplication/config/config.json"
+with open(CONFIG_PATH, "r") as file:
     config = json.load(file)
 
-db_config = {
+DB_CONFIG = {
     "host": config["database"]["DB_HOST"],
     "user": config["database"]["DB_USER"],
     "password": config["database"]["DB_PASS"],
@@ -23,24 +20,29 @@ db_config = {
     "ssl_disabled": True,
 }
 
-time = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+TIME = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
 
+# ╔══════════════════╗
+# ║ NOTIFIER CONFIG  ║
+# ╚══════════════════╝
+from transports.notifier import NotificationManager
+
+notifier = NotificationManager(CONFIG_PATH, DB_CONFIG)
 
 # ╔════════════╗
 # ║ FUNCTIONS  ║
 # ╚════════════╝
 
 
-def fetch_host_data():
+def fetch_ping_agent_data():
     connection = None
     cursor = None
     try:
-        connection = mysql.connector.connect(**db_config)
+        connection = mysql.connector.connect(**DB_CONFIG)
         cursor = connection.cursor(dictionary=True)
 
         query = """
-        SELECT id, ip, state, threshold, threshold_exceeded, last_check, log, transports
-        FROM host_data;
+        SELECT * FROM ping_agent_data;
         """
         cursor.execute(query)
         results = cursor.fetchall()
@@ -61,23 +63,20 @@ def ping_host(host):
 
     if ping_response != None and ping_response != False or type(ping_response) == float:
         # print("[INFO] HOST UP")
+        ping_response = round(float(ping_response), 2)
         update_host_latency(host["id"], ping_response)  # round(ping_response, 2)
         return {"state": True, "response": ping_response}
     else:
         # print("[INFO] HOST DOWN")
-        update_host_latency(host["id"], None)  # round(ping_response, 2)
+        update_host_latency(host["id"], None)
         return {"state": False, "response": False}
 
 
 def update_host_latency(host_id, latency):
     # print("[INFO] UPDATING HOST LATENCY")
 
-    # Verificar si latency no es None
-    if latency is not None:
-        latency = round(float(latency), 2)  # Convertir a float si no es None
-
     try:
-        connection = mysql.connector.connect(**db_config)
+        connection = mysql.connector.connect(**DB_CONFIG)
         cursor = connection.cursor()
 
         # Usar %s para todos los tipos de datos en la consulta
@@ -99,18 +98,18 @@ def update_host_latency(host_id, latency):
 def check_state(host, new_state):
     if host["state"] == True and new_state["state"] == False:
         print("[DOWN] DETECT HOST DOWN")
+        cause = log_message(new_state["response"])
         update_state(host, new_state["state"])
-        update_host_log(
-            host, "host_down", "Host down", log_message(new_state["response"])
-        )
+        update_host_log(host, "host_down", "Host down", cause)
+
         update_last_up_down(False, host["id"])
-        # send_alert(host['transports'])
+        notifier.notifier(host, "ping_agent_down", details={"cause": cause})
     elif host["state"] == False and new_state["state"] == True:
         print("[INFO] DETECT HOST UP")
         update_state(host, new_state["state"])
         update_host_log(host, "host_up", "Recovered host", "The host is back online")
         update_last_up_down(True, host["id"])
-        # send_alert(host['transports'])
+        notifier.notifier(host, "ping_agent_up")
 
     elif host["state"] == None:
         print("[UP] FIRST CHECK")
@@ -118,9 +117,11 @@ def check_state(host, new_state):
             host, "host_start", "First check", "The host begins to be monitored"
         )
         if new_state["state"] == True:
+            #notifier.notifier(host, "ping_agent_up")
             update_state(host, new_state["state"])
             update_last_up_down(True, host["id"])
         else:
+            #notifier.notifier(host, "ping_agent_down", details={"cause": "First check: host down"})
             update_state(host, new_state["state"])
             update_last_up_down(False, host["id"])
             update_host_log(
@@ -131,12 +132,12 @@ def check_state(host, new_state):
 def update_state(host, new_state):
     # print("[INFO] UPDATING STATE")
     try:
-        connection = mysql.connector.connect(**db_config)
+        connection = mysql.connector.connect(**DB_CONFIG)
         cursor = connection.cursor()
 
         # Consulta SQL para actualizar el campo 'state'
         update_query = """
-        UPDATE host_data SET state = %s WHERE id = %s """
+        UPDATE ping_agent_data SET state = %s WHERE id = %s """
         cursor.execute(update_query, (new_state, host["id"]))
         connection.commit()
 
@@ -162,7 +163,7 @@ def update_host_log(host, icon, cause, message=None):
     # Agregar el nuevo registro al log
     host["log"].append(
         {
-            "time": time,
+            "time": TIME,
             "icon": icon,
             "cause": cause,
             "message": message,
@@ -171,12 +172,12 @@ def update_host_log(host, icon, cause, message=None):
 
     try:
         # Conectar a la base de datos
-        connection = mysql.connector.connect(**db_config)
+        connection = mysql.connector.connect(**DB_CONFIG)
         cursor = connection.cursor()
 
         # Actualizar el campo log en la base de datos
         update_query = """
-        UPDATE host_data 
+        UPDATE ping_agent_data 
         SET log = %s
         WHERE id = %s
         """
@@ -207,15 +208,15 @@ def update_last_up_down(state, id):
     # print("[INFO] UPDATING LAST UP/DOWN")
 
     try:
-        connection = mysql.connector.connect(**db_config)
+        connection = mysql.connector.connect(**DB_CONFIG)
         cursor = connection.cursor()
 
         if state:
-            update_query = """UPDATE host_data SET last_up = %s WHERE id = %s"""
+            update_query = """UPDATE ping_agent_data SET last_up = %s WHERE id = %s"""
         else:
-            update_query = """UPDATE host_data SET last_down = %s WHERE id = %s"""
+            update_query = """UPDATE ping_agent_data SET last_down = %s WHERE id = %s"""
 
-        cursor.execute(update_query, (time, id))
+        cursor.execute(update_query, (TIME, id))
         connection.commit()
 
     except mysql.connector.Error as e:
@@ -232,21 +233,41 @@ def check_threshold(host, ping_response):
     if ping_response and threshold is not None:
         if ping_response > threshold and not threshold_exceeded:
             print("[WARN] THRESHOLD EXCEEDED")
+            notifier.notifier(
+                host,
+                "ping_agent_latency_threshold_exceeded",
+                details={"latency": ping_response},
+            )
             update_check_threshold(host["id"], True)
-            update_host_log(host, "host_alert", "Threshold exceeded", f"The latency is above {threshold} ms.")
+            update_host_log(
+                host,
+                "host_alert",
+                "Threshold exceeded",
+                f"The latency is above {threshold} ms.",
+            )
             # send_alert(host.get('transports'))
         elif ping_response < threshold and threshold_exceeded:
-            print("[OK] THRESHOLD RECOVERED")
+            print("[OK] THRESHOLD RESTORED")
+            notifier.notifier(
+                host,
+                "ping_agent_latency_threshold_restored",
+                details={"latency": ping_response},
+            )
             update_check_threshold(host["id"], False)
-            update_host_log(host, "host_check", "Threshold recovered", f"The latency is now below {threshold} ms.")
+            update_host_log(
+                host,
+                "host_check",
+                "Threshold recovered",
+                f"The latency is now below {threshold} ms.",
+            )
             # send_alert(host.get('transports'))
 
 
 def update_check_threshold(id, threshold_state):
     try:
-        connection = mysql.connector.connect(**db_config)
+        connection = mysql.connector.connect(**DB_CONFIG)
         cursor = connection.cursor()
-        update_query = """UPDATE host_data SET threshold_exceeded = %s WHERE id = %s"""
+        update_query = """UPDATE ping_agent_data SET threshold_exceeded = %s WHERE id = %s"""
         cursor.execute(update_query, (threshold_state, id))
         connection.commit()
 
@@ -259,10 +280,10 @@ def update_check_threshold(id, threshold_state):
 
 def update_last_check(id):
     try:
-        connection = mysql.connector.connect(**db_config)
+        connection = mysql.connector.connect(**DB_CONFIG)
         cursor = connection.cursor()
-        update_query = """UPDATE host_data SET last_check = %s WHERE id = %s"""
-        cursor.execute(update_query, (time, id))
+        update_query = """UPDATE ping_agent_data SET last_check = %s WHERE id = %s"""
+        cursor.execute(update_query, (TIME, id))
         connection.commit()
 
     except mysql.connector.Error as e:
@@ -277,10 +298,13 @@ def update_last_check(id):
 # ╚═══════════════╝
 
 if __name__ == "__main__":
-    host_list = fetch_host_data()
+    host_list = fetch_ping_agent_data()
 
     for host in host_list:
-        print(f"[INFO] PINGING {host['ip']}")
+        print(f"[INFO] PINGING {host["ip"]}")
+        ##TESTING##
+        # notifier.notifier(host, "ping_agent_down", details={"cause": "Test"})
+        ##TESTING##
         new_state = ping_host(host)
         check_state(host, new_state)  # Actualizador
         update_last_check(host["id"])

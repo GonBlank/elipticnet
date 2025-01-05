@@ -32,7 +32,7 @@ try {
 
     // Consulta SQL para obtener el host con el id y owner correspondiente
     $sql = "SELECT ip, name, description, transports, threshold 
-            FROM host_data WHERE id = ? AND owner = ?";
+            FROM ping_agent_data WHERE id = ? AND owner = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         throw new Exception("Prepare statement error: " . $conn->error);

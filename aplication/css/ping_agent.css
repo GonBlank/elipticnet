@@ -9,10 +9,7 @@
 .form-container {
     display: flex;
     flex-direction: column;
-    background-color: var(--form-background);
     gap: 8px;
-    padding: 20px;
-    border-radius: 8px;
     min-width: 330px;
     max-width: 600px;
     width: 60%;
@@ -26,7 +23,6 @@
 }
 
 .form-container textarea {
-
     width: 100%;
     height: 150px;
     resize: none;

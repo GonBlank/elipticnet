@@ -35,7 +35,7 @@ try {
     }
 
     // Consulta SQL para eliminar el host por id y owner
-    $delete_query = "DELETE FROM host_data WHERE id = ? AND owner = ?";
+    $delete_query = "DELETE FROM ping_agent_data WHERE id = ? AND owner = ?";
 
     // Preparar la consulta
     $stmt = $conn->prepare($delete_query);

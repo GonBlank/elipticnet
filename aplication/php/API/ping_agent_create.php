@@ -43,7 +43,7 @@ try {
     }
 
     // Verificar si ya existe un host con la misma IP y owner
-    $check_query = "SELECT COUNT(*) FROM host_data WHERE ip = ? AND owner = ?";
+    $check_query = "SELECT COUNT(*) FROM ping_agent_data WHERE ip = ? AND owner = ?";
 
     $stmt = $conn->prepare($check_query);
     if (!$stmt) {
@@ -63,7 +63,7 @@ try {
     }
 
     // Insertar el host en la base de datos
-    $sql = "INSERT INTO host_data (owner, ip, name, description, threshold, threshold_exceeded, log, transports) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
+    $sql = "INSERT INTO ping_agent_data (owner, ip, name, description, threshold, threshold_exceeded, log, transports) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
 
     $stmt = $conn->prepare($sql);
 

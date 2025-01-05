@@ -12,3 +12,5 @@ news.txt
 aplication/php/test.php
 
 aplication/python/log/
+
+**/__pycache__/

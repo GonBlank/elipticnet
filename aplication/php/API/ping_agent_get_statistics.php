@@ -84,7 +84,7 @@ function sql_data_range($time_range)
             FROM 
             latency l
             JOIN 
-            host_data h 
+            ping_agent_data h 
             ON 
             l.host_id = h.id
             WHERE 
@@ -120,7 +120,7 @@ FROM (
     FROM 
         latency l
     JOIN 
-        host_data h 
+        ping_agent_data h 
     ON 
         l.host_id = h.id
     WHERE 
@@ -160,7 +160,7 @@ FROM (
     FROM 
         latency l
     JOIN 
-        host_data h 
+        ping_agent_data h 
     ON 
         l.host_id = h.id
     WHERE 
@@ -194,7 +194,7 @@ FROM (
             FROM 
             latency l
             JOIN 
-            host_data h 
+            ping_agent_data h 
             ON 
             l.host_id = h.id
             WHERE 

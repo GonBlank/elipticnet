@@ -101,6 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
             username: username.value,
             email: email.value,
             password: password.value,
+            timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone,
         };
 
         // Enviar los datos al backend usando fetch

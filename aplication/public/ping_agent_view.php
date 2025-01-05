@@ -227,12 +227,12 @@ define('MENU_ALLOWED', true);
                 -->
             </article>
 
-            <article id="latency_graph_container">
+            <article id="latency_graph_container" class="card">
                 <div id="latency_graph" style="width: 100%; height: 100%;"></div>
             </article>
 
 
-            <article class="log">
+            <article class="log card">
                 <h1>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
                         <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />

@@ -53,7 +53,7 @@ define('MENU_ALLOWED', true);
 
 
     <main class="dashboard">
-        <section class="form-container">
+        <section class="form-container card">
             <div class="tittle">
                 <h1>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

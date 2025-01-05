@@ -209,10 +209,15 @@
   --button-primary-disabled: #9f85ff;
 
 
-  /*Forms*/
+  /*Forms*/ /*DEPRECAR: MIGRAR A CARD*/
   --form-background: #170F2F;
   --border-content-color: #26184e;
 
+  /*Card*/
+  --card-bg: #170F2F;
+  --card-shadow: #110B22;
+
+  
   /*Graps*/
   --LatencyGraphDot-color:#B5F730;
   --LatencyGraphLine-color:#b5f730a1;

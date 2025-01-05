@@ -50,7 +50,7 @@ try {
     if ($stmt->execute()) {
         // Comprobar si realmente se eliminó una fila
         if ($stmt->affected_rows == 1) {
-            cleanTransportsArray($conn, "host_data", $id, $owner);
+            cleanTransportsArray($conn, "ping_agent_data", $id, $owner);
 
             echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Transport deleted successfully."]);
         } else if ($stmt->affected_rows == 0) {

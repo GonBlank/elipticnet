@@ -55,7 +55,7 @@ define('MENU_ALLOWED', true);
     <main class="dashboard">
 
         <section class="area-statistics">
-            <div id="hosts_up" class="statistics-card up">
+            <div id="hosts_up" class="statistics-card card up">
                 <h1>UP</h1>
                 <h2>
                     <svg class="spinner-circle" class="up-since" xmlns="http://www.w3.org/2000/svg" height="24px"
@@ -65,7 +65,7 @@ define('MENU_ALLOWED', true);
                     </svg>
                 </h2>
             </div>
-            <div id="hosts_down" class="statistics-card down">
+            <div id="hosts_down" class="statistics-card card down">
                 <h1>DOWN</h1>
                 <h2>
                     <svg class="spinner-circle" class="up-since" xmlns="http://www.w3.org/2000/svg" height="24px"
@@ -75,7 +75,7 @@ define('MENU_ALLOWED', true);
                     </svg>
                 </h2>
             </div>
-            <div id="hosts_monitored" class="statistics-card monitored">
+            <div id="hosts_monitored" class="statistics-card card monitored">
                 <h1>Monitored</h1>
                 <h2>
 
@@ -89,7 +89,7 @@ define('MENU_ALLOWED', true);
             </div>
         </section>
 
-        <section class="monitored-hosts">
+        <section class="monitored-hosts card">
             <div id="agents_menu_container" class="dropdown_menu_container">
                 <button id="dropdown_button" class="host-options dropdown-button">
                     NEW AGENT

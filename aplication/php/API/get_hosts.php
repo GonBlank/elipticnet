@@ -16,7 +16,7 @@ try {
     }
 
     // Consulta SQL para obtener los hosts del usuario
-    $sql = "SELECT id, ip, name, state, last_check, last_up, threshold_exceeded FROM host_data WHERE owner = ?";
+    $sql = "SELECT id, ip, name, state, last_check, last_up, threshold_exceeded FROM ping_agent_data WHERE owner = ?";
 
     // Preparar la consulta
     $stmt = $conn->prepare($sql);

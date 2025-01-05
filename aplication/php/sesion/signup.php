@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 $user = json_decode(file_get_contents('php://input'), true);
 
 
-if (!isset($user['username']) || !isset($user['email']) || !isset($user['password'])) {
+if (!isset($user['username']) || !isset($user['email']) || !isset($user['password']) || !isset($user['timeZone']) ) {
     echo json_encode(["error" => true, "type" => "error", "title" => "Invalid request", "message" => "data no set"]);
     exit;
 }
@@ -23,7 +23,7 @@ if (!isset($user['username']) || !isset($user['email']) || !isset($user['passwor
 $name = $user['username'];
 $email = $user['email'];
 $raw_password = $user['password'];
-
+$time_zone = $user['timeZone'];
 
 
 // Validate password length
@@ -133,6 +133,28 @@ try {
         echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Insert transport email."]);
         exit;
     }
+
+
+    $sql = "INSERT INTO user_config (owner, time_zone) VALUES (?, ?)";
+
+    $stmt = $conn->prepare($sql);
+
+    if (!$stmt) {
+        echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $conn->error]);
+        exit;
+    }
+
+
+    $stmt->bind_param("is", $user_id, $time_zone);
+
+
+    if (!$stmt->execute()) {
+        error_log("[ERROR]: Insert user_config signup.php:" . $e->getMessage());
+        echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Insert user_config."]);
+        exit;
+    }
+
+
 
 
     /*

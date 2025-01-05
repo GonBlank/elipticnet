@@ -31,7 +31,7 @@ try {
     }
 
     // Actualizar el host en la base de datos
-    $sql = "UPDATE host_data SET name = ?, description = ?, threshold = ?, threshold_exceeded = ?, transports = ? WHERE id = ? AND owner = ? ";
+    $sql = "UPDATE ping_agent_data SET name = ?, description = ?, threshold = ?, threshold_exceeded = ?, transports = ? WHERE id = ? AND owner = ? ";
 
     $stmt = $conn->prepare($sql);
 
