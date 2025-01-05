@@ -14,3 +14,5 @@ aplication/php/test.php
 aplication/python/log/
 
 **/__pycache__/
+
+aplication/python/elipticnet_env/
