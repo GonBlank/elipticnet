@@ -70,9 +70,9 @@ def ping_agent_up_template(owner, id, name, ip, last_down):
     return f"""
 ✅ *PING AGENT {name} - UP*
 
-🔹 *IP*: `{ip}`
-🔹 *Start time*: {time_translate(last_down, owner)}
-🔹 *Restore time*: {time_translate(TIME, owner)}
+🔹 *IP*: {ip}
+🔹 *Incident started at*: {time_translate(last_down, owner)}
+🔹 *Resolved at*: {time_translate(TIME, owner)}
 🔹 *Duration*: {duration}
 
 💡 The agent's connectivity has been restored. If you need further details, [go to agent]({DOMAIN + "/aplication/public/ping_agent_view.php?id=" + id})
@@ -90,9 +90,9 @@ def ping_agent_down_template(owner,id, name, ip, cause):
     return f"""
 ❌ *PING AGENT {name} - DOWN*
 
-🔹 *IP*: `{ip}`
-🔹 *Cause*: {cause}
-🔹 *Start Time*: {time_translate(TIME, owner)}
+🔹 *IP*: {ip}
+🔹 *Root cause*: {cause}
+🔹 *Incident started at*: {time_translate(TIME, owner)}
 
 💡 The agent is currently down. If you need further details, [go to agent]({DOMAIN + "/aplication/public/ping_agent_view.php?id=" + id})
 """
@@ -103,14 +103,15 @@ def ping_agent_down_template(owner,id, name, ip, cause):
 # ╚════════════════════╝
 
 
-def ping_agent_latency_threshold_exceeded(id, name, ip, latency, threshold):
+def ping_agent_latency_threshold_exceeded(owner, id, name, ip, latency, threshold):
     # Generar el mensaje
     return f"""
 ⚠️ *PING AGENT {name} - LATENCY THRESHOLD EXCEEDED*
 
-🔹 *IP*: `{ip}`
+🔹 *IP*: {ip}
 🔹 *Latency*: {latency} ms
 🔹 *Threshold*: {threshold} ms
+🔹 *Incident started at*: {time_translate(TIME, owner)}
 
 💡 The latency has exceeded the set threshold. If you need further details, [go to agent]({DOMAIN + "/aplication/public/ping_agent_view.php?id=" + id})
 """
@@ -121,14 +122,15 @@ def ping_agent_latency_threshold_exceeded(id, name, ip, latency, threshold):
 # ╚════════════════════╝
 
 
-def ping_agent_latency_threshold_restored(id, name, ip, latency, threshold):
+def ping_agent_latency_threshold_restored(owner, id, name, ip, latency, threshold):
     # Generar el mensaje
     return f"""
 ✅ *PING AGENT {name} - LATENCY THRESHOLD RESTORED*
 
-🔹 *IP*: `{ip}`
+🔹 *IP*: {ip}
 🔹 *Latency*: {latency} ms
 🔹 *Threshold*: {threshold} ms
+🔹 *Resolved at*: {time_translate(TIME, owner)}
 
 💡 The latency has returned to normal and is now within the set threshold. If you need further details, [go to agent]({DOMAIN + "/aplication/public/ping_agent_view.php?id=" + id})
 """

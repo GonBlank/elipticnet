@@ -23,12 +23,10 @@ main {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--form-background);
     display: flex;
     flex-direction: row;
     gap: 15px;
     cursor: context-menu;
-    border-radius: 8px;
 }
 
 

@@ -17,7 +17,7 @@ DB_CONFIG = {
     "user": config["database"]["DB_USER"],
     "password": config["database"]["DB_PASS"],
     "database": config["database"]["DB_NAME"],
-    "ssl_disabled": True,
+    "ssl_disabled": config["database"]["SSL_DISABLED"],
 }
 
 TIME = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")

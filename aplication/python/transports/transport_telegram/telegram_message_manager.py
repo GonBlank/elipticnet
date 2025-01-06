@@ -21,8 +21,8 @@ def telegram_message_manager(data, message_type, details=None):
     template_mapping = {
         "ping_agent_up": lambda: ping_agent_up_template(owner, id, name, ip, last_down),
         "ping_agent_down": lambda: ping_agent_down_template(owner, id, name, ip, cause),
-        "ping_agent_latency_threshold_exceeded": lambda: ping_agent_latency_threshold_exceeded(id, name, ip, latency, threshold),
-        "ping_agent_latency_threshold_restored": lambda: ping_agent_latency_threshold_restored(id, name, ip, latency, threshold),
+        "ping_agent_latency_threshold_exceeded": lambda: ping_agent_latency_threshold_exceeded(owner, id, name, ip, latency, threshold),
+        "ping_agent_latency_threshold_restored": lambda: ping_agent_latency_threshold_restored(owner, id, name, ip, latency, threshold),
     }
 
     # Obtener la plantilla correspondiente al tipo de mensaje

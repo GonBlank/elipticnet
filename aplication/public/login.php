@@ -137,7 +137,7 @@ if (isset($_SESSION['user'])) {
 
 
 
-    <dialog id="sign-up">
+    <dialog id="sign-up" class="card">
         <div class="dialog-header">
             <h1>
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
@@ -210,7 +210,7 @@ if (isset($_SESSION['user'])) {
 
 
 
-    <dialog id="forgot-password">
+    <dialog id="forgot-password" class="card">
         <div class="dialog-header">
             <h1>
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
