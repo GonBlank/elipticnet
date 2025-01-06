@@ -66,7 +66,7 @@ def test_template():
                         style="background-color: #170F2F; border-radius: 8px; padding: 15px; max-width: 100%; text-align: center;">
 
                         <img style="width: 50px; font-size: 32px;"
-                            src="http://192.168.0.189/aplication/img/public/arrow_circle_up.png" alt="✅">
+                            src="{DOMAIN}/aplication/img/public/arrow_circle_up.png" alt="✅">
                         <h1>
                             NAME - <span style="color: #B5F730;"> UP </span>
                         </h1>
@@ -136,10 +136,8 @@ def test_template():
 
                     <footer style="margin-top: 10px; text-align: center;">
                         <small style="color: black; font-size: 12px; margin-top: 20px; display: inline-block;">
-                            This email was sent by <a href="https://elipticnet.com"
-                                style="color: #7230f7; text-decoration: none;">elipticnet.com</a>. You can update your
-                            alert preferences in the <a href="https://elipticnet.com"
-                                style="color: #7230f7; text-decoration: none;">dashboard</a>.
+                            This email was sent by <a href="https://elipticnet.com">elipticnet.com</a>. You can update your
+                            alert preferences in the <a href="https://elipticnet.com">dashboard</a>.
                         </small>
                     </footer>
 
@@ -219,7 +217,7 @@ def ping_agent_up_template(owner, id, name, ip, last_down):
                         style="background-color: #170F2F; border-radius: 8px; padding: 15px; max-width: 100%; text-align: center;">
 
                         <img style="width: 50px; font-size: 32px;"
-                            src="http://192.168.0.189/aplication/img/public/arrow_circle_up.png" alt="✅">
+                            src="{DOMAIN}/aplication/img/public/arrow_circle_up.png" alt="✅">
                         <h1>
                             {name} - <span style="color: #B5F730;"> UP </span>
                         </h1>
@@ -289,10 +287,8 @@ def ping_agent_up_template(owner, id, name, ip, last_down):
 
                     <footer style="margin-top: 10px; text-align: center;">
                         <small style="color: black; font-size: 12px; margin-top: 20px; display: inline-block;">
-                            This email was sent by <a href="{DOMAIN}"
-                                style="color: #7230f7; text-decoration: none;">elipticnet.com</a>. You can update your
-                            alert preferences in the <a href="{DOMAIN + "/aplication/public/ping_agent_edit.php?id=" + id}"
-                                style="color: #7230f7; text-decoration: none;">agent</a>.
+                            This email was sent by <a href="{DOMAIN}">elipticnet.com</a>. You can update your
+                            alert preferences in the <a href="{DOMAIN + "/aplication/public/ping_agent_edit.php?id=" + id}">agent</a>.
                         </small>
                     </footer>
 
@@ -338,10 +334,13 @@ def ping_agent_down_template(owner, id, name, ip, cause):
         font-size: 13px;
         font-weight: 600;
     }}
-    
-    a{{
+
+    a {{
         font-weight: 600;
+        color: #7230f7;
+        text-decoration: none;
     }}
+    
 </style>
 
 <body style="margin: 0; padding: 0; color: #F5F0FE;">
@@ -355,7 +354,7 @@ def ping_agent_down_template(owner, id, name, ip, cause):
                         style="background-color: #170F2F; border-radius: 8px; padding: 15px; max-width: 100%; text-align: center;">
 
                         <img style="width: 50px; font-size: 32px;"
-                            src="http://192.168.0.189/aplication/img/public/arrow_circle_down.png" alt="❌">
+                            src="{DOMAIN}/aplication/img/public/arrow_circle_down.png" alt="❌">
                         <h1>
                             {name} - <span style="color: #F73051;"> DOWN </span>
                         </h1>
@@ -420,10 +419,8 @@ def ping_agent_down_template(owner, id, name, ip, cause):
 
                     <footer style="margin-top: 10px; text-align: center;">
                         <small style="color: black; font-size: 12px; margin-top: 20px; display: inline-block;">
-                            This email was sent by <a href="{DOMAIN}"
-                                style="color: #7230f7; text-decoration: none;">elipticnet.com</a>. You can update your
-                            alert preferences in the <a href="{DOMAIN + "/aplication/public/ping_agent_edit.php?id=" + id}"
-                                style="color: #7230f7; text-decoration: none;">agent</a>.
+                            This email was sent by <a href="{DOMAIN}">elipticnet.com</a>. You can update your
+                            alert preferences in the <a href="{DOMAIN + "/aplication/public/ping_agent_edit.php?id=" + id}">agent</a>.
                         </small>
                     </footer>
 
@@ -472,6 +469,8 @@ def ping_agent_latency_threshold_exceeded(owner, id, name, ip, latency, threshol
 
     a {{
         font-weight: 600;
+        color: #7230f7;
+        text-decoration: none;
     }}
 </style>
 
@@ -486,7 +485,7 @@ def ping_agent_latency_threshold_exceeded(owner, id, name, ip, latency, threshol
                         style="background-color: #170F2F; border-radius: 8px; padding: 15px; max-width: 100%; text-align: center;">
 
                         <img style="width: 50px; font-size: 32px;"
-                            src="http://192.168.0.189/aplication/img/public/warning.png" alt="⚠️">
+                            src="{DOMAIN}/aplication/img/public/warning.png" alt="⚠️">
                         <h1>
                             {name} - <span style="color: #ffd000;"> WARNING </span>
                         </h1>
@@ -560,10 +559,8 @@ def ping_agent_latency_threshold_exceeded(owner, id, name, ip, latency, threshol
 
                     <footer style="margin-top: 10px; text-align: center;">
                         <small style="color: black; font-size: 12px; margin-top: 20px; display: inline-block;">
-                            This email was sent by <a href="{DOMAIN}"
-                                style="color: #7230f7; text-decoration: none;">elipticnet.com</a>. You can update your
-                            alert preferences in the <a href="{DOMAIN + "/aplication/public/ping_agent_edit.php?id=" + id}"
-                                style="color: #7230f7; text-decoration: none;">agent</a>.
+                            This email was sent by <a href="{DOMAIN}">elipticnet.com</a>. You can update your
+                            alert preferences in the <a href="{DOMAIN + "/aplication/public/ping_agent_edit.php?id=" + id}">agent</a>.
                         </small>
                     </footer>
 
@@ -611,6 +608,8 @@ def ping_agent_latency_threshold_restored(owner, id, name, ip, latency, threshol
 
     a {{
         font-weight: 600;
+        color: #7230f7;
+        text-decoration: none;
     }}
 </style>
 
@@ -625,7 +624,7 @@ def ping_agent_latency_threshold_restored(owner, id, name, ip, latency, threshol
                         style="background-color: #170F2F; border-radius: 8px; padding: 15px; max-width: 100%; text-align: center;">
 
                         <img style="width: 50px; font-size: 32px;"
-                            src="http://192.168.0.189/aplication/img/public/check_circle.png" alt="✅">
+                            src="{DOMAIN}/aplication/img/public/check_circle.png" alt="✅">
                         <h1>
                             {name} - <span style="color: #B5F730;"> RESTORED </span>
                         </h1>
@@ -696,10 +695,8 @@ def ping_agent_latency_threshold_restored(owner, id, name, ip, latency, threshol
 
                     <footer style="margin-top: 10px; text-align: center;">
                         <small style="color: black; font-size: 12px; margin-top: 20px; display: inline-block;">
-                            This email was sent by <a href="{DOMAIN}"
-                                style="color: #7230f7; text-decoration: none;">elipticnet.com</a>. You can update your
-                            alert preferences in the <a href="{DOMAIN + "/aplication/public/ping_agent_edit.php?id=" + id}"
-                                style="color: #7230f7; text-decoration: none;">agent</a>.
+                            This email was sent by <a href="{DOMAIN}">elipticnet.com</a>. You can update your
+                            alert preferences in the <a href="{DOMAIN + "/aplication/public/ping_agent_edit.php?id=" + id}"agent</a>.
                         </small>
                     </footer>
 
