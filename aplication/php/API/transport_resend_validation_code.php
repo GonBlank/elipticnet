@@ -1,7 +1,7 @@
 <?php
 // Cargar las variables de entorno
 
-use function PHPSTORM_META\type;
+#use function PHPSTORM_META\type;
 
 require_once '../env.php';
 include '../sesion/checkAuth.php';
@@ -37,10 +37,7 @@ try {
         exit;
     }
 
-    /**/
-
-    // Consulta SQL para obtener el owner y hash_date asociado al validation_hash
-    $select_query = "SELECT type, transport_id FROM transports WHERE id = ? AND owner = ?";
+    $select_query = "SELECT type, transport_id, retries, hash_date FROM transports WHERE id = ? AND owner = ?";
 
     // Preparar la consulta
     $stmt = $conn->prepare($select_query);
@@ -69,16 +66,46 @@ try {
         exit;
     }
 
+    
+    // Se encontró exactamente un registro =>
 
-    // Se encontró exactamente un registro => valido el hash_date
     $row = $result->fetch_assoc();
+
+
+    /*Limitar cantidad de reenvio de link por tiempo*/
+    
+    $hash_date = $row['hash_date'];
+
+    // Obtener la fecha actual
+    $current_time = new DateTime();
+
+    // Convertir hash_date a objeto DateTime
+    $hash_time = new DateTime($hash_date);
+
+    // Calcular la diferencia entre la fecha actual y hash_date
+    $interval = $current_time->diff($hash_time);
+
+    // Verificar si la diferencia es menor a 5 minutos
+    if ($interval->i < 5 && $interval->d == 0 && $interval->h == 0) {
+        echo json_encode(["error" => true, "type" => "warning", "title" => "Wait", "message" => "You must wait at least 5 minutes to resend the validation link"]);
+        exit;
+    }
+
+    //Verificar que no se haya solicitado enviar más de 5 links
+    $retries = ($row['retries'] ?? 0) + 1;
+
+    if ($retries > 5){
+        echo json_encode(["error" => true, "type" => "warning", "title" => "Validation failed", "message" => "It looks like you've sent a lot of validation links. Please contact our ", "link_text" => "support team", "link" => DOMAIN . "/aplication/public/support.php"]);
+        exit;
+    }
+
+    
     $type = $row['type'];
     $transport_id = $row['transport_id'];
-
     $hash_date = date('Y-m-d H:i:s');
     $validation_hash = generate_random_hash($conn, "transports", "validation_hash");
-
-    $update_query = "UPDATE transports SET validation_hash = ?, hash_date = ? WHERE id = ? AND owner = ?";
+    $validation_sent = NULL; //este es un flag que se usa en casos especificos desde otros scripts. Lo usa el validador de telegram para saber si tiene que enviar el link de validacion
+    $update_query = "UPDATE transports SET validation_hash = ?, hash_date = ?, retries = ?, validation_sent = ? WHERE id = ? AND owner = ?";
 
     $update_stmt = $conn->prepare($update_query);
     if (!$update_stmt) {
@@ -87,7 +114,7 @@ try {
     }
 
     // Vincular los parámetros
-    $update_stmt->bind_param("ssii", $validation_hash, $hash_date, $id, $owner);
+    $update_stmt->bind_param("ssisii", $validation_hash, $hash_date, $retries, $validation_sent,  $id, $owner);
 
     // Ejecutar la consulta
     if ($update_stmt->execute()) {
@@ -101,7 +128,7 @@ try {
         $update_stmt->close();
         $conn->close();
         //Enviar mensaje al transporte
-        resend_validation_code($type, $validation_hash, $transport_id);
+        resend_validation_code($user['username'], $type, $validation_hash, $transport_id);
         echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "validation link sent correctly."]);
         exit;
     } else {
@@ -123,13 +150,13 @@ try {
 
 
 
-function resend_validation_code($type, $validation_hash, $transport_id)
+function resend_validation_code($user_name, $type, $validation_hash, $transport_id)
 {
 
     switch ($type) {
         case 'email':
             // Enviar correo electrónico de validación
-            $body = validate_transport_email_template($validation_hash);
+            $body = validate_transport_email_template($user_name, $validation_hash);
             send_email($body, "Verification required", $transport_id);
             break;
 

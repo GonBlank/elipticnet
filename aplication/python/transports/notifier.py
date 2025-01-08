@@ -41,12 +41,10 @@ class NotificationManager:
         self, transport_type, transport_id, data, message_type, details=None
     ):
         """Envia la notificación según el tipo de transporte."""
-        message = "Todavia sin implementar"
+
         if transport_type == "email":
-            # message = create_email_message(message_type)
             self.send_email(transport_id, data, message_type, details)
         elif transport_type == "telegram":
-            # message = create_telegram_message(message_type)
             self.send_telegram(transport_id, data, message_type, details)
         else:
             print("Error: Transporte desconocido")
@@ -55,7 +53,7 @@ class NotificationManager:
         """Simula el envío de un correo electrónico."""
         print(f"Enviando correo a: {transport_id}")
         message = email_message_manager(data, message_type, details)
-        send_email(transport_id, message_type, message)
+        send_email(transport_id, message['subject'], message['body'])
         # Lógica de envío de correo
 
     def send_telegram(self, transport_id, data, message_type, details=None):

@@ -41,7 +41,7 @@ try {
             $conn->close();
 
             //Enviar correo
-            $body=delete_account_email_template();
+            $body=delete_account_email_template($user['username']);
             send_email($body, "Deleted account", $user['email']);
 
             close_session();

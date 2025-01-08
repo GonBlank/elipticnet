@@ -4,7 +4,9 @@ require_once '../env.php';
 
 function password_updated_email_template($name)
 {
-
+    $url = DOMAIN;
+    $url_image = DOMAIN . "/aplication/img/public/lock_reset.png";
+    
     return <<<HTML
 <!DOCTYPE html>
 <html lang="en">
@@ -12,58 +14,65 @@ function password_updated_email_template($name)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔔 Password change detected</title>
+    <title>Elipticnet || Account Notification</title>
 </head>
 
-<body
-    style="background-color: #130c27; color: #F5F0FE; font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;">
-
-    <table role="presentation"
-        style="width: 100%; height: 100%; background-color: #130c27; text-align: center; border-spacing: 0; border-collapse: collapse;">
+<body style="margin: 0; padding: 0; color: #F5F0FE; font-family: 'Lexend', sans-serif;">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="padding: 20px; text-align: center;">
         <tr>
-            <td align="center" style="padding: 20px;">
+            <td align="center" style="width: 600px;">
+                <!-- Card -->
+                <div style="width: 600px;">
+                    <!-- Titulo -->
+                    <div style="background-color: #170F2F; border-radius: 8px; padding: 15px; max-width: 100%; text-align: center;">
+                        <img style="width: 50px; font-size: 32px;" src="$url_image" alt="🔄">
+                        <h1 style="font-size: 32px; margin: 0;">Password updated</h1>
+                    </div>
 
-                <table role="presentation"
-                    style="max-width: 550px; width: 100%; background-color: #170F2F; border-radius: 8px; padding: 20px; box-shadow: 0px 0px 2px 0px #bfb0e8; text-align: center;">
-                    <tr>
-                        <td>
-                            <h1 style="color: #B5F730; font-size: 24px; margin: 20px 0;">
-                                🔔 Password change
-                            </h1>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p style="color: #F5F0FE; font-size: 16px; margin: 20px 0;">
-                                Hello $name. We detect a password change on your elipticnet account.<br>
-                                If you did not make this modification, contact our support team as soon as possible.
+                    <!-- Tabla presentación -->
+                    <div style="color: black; border: 1px solid rgba(128, 128, 128, 0.192); border-radius: 8px; padding: 15px; margin: 10px 0;">
+                        <div style="text-align: left;">
+                            <p style="font-weight: 300; font-size: 13px; margin: 0;">Hello $name,</p>
+
+                            <p style="font-weight: 300; font-size: 13px; margin: 10px 0;">
+                                We want to confirm that your password has been successfully updated. If you made this change, no further action is required.
                             </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."
-                                style="display: inline-block; padding: 12px 20px; background-color: #7230f7; color: white; text-decoration: none; border-radius: 8px; font-size: 16px; margin: 25px 0;">
-                                Talk to support
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <small style="color: #F5F0FE; font-size: 12px; margin-top: 20px; display: inline-block;">
-                                This email was sent by <a href="https://elipticnet.com"
-                                    style="color: #b499ff; text-decoration: none;">elipticnet.com</a>. If you were the one who made the change, you do not need to take any action.
-                            </small>
-                        </td>
-                    </tr>
-                </table>
+
+                            <p style="font-weight: 300; font-size: 13px; margin: 10px 0;">
+                                <span style="font-weight: 600;">If you did not request this change</span>, please contact our 
+                                <a href="mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue." 
+                                   style="font-weight: 600; color: #7230f7; text-decoration: none;">
+                                   support team
+                                </a> immediately to secure your account.
+                            </p>
+
+                            <p style="font-weight: 300; font-size: 13px; margin: 10px 0;">
+                                If you have any questions or concerns, feel free to reach out to us at 
+                                <a href="mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue." 
+                                   style="font-weight: 600; color: #7230f7; text-decoration: none;">
+                                   support@elipticnet.com
+                                </a>.
+                            </p>
+                        </div>
+
+                        <p style="font-weight: 300; font-size: 13px; margin: 50px 0 0;">
+                            Thank you for trusting in <a href="$url" style="font-weight: 600; color: #7230f7; text-decoration: none;">Elipticnet</a>.
+                        </p>
+                    </div>
+
+                    <footer style="margin-top: 10px; text-align: center;">
+                        <small style="color: black; font-size: 12px; margin-top: 20px; display: inline-block;">
+                            This email was sent by <a href="$url" style="font-weight: 600; color: #7230f7; text-decoration: none;">elipticnet.com</a>.
+                        </small>
+                    </footer>
+                </div>
             </td>
         </tr>
     </table>
-
 </body>
 
 </html>
+
 
 HTML;
 }

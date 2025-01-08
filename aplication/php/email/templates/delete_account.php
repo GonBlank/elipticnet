@@ -2,8 +2,11 @@
 <?php
 require_once '../env.php';
 
-function delete_account_email_template()
+function delete_account_email_template($user_name)
 {
+    $url = DOMAIN;
+    $url_image = DOMAIN . "/aplication/img/public/delete.png";
+    
 
     return <<<HTML
 <!DOCTYPE html>
@@ -12,58 +15,62 @@ function delete_account_email_template()
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elipticnet || 🗑️ Deleted account</title>
+    <title>Elipticnet || Account Notification</title>
 </head>
 
-<body
-    style="background-color: #130c27; color: #F5F0FE; font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%;">
-
-    <table role="presentation"
-        style="width: 100%; height: 100%; background-color: #130c27; text-align: center; border-spacing: 0; border-collapse: collapse;">
+<body style="margin: 0; padding: 0; color: #F5F0FE; font-family: 'Lexend', sans-serif;">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="padding: 20px; text-align: center;">
         <tr>
-            <td align="center" style="padding: 20px;">
+            <td align="center" style="width: 600px;">
+                <!-- Card -->
+                <div style="width: 600px;">
+                    <!-- Titulo -->
+                    <div style="background-color: #170F2F; border-radius: 8px; padding: 15px; max-width: 100%; text-align: center;">
+                        <img style="width: 50px; font-size: 32px;" src="$url_image" alt="🗑️">
+                        <h1 style="font-size: 32px; margin: 0;">Deleted account</h1>
+                    </div>
 
-                <table role="presentation"
-                    style="max-width: 550px; width: 100%; background-color: #170F2F; border-radius: 8px; padding: 20px; box-shadow: 0px 0px 2px 0px #bfb0e8; text-align: center;">
-                    <tr>
-                        <td>
-                            <h1 style="color: #B5F730; font-size: 24px; margin: 20px 0;">
-                                🗑️ Deleted account
-                            </h1>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p style="color: #F5F0FE; font-size: 16px; margin: 20px 0;">
-                                We are sorry to see you go and we hope you return soon.<br>
-                                If you have experienced any problems you can contact our support team.
+                    <!-- Tabla presentación -->
+                    <div style="color: black; border: 1px solid rgba(128, 128, 128, 0.192); border-radius: 8px; padding: 15px; margin: 10px 0;">
+                        <div style="text-align: left;">
+                            <p style="font-weight: 300; font-size: 13px; margin: 0;">Dear $user_name,</p>
+                            <p style="font-weight: 300; font-size: 13px; margin: 10px 0;">
+                                We’re sorry to see you go! Your account has been successfully deleted from our platform.
                             </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."
-                                style="display: inline-block; padding: 12px 20px; background-color: #7230f7; color: white; text-decoration: none; border-radius: 8px; font-size: 16px; margin: 25px 0;">
-                                Talk to support
+                            <p style="font-weight: 300; font-size: 13px; margin: 10px 0;">
+                                If you don’t mind, we’d appreciate it if you could take a moment to let us know why you decided to leave. Your feedback is invaluable and helps us improve our service.
+                            </p>
+                        </div>
+
+                        <!-- Botón -->
+                        <div style="text-align: center; margin: 25px 0;">
+                            <a href="https://forms.gle/UQynKp7z7E35sEAb9" 
+                               style="display: inline-block; padding: 12px 20px; background-color: #7230f7; color: white; text-decoration: none; border-radius: 8px; font-size: 16px;">
+                               Share Feedback
                             </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <small style="color: #F5F0FE; font-size: 12px; margin-top: 20px; display: inline-block;">
-                                This email was sent by <a href="https://elipticnet.com"
-                                    style="color: #b499ff; text-decoration: none;">elipticnet.com</a>. If you were the one who requested the account deletion, you do not need to take any further action.
-                            </small>
-                        </td>
-                    </tr>
-                </table>
+                        </div>
+
+                        <p style="font-weight: 300; font-size: 13px; margin: 10px 0;">
+                            Thank you for having been a part of our community. If you ever decide to return, we’ll be more than happy to welcome you back.
+                        </p>
+                    </div>
+
+                    <footer style="margin-top: 10px; text-align: center;">
+                        <small style="color: black; font-size: 12px; display: inline-block;">
+                            This email was sent by <a href="$url" style="font-weight: 600; color: #7230f7; text-decoration: none;">elipticnet.com</a>. 
+                            If you did not request this action, contact our 
+                            <a href="mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue." 
+                               style="font-weight: 600; color: #7230f7; text-decoration: none;">support team</a>.
+                        </small>
+                    </footer>
+                </div>
             </td>
         </tr>
     </table>
-
 </body>
 
 </html>
+
 
 HTML;
 }

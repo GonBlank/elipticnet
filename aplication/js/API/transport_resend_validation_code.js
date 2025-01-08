@@ -41,7 +41,8 @@ document.body.addEventListener("click", function (event) {
                 return response.json();
             })
             .then((data) => {
-                ShowAlert(data.type, data.title, data.message, data.type);
+                //ShowAlert(data.type, data.title, data.message, data.type);
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
             })
             .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
             .finally(() => {

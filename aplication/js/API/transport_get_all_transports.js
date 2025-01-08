@@ -12,6 +12,14 @@ function fetchTransports() {
             return response.json();
         })
         .then(data => {
+            if (data.error){
+                ShowAlert(data.type, data.title, data.message, data.type);
+                setTimeout(() => {
+                    window.location.href = 'home.php';
+                }, 2000);
+            }else{
+                removeLoadCurtain();
+            }
             // Asegurarse de que los datos contienen transportes
             if (data.transports && data.transports.length > 0) {
                 const emailTransportTable = document.getElementById('emailTransportTable');

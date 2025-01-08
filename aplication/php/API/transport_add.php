@@ -88,7 +88,7 @@ try {
         echo json_encode(["error" => true, "type" => "error", "title" => "Insertion Error", "message" => $stmt->error]);
         exit;
     }
-    sendValidationLink($type, $validation_hash, $transport_id);
+    sendValidationLink($user['username'], $type, $validation_hash, $transport_id);
 
     echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Check the added transport to validate it"]);
     exit;
@@ -107,12 +107,12 @@ try {
 
 
 
-function sendValidationLink($type, $validation_hash, $transport_id)
+function sendValidationLink($user_name, $type, $validation_hash, $transport_id)
 {
     switch ($type) {
         case 'email':
             // Enviar correo electrónico de validación
-            $body = validate_transport_email_template($validation_hash);
+            $body = validate_transport_email_template($user_name,$validation_hash);
             send_email($body, "Verification required", $transport_id);
             break;
         case 'telegram':

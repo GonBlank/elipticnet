@@ -57,12 +57,25 @@ try {
     }
 
     /*
-    ╔══════════════╗
-    ║ HOST CREADO  ║
-    ╚══════════════╝
+    ╔═══════════════════╗
+    ║ HOST ACTUALIZADO  ║
+    ╚═══════════════════╝
     */
 
-    echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Hostess created successfully"]);
+    // Verificar cuántas filas fueron afectadas
+    if ($stmt->affected_rows === 1) {
+        echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Host updated successfully"]);
+    } elseif ($stmt->affected_rows === 0) {
+        echo json_encode(["error" => true, "type" => "error", "title" => "Error", "message" => "Failed update request"]);
+    } else {
+        // Si el número de filas afectadas es mayor a 1, lo que podría indicar un problema
+        error_log("[ERROR]: ping_agent_edit_udate_data.php: Unexpectedly, multiple records were modified. The user ID who performed the update is: " . $owner);
+    }
+
+
+
+
+
     exit;
 } catch (Exception $e) {
     echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);

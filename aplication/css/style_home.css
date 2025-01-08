@@ -5,6 +5,13 @@
     position: relative;
 }
 
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 0;
+}
+
 .heartbeat-animation-container {
     display: flex;
     justify-content: center;

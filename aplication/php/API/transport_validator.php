@@ -63,12 +63,12 @@ try {
         $interval = $current_time->diff($hash_time);
 
         if ($interval->h > 1 || $interval->days > 0) {
-            echo json_encode(["error" => true, "type" => "warning", "title" => "Validation Error", "message" => "hash is expired", "link_text" => "Resend the code", "link" => "/aplication/public/transports.html"]);
+            echo json_encode(["error" => true, "type" => "warning", "title" => "Validation Error", "message" => "hash is expired", "link_text" => "Resend the code", "link" => "/aplication/public/transports.php"]);
             exit;
         }
 
         // Consulta para actualizar valid a true y setear hash y hash_date a NULL
-        $update_query = "UPDATE transports SET valid = TRUE, validation_hash = NULL, hash_date = NULL WHERE validation_hash = ?";
+        $update_query = "UPDATE transports SET valid = TRUE, retries = NULL, validation_sent = NULL, validation_hash = NULL, hash_date = NULL WHERE validation_hash = ?";
         $update_stmt = $conn->prepare($update_query);
         if (!$update_stmt) {
             echo json_encode(["error" => true, "type" => "error", "title" => "Update Error", "message" => $conn->error]);

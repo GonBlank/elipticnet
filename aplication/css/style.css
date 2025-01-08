@@ -187,7 +187,7 @@ main.dashboard {
     overflow: auto;
 }
 
-.card{
+.card {
     padding: 15px;
     background-color: var(--card-bg);
     border-radius: 8px;
@@ -230,7 +230,7 @@ main.dashboard {
     color: var(--text-color-label_name);
 }
 
-.input:disabled:hover{
+.input:disabled:hover {
     border-color: var(--input-border);
 }
 
@@ -479,6 +479,28 @@ html {
 /*<div class="placeholder-text loader"></div>*/
 
 
+#load-curtain {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.486);
+    backdrop-filter: blur(8px);
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#load-curtain svg{
+    width: 50px;
+    height: 50px;
+    fill: var(--spinner-color);
+}
+
+
 /*
 ╔════════╗
 ║ Alerts ║
@@ -699,7 +721,7 @@ dialog::backdrop {
 
 }
 
-button svg{
+button svg {
     pointer-events: none;
 }
 
@@ -815,7 +837,7 @@ dialog form button .text.show {
 .tooltip {
     position: relative;
     /* Necesario para posicionar el tooltip */
-   /* display: inline-block;*/
+    /* display: inline-block;*/
     display: flex;
     cursor: pointer;
 }

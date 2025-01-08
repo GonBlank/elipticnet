@@ -8,7 +8,19 @@ function ping_agent_edit_get_data() {
             return response.json();
         })
         .then(data => {
-            load_ping_agent_data(data);
+            if (!data.error) {
+                removeLoadCurtain();
+                load_ping_agent_data(data);
+            }
+            else {
+                ShowAlert(data.type, data.title, data.message, data.type);
+
+                setTimeout(() => {
+                    window.location.href = 'home.php';
+                }, 2000);
+
+            }
+
         })
         .catch(error => {
             ShowAlert('error', 'Error', `Failed to load host data: ${error}`, 'error');

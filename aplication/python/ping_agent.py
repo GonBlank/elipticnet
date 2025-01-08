@@ -117,11 +117,11 @@ def check_state(host, new_state):
             host, "host_start", "First check", "The host begins to be monitored"
         )
         if new_state["state"] == True:
-            #notifier.notifier(host, "ping_agent_up")
+            # notifier.notifier(host, "ping_agent_up")
             update_state(host, new_state["state"])
             update_last_up_down(True, host["id"])
         else:
-            #notifier.notifier(host, "ping_agent_down", details={"cause": "First check: host down"})
+            # notifier.notifier(host, "ping_agent_down", details={"cause": "First check: host down"})
             update_state(host, new_state["state"])
             update_last_up_down(False, host["id"])
             update_host_log(
@@ -267,7 +267,9 @@ def update_check_threshold(id, threshold_state):
     try:
         connection = mysql.connector.connect(**DB_CONFIG)
         cursor = connection.cursor()
-        update_query = """UPDATE ping_agent_data SET threshold_exceeded = %s WHERE id = %s"""
+        update_query = (
+            """UPDATE ping_agent_data SET threshold_exceeded = %s WHERE id = %s"""
+        )
         cursor.execute(update_query, (threshold_state, id))
         connection.commit()
 

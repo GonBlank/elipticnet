@@ -238,7 +238,8 @@
   --input-focus: #26184e;
   --input-focus-visible: #26184e;
 
-  
+  /*Courtin loader*/
+  --spinner-color: #F5F0FE;
   /*Checkbox*/
   --checkbox-active: #b499ff;
   --checkbox-active-inner: #07001a;

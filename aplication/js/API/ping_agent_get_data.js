@@ -8,11 +8,21 @@ function get_host_by_id() {
             return response.json();
         })
         .then(data => {
-            load_host_data(data);
-            create_log_table(data.log);
-            threshold_notification(data.threshold, data.threshold_exceeded);
-            globalVariable_threshold = data.threshold; //Se usa para marcar el valor del threshold en el grafico de latencia
-            console.log(globalVariable_threshold);
+            if (!data.error) {
+                removeLoadCurtain();
+
+                load_host_data(data);
+                create_log_table(data.log);
+                threshold_notification(data.threshold, data.threshold_exceeded);
+                globalVariable_threshold = data.threshold; //Se usa para marcar el valor del threshold en el grafico de latencia
+            } else {
+                ShowAlert(data.type, data.title, data.message, data.type);
+                setTimeout(() => {
+                    window.location.href = 'home.php';
+                }, 2000);
+            }
+
+
         })
 
         .catch(error => {
@@ -58,7 +68,7 @@ function threshold_notification(threshold, threshold_exceeded) {
                     <p>Threshold exceeded - The latency is above ${threshold} ms</p>
 
                 </div>`;
-                return;
+        return;
     }
 
     if (!threshold_exceeded && document.getElementById('warning_threshold')) {

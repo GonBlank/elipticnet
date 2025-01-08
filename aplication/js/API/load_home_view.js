@@ -7,6 +7,9 @@ function fetchHosts() {
             return response.json();
         })
         .then(data => {
+            /*Se quita la cortina para ver la informacion o el reporte de errores*/
+            removeLoadCurtain()
+
             if (data.error) {
                 ShowAlert(data.type, data.title, data.message, data.type);
                 place_holder_manager('error');
