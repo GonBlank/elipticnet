@@ -20,6 +20,36 @@ function validate_email_template($user_name, $hash)
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
 </head>
 
+<style>
+    @font-face {
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 100;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k_hvYw.woff2') format('woff2');
+    }
+    @font-face {
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 300;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k_chvYw.woff2') format('woff2');
+    }
+    @font-face {
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 400;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k5hvYw.woff2') format('woff2');
+    }
+    @font-face {
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 700;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k4lvYw.woff2') format('woff2');
+    }
+
+    body {
+        font-family: 'Lexend', Arial, sans-serif;
+    }
+</style>
 
 
 

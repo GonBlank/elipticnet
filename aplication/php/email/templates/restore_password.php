@@ -19,6 +19,38 @@ function restore_password_template($hash)
     <title>Elipticnet || Account Notification</title>
 </head>
 
+
+<style>
+    @font-face {
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 100;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k_hvYw.woff2') format('woff2');
+    }
+    @font-face {
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 300;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k_chvYw.woff2') format('woff2');
+    }
+    @font-face {
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 400;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k5hvYw.woff2') format('woff2');
+    }
+    @font-face {
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 700;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k4lvYw.woff2') format('woff2');
+    }
+
+    body {
+        font-family: 'Lexend', Arial, sans-serif;
+    }
+</style>
+
 <body style="margin: 0; padding: 0; color: #F5F0FE; font-family: 'Lexend', sans-serif;">
     <table width="100%" border="0" cellspacing="0" cellpadding="0" style="padding: 20px; text-align: center;">
         <tr>

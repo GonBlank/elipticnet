@@ -46,10 +46,33 @@ def ping_agent_up_template(owner, id, name, ip, last_down):
 </head>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+    @font-face {{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 100;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k_hvYw.woff2') format('woff2');
+    }}
+    @font-face {{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 300;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k_chvYw.woff2') format('woff2');
+    }}
+    @font-face {{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 400;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k5hvYw.woff2') format('woff2');
+    }}
+    @font-face {{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 700;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k4lvYw.woff2') format('woff2');
+    }}
 
     body {{
-        font-family: "Lexend", sans-serif;
+         font-family: 'Lexend', Arial, sans-serif;
     }}
 
     p {{
@@ -179,10 +202,33 @@ def ping_agent_down_template(owner, id, name, ip, cause):
 </head>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+    @font-face {{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 100;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k_hvYw.woff2') format('woff2');
+    }}
+    @font-face {{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 300;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k_chvYw.woff2') format('woff2');
+    }}
+    @font-face {{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 400;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k5hvYw.woff2') format('woff2');
+    }}
+    @font-face {{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 700;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k4lvYw.woff2') format('woff2');
+    }}
 
     body {{
-        font-family: "Lexend", sans-serif;
+         font-family: 'Lexend', Arial, sans-serif;
     }}
 
     p {{
@@ -311,10 +357,33 @@ def ping_agent_latency_threshold_exceeded(owner, id, name, ip, latency, threshol
 </head>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+    @font-face {{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 100;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k_hvYw.woff2') format('woff2');
+    }}
+    @font-face {{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 300;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k_chvYw.woff2') format('woff2');
+    }}
+    @font-face {{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 400;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k5hvYw.woff2') format('woff2');
+    }}
+    @font-face {{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 700;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k4lvYw.woff2') format('woff2');
+    }}
 
     body {{
-        font-family: "Lexend", sans-serif;
+         font-family: 'Lexend', Arial, sans-serif;
     }}
 
     p {{
@@ -450,10 +519,33 @@ def ping_agent_latency_threshold_restored(owner, id, name, ip, latency, threshol
 </head>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+    @font-face {{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 100;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k_hvYw.woff2') format('woff2');
+    }}
+    @font-face {{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 300;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k_chvYw.woff2') format('woff2');
+    }}
+    @font-face {{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 400;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k5hvYw.woff2') format('woff2');
+    }}
+    @font-face {{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 700;
+        src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k4lvYw.woff2') format('woff2');
+    }}
 
     body {{
-        font-family: "Lexend", sans-serif;
+         font-family: 'Lexend', Arial, sans-serif;
     }}
 
     p {{
