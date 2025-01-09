@@ -1,0 +1,119 @@
+@import url(https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap);
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Lexend Deca", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    cursor: context-menu;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('../img/background/background.jpg');
+    background-color: var(--background);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(15px);
+    opacity: 1;
+    width: 100vw;
+    height: 100vh;
+    color: var(--text-color);
+    display: block;
+}
+
+main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.card {
+    padding: 15px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px 0px var(--card-shadow);
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 700px;
+    height: 100%;
+    align-items: center;
+}
+
+.form-container h1 {
+    font-size: 1.5rem;
+    text-wrap: nowrap;
+}
+
+
+.form-container a {
+    text-wrap: nowrap;
+    color: #b499ff;
+    text-decoration: underline;
+}
+
+#image{
+    display: flex;
+    align-items: center;
+}
+
+#image svg{
+    width: 25px;
+    height: 25px;
+}
+
+#image .spinner-circle{
+    fill: var(--alert-success);
+}
+
+#image .success{
+    fill: var(--alert-success);
+}
+
+#image .error{
+    fill: var(--alert-error);
+}
+
+#image .warning{
+    fill: var(--alert-warning);
+}
+
+#message{
+ display: flex;
+ flex-direction: column;
+ gap: 8px;
+ align-items:  center;
+}
+
+
+.spinner-circle {
+    animation: spin 1s linear infinite;
+}
+
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid var(--accent-500);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

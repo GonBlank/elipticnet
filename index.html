@@ -21,6 +21,7 @@
     <meta name="keywords"
         content="Elipticnet, network monitoring, cloud monitoring, network equipment, network latency, availability, email alerts, performance graphs">
     <meta name="author" content="Elipticnet">
+    <link rel="stylesheet" href="css/palette.css">
     <link rel="stylesheet" href="css/network_service_monitoring.css">
     <link rel="stylesheet" href="css/alert.css">
 </head>
@@ -44,10 +45,10 @@
                     Elipticnet
                 </h1>
                 <h2> Easy online monitoring</h2>
-                <h3> Beta available: <span> February 15, 2025 </span></h3>
+                <h3> Beta available: <span> February, 2025 </span></h3>
             </div>
             <section class="register-form">
-                <div class="email-form">
+                <form class="email-form">
                     <label class="label" for="user-email">
                         <input type="email" placeholder=" " class="input" id="user-email" name="user-email"
                             autocomplete="email" required />
@@ -63,16 +64,16 @@
                         <div style="pointer-events: none;" class="text show">
                             Notify Me
                         </div>
-                        <div class="loader-hourglass hide" style="pointer-events: none;">
+                        <div class="loaderButton hide" style="pointer-events: none;">
                             <!-- Cambiado a hide para que esté oculto por defecto -->
-                            <svg class="spinner-hourglass" xmlns="http://www.w3.org/2000/svg" height="24px"
-                                viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                                <path
-                                    d="M320-160h320v-120q0-66-47-113t-113-47q-66 0-113 47t-47 113v120Zm160-360q66 0 113-47t47-113v-120H320v120q0 66 47 113t113 47ZM160-80v-80h80v-120q0-61 28.5-114.5T348-480q-51-32-79.5-85.5T240-680v-120h-80v-80h640v80h-80v120q0 61-28.5 114.5T612-480q51 32 79.5 85.5T720-280v120h80v80H160Z" />
-                            </svg>
+                            <svg class="spinner-circle"
+                            xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                            <path
+                                d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q17 0 28.5 11.5T520-840q0 17-11.5 28.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-17 11.5-28.5T840-520q17 0 28.5 11.5T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Z" />
+                        </svg>
                         </div>
                     </button>
-                </div>
+                </form>
                 <div class="error-message" id="user-email-error"></div>
             </section>
             <section class="features">
@@ -131,19 +132,6 @@
 
             </section>
         </section>
-
-<!--
-        <article class="alert">
-            <div class="alert-icon success">
-                <img src="img/icons/success.png">
-            </div>
-            <div class="alert-text">
-                <h1>TITTLE</h1>
-                <p>message <a href="#">mensaje especial</a> </p>
-            </div>
-        </article>
--->
-
     </main>
 
     <script src="js/send_email.js"></script>

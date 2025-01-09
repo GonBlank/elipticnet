@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Animación de carga del formulario
     function toggleButtonState(isLoading) {
         const textDiv = sendEmailBtn.querySelector('.text');
-        const loaderDiv = sendEmailBtn.querySelector('.loader-hourglass');
+        const loaderDiv = sendEmailBtn.querySelector('.loaderButton');
 
         if (isLoading) {
             textDiv.classList.remove('show');
@@ -61,28 +61,33 @@ document.addEventListener("DOMContentLoaded", function () {
         toggleButtonState(true);
 
         // Obtener los valores del formulario
-        const email = document.getElementById('user-email').value;
-
-        const formData = new FormData();
-        formData.append('email', email);
-
-        console.log("Sending email to" + email)
-        ShowAlert("warning", "Titulo", "Mensaje de prueba", "warning", "esto es un llink", "#");
-        /*
-        // Enviar los datos al backend usando fetch
+        const email = document.getElementById('user-email');
+        
+        const data = {
+            email: email.value,  // Ajusta los datos según tu caso
+            language: navigator.language || navigator.userLanguage  // Obtiene el idioma del navegador
+        };
+        
         fetch('../php/send_email.php', {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/json'  // Especifica el tipo de contenido como JSON
+            },
+            body: JSON.stringify(data)  // Convierte los datos a JSON
         })
             .then(response => response.json())
             .then(data => {
                 ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
+                if (!data.error) {
+                    email.value = '';
+                }
             })
-            .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
+            .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))
             .finally(() => {
-                // Restablecer el estado del botón y cerrar el diálogo
                 toggleButtonState(false);
             });
-            */
+        
+
+
     });
 });

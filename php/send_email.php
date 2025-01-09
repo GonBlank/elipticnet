@@ -1,7 +1,8 @@
 <?php
-require_once '../env.php';
-require_once '../email/email.php';
-require_once '../email/templates/pre_release_template.php';
+require_once 'env.php';
+require_once 'generate_random_hash.php';
+require_once 'email/email.php';
+require_once 'email/templates/pre_release_template.php';
 
 //Validate request method
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
@@ -18,6 +19,8 @@ if (!isset($user['email'])) {
 }
 
 $email = $user['email'];
+$language = $user['language'] ?? null;
+
 
 // Validate email format
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -31,7 +34,8 @@ try {
     // Verificar conexión
     if ($conn->connect_error) {
         error_log("[ERROR] index:" . $conn->error);
-        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later."]);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or" , "link_text"=> "contact support", "link"=>"mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
+
         exit;
     }
 
@@ -56,7 +60,9 @@ try {
         exit;
     }
 
-    $sql = "INSERT INTO pre_release  (email) VALUES (?)";
+    $hash_id = generate_random_hash($conn, "pre_release", "hash_id");
+
+    $sql = "INSERT INTO pre_release  (email, language, hash_id) VALUES (?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
 
@@ -66,7 +72,7 @@ try {
         exit;
     }
 
-    $stmt->bind_param("s", $email);
+    $stmt->bind_param("sss", $email, $language, $hash_id);
 
 
     if (!$stmt->execute()) {
@@ -80,7 +86,12 @@ try {
     ║ Send email ║
     ╚════════════╝
     */
-    $body = pre_release_template();
+    if ($language == 'es-ES'){
+        $body = pre_release_template_spa($hash_id , $email);
+    }else{
+        $body = pre_release_template_eng($hash_id , $email);
+    }
+    
     send_email($body, "Welcome to the Elipticnet Early Access List!", $email);
     echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Thank you for subscribing to the Elipticnet early access list!"]);
 } catch (Exception $e) {

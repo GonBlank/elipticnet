@@ -128,7 +128,8 @@ section.register-form {
     gap: 5px;
     transition: transform 0.2s cubic-bezier(.33, 1, .68, 1), box-shadow 0.2s cubic-bezier(.33, 1, .68, 1);
     cursor: pointer;
-    text-decoration: none
+    text-decoration: none;
+    width: 75px;
 }
 
 #sendEmailBtn svg {
@@ -222,6 +223,14 @@ section.register-form {
     transition: opacity .3s
 }
 
+.input.error {
+    border: 2px solid var(--alert-error);
+}
+
+.input.error:focus-visible {
+    outline: 0px;
+}
+
 .error-message {
     color: var(--alert-error);
     font-size: .675em;
@@ -272,31 +281,44 @@ section.features {
     height: 20px
 }
 
-.loader-hourglass {
+.loaderButton {
     display: none;
     height: 100%;
     justify-content: center;
     align-items: center
 }
 
-.loader-hourglass.show {
+.loaderButton.show {
     display: flex;
     gap: 5px
 }
 
-.spinner-hourglass {
-    animation: spin 1s cubic-bezier(.33, 1, .68, 1) infinite
+
+.spinner-circle {
+    animation: spin 1s linear infinite;
 }
+
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid var(--accent-500);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+
 
 @keyframes spin {
     0% {
-        transform: rotate(0deg)
+        transform: rotate(0deg);
     }
 
     100% {
-        transform: rotate(360deg)
+        transform: rotate(360deg);
     }
 }
+
+
 
 button .text.hide {
     display: none
@@ -323,30 +345,4 @@ button .text.hide {
 html {
     scrollbar-width: thin;
     scrollbar-color: var(--scrolBar-bar) var(--scrolBar-background)
-}
-
-:root {
-    --background: #130c27;
-    --text-color: #F5F0FE;
-    --text-color-label_name: #f5f0fe62;
-    --button-primary: #7230f7;
-    --button-primary-hover: #641ee3;
-    --button-primary-disabled: #9f85ff;
-    --scrolBar-background: #170F2F;
-    --scrolBar-bar: #392574;
-    --scrolBar-hover: #392574;
-    --input-background: #17102c;
-    --input-disabled-bg: #170F2F;
-    --input-disabled-border: #26184e;
-    --input-border: #26184e;
-    --input-border-hover: #5e3dc2;
-    --input-focus: #26184e;
-    --input-focus-visible: #26184e;
-    --soft-green: #b5f73093;
-    --card-bg: #170f2fd7;
-    --card-shadow: #110B22;
-    --alert-background: #170F2F;
-    --alert-success: #B5F730;
-    --alert-warning: #ffd000;
-    --alert-error: #F73051;
 }
