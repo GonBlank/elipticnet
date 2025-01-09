@@ -8,13 +8,11 @@ function getUrlParameter(name) {
 const hashId = getUrlParameter('id');
 const email = getUrlParameter('email');
 
-
 if (hashId && email) {
     const data = {
         hash_id: hashId,
         email: email,
     };
-
     fetch('../php/unsuscribe.php', {
         method: 'POST',
         headers: {
@@ -35,7 +33,6 @@ if (hashId && email) {
     //ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
     ShowAlert("error", "Error", "Data is missing", "error");
 }
-
 
 function loadView(data) {
     const image = document.getElementById('image');

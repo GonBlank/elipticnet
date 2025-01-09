@@ -24,17 +24,21 @@ function send_email($body, $subject, $client_email)
         $mail->Password   = SMTP_PASSWORD;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = SMTP_PORT;
+
         //Recipients
         $mail->setFrom(SMTP_USERNAME, 'Elipticnet');
         $mail->addAddress($client_email);
+
+        //Mail content
         $mail->isHTML(true);
+        $mail->CharSet = 'UTF-8'; // Configuración de codificación
         $mail->Subject = $subject;
         $mail->Body    = $body;
 
         $mail->send();
     } catch (Exception $e) {
         error_log("[ERROR]: email.php:" . $e->getMessage());
-        echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Failed mail sending." . $e->getMessage()]);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 }

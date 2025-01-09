@@ -10,16 +10,16 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     exit;
 }
 
-$user = json_decode(file_get_contents('php://input'), true);
+$data = json_decode(file_get_contents('php://input'), true);
 
 
-if (!isset($user['email'])) {
+if (!isset($data['email'])) {
     echo json_encode(["error" => true, "type" => "error", "title" => "Invalid request", "message" => "data no set"]);
     exit;
 }
 
-$email = $user['email'];
-$language = $user['language'] ?? null;
+$email = $data['email'];
+$language = $data['language'] ?? null;
 
 
 // Validate email format
@@ -34,18 +34,16 @@ try {
     // Verificar conexión
     if ($conn->connect_error) {
         error_log("[ERROR] index:" . $conn->error);
-        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or" , "link_text"=> "contact support", "link"=>"mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
-
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
     $check_query = "SELECT COUNT(*) FROM pre_release WHERE email = ?";
 
-
     $stmt = $conn->prepare($check_query);
     if (!$stmt) {
         error_log("[ERROR] index:" . $conn->error);
-        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later."]);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -68,7 +66,7 @@ try {
 
     if (!$stmt) {
         error_log("[ERROR] index:" . $conn->error);
-        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later."]);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -77,7 +75,7 @@ try {
 
     if (!$stmt->execute()) {
         error_log("[ERROR]: pre_release:" . $e->getMessage());
-        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later."]);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -86,17 +84,20 @@ try {
     ║ Send email ║
     ╚════════════╝
     */
-    if ($language == 'es-ES'){
-        $body = pre_release_template_spa($hash_id , $email);
-    }else{
-        $body = pre_release_template_eng($hash_id , $email);
+
+    if ($language == 'es-ES') {
+        $body = pre_release_template_spa($hash_id, $email);
+        $subject = "Early Access confirmado: Prepárate para lo que viene";
+    } else {
+        $body = pre_release_template_eng($hash_id, $email);
+        $subject = "Welcome to the Elipticnet Early Access List!";
     }
-    
-    send_email($body, "Welcome to the Elipticnet Early Access List!", $email);
+
+    send_email($body, $subject, $email);
     echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Thank you for subscribing to the Elipticnet early access list!"]);
 } catch (Exception $e) {
     error_log("[ERROR]: pre_release:" . $e->getMessage());
-    echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later."]);
+    echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
 } finally {
     if (isset($stmt) && $stmt !== false) {
         $stmt->close();

@@ -31,7 +31,6 @@ try {
         exit;
     }
 
-    // Consulta SQL para eliminar el host por id y owner
     $delete_query = "DELETE FROM pre_release WHERE hash_id = ? AND email = ?";
 
     // Preparar la consulta

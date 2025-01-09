@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Animación de carga del formulario
     function toggleButtonState(isLoading) {
-        const textDiv = sendEmailBtn.querySelector('.text');
+        const textDiv = sendEmailBtn.querySelector('.textButton');
         const loaderDiv = sendEmailBtn.querySelector('.loaderButton');
 
         if (isLoading) {
