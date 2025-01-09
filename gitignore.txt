@@ -10,7 +10,7 @@ aplication/php/test.php
 aplication/python/log/
 
 **/__pycache__/
-**/env.php/
+**/env.php
 **/config.json
 
 aplication/python/elipticnet_env/
