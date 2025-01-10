@@ -1,12 +1,11 @@
 
-aplication/php/env.php
-
-aplication/config/config.json
-
 manuales/
-
 news.txt
-
 .tmp.driveupload/
-
 aplication/php/test.php
+aplication/python/log/
+**/__pycache__/
+**/env.php
+**/config.json
+aplication/python/elipticnet_env/
+
