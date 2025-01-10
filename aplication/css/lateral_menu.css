@@ -1,0 +1,132 @@
+
+aside.lateral-menu {
+    overflow: hidden;
+    font-size: .9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    grid-area: lateral-menu;
+    width: 300px;
+    background-color: var(--lateralMenu-background);
+    color: var(--text-color);
+    transition: width 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+
+    position: absolute;
+    z-index: 2;
+    height: 100%;
+}
+
+
+aside.lateral-menu svg {
+    fill: var(--text-color);
+    background-color: var(--lateralMenuIcon-background);
+    border-radius: 5px;
+    padding: 5px;
+    min-width: 30px;
+    width: 30px;
+    height: 30px;
+}
+
+.lateral-menu.collapsed {
+    width: 0px;
+    transition: width 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+
+}
+
+.lateral-menu:not(.collapsed) ~ .dashboard {
+    filter: blur(3px);
+    transition: filter 0.6s;
+}
+
+.lateral-menu.collapsed ~ .dashboard {
+    filter: none;
+    transition: filter 0.6s;
+  }
+
+.primary-options a, .support-options a {
+    text-wrap: nowrap;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+    width: 100%;
+    height: 50px;
+    padding-left: 10px;
+    border-radius: 5px;
+    transition: transform .1s;
+}
+
+.active {
+    background-color: var(--lateralMenuItem-locate-background);
+}
+
+.primary-options a:hover, .support-options a:hover {
+    background-color: var(--lateralMenuItem-hover-background);
+   /* box-shadow: 0px 0px 14px 0px var(--primary-200);*/
+    transform: scale(1.05);
+}
+
+.primary-options a:active, .support-options a:active {
+    background-color: var(--lateralMenuItem-active-background);
+    transform: scale(1);
+}
+
+.primary-options,
+.support-options {
+    background-color: var(--lateralMenuOptionGroup-background);
+    padding: 5px;
+    margin: 5px;
+    border-radius: 8px;
+}
+
+.support-options {
+    margin-top: auto;
+}
+
+.lateral-menu-separator {
+    border-top: 2px solid var(--lateralMenuSeparator);
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    width: 95%;
+    align-self: center;
+    margin-top: 25px;
+}
+
+.user-options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.logout svg{
+    background-color: transparent !important;
+    fill: var(--logoutBtn-Fillcolor) !important;
+}
+
+.logout{
+    justify-content: center !important;
+}
+
+.user-data {
+    padding: 8px;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.user-data h1 {
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.user-data p {
+    font-weight: 300;
+    font-size: .8rem;
+}
