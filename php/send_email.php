@@ -3,7 +3,7 @@ require_once 'env.php';
 require_once 'generate_random_hash.php';
 require_once 'email/email.php';
 require_once 'email/templates/pre_release_template.php';
-
+//test
 //Validate request method
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     echo json_encode(["error" => true, "type" => "error", "title" => "Invalid request", "message" => "data no set"]);
