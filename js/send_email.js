@@ -62,10 +62,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Obtener los valores del formulario
         const email = document.getElementById('user-email');
-        
+        const language = (navigator.language || navigator.userLanguage).split('-')[0];
         const data = {
             email: email.value,  // Ajusta los datos según tu caso
-            language: navigator.language || navigator.userLanguage  // Obtiene el idioma del navegador
+            language: language,
         };
         
         fetch('../php/send_email.php', {
