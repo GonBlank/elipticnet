@@ -85,7 +85,7 @@ try {
     ╚════════════╝
     */
 
-    if ($language == 'es-ES') {
+    if ($language == 'es') {
         $body = pre_release_template_spa($hash_id, $email);
         $subject = "Early Access confirmado: Prepárate para lo que viene";
     } else {

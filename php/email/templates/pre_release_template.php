@@ -31,7 +31,7 @@ function pre_release_template_eng($hash_id, $email)
                     <!-- Title -->
                     <div
                         style="background-color: #170F2F; border-radius: 8px; padding: 15px; max-width: 100%; text-align: center;">
-                        <img style="width: 70px; font-size: 32px;" src="$url_image_logo" alt="📡">
+                        <img style="width: 70px; font-size: 32px;" src="$url_image_logo" alt="Elipticnet">
                         <h1 style="cursor: context-menu; font-size: 32px;">
                             Welcome to Early Access!
                         </h1>
@@ -123,7 +123,7 @@ function pre_release_template_spa($hash_id, $email)
                     <!-- Titulo -->
                     <div
                         style="background-color: #170F2F; border-radius: 8px; padding: 15px; max-width: 100%; text-align: center;">
-                        <img style="width: 70px; font-size: 32px;" src="$url_image_logo" alt="📡">
+                        <img style="width: 70px; font-size: 32px;" src="$url_image_logo" alt="Elipticnet">
                         <h1 style=" cursor: context-menu; font-size: 32px;">
                             ¡Bienvenido al acceso anticipado!
                         </h1>
