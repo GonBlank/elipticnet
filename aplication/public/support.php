@@ -26,6 +26,7 @@ define('MENU_ALLOWED', true);
 
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/palette.css" />
+    <link rel="stylesheet" href="../css/components/alert.css" />
     <link rel="stylesheet" href="../css/support.css" />
 
 </head>

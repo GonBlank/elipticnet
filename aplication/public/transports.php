@@ -25,8 +25,8 @@ define('MENU_ALLOWED', true);
 
 
     <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/lateral_menu.css" />
     <link rel="stylesheet" href="../css/palette.css" />
+    <link rel="stylesheet" href="../css/components/alert.css" />
     <link rel="stylesheet" href="../css/transports.css" />
 
 
@@ -377,7 +377,7 @@ define('MENU_ALLOWED', true);
 
     <script src="../js/page_transition.js"></script>
     <script src="../js/lateral_menu.js"></script>
-    <script src="../js/show_alert.js"></script>
+    <script src="../js/components/alert.js"></script>
     <script src="../js/modal.js"></script>
     <script src="../js/API/transport_get_all_transports.js"></script>
     <script src="../js/functions/remove_load_curtain.js"></script>

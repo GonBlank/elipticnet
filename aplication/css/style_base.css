@@ -1,0 +1,359 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+* {
+    font-family: "Lexend", sans-serif;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    color: inherit;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    position: relative;
+    color: var(--text-900);
+    background-color: var(--background);
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 60px 1fr;
+    grid-template-areas:
+        "nav nav"
+        "lateral-menu dashboard";
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    /*Must match transition duration in JS*/
+
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    background-color: var(--nav-background);
+    color: var(--text-color);
+    padding: 10px;
+    grid-area: nav;
+}
+
+nav h1 {
+    cursor: context-menu;
+}
+
+.nav-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav svg {
+    fill: #edf7f6;
+    /*var(--text-900)*/
+}
+
+nav button {
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+nav button:hover {
+    background-color: var(--primary-200);
+}
+
+nav button:active {
+    box-shadow: 0px 0px 14px 0px var(--background-200) inset;
+}
+
+
+main.dashboard {
+    grid-area: dashboard;
+    grid-column: 1 / -1;
+    color: var(--text-color);
+    padding: 20px;
+    min-width: 340px;
+    overflow: auto;
+}
+
+.card {
+    padding: 15px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px 0px var(--card-shadow);
+}
+
+
+/*
+╔════════════╗
+║ Scroll bar ║
+╚════════════╝
+*/
+
+.scrollable-content::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+    background-color: var(--primary-800);
+    border-radius: 6px;
+}
+
+.scrollable-content::-webkit-scrollbar-track {
+    background-color: var(--primary-200);
+    border-radius: 6px;
+}
+
+.scrollable-content::-webkit-scrollbar-corner {
+    background-color: var(--primary-200);
+}
+
+
+/* WebKit-based browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrolBar-background);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrolBar-bar);
+    border-radius: 10px;
+    border: 2px solid var(--scrolBar-background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrolBar-hover);
+}
+
+/* Firefox */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrolBar-bar) var(--scrolBar-background);
+}
+
+
+/*
+╔═════════╗
+║ Loaders ║
+╚═════════╝
+Unificar los loaders al circulo giratorio
+*/
+
+/* Loader hourglass */
+.loader-hourglass {
+    display: none;
+    /* Oculto por defecto */
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Mostrar el loader svg hourglass */
+.loader-hourglass.show {
+    display: flex;
+    gap: 5px;
+    /* Mostrar cuando esté activo */
+}
+
+/* Animación de giro para loader hourglass */
+.spinner-hourglass {
+    animation: spin 1s cubic-bezier(0.33, 1, 0.68, 1) infinite;
+}
+
+.spinner-circle {
+    animation: spin 1s linear infinite;
+}
+
+.loader-hourglass.small {
+    width: 25px;
+    height: 25px;
+}
+
+/*spin loader*/
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid var(--accent-500);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner.medium {
+    width: 40px;
+    height: 40px;
+}
+
+/*<div class="spinner loader" id="loading_spinner"></div>*/
+
+
+/*place holder*/
+
+.placeholder-text {
+    border-radius: 8px;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+.placeholder-text.medium {
+    width: 200px;
+    height: 20px;
+}
+
+.placeholder-text.small {
+    width: 100px;
+    height: 10px;
+}
+
+@keyframes pulse {
+    0% {
+        background-color: var(--accent-200);
+    }
+
+    50% {
+        background-color: var(--accent-300);
+    }
+
+    100% {
+        background-color: var(--accent-200);
+    }
+}
+
+/*<div class="placeholder-text loader"></div>*/
+
+
+#load-curtain {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.486);
+    backdrop-filter: blur(8px);
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#load-curtain svg{
+    width: 50px;
+    height: 50px;
+    fill: var(--spinner-color);
+}
+
+
+/*
+╔════════╗
+║ Modals ║
+╚════════╝
+*/
+
+dialog {
+    position: relative;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--dialog-background);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    cursor: context-menu;
+    animation: showModal 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    min-width: 250px;
+    color: var(--text-color);
+}
+
+dialog::backdrop {
+    position: fixed;
+    z-index: -1;
+    backdrop-filter: blur(3px);
+    background-color: rgba(0, 0, 0, 0.527);
+}
+
+.dialog-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--dialog-header-background);
+    font-size: .7rem;
+
+}
+
+.dialog-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dialog-header h1 svg {
+    fill: var(--text-color);
+    width: 26px;
+    height: 26px;
+}
+
+.close-modal {
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+}
+
+.close-modal:hover {
+    background-color: var(--dialog-background);
+    transition: background-color .2s;
+}
+
+@keyframes showModal {
+    from {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+
+/*
+╔══════════════════════════╗
+║ Transicion entre páginas ║
+╚══════════════════════════╝
+*/
+
+.fade-out {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.fade-out.hidden {
+    opacity: 0;
+}
+
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}

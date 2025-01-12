@@ -26,6 +26,7 @@ define('MENU_ALLOWED', true);
 
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/palette.css" />
+    <link rel="stylesheet" href="../css/components/alert.css" />
     <link rel="stylesheet" href="../css/style_home.css" />
 
 </head>
@@ -168,7 +169,7 @@ define('MENU_ALLOWED', true);
     <script src="../js/functions/remove_load_curtain.js"></script>
     <script src="../js/drop_down_new.js"></script>
     <script src="../js/API/load_home_view.js"></script>
-    <script src="../js/show_alert.js"></script>
+    <script src="../js/components/alert.js"></script>
 
 </body>
 

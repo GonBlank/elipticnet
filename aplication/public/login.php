@@ -29,6 +29,7 @@ if (isset($_SESSION['user'])) {
 
     <link rel="stylesheet" href="../css/palette.css" />
     <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components/alert.css" />
     <link rel="stylesheet" href="../css/login.css" />
 </head>
 
@@ -254,7 +255,7 @@ if (isset($_SESSION['user'])) {
     </dialog>
 
     <script src="../js/modal.js"></script>
-    <script src="../js/show_alert.js"></script>
+    <script src="../js/components/alert.js"></script>
     <script src="../js/sesion/login.js"></script>
     <script src="../js/sesion/signup.js"></script>
     <script src="../js/sesion/validate_email.js"></script>

@@ -27,6 +27,7 @@ define('MENU_ALLOWED', true);
 
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/palette.css" />
+    <link rel="stylesheet" href="../css/components/alert.css" />
     <link rel="stylesheet" href="../css/user_config.css" />
 
 
@@ -239,7 +240,7 @@ define('MENU_ALLOWED', true);
 
 
     <script src="../js/page_transition.js"></script>
-    <script src="../js/show_alert.js"></script>
+    <script src="../js/components/alert.js"></script>
     <script src="../js/modal.js"></script>
     <script src="../js/user_config/update_name.js"></script>
     <script src="../js/user_config/update_password.js"></script>

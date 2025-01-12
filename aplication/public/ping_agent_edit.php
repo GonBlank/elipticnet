@@ -26,6 +26,7 @@ define('MENU_ALLOWED', true);
 
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/palette.css" />
+    <link rel="stylesheet" href="../css/components/alert.css" />
     <link rel="stylesheet" href="../css/ping_agent.css" />
 
 </head>
@@ -222,7 +223,7 @@ define('MENU_ALLOWED', true);
     <script src="../js/API/ping_agent_edit_get_data.js"></script>
     <script src="../js/API/ping_agent_edit_update_data.js"></script>
     <script src="../js/page_transition.js"></script>
-    <script src="../js/show_alert.js"></script>
+    <script src="../js/components/alert.js"></script>
 </body>
 
 </html>

@@ -12,7 +12,7 @@
 }
 
 
-
+/* Pasar a componentes*/
 button {
     display: flex;
     flex-direction: row;
@@ -201,6 +201,8 @@ main.dashboard {
 ╔════════╗
 ║ inputs ║
 ╚════════╝
+
+Pasar a componentes
 */
 
 .label {
@@ -505,6 +507,7 @@ html {
 ╔════════╗
 ║ Alerts ║
 ╚════════╝
+Ya se paso a componentes, probar y borrar
 */
 
 section.alert {
@@ -674,6 +677,9 @@ dialog::backdrop {
 ╔════════════════╗
 ║ LOGOUT DIALOG  ║
 ╚════════════════╝
+Pasarlo al css del menu lateral
+Unificar el modal par que todos tengan la misma base.
+Luego pasar el de #logout al css de menu lateral
 */
 #logout .dialog-body {
     padding: 20px;
@@ -752,6 +758,7 @@ dialog form button .text.show {
 ╔══════════╗
 ║ Dropdown ║
 ╚══════════╝
+Pasar a componentes
 */
 
 /*Dropdown*/
@@ -831,6 +838,7 @@ dialog form button .text.show {
 ╔═════════╗
 ║ Tooltip ║
 ╚═════════╝
+Pasar a componentes
 */
 
 /* Estilo para el contenedor del elemento */
