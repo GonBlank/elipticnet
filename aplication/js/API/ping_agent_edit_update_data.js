@@ -4,26 +4,6 @@ import { toggleButtonState } from '../functions/toggleButtonState.js';
 document.addEventListener("DOMContentLoaded", function () {
     const updateAgentButton = document.getElementById('updateAgent');
 
-    // Animación de carga del formulario
-    function toggleButtonState(isLoading) {
-        const textDiv = updateAgentButton.querySelector('.text');
-        const loaderDiv = updateAgentButton.querySelector('.loader-hourglass');
-
-        if (isLoading) {
-            textDiv.classList.remove('show');
-            textDiv.classList.add('hide');
-            loaderDiv.classList.remove('hide');
-            loaderDiv.classList.add('show');
-            updateAgentButton.disabled = true;
-        } else {
-            textDiv.classList.remove('hide');
-            textDiv.classList.add('show');
-            loaderDiv.classList.remove('show');
-            loaderDiv.classList.add('hide');
-            updateAgentButton.disabled = false;
-        }
-    }
-
     function validateHostData() {
         // Limpiar errores anteriores
         const inputs = document.querySelectorAll('.input');
@@ -65,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Cambiar el estado del botón para mostrar el loader
-        toggleButtonState(true);
+        toggleButtonState('updateAgentButton', true);
 
         // Obtener los valores del formulario
         const hostName = document.getElementById('hostName');
@@ -114,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
             .finally(() => {
-                toggleButtonState(false);
+                toggleButtonState('updateAgentButton', false);
             });
     });
 });

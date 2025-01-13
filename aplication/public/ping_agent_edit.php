@@ -86,11 +86,9 @@ define('MENU_ALLOWED', true);
                     </svg>
                     Edit ping agent
                 </h1>
-
             </div>
             <div class="input-form">
                 <div class="input-row-group">
-
                     <label class="label">
                         <input tabindex="1" type="text" placeholder=" " class="input" id="hostName" name="hostName"
                             autocomplete="name" maxlength="20" required />
@@ -143,8 +141,7 @@ define('MENU_ALLOWED', true);
                 <span class="tooltip">
                     <div id="thresholdBox" class="threshold init">
                         <div class="checkbox-wrapper-13">
-                            <input id="thresholdCheckbox" name="threshold" type="checkbox"
-                                onchange="toggleInput(this)">
+                            <input id="thresholdCheckbox" name="threshold" type="checkbox" onchange="toggleInput(this)">
                             <label for="thresholdCheckbox">Threshold</label>
                         </div>
 
@@ -200,7 +197,7 @@ define('MENU_ALLOWED', true);
                             <path
                                 d="M.102 2.223A3.004 3.004 0 0 0 3.78 5.897l6.341 6.252A3.003 3.003 0 0 0 13 16a3 3 0 1 0-.851-5.878L5.897 3.781A3.004 3.004 0 0 0 2.223.1l2.141 2.142L4 4l-1.757.364zm13.37 9.019.528.026.287.445.445.287.026.529L15 13l-.242.471-.026.529-.445.287-.287.445-.529.026L13 15l-.471-.242-.529-.026-.287-.445-.445-.287-.026-.529L11 13l.242-.471.026-.529.445-.287.287-.445.529-.026L13 11z" />
                         </svg>
-                        test.testing@gmail.com</a>
+                        test.testing@test.com</a>
                 </article> -->
 
                 <div class="add-transport">
@@ -216,11 +213,9 @@ define('MENU_ALLOWED', true);
                 </div>
             </section>
             <button id="updateAgent" class="create-agent">
-
                 <div class="text show">
                     UPDATE
                 </div>
-
                 <div class="loader-hourglass hide"> <!-- Cambiado a hide para que esté oculto por defecto -->
                     <svg class="spinner-hourglass" xmlns="http://www.w3.org/2000/svg" height="24px"
                         viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -238,7 +233,6 @@ define('MENU_ALLOWED', true);
     <script src="../js/API/get_transports.js"></script>
     <script type="module" src="../js/API/ping_agent_edit_get_data.js"></script>
     <script type="module" src="../js/API/ping_agent_edit_update_data.js"></script>
-
 </body>
 
 </html>
