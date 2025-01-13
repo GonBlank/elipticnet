@@ -1,4 +1,4 @@
-function removeLoadCurtain(){
+export function removeLoadCurtain(){
     const loadCurtain = document.getElementById('load-curtain');
 
     // Verificar si el elemento existe

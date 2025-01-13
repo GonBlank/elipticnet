@@ -1,28 +1,9 @@
+import { toggleButtonState } from '../functions/toggleButtonState.js';
+
 document.addEventListener("DOMContentLoaded", function () {
-    const createAgentButton = document.getElementById('create_agent');
-
-    // Animación de carga del formulario
-    function toggleButtonState(isLoading) {
-        const textDiv = createAgentButton.querySelector('.text');
-        const loaderDiv = createAgentButton.querySelector('.loader-hourglass');
-
-        if (isLoading) {
-            textDiv.classList.remove('show');
-            textDiv.classList.add('hide');
-            loaderDiv.classList.remove('hide');
-            loaderDiv.classList.add('show');
-            createAgentButton.disabled = true;
-        } else {
-            textDiv.classList.remove('hide');
-            textDiv.classList.add('show');
-            loaderDiv.classList.remove('show');
-            loaderDiv.classList.add('hide');
-            createAgentButton.disabled = false;
-        }
-    }
+    const createAgentBtn = document.getElementById('createAgentBtn');
 
     function validateHostData() {
-        // Limpiar errores anteriores
         const inputs = document.querySelectorAll('.input');
         inputs.forEach(input => {
             input.classList.remove('error');
@@ -30,34 +11,30 @@ document.addEventListener("DOMContentLoaded", function () {
             if (errorMessage) errorMessage.textContent = '';
         });
 
-        // Obtener los valores del formulario
-        const hostName = document.getElementById('host-name').value;
-        const hostIp = document.getElementById('host-ip').value;
-        const threshold_check = document.getElementById('threshold-checkbox').checked;
-        const threshold_value = document.getElementById('threshold_value').value;
+        const hostName = document.getElementById('hostName').value;
+        const hostIp = document.getElementById('hostIp').value;
+        const threshold_check = document.getElementById('thresholdCheckbox').checked;
+        const thresholdValue = document.getElementById('thresholdValue').value;
         let isValid = true;
 
         if (threshold_check) {
-            if (!threshold_value) {
+            if (!thresholdValue) {
                 isValid = false;
-                document.getElementById('threshold_value').classList.add('error');
-                document.getElementById('threshold_value-error').textContent = 'Value required.';
+                document.getElementById('thresholdValue').classList.add('error');
+                document.getElementById('thresholdValueError').textContent = 'Value required.';
             }
         }
 
-
-
-        // Validar los datos del formulario
         if (!hostName) {
             isValid = false;
-            document.getElementById('host-name').classList.add('error');
-            document.getElementById('host-name-error').textContent = 'Host name is required.';
+            document.getElementById('hostName').classList.add('error');
+            document.getElementById('hostNameError').textContent = 'Host name is required.';
         }
 
         if (!hostIp) {
             isValid = false;
-            document.getElementById('host-ip').classList.add('error');
-            document.getElementById('host-ip-error').textContent = 'IP is required.';
+            document.getElementById('hostIp').classList.add('error');
+            document.getElementById('hostIpError').textContent = 'IP is required.';
         } else {
             // Validar formato de IP (IPv4 o IPv6)
             const ipv4Pattern = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
@@ -65,30 +42,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (!ipv4Pattern.test(hostIp) && !ipv6Pattern.test(hostIp)) {
                 isValid = false;
-                document.getElementById('host-ip').classList.add('error');
-                document.getElementById('host-ip-error').textContent = 'Invalid IP address format.';
+                document.getElementById('hostIp').classList.add('error');
+                document.getElementById('hostIpError').textContent = 'Invalid IP address format.';
             }
         }
-
         return isValid;
     }
 
-    createAgentButton.addEventListener('click', function (event) {
-        event.preventDefault(); // Previene el comportamiento por defecto del botón
+    createAgentBtn.addEventListener('click', function (event) {
+        event.preventDefault();
 
         if (!validateHostData()) {
-            return; // No enviar datos si la validación falla
+            return;
         }
 
-        // Cambiar el estado del botón para mostrar el loader
-        toggleButtonState(true);
+        toggleButtonState('createAgentBtn', true);
 
-        // Obtener los valores del formulario
-        const hostName = document.getElementById('host-name');
-        const hostIp = document.getElementById('host-ip');
+        const hostName = document.getElementById('hostName');
+        const hostIp = document.getElementById('hostIp');
         const description = document.getElementById('host-description');
-        const threshold_check = document.getElementById('threshold-checkbox').checked;
-        const threshold = document.getElementById('threshold_value');
+        const threshold_check = document.getElementById('thresholdCheckbox').checked;
+        const threshold = document.getElementById('thresholdValue');
 
         // Seleccionar el contenedor de transportes
         const transportSection = document.querySelector('.alert-transports');
@@ -99,7 +73,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // Obtener los IDs de los checkboxes seleccionados
         const TransportsSelected = Array.from(selectedCheckboxes).map(checkbox => checkbox.id);
 
-        // Crear un objeto con los datos del nuevo host
         const newHost = {
             name: hostName.value,
             ip: hostIp.value,
@@ -107,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
             transports: TransportsSelected
         };
 
-        // Agregar threshold_value si threshold_check está en true
+        // Agregar thresholdValue si threshold_check está en true
         if (threshold_check) {
             newHost.threshold = Math.floor(threshold.value); // Toma siempre la parte entera
         }
@@ -134,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
             .finally(() => {
-                toggleButtonState(false);
+                toggleButtonState('createAgentBtn', false);
             });
     });
 });

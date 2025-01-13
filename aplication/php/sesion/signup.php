@@ -13,18 +13,15 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 
 $user = json_decode(file_get_contents('php://input'), true);
 
-
-if (!isset($user['username']) || !isset($user['email']) || !isset($user['password']) || !isset($user['timeZone']) ) {
+if (!isset($user['username']) || !isset($user['email']) || !isset($user['password']) || !isset($user['timeZone'])) {
     echo json_encode(["error" => true, "type" => "error", "title" => "Invalid request", "message" => "data no set"]);
     exit;
 }
-
 
 $name = $user['username'];
 $email = $user['email'];
 $raw_password = $user['password'];
 $time_zone = $user['timeZone'];
-
 
 // Validate password length
 $password_length = strlen($raw_password);
@@ -51,18 +48,18 @@ try {
 
     // Verificar conexión
     if ($conn->connect_error) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => $conn->connect_error]);
+        error_log("[ERROR]" . basename(__FILE__) . ":" . $conn->connect_error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
-
-    //check if the email already exists in the "users" table
 
     $check_query = "SELECT COUNT(*) FROM users WHERE email = ?";
 
 
     $stmt = $conn->prepare($check_query);
     if (!$stmt) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $conn->error]);
+        error_log("[ERROR]" . basename(__FILE__) . ":" . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -89,7 +86,8 @@ try {
     $stmt = $conn->prepare($sql);
 
     if (!$stmt) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $conn->error]);
+        error_log("[ERROR]" . basename(__FILE__) . ":" . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -100,24 +98,22 @@ try {
 
 
     if (!$stmt->execute()) {
-        error_log("[ERROR]: Insert new user signup.php:" . $e->getMessage());
-        echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Insert new user." . $e->getMessage()]);
+        error_log("[ERROR]" . basename(__FILE__) . ":" .  $e->getMessage());
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
     // Obtener el ID del registro insertado
     $user_id = $conn->insert_id;
 
-
-    /**/
-    // Insert transport email con el ID del usuario como owner
     $sql = "INSERT INTO transports (owner, type, alias, transport_id, validation_hash, hash_date) 
                                    VALUES ( ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
 
     if (!$stmt) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $conn->error]);
+        error_log("[ERROR]" . basename(__FILE__) . ":" . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -140,22 +136,19 @@ try {
     $stmt = $conn->prepare($sql);
 
     if (!$stmt) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $conn->error]);
+        error_log("[ERROR]" . basename(__FILE__) . ":" . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
+
         exit;
     }
 
-
     $stmt->bind_param("is", $user_id, $time_zone);
-
 
     if (!$stmt->execute()) {
         error_log("[ERROR]: Insert user_config signup.php:" . $e->getMessage());
         echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Insert user_config."]);
         exit;
     }
-
-
-
 
     /*
     ╔═════════════════════════╗
@@ -167,12 +160,6 @@ try {
     echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Check your email to finish registration"]);
 } catch (Exception $e) {
     // Manejo de errores
-    echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
-} finally {
-    if (isset($stmt) && $stmt !== false) {
-        $stmt->close();
-    }
-    if (isset($conn) && $conn !== false) {
-        $conn->close();
-    }
+    error_log("[ERROR]" . basename(__FILE__) . ":" . $e->getMessage());
+    echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
 }

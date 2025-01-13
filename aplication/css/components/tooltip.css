@@ -1,0 +1,61 @@
+
+/*
+╔═════════╗
+║ Tooltip ║
+╚═════════╝
+Pasar a componentes
+*/
+
+/* Estilo para el contenedor del elemento */
+.tooltip {
+    position: relative;
+    /* Necesario para posicionar el tooltip */
+    /* display: inline-block;*/
+    display: flex;
+    cursor: pointer;
+}
+
+/* Estilo para el tooltip */
+.tooltip .tooltip-text {
+    visibility: hidden;
+    background-color: var(--tooltip-background);
+    /* Color de fondo */
+    color: var(--text-color);
+    /* Color del texto */
+    text-align: left;
+    padding: 8px;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    /* Posición encima del elemento */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    /* Ancho del tooltip */
+    opacity: 0;
+    /* Transparencia inicial */
+    transition: opacity 0.3s;
+    /* Suaviza la aparición */
+    font-size: 0.7rem;
+}
+
+/* Flecha del tooltip */
+.tooltip .tooltip-text::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    /* Posicionada en la parte inferior */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--tooltip-background) transparent transparent transparent;
+    /* Flecha hacia arriba */
+}
+
+/* Mostrar el tooltip al hacer hover */
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}

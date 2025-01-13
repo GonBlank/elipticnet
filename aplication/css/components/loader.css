@@ -1,0 +1,74 @@
+
+/*
+╔═════════╗
+║ Loaders ║
+╚═════════╝
+*/
+
+/* Loader hourglass */
+.loader-hourglass {
+    display: none;
+    /* Oculto por defecto */
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Mostrar el loader svg hourglass */
+.loader-hourglass.show {
+    display: flex;
+    gap: 5px;
+    /* Mostrar cuando esté activo */
+}
+
+/* Animación de giro para loader hourglass */
+.spinner-hourglass {
+    animation: spin 1s cubic-bezier(0.33, 1, 0.68, 1) infinite;
+}
+
+
+/*place holder*/
+
+.placeholder-text {
+    border-radius: 8px;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+
+@keyframes pulse {
+    0% {
+        background-color: var(--accent-200);
+    }
+
+    50% {
+        background-color: var(--accent-300);
+    }
+
+    100% {
+        background-color: var(--accent-200);
+    }
+}
+
+/*<div class="placeholder-text loader"></div>*/
+
+
+
+/* REVISADO */
+/*spin loader*/
+
+.spinner-circle {
+    animation: spin 1s linear infinite;
+    fill: var(--spinner-default-color);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/*<div class="spinner-circle" id="loading_spinner"></div>*/

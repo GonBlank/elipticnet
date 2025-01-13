@@ -33,7 +33,8 @@ try {
 
     // Verificar conexión
     if ($conn->connect_error) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => $conn->connect_error]);
+        error_log("[ERROR]" . basename(__FILE__) . ":" . $conn->connect_error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -41,12 +42,12 @@ try {
     $update_query = "UPDATE users SET validation_hash = ?, hash_date = ? WHERE email = ?";
 
     $hash_date = date('Y-m-d H:i:s');
-    //$validation_hash = bin2hex(random_bytes(12));
     $validation_hash = generate_random_hash($conn, "users", "validation_hash");
 
     $update_stmt = $conn->prepare($update_query);
     if (!$update_stmt) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Update Error", "message" => $conn->error]);
+        error_log("[ERROR]" . basename(__FILE__) . ":" . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -56,11 +57,9 @@ try {
     // Ejecutar la consulta
     if ($update_stmt->execute()) {
         if ($update_stmt->affected_rows == 1) {
-            //enviar email
             $body = restore_password_template($validation_hash);
             send_email($body, "Restore your password", $email);
 
-            //Cerrar conexión
             $update_stmt->close();
             $conn->close();
 
@@ -72,11 +71,13 @@ try {
             exit;
         } else if ($update_stmt->affected_rows > 1) {
             //Se modificó más de un registro. Nunca se debería llegar acá
-            echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Fatal error, please contact", "link_text" => "support.", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
+            error_log("[ERROR]" . basename(__FILE__) . ": Se modifico más de un registro");
+            echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
             exit;
         }
     } else {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Update Failed", "message" => $update_stmt->error]);
+        error_log("[ERROR]" . basename(__FILE__) . ":" . $update_stmt->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -85,6 +86,7 @@ try {
     $conn->close();
 } catch (Exception $e) {
     // Manejo de errores generales
-    echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
+    error_log("[ERROR]" . basename(__FILE__) . ":" . $e->getMessage());
+    echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
     exit;
 }

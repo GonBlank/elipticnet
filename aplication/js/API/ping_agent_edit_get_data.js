@@ -1,6 +1,8 @@
-function ping_agent_edit_get_data() {
+import { getUrlParameter } from '../functions/getUrlParameter.js';
+import { removeLoadCurtain } from '../functions/removeLoadCurtain.js';
 
-    fetch(`../php/API/ping_agent_edit_get_data.php?id=${hostId}`)
+function pingAgentEditGetData(id) {
+    fetch(`../php/API/ping_agent_edit_get_data.php?id=${id}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -8,50 +10,43 @@ function ping_agent_edit_get_data() {
             return response.json();
         })
         .then(data => {
-            if (!data.error) {
-                removeLoadCurtain();
-                load_ping_agent_data(data);
-            }
-            else {
+            if (data.error) {
                 ShowAlert(data.type, data.title, data.message, data.type);
-
                 setTimeout(() => {
                     window.location.href = 'home.php';
                 }, 2000);
-
             }
-
+            removeLoadCurtain();
+            loadPingAgentData(data);
         })
         .catch(error => {
             ShowAlert('error', 'Error', `Failed to load host data: ${error}`, 'error');
         });
 }
 
-ping_agent_edit_get_data();
+function loadPingAgentData(pingAgent) {
+    const hostName = document.getElementById('hostName');
+    const hostIp = document.getElementById('hostIp');
+    const hostDescription = document.getElementById('hostDescription');
 
-function load_ping_agent_data(ping_agent) {
-    const host_name = document.getElementById('host-name');
-    const host_ip = document.getElementById('host-ip');
-    const host_description = document.getElementById('host-description');
+    hostName.value = pingAgent.name;
+    hostIp.value = pingAgent.ip;
+    hostDescription.value = pingAgent.description;
 
-    host_name.value = ping_agent.name;
-    host_ip.value = ping_agent.ip;
-    host_description.value = ping_agent.description;
-
-    if (ping_agent.threshold != null) {
-        const threshold_checkbox = document.getElementById('threshold-checkbox');
-        const threshold_value = document.getElementById('threshold_value');
-        const threshold_box = document.getElementById('threshold-box');
-        const inputWrapper = document.getElementById('threshold-input-wrapper');
-        threshold_checkbox.checked = true;
-        threshold_value.value = ping_agent.threshold;
-        threshold_box.classList.add('expand');
+    if (pingAgent.threshold != null) {
+        const thresholdCheckbox = document.getElementById('thresholdCheckbox');
+        const thresholdValue = document.getElementById('thresholdValue');
+        const thresholdBox = document.getElementById('thresholdBox');
+        const inputWrapper = document.getElementById('thresholdInputWrapper');
+        thresholdCheckbox.checked = true;
+        thresholdValue.value = pingAgent.threshold;
+        thresholdBox.classList.add('expand');
         inputWrapper.style.display = '';
     }
 
     // Selecciona el contenedor donde se generan los transportes
-    const container = document.getElementById('alert_transports_table');
-    const transports = JSON.parse(ping_agent.transports);
+    const container = document.getElementById('alertTransportsTable');
+    const transports = JSON.parse(pingAgent.transports);
 
     // Configura el MutationObserver
     const observer = new MutationObserver(() => {
@@ -68,3 +63,12 @@ function load_ping_agent_data(ping_agent) {
 
 
 }
+
+const id = getUrlParameter('id');
+
+if (!id || id === null || !Number.isInteger(Number(id))) {
+    window.location.replace('../public/home.php');
+}
+
+pingAgentEditGetData(id);
+

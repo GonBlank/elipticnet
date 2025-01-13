@@ -1,5 +1,8 @@
+import { toggleButtonState } from '../functions/toggleButtonState.js';
+
+
 document.addEventListener("DOMContentLoaded", function () {
-    const updateAgentButton = document.getElementById('update_agent');
+    const updateAgentButton = document.getElementById('updateAgent');
 
     // Animación de carga del formulario
     function toggleButtonState(isLoading) {
@@ -26,29 +29,29 @@ document.addEventListener("DOMContentLoaded", function () {
         const inputs = document.querySelectorAll('.input');
         inputs.forEach(input => {
             input.classList.remove('error');
-            const errorMessage = document.getElementById(`${input.id}-error`);
+            const errorMessage = document.getElementById(`${input.id}Error`);
             if (errorMessage) errorMessage.textContent = '';
         });
 
         // Obtener los valores del formulario
-        const hostName = document.getElementById('host-name').value;
-        const threshold_check = document.getElementById('threshold-checkbox').checked;
-        const threshold_value = document.getElementById('threshold_value').value;
+        const hostName = document.getElementById('hostName').value;
+        const threshold_check = document.getElementById('thresholdCheckbox').checked;
+        const thresholdValue = document.getElementById('thresholdValue').value;
         let isValid = true;
 
         if (threshold_check) {
-            if (!threshold_value) {
+            if (!thresholdValue) {
                 isValid = false;
-                document.getElementById('threshold_value').classList.add('error');
-                document.getElementById('threshold_value-error').textContent = 'Value required.';
+                document.getElementById('thresholdValue').classList.add('error');
+                document.getElementById('thresholdValueError').textContent = 'Value required.';
             }
         }
 
         // Validar los datos del formulario
         if (!hostName) {
             isValid = false;
-            document.getElementById('host-name').classList.add('error');
-            document.getElementById('host-name-error').textContent = 'Host name is required.';
+            document.getElementById('hostName').classList.add('error');
+            document.getElementById('hostNameError').textContent = 'Host name is required.';
         }
 
         return isValid;
@@ -65,10 +68,10 @@ document.addEventListener("DOMContentLoaded", function () {
         toggleButtonState(true);
 
         // Obtener los valores del formulario
-        const hostName = document.getElementById('host-name');
-        const description = document.getElementById('host-description');
-        const threshold_check = document.getElementById('threshold-checkbox').checked;
-        const threshold = document.getElementById('threshold_value');
+        const hostName = document.getElementById('hostName');
+        const description = document.getElementById('hostDescription');
+        const threshold_check = document.getElementById('thresholdCheckbox').checked;
+        const threshold = document.getElementById('thresholdValue');
 
         // Seleccionar el contenedor de transportes
         const transportSection = document.querySelector('.alert-transports');
@@ -88,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
 
-        // Agregar threshold_value si threshold_check está en true
+        // Agregar thresholdValue si threshold_check está en true
         if (threshold_check) {
             newHost.threshold = Math.floor(threshold.value); // Toma siempre la parte entera
         }

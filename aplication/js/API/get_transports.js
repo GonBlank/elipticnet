@@ -1,12 +1,13 @@
 function fetchTransports() {
     fetch('../php/API/get_transport_by_owner.php', {
-        method: 'POST', // El método de la solicitud
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         }
     })
         .then(response => {
             if (!response.ok) {
+                ShowAlert('error', 'Error', `Error: ${response.status}`, 'error')
                 throw new Error(`[ERROR]: ${response.status}`);
             }
             return response.json();
@@ -21,10 +22,10 @@ function fetchTransports() {
                     transportContainer.appendChild(transportElement);
                 });
             } else {
-                console.log('No se encontraron transportes.');
+                console.log('Transports not found.');
             }
         })
-        .catch(error => console.error('Error al obtener los transportes:', error));
+        .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
 }
 
 // Llamar la función al cargar la página

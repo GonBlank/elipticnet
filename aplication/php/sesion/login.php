@@ -31,28 +31,24 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-/*------------------------------------*/
-
 try {
     // Conectar a la base de datos
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
     // Verificar conexión
     if ($conn->connect_error) {
-        error_log("[ERROR] login:" . $conn->connect_error);
-        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => $conn->connect_error]);
+        error_log("[ERROR]" . basename(__FILE__) . ":" . $conn->connect_error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
-
-
 
     $sql = "SELECT id, password, username, email, enable, type FROM users WHERE email = ?";
 
     // Preparar la consulta
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
-        error_log("[ERROR] login" . $conn->error);
-        echo json_encode(["error" => true, "type" => "error", "title" => "DB error", "message" => $conn->error]);
+        error_log("[ERROR]" . basename(__FILE__) . ":" . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -72,8 +68,8 @@ try {
     // Preparar la consulta
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
-        error_log("[ERROR] login" . $conn->error);
-        echo json_encode(["error" => true, "type" => "error", "title" => "DB error", "message" => $conn->error]);
+        error_log("[ERROR]" . basename(__FILE__) . ":" . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -87,7 +83,6 @@ try {
         echo json_encode(["error" => true, "type" => "error", "title" => "Account issue", "message" => "Your account is not enabled or email not validated."]);
         exit;
     }
-
 
     // Set session duration based on "remember me"
     $lifetime = $remember_me ? (30 * 24 * 3600) : 3600; // 30 days or 1 hour
@@ -139,8 +134,8 @@ if ($remember_me) {
     exit;
 } catch (Exception $e) {
     // Manejo de errores
-    error_log("[ERROR] login:" . $e->getMessage());
-    echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
+    error_log("[ERROR]" . basename(__FILE__) . ":" . $e->getMessage());
+    echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
 } finally {
     if (isset($stmt) && $stmt !== false) {
         $stmt->close();

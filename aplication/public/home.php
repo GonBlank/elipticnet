@@ -23,16 +23,27 @@ define('MENU_ALLOWED', true);
     <meta name="msapplication-config" content="../img/favicon/browserconfig.xml">
     <meta name="theme-color" content="#2b2d42">
 
+    <!-- Styles -->
 
+    <!--Generics-->
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/palette.css" />
+
+    <!--Components-->
     <link rel="stylesheet" href="../css/components/alert.css" />
+    <link rel="stylesheet" href="../css/components/loader.css" />
+    <link rel="stylesheet" href="../css/components/dialog.css" />
+    <link rel="stylesheet" href="../css/components/button.css" />
+    <link rel="stylesheet" href="../css/components/drop_down_menu.css" />
+
+    <!--Specific-->
     <link rel="stylesheet" href="../css/style_home.css" />
+
+
 
 </head>
 
 <body>
-
     <nav>
         <button id="menu_button" onclick="open_menu()">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
@@ -47,28 +58,25 @@ define('MENU_ALLOWED', true);
             </svg>
         </div>
         <h1 id="nav-tittle"> Home</h1>
-
     </nav>
 
     <?php include '../php/global/lateral_menu/lateral_menu.php'; ?>
 
-
     <main class="dashboard">
 
         <div id="load-curtain">
-            <svg class="spinner-circle" class="up-since" xmlns="http://www.w3.org/2000/svg"
-                height="24px" viewBox="0 -960 960 960" width="24px">
+            <svg class="spinner-circle" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                width="24px">
                 <path
                     d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q17 0 28.5 11.5T520-840q0 17-11.5 28.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-17 11.5-28.5T840-520q17 0 28.5 11.5T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Z" />
             </svg>
         </div>
 
-
         <section class="area-statistics">
             <div id="hosts_up" class="statistics-card card up">
                 <h1>UP</h1>
                 <h2>
-                    <svg class="spinner-circle" class="up-since" xmlns="http://www.w3.org/2000/svg" height="24px"
+                    <svg class="spinner-circle" xmlns="http://www.w3.org/2000/svg" height="24px"
                         viewBox="0 -960 960 960" width="24px">
                         <path
                             d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q17 0 28.5 11.5T520-840q0 17-11.5 28.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-17 11.5-28.5T840-520q17 0 28.5 11.5T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Z" />
@@ -78,7 +86,7 @@ define('MENU_ALLOWED', true);
             <div id="hosts_down" class="statistics-card card down">
                 <h1>DOWN</h1>
                 <h2>
-                    <svg class="spinner-circle" class="up-since" xmlns="http://www.w3.org/2000/svg" height="24px"
+                    <svg class="spinner-circle" xmlns="http://www.w3.org/2000/svg" height="24px"
                         viewBox="0 -960 960 960" width="24px">
                         <path
                             d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q17 0 28.5 11.5T520-840q0 17-11.5 28.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-17 11.5-28.5T840-520q17 0 28.5 11.5T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Z" />
@@ -88,13 +96,11 @@ define('MENU_ALLOWED', true);
             <div id="hosts_monitored" class="statistics-card card monitored">
                 <h1>Monitored</h1>
                 <h2>
-
-                    <svg class="spinner-circle" class="up-since" xmlns="http://www.w3.org/2000/svg" height="24px"
+                    <svg class="spinner-circle" xmlns="http://www.w3.org/2000/svg" height="24px"
                         viewBox="0 -960 960 960" width="24px">
                         <path
                             d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q17 0 28.5 11.5T520-840q0 17-11.5 28.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-17 11.5-28.5T840-520q17 0 28.5 11.5T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Z" />
                     </svg>
-
                 </h2>
             </div>
         </section>
@@ -110,7 +116,8 @@ define('MENU_ALLOWED', true);
                 </button>
                 <div id="dropdown_menu" class="dropdown_menu collapsed">
                     <a id="ping_agent" href="ping_agent_create.php">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-vinyl" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-vinyl" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
                             <path d="M8 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4M4 8a4 4 0 1 1 8 0 4 4 0 0 1-8 0" />
                             <path d="M9 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
@@ -120,20 +127,17 @@ define('MENU_ALLOWED', true);
                 </div>
             </div>
 
-
             <div id="host_table" class="table">
-
                 <div id="row_place_holder" class="row">
-                    <svg class="spinner-circle" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                        <path d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q17 0 28.5 11.5T520-840q0 17-11.5 28.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-17 11.5-28.5T840-520q17 0 28.5 11.5T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Z"></path>
+                    <svg class="spinner-circle" xmlns="http://www.w3.org/2000/svg" height="24px"
+                        viewBox="0 -960 960 960" width="24px">
+                        <path
+                            d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q17 0 28.5 11.5T520-840q0 17-11.5 28.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-17 11.5-28.5T840-520q17 0 28.5 11.5T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Z">
+                        </path>
                     </svg>
                 </div>
 
-
-
-
                 <!-- 
-                
                 <a href="#" class="row">
                     <div class="host-satus">
                         <div class="heartbeat-animation-container">
@@ -158,18 +162,17 @@ define('MENU_ALLOWED', true);
                     </div>
                 </a>               
                 -->
-
             </div>
         </section>
     </main>
 
-
-    <script src="../js/modal.js"></script>
+    <script src="../js/components/alert.js"></script>
+    <script src="../js/components/dialog.js"></script>
     <script src="../js/page_transition.js"></script>
     <script src="../js/functions/remove_load_curtain.js"></script>
-    <script src="../js/drop_down_new.js"></script>
+    <script src="../js/components/drop_down_menu.js"></script>
     <script src="../js/API/load_home_view.js"></script>
-    <script src="../js/components/alert.js"></script>
+
 
 </body>
 

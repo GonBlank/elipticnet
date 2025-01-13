@@ -34,6 +34,7 @@ function fetchHosts() {
         })//
         .finally(() => {
             //Quitar el icono de carga
+            removeLoadCurtain();
         });
 }
 

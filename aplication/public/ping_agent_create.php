@@ -23,16 +23,25 @@ define('MENU_ALLOWED', true);
     <meta name="msapplication-config" content="../img/favicon/browserconfig.xml">
     <meta name="theme-color" content="#2b2d42">
 
+    <!-- Styles -->
 
+    <!--Generics-->
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/palette.css" />
-    <link rel="stylesheet" href="../css/components/alert.css" />
-    <link rel="stylesheet" href="../css/ping_agent.css" />
 
+    <!--Components-->
+    <link rel="stylesheet" href="../css/components/alert.css" />
+    <link rel="stylesheet" href="../css/components/loader.css" />
+    <link rel="stylesheet" href="../css/components/button.css" />
+    <link rel="stylesheet" href="../css/components/checkbox.css" />
+    <link rel="stylesheet" href="../css/components/input.css" />
+    <link rel="stylesheet" href="../css/components/tooltip.css" />
+
+    <!--Specific-->
+    <link rel="stylesheet" href="../css/ping_agent.css" />
 </head>
 
 <body>
-
     <nav>
         <button id="menu_button" onclick="open_menu()">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
@@ -47,7 +56,6 @@ define('MENU_ALLOWED', true);
             </svg>
         </div>
         <h1 id="nav-tittle"> New agent</h1>
-
     </nav>
 
     <?php include '../php/global/lateral_menu/lateral_menu.php'; ?>
@@ -70,9 +78,8 @@ define('MENU_ALLOWED', true);
             </div>
             <div class="input-form">
                 <div class="input-row-group">
-
                     <label class="label">
-                        <input tabindex="1" type="text" placeholder=" " class="input" id="host-name" name="host-name"
+                        <input tabindex="1" type="text" placeholder=" " class="input" id="hostName" name="hostName"
                             autocomplete="name" maxlength="20" required />
                         <span class="label__name">
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
@@ -81,11 +88,10 @@ define('MENU_ALLOWED', true);
                                     d="M300-720q-25 0-42.5 17.5T240-660q0 25 17.5 42.5T300-600q25 0 42.5-17.5T360-660q0-25-17.5-42.5T300-720Zm0 400q-25 0-42.5 17.5T240-260q0 25 17.5 42.5T300-200q25 0 42.5-17.5T360-260q0-25-17.5-42.5T300-320ZM160-840h640q17 0 28.5 11.5T840-800v280q0 17-11.5 28.5T800-480H160q-17 0-28.5-11.5T120-520v-280q0-17 11.5-28.5T160-840Zm40 80v200h560v-200H200Zm-40 320h640q17 0 28.5 11.5T840-400v280q0 17-11.5 28.5T800-80H160q-17 0-28.5-11.5T120-120v-280q0-17 11.5-28.5T160-440Zm40 80v200h560v-200H200Zm0-400v200-200Zm0 400v200-200Z" />
                             </svg>
                             Host name</span>
-                        <div class="error-message" id="host-name-error"></div>
+                        <div class="error-message" id="hostNameError"></div>
                     </label>
-
                     <label class="label">
-                        <input tabindex="2" type="text" placeholder=" " class="input" id="host-ip" name="host-ip"
+                        <input tabindex="2" type="text" placeholder=" " class="input" id="hostIp" name="hostIp"
                             autocomplete="ip" required />
                         <span class="label__name">
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
@@ -94,10 +100,9 @@ define('MENU_ALLOWED', true);
                                     d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm-40-82v-78q-33 0-56.5-23.5T360-320v-40L168-552q-3 18-5.5 36t-2.5 36q0 121 79.5 212T440-162Zm276-102q20-22 36-47.5t26.5-53q10.5-27.5 16-56.5t5.5-59q0-98-54.5-179T600-776v16q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h240q17 0 28.5 11.5T600-440v120h40q26 0 47 15.5t29 40.5Z" />
                             </svg>
                             IP</span>
-                        <div class="error-message" id="host-ip-error"></div>
+                        <div class="error-message" id="hostIpError"></div>
                     </label>
                 </div>
-
                 <label class="label">
                     <textarea maxlength="200" tabindex="3" type="text" placeholder=" " class="input textarea"
                         id="host-description" name="host-description" autocomplete="description" required></textarea>
@@ -110,39 +115,33 @@ define('MENU_ALLOWED', true);
                         Description</span>
                     <div class="error-message" id="host-description-error"></div>
                 </label>
-
             </div>
-
             <div class="divider">
                 <hr>
                 <p>Additional checks</p>
             </div>
-
             <div class="additional_checks">
-
                 <span class="tooltip">
                     <div id="threshold-box" class="threshold init">
                         <div class="checkbox-wrapper-13">
-                            <input id="threshold-checkbox" name="threshold" type="checkbox" onchange="toggleInput(this)">
-                            <label for="threshold-checkbox">Threshold</label>
+                            <input id="thresholdCheckbox" name="threshold" type="checkbox"
+                                onchange="toggleInput(this)">
+                            <label for="thresholdCheckbox">Threshold</label>
                         </div>
-
                         <label class="label" id="threshold-input-wrapper" style="display: none;">
-                            <input tabindex="1" type="number" placeholder=" " class="input" id="threshold_value" name="threshold"
-                                autocomplete="name" max="999" />
+                            <input tabindex="1" type="number" placeholder=" " class="input" id="thresholdValue"
+                                name="threshold" autocomplete="name" max="999" />
                             <span class="label__name">100ms</span>
-                            <div class="error-message" id="threshold_value-error"></div>
+                            <div class="error-message" id="thresholdValueError"></div>
                         </label>
                     </div>
                     <span class="tooltip-text">If the latency is higher than the threshold we will send a warning.<br>
                         - Value [ms]</span>
                 </span>
-
                 <script>
                     function toggleInput(checkbox) {
                         const inputWrapper = document.getElementById('threshold-input-wrapper');
                         const thresholdBox = document.getElementById('threshold-box');
-
                         if (checkbox.checked) {
                             thresholdBox.classList.remove('init');
                             thresholdBox.classList.add('expand');
@@ -150,17 +149,14 @@ define('MENU_ALLOWED', true);
                             thresholdBox.classList.remove('expand');
                             thresholdBox.classList.add('init');
                         }
-
                         inputWrapper.style.display = checkbox.checked ? '' : 'none';
                     }
                 </script>
             </div>
-
             <div class="divider">
                 <hr>
                 <p>Alert transport</p>
             </div>
-
             <section class="alert-transports">
 
                 <!-- <article class="transport">
@@ -194,12 +190,10 @@ define('MENU_ALLOWED', true);
                         ADD TRANSPORT</a>
                 </div>
             </section>
-            <button id="create_agent" class="create-agent">
-
+            <button id="createAgentBtn" class="create-agent">
                 <div class="text show">
                     Create
                 </div>
-
                 <div class="loader-hourglass hide"> <!-- Cambiado a hide para que esté oculto por defecto -->
                     <svg class="spinner-hourglass" xmlns="http://www.w3.org/2000/svg" height="24px"
                         viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -207,17 +201,14 @@ define('MENU_ALLOWED', true);
                             d="M320-160h320v-120q0-66-47-113t-113-47q-66 0-113 47t-47 113v120Zm160-360q66 0 113-47t47-113v-120H320v120q0 66 47 113t113 47ZM160-80v-80h80v-120q0-61 28.5-114.5T348-480q-51-32-79.5-85.5T240-680v-120h-80v-80h640v80h-80v120q0 61-28.5 114.5T612-480q51 32 79.5 85.5T720-280v120h80v80H160Z" />
                     </svg>
                 </div>
-
-
             </button>
         </section>
     </main>
-
-    <script src="../js/modal.js"></script>
-    <script src="../js/API/get_transports.js"></script>
-    <script src="../js/API/ping_agent_create.js"></script>
-    <script src="../js/page_transition.js"></script>
     <script src="../js/components/alert.js"></script>
+    <script src="../js/components/dialog.js"></script>
+    <script src="../js/API/get_transports.js"></script>
+    <script type="module" src="../js/API/ping_agent_create.js"></script>
+    <script src="../js/page_transition.js"></script>
 </body>
 
 </html>

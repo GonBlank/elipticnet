@@ -1,110 +1,85 @@
+import { toggleButtonState } from '../functions/toggleButtonState.js';
+
 document.addEventListener("DOMContentLoaded", function () {
-    const signUpbtn = document.getElementById('sign_up_btn');
-
-    // Animación de carga del formulario
-    function toggleButtonState(isLoading) {
-        const textDiv = signUpbtn.querySelector('.text');
-        const loaderDiv = signUpbtn.querySelector('.loader-hourglass');
-
-        if (isLoading) {
-            textDiv.classList.remove('show');
-            textDiv.classList.add('hide');
-            loaderDiv.classList.remove('hide');
-            loaderDiv.classList.add('show');
-            signUpbtn.disabled = true;
-        } else {
-            textDiv.classList.remove('hide');
-            textDiv.classList.add('show');
-            loaderDiv.classList.remove('show');
-            loaderDiv.classList.add('hide');
-            signUpbtn.disabled = false;
-        }
-    }
+    const signUpbtn = document.getElementById('signUpBtn');
 
     function validateUserData() {
         // Limpiar errores anteriores
         const inputs = document.querySelectorAll('.input');
         inputs.forEach(input => {
             input.classList.remove('error');
-            const errorMessage = document.getElementById(`${input.id}-error`);
+            const errorMessage = document.getElementById(`${input.id}Error`);
             if (errorMessage) errorMessage.textContent = '';
         });
 
         // Obtener los valores del formulario
-        const username = document.getElementById('register-username');
-        const email = document.getElementById('register-user-email');
-        const password = document.getElementById('register-user-password');
+        const username = document.getElementById('registerUsername');
+        const email = document.getElementById('registerUserEmail');
+        const password = document.getElementById('registerUserPassword');
 
         let isValid = true;
 
         // Validar los datos del formulario
         if (!username || username.value.trim() === '') {
             isValid = false;
-            document.getElementById('register-username').classList.add('error');
-            document.getElementById('register-username-error').textContent = 'Username is required.';
+            document.getElementById('registerUsername').classList.add('error');
+            document.getElementById('registerUsernameError').textContent = 'Username is required.';
         } else {
             const usernameLength = username.value.length;
             if (usernameLength < 3 || usernameLength > 15) {
                 isValid = false;
-                document.getElementById('register-username').classList.add('error');
-                document.getElementById('register-username-error').textContent = 'Username must be between 3 and 15 characters.';
+                document.getElementById('registerUsername').classList.add('error');
+                document.getElementById('registerUsernameError').textContent = 'Username must be between 3 and 15 characters.';
             }
         }
 
         if (!password || password.value.trim() === '') {
             isValid = false;
-            document.getElementById('register-user-password').classList.add('error');
-            document.getElementById('register-user-password-error').textContent = 'Password is required.';
+            document.getElementById('registerUserPassword').classList.add('error');
+            document.getElementById('registerUserPasswordError').textContent = 'Password is required.';
         } else {
             const passwordLength = password.value.length;
             if (passwordLength < 8 || passwordLength > 20) {
                 isValid = false;
-                document.getElementById('register-user-password').classList.add('error');
-                document.getElementById('register-user-password-error').textContent = 'Password must be between 8 and 20 characters.';
+                document.getElementById('registerUserPassword').classList.add('error');
+                document.getElementById('registerUserPasswordError').textContent = 'Password must be between 8 and 20 characters.';
             }
         }
 
         if (!email || email.value.trim() === '') {
             isValid = false;
-            document.getElementById('register-user-email').classList.add('error');
-            document.getElementById('register-user-email-error').textContent = 'Email is required.';
+            document.getElementById('registerUserEmail').classList.add('error');
+            document.getElementById('registerUserEmailError').textContent = 'Email is required.';
         } else {
             const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (!emailRegex.test(email.value)) {
                 isValid = false;
-                document.getElementById('register-user-email').classList.add('error');
-                document.getElementById('register-user-email-error').textContent = 'Invalid email format.';
+                document.getElementById('registerUserEmail').classList.add('error');
+                document.getElementById('registerUserEmailError').textContent = 'Invalid email format.';
             }
         }
-
         return isValid;
     }
 
     signUpbtn.addEventListener('click', function (event) {
-        event.preventDefault(); // Previene el comportamiento por defecto del botón
+        event.preventDefault();
 
         if (!validateUserData()) {
-            return; // No enviar datos si la validación falla
+            return;
         }
 
-        // Cambiar el estado del botón para mostrar el loader
-        toggleButtonState(true);
+        toggleButtonState('signUpBtn', true);
 
-        // Obtener los valores del formulario
-        const username = document.getElementById('register-username');
-        const email = document.getElementById('register-user-email');
-        const password = document.getElementById('register-user-password');
+        const username = document.getElementById('registerUsername');
+        const email = document.getElementById('registerUserEmail');
+        const password = document.getElementById('registerUserPassword');
 
-        // Crear un objeto con los datos del nuevo host
-        // Crear un objeto con los datos del nuevo usuario
         const newUser = {
             username: username.value,
             email: email.value,
             password: password.value,
-            timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone,
+            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         };
-
-        // Enviar los datos al backend usando fetch
         fetch('../php/sesion/signup.php', {
             method: 'POST',
             headers: {
@@ -119,16 +94,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     username.value = '';
                     email.value = '';
                     password.value = '';
-
                 }
             })
             .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
             .finally(() => {
                 // Restablecer el estado del botón
-                toggleButtonState(false);
+                toggleButtonState('signUpBtn', false);
 
                 // Cerrar el diálogo
-                const dialog = document.getElementById('sign-up');
+                const dialog = document.getElementById('dialogSignUp');
                 dialog.close(); // Cerrar el diálogo
             });
     });

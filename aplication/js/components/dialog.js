@@ -11,7 +11,7 @@ document.addEventListener('click', (event) => {
         return; // Previene la ejecución del resto del código si ya se ha manejado el clic
     }
     // Cerrar el modal al hacer clic en un botón con la clase 'close'
-    if (event.target.closest('.close-btn')) {
+    if (event.target.closest('.closeModal')) {
         const dialog = event.target.closest('dialog');
         if (dialog) {
             dialog.close();

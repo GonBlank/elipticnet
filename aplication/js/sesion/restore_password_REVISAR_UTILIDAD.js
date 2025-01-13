@@ -6,26 +6,6 @@ function getUrlParameter(name) {
 document.addEventListener("DOMContentLoaded", function () {
     const updatePassBtn = document.getElementById('update_btn');
 
-    // Animación de carga del formulario
-    function toggleButtonState(isLoading) {
-        const textDiv = updatePassBtn.querySelector('.text');
-        const loaderDiv = updatePassBtn.querySelector('.loader-hourglass');
-
-        if (isLoading) {
-            textDiv.classList.remove('show');
-            textDiv.classList.add('hide');
-            loaderDiv.classList.remove('hide');
-            loaderDiv.classList.add('show');
-            updatePassBtn.disabled = true;
-        } else {
-            textDiv.classList.remove('hide');
-            textDiv.classList.add('show');
-            loaderDiv.classList.remove('show');
-            loaderDiv.classList.add('hide');
-            updatePassBtn.disabled = false;
-        }
-    }
-
     function validateUserData() {
         // Limpiar errores anteriores
         const inputs = document.querySelectorAll('.input');
@@ -76,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Cambiar el estado del botón para mostrar el loader
-        toggleButtonState(true);
+        toggleButtonState("update_btn",true);
 
         // Obtener los valores del formulario
         const newPassword = document.getElementById('new-password');
@@ -111,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
             .finally(() => {
                 // Restablecer el estado del botón y cerrar el diálogo
-                toggleButtonState(false);
+                toggleButtonState("update_btn",false);
             });
     });
 });

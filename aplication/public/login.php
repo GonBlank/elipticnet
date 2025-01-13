@@ -27,9 +27,21 @@ if (isset($_SESSION['user'])) {
     <meta name="msapplication-config" content="../img/favicon/browserconfig.xml">
     <meta name="theme-color" content="#2b2d42">
 
-    <link rel="stylesheet" href="../css/palette.css" />
+    <!-- Styles -->
+
+    <!--Generics-->
     <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/palette.css" />
+
+    <!--Components-->
     <link rel="stylesheet" href="../css/components/alert.css" />
+    <link rel="stylesheet" href="../css/components/loader.css" />
+    <link rel="stylesheet" href="../css/components/dialog.css" />
+    <link rel="stylesheet" href="../css/components/button.css" />
+    <link rel="stylesheet" href="../css/components/checkbox.css" />
+    <link rel="stylesheet" href="../css/components/input.css" />
+
+    <!--Specific-->
     <link rel="stylesheet" href="../css/login.css" />
 </head>
 
@@ -39,32 +51,32 @@ if (isset($_SESSION['user'])) {
         <section class="login-container card ">
 
             <section class="login-form">
-
                 <div class="tittle">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#e8eaed">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-door-open" viewBox="0 0 16 16">
+                        <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1" />
                         <path
-                            d="M120-120v-80h80v-560q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v560h80v80H120Zm560-80v-560H280v560h400ZM560-440q17 0 28.5-11.5T600-480q0-17-11.5-28.5T560-520q-17 0-28.5 11.5T520-480q0 17 11.5 28.5T560-440ZM280-760v560-560Z" />
+                            d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z" />
                     </svg>
                     <h1>Sign in</h1>
                 </div>
-
                 <form>
                     <div class="input-container">
-                        <label class="label" for="user-email">
-                            <input tabindex="1" type="email" placeholder=" " class="input" id="user-email"
-                                name="user-email" autocomplete="email" required />
+                        <label class="label" for="userEmail">
+                            <input tabindex="1" type="email" placeholder=" " class="input" id="userEmail"
+                                name="userEmail" autocomplete="email" required />
                             <span class="label__name">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
                                     width="24px" fill="#e8eaed">
                                     <path
                                         d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480v58q0 59-40.5 100.5T740-280q-35 0-66-15t-52-43q-29 29-65.5 43.5T480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480v58q0 26 17 44t43 18q26 0 43-18t17-44v-58q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93h200v80H480Zm0-280q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Z" />
                                 </svg> Email</span>
-                            <div class="error-message" id="user-email-error"></div>
+                            <div class="error-message" id="userEmailError"></div>
                         </label>
 
-                        <label class="label" for="user-password">
-                            <input tabindex="2" type="password" placeholder=" " class="input" id="user-password"
-                                name="user-password" autocomplete="current-password" required minlength="8"
+                        <label class="label" for="userPassword">
+                            <input tabindex="2" type="password" placeholder=" " class="input" id="userPassword"
+                                name="userPassword" autocomplete="current-password" required minlength="8"
                                 maxlength="20" />
                             <span class="label__name">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
@@ -73,19 +85,18 @@ if (isset($_SESSION['user'])) {
                                         d="M280-240q-100 0-170-70T40-480q0-100 70-170t170-70q66 0 121 33t87 87h432v240h-80v120H600v-120H488q-32 54-87 87t-121 33Zm0-80q66 0 106-40.5t48-79.5h246v120h80v-120h80v-80H434q-8-39-48-79.5T280-640q-66 0-113 47t-47 113q0 66 47 113t113 47Zm0-80q33 0 56.5-23.5T360-480q0-33-23.5-56.5T280-560q-33 0-56.5 23.5T200-480q0 33 23.5 56.5T280-400Zm0-80Z" />
                                 </svg>
                                 Password</span>
-                            <div class="error-message" id="user-password-error"></div>
+                            <div class="error-message" id="userPasswordError"></div>
                         </label>
-
                     </div>
 
                     <div class="options">
                         <div class="checkbox-wrapper-13">
-                            <input tabindex="3" id="remember_me" name="remember_me" type="checkbox">
-                            <label for="remember_me">Remember me</label>
+                            <input tabindex="3" id="rememberMe" name="rememberMe" type="checkbox">
+                            <label for="rememberMe">Remember me</label>
                         </div>
                     </div>
 
-                    <button id="login_btn" class="action_btn">
+                    <button id="loginBtn" class="action_btn">
                         <div class="text show">
                             SIGN IN
                         </div>
@@ -101,10 +112,10 @@ if (isset($_SESSION['user'])) {
                 </form>
 
                 <div class="link-options">
-                    <button data-modal="forgot-password" class="openModal">
+                    <button data-modal="forgotPassword" class="openModal">
                         Forgot Password?
                     </button>
-                    <button data-modal="sign-up" class="openModal">
+                    <button data-modal="dialogSignUp" class="openModal">
                         Sign up!
                     </button>
                 </div>
@@ -129,16 +140,10 @@ if (isset($_SESSION['user'])) {
                     GOOGLE
                 </button>
             </section>
-
-
         </section>
-
     </main>
 
-
-
-
-    <dialog id="sign-up" class="card">
+    <dialog id="dialogSignUp" class="card">
         <div class="dialog-header">
             <h1>
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
@@ -154,8 +159,8 @@ if (isset($_SESSION['user'])) {
         <div class="dialog-body">
             <form class="form-container">
                 <div class="input-container">
-                    <label class="label" for="register-username">
-                        <input type="text" placeholder=" " class="input" id="register-username" name="register-username"
+                    <label class="label" for="registerUsername">
+                        <input type="text" placeholder=" " class="input" id="registerUsername" name="registerUsername"
                             autocomplete="username" required minlength="3" maxlength="15" />
                         <span class="label__name">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -164,24 +169,23 @@ if (isset($_SESSION['user'])) {
                                 <path
                                     d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492z" />
                             </svg> Name</span>
-                        <div class="error-message" id="register-username-error"></div>
+                        <div class="error-message" id="registerUsernameError"></div>
                     </label>
-                    <label class="label" for="register-user-email">
-                        <input type="email" placeholder=" " class="input" id="register-user-email"
-                            name="register-user-email" autocomplete="email" required />
+                    <label class="label" for="registerUserEmail">
+                        <input type="email" placeholder=" " class="input" id="registerUserEmail"
+                            name="registerUserEmail" autocomplete="email" required />
                         <span class="label__name">
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                                 fill="#e8eaed">
                                 <path
                                     d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480v58q0 59-40.5 100.5T740-280q-35 0-66-15t-52-43q-29 29-65.5 43.5T480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480v58q0 26 17 44t43 18q26 0 43-18t17-44v-58q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93h200v80H480Zm0-280q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Z" />
                             </svg> Email</span>
-                        <div class="error-message" id="register-user-email-error"></div>
+                        <div class="error-message" id="registerUserEmailError"></div>
                     </label>
 
-                    <label class="label" for="register-user-password">
-                        <input type="password" placeholder=" " class="input" id="register-user-password"
-                            name="register-user-password" autocomplete="password" required minlength="8"
-                            maxlength="20" />
+                    <label class="label" for="registerUserPassword">
+                        <input type="password" placeholder=" " class="input" id="registerUserPassword"
+                            name="registerUserPassword" autocomplete="password" required minlength="8" maxlength="20" />
                         <span class="label__name">
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                                 fill="#e8eaed">
@@ -189,11 +193,11 @@ if (isset($_SESSION['user'])) {
                                     d="M280-240q-100 0-170-70T40-480q0-100 70-170t170-70q66 0 121 33t87 87h432v240h-80v120H600v-120H488q-32 54-87 87t-121 33Zm0-80q66 0 106-40.5t48-79.5h246v120h80v-120h80v-80H434q-8-39-48-79.5T280-640q-66 0-113 47t-47 113q0 66 47 113t113 47Zm0-80q33 0 56.5-23.5T360-480q0-33-23.5-56.5T280-560q-33 0-56.5 23.5T200-480q0 33 23.5 56.5T280-400Zm0-80Z" />
                             </svg>
                             Password</span>
-                        <div class="error-message" id="register-user-password-error"></div>
+                        <div class="error-message" id="registerUserPasswordError"></div>
                     </label>
                 </div>
 
-                <button id="sign_up_btn" type="submit" class="action_btn">
+                <button id="signUpBtn" type="submit" class="action_btn">
                     <div class="text show">
                         SIGN UP
                     </div>
@@ -209,13 +213,11 @@ if (isset($_SESSION['user'])) {
         </div>
     </dialog>
 
-
-
-    <dialog id="forgot-password" class="card">
+    <dialog id="forgotPassword" class="card">
         <div class="dialog-header">
             <h1>
-                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
-                    class="bi bi-person-lock" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" class="bi bi-person-lock"
+                    viewBox="0 0 16 16">
                     <path
                         d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 5.996V14H3s-1 0-1-1 1-4 6-4q.845.002 1.544.107a4.5 4.5 0 0 0-.803.918A11 11 0 0 0 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664zM9 13a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1" />
                 </svg>
@@ -225,20 +227,19 @@ if (isset($_SESSION['user'])) {
         <div class="dialog-body">
             <form class="form-container">
                 <div class="input-container">
-                    <label class="label" for="recovery-email">
-                        <input type="email" placeholder=" " class="input" id="recovery-email"
-                            name="recovery-email" autocomplete="email" required />
+                    <label class="label" for="recoveryEmail">
+                        <input type="email" placeholder=" " class="input" id="recoveryEmail" name="recoveryEmail"
+                            autocomplete="email" required />
                         <span class="label__name">
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                                 fill="#e8eaed">
                                 <path
                                     d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480v58q0 59-40.5 100.5T740-280q-35 0-66-15t-52-43q-29 29-65.5 43.5T480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480v58q0 26 17 44t43 18q26 0 43-18t17-44v-58q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93h200v80H480Zm0-280q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Z" />
                             </svg> Email</span>
-                        <div class="error-message" id="recovery-email-error"></div>
+                        <div class="error-message" id="recoveryEmailError"></div>
                     </label>
                 </div>
-
-                <button id="recovery_btn" type="submit" class="action_btn">
+                <button id="recoveryBtn" type="submit" class="action_btn">
                     <div class="text show">
                         RECOVERY
                     </div>
@@ -254,13 +255,12 @@ if (isset($_SESSION['user'])) {
         </div>
     </dialog>
 
-    <script src="../js/modal.js"></script>
+    <script src="../js/components/dialog.js"></script>
     <script src="../js/components/alert.js"></script>
-    <script src="../js/sesion/login.js"></script>
-    <script src="../js/sesion/signup.js"></script>
-    <script src="../js/sesion/validate_email.js"></script>
-    <script src="../js/sesion/send_validation_code_restore_password.js"></script>
-
+    <script type="module" src="../js/sesion/login.js"></script>
+    <script type="module" src="../js/sesion/signup.js"></script>
+    <script type="module" src="../js/sesion/validate_email.js"></script>
+    <script type="module" src="../js/sesion/send_validation_code_restore_password.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,133 @@
+
+/*
+╔════════╗
+║ inputs ║
+╚════════╝
+
+Pasar a componentes
+*/
+
+.label {
+    width: 100%;
+    display: grid;
+    grid-template-areas: "input";
+    text-wrap: nowrap;
+    min-width: 125px;
+}
+
+.input {
+    grid-area: input;
+    padding-left: 10px;
+    text-align: left;
+    height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid var(--input-border);
+    cursor: pointer;
+    background-color: var(--input-background);
+    transition: border-color .3s;
+}
+
+.input:disabled {
+    cursor: not-allowed;
+    background-color: var(--input-disabled-bg);
+    color: var(--text-color-label_name);
+}
+
+.input:disabled:hover {
+    border-color: var(--input-border);
+}
+
+.input:hover {
+    border-color: var(--input-border-hover);
+}
+
+.input:not(.error):focus {
+    border: 1px solid var(--input-focus);
+}
+
+.input:not(.error):focus-visible {
+    outline: 1px solid var(--input-focus-visible);
+}
+
+.label__name {
+    grid-area: input;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    transition: .2s;
+    cursor: pointer;
+    justify-self: start;
+    color: var(--text-color-label_name);
+    margin-left: 8px;
+    pointer-events: none;
+    font-size: clamp(.75rem, 1.5vw, .8rem);
+}
+
+.label__name svg {
+    fill: var(--text-color);
+    width: 18px;
+}
+
+span.textarea {
+    height: fit-content;
+    padding-top: 5px;
+}
+
+.input:focus+.label__name,
+.input:not(:placeholder-shown)+.label__name {
+    transform: none;
+    opacity: 0;
+    transition: opacity .3s;
+}
+
+
+.input.textarea:focus+.label__name,
+.input.textarea:not(:placeholder-shown)+.label__name {
+    transform: none;
+    opacity: 0;
+    transition: opacity .3s;
+}
+
+textarea {
+    border: 1px solid var(--input-border)
+}
+
+textarea:focus-visible {
+    outline: 1px solid var(--input-focus-visible);
+
+}
+
+textarea:focus {
+    border: 1px solid var(--input-focus);
+}
+
+/* Ocultar flechas para input number
+ para todos los navegadores */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    /* Firefox */
+}
+
+.input.error {
+    border: 2px solid var(--accent-red);
+}
+
+.input.error:focus-visible {
+    outline: 0px;
+}
+
+.error-message {
+    color: var(--accent-red);
+    font-size: 0.675em;
+    margin-top: 0.25rem;
+    text-wrap: nowrap;
+}

@@ -1,8 +1,4 @@
-// Función para obtener parámetros de la URL
-function getUrlParameter(name) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(name);
-}
+import { getUrlParameter } from '../functions/getUrlParameter.js';
 
 // Verificar si el parámetro validation_hash existe
 const validationHash = getUrlParameter('validation_hash');
@@ -18,12 +14,7 @@ if (validationHash) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
-            if (data.error) {
-                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
-            } else {
-                ShowAlert('success', 'Success', 'Email validated', 'success');
-            }
+            ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
         })
         .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
 }

@@ -7,32 +7,33 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     exit;
 }
 
+// Verificar si se proporcionó el hash en el cuerpo de la solicitud (POST)
+if (!isset($_POST['validation_hash'])) {
+    echo json_encode(["error" => true, "type" => "error", "title" => "Validation Error", "message" => "Validation hash is required"]);
+    exit;
+}
+
+// Obtener el validation_hash desde POST
+$validation_hash = $_POST['validation_hash'];
+
 try {
     // Conectar a la base de datos
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
     // Verificar conexión
     if ($conn->connect_error) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => $conn->connect_error]);
+        error_log("[ERROR]" . basename(__FILE__) . ":" . $conn->connect_error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
-    // Verificar si se proporcionó el hash en el cuerpo de la solicitud (POST)
-    if (!isset($_POST['validation_hash'])) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Validation Error", "message" => "Validation hash is required"]);
-        exit;
-    }
-
-    // Obtener el validation_hash desde POST
-    $validation_hash = $_POST['validation_hash'];
-
-    // Consulta SQL para obtener el owner y hash_date asociado al validation_hash
     $select_query = "SELECT owner, hash_date FROM transports WHERE validation_hash = ?";
 
     // Preparar la consulta
     $stmt = $conn->prepare($select_query);
     if (!$stmt) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Query Error", "message" => $conn->error]);
+        error_log("[ERROR]" . basename(__FILE__) . ":" . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -47,8 +48,8 @@ try {
 
     // Verificar cuántos registros fueron encontrados
     if ($result->num_rows > 1) {
-        //More than one owner found for the provided validation hash
-        echo json_encode(["error" => true, "type" => "error", "title" => "Validation hash error", "message" => "Please contact support"]);
+        error_log("[ERROR] validate_email: Se encontraron registros duplicados con el hash: " . $validation_hash);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Validation hash error", "message" => "Please ", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
     } elseif ($result->num_rows === 1) {
         // Si hay exactamente un owner, validar el hash_date
         $row = $result->fetch_assoc();
@@ -69,7 +70,8 @@ try {
         $update_query = "UPDATE transports SET valid = TRUE, validation_hash = NULL, hash_date = NULL WHERE validation_hash = ?";
         $update_stmt = $conn->prepare($update_query);
         if (!$update_stmt) {
-            echo json_encode(["error" => true, "type" => "error", "title" => "Update Error", "message" => $conn->error]);
+            error_log("[ERROR]" . basename(__FILE__) . ":" . $conn->error);
+            echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
             exit;
         }
 
@@ -78,11 +80,11 @@ try {
 
         // Ejecutar la consulta de actualización
         if ($update_stmt->execute()) {
-            echo json_encode(["error" => false, "type" => "success", "message" => "Validation updated successfully", "owner" => $owner]);
+            echo json_encode(["error" => false, "type" => "success","title" => "Success", "message" => "Validation updated successfully"]);
         } else {
-            echo json_encode(["error" => true, "type" => "error", "title" => "Update Failed", "message" => $conn->error]);
+            error_log("[ERROR]" . basename(__FILE__) . ":" . $conn->error);
+            echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         }
-
         $update_stmt->close();
     } else {
         // Si no se encontró ningún owner
@@ -94,5 +96,7 @@ try {
     $conn->close();
 } catch (Exception $e) {
     // Manejo de errores generales
-    echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
+    error_log("[ERROR]" . basename(__FILE__) . ":" . $e->getMessage());
+    echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
+
 }
