@@ -16,20 +16,26 @@ if (validationHash) {
         method: 'POST',
         body: formData
     })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-
-            loadView(data);
-
+        .then(response => {
+            if (!response.ok) {
+                ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
+                throw new Error(`[Response error]: ${response.status}`);
+            }
+            return response.json();
         })
-        .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
+        .then(data => {
+            if (data.error) {
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
+                return null;
+            }
+            loadView(data);
+        })
+        .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'));
 }
 
 function loadView(data) {
     const image = document.getElementById('image');
     const message = document.getElementById('message');
-
 
     switch (data.type) {
         case 'success':

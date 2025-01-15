@@ -31,7 +31,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 'Content-Type': 'application/json',
             },
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
+                    throw new Error(`[Response error]: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
 
@@ -42,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
             })
-            .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
+            .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'))
             .finally(() => {
                 toggleButtonState(false);
                 // Cerrar el diálogo

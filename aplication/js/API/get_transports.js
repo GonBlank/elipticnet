@@ -7,24 +7,28 @@ function fetchTransports() {
     })
         .then(response => {
             if (!response.ok) {
-                throw new Error(`[ERROR]: ${response.status}`);
+                ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
+                throw new Error(`[Response error]: ${response.status}`);
             }
             return response.json();
         })
         .then(data => {
+            if (data.error) {
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
+                return null;
+            }
             // Asegurarse de que los datos contienen transportes
             if (data.transports && data.transports.length > 0) {
                 const transportContainer = document.querySelector('.alert-transports');
-
                 data.transports.forEach(transport => {
                     const transportElement = createTransport(transport);
                     transportContainer.appendChild(transportElement);
                 });
             } else {
-                console.log('No se encontraron transportes.');
+                ShowAlert('warning', 'Warning', 'Transports not found', 'warning');
             }
         })
-        .catch(error => console.error('Error al obtener los transportes:', error));
+        .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'))
 }
 
 // Llamar la función al cargar la página

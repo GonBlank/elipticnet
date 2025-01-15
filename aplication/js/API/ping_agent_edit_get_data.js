@@ -1,9 +1,9 @@
 function ping_agent_edit_get_data() {
-
     fetch(`../php/API/ping_agent_edit_get_data.php?id=${hostId}`)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
+                throw new Error(`[ERROR]: ${response.status}`);
             }
             return response.json();
         })
@@ -13,18 +13,13 @@ function ping_agent_edit_get_data() {
                 load_ping_agent_data(data);
             }
             else {
-                ShowAlert(data.type, data.title, data.message, data.type);
-
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
                 setTimeout(() => {
                     window.location.href = 'home.php';
                 }, 2000);
-
             }
-
         })
-        .catch(error => {
-            ShowAlert('error', 'Error', `Failed to load host data: ${error}`, 'error');
-        });
+        .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'));
 }
 
 ping_agent_edit_get_data();

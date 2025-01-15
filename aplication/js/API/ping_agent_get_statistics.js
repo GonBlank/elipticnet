@@ -1,19 +1,20 @@
 function get_host_statistics(time_range) {
     if (!hostId || isNaN(hostId)) {
-        ShowAlert('error', 'Error', 'Invalid host ID', 'error');
+        ShowAlert('error', 'Error', 'Invalid id', 'error');
         return;
     }
 
     fetch(`../php/API/ping_agent_get_statistics.php?id=${hostId}&time_range=${time_range}`)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
+                throw new Error(`[Response error]: ${response.status}`);
             }
             return response.json();
         })
         .then(data => {
             if (data.error) {
-                ShowAlert(data.type, data.title, data.message, data.type);
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
             } else {
                 create_get_host_statistics(data)
                 if (data.latency_time_json) {
@@ -24,7 +25,7 @@ function get_host_statistics(time_range) {
         })
         .catch(error => {
             console.error('Error fetching host statistics:', error);
-            ShowAlert('error', 'Error', `Failed to load host data: ${error.message || error}`, 'error');
+            ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error');
         });
 }
 

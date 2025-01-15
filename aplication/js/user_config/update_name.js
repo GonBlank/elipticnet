@@ -74,19 +74,20 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: JSON.stringify(updatedUser),
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
+                    throw new Error(`[Response error]: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
-                if (data.state) {
-                    // Capturar el ID y el mensaje de respuesta
-                    ShowAlert('success', 'Success', 'Name updated successfully', 'success');
-
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
+                if (!data.error) {
                     document.getElementById('lateralMenu-username').textContent = username.value;
-
-                } else if (data.error) {
-                    ShowAlert(data.type, data.title, data.message, data.type);
                 }
             })
-            .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
+            .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'))
             .finally(() => {
                 // Restablecer el estado del botón y cerrar el diálogo
                 toggleButtonState(false);

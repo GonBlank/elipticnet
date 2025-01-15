@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
             username: username.value,
             email: email.value,
             password: password.value,
-            timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone,
+            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         };
 
         // Enviar los datos al backend usando fetch
@@ -112,9 +112,15 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: JSON.stringify(newUser),
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
+                    throw new Error(`[Response error]: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
-                ShowAlert(data.type, data.title, data.message, data.type);
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
                 if (!data.error) {
                     username.value = '';
                     email.value = '';
@@ -122,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 }
             })
-            .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
+            .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'))
             .finally(() => {
                 // Restablecer el estado del botón
                 toggleButtonState(false);

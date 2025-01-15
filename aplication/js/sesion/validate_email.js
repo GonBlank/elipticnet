@@ -16,14 +16,15 @@ if (validationHash) {
         method: 'POST',
         body: formData
     })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-            if (data.error) {
-                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
-            } else {
-                ShowAlert('success', 'Success', 'Email validated', 'success');
+        .then(response => {
+            if (!response.ok) {
+                ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
+                throw new Error(`[Response error]: ${response.status}`);
             }
+            return response.json();
         })
-        .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
+        .then(data => {
+            ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
+        })
+        .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'));
 }

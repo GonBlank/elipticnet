@@ -71,11 +71,17 @@ document.addEventListener("DOMContentLoaded", function () {
             method: 'POST',
             body: formData
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
+                    throw new Error(`[Response error]: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
             })
-            .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
+            .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'))
             .finally(() => {
                 // Restablecer el estado del botón y cerrar el diálogo
                 toggleButtonState(false);

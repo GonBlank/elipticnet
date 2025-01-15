@@ -36,15 +36,15 @@ document.body.addEventListener("click", function (event) {
         })
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error('La solicitud falló con el código de estado ' + response.status);
+                    ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
+                    throw new Error(`[ERROR]: ${response.status}`);
                 }
                 return response.json();
             })
             .then((data) => {
-                //ShowAlert(data.type, data.title, data.message, data.type);
                 ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
             })
-            .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
+            .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'))
             .finally(() => {
                 // Restaurar el estado del botón
                 toggleButtonState(false);

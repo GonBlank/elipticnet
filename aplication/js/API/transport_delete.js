@@ -7,7 +7,6 @@ document.body.addEventListener('click', function (event) {
         // Mostrar el modal
         const dialogDelete = document.getElementById('delete_transport');
         dialogDelete.showModal();
-
         // Almacenar el ID en el modal para usarlo más tarde
         dialogDelete.setAttribute('data-id', transportId);
     }
@@ -56,16 +55,17 @@ document.body.addEventListener('click', function (event) {
         fetch(`../php/API/transport_delete.php?transportId=${transportId}`, {
             method: 'GET',
         })
-            .then((response) => {
+            .then(response => {
                 if (!response.ok) {
-                    throw new Error('La solicitud falló con el código de estado ' + response.status);
+                    ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
+                    throw new Error(`[Response error]: ${response.status}`);
                 }
                 return response.json();
             })
             .then((data) => {
                 // Cerrar el modal
                 deleteDialog.close();
-                ShowAlert(data.type, data.title, data.message, data.type);
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
                 if (!data.error) {
                     setTimeout(function () {
                         location.reload();
@@ -73,7 +73,7 @@ document.body.addEventListener('click', function (event) {
                 }
 
             })
-            .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
+            .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'))
             .finally(() => {
                 // Restaurar el estado del botón
                 toggleButtonState(false);

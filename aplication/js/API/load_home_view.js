@@ -2,16 +2,16 @@ function fetchHosts() {
     fetch('../php/API/get_hosts.php')
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
+                throw new Error(`[Response error]: ${response.status}`);
             }
             return response.json();
         })
         .then(data => {
             /*Se quita la cortina para ver la informacion o el reporte de errores*/
             removeLoadCurtain()
-
             if (data.error) {
-                ShowAlert(data.type, data.title, data.message, data.type);
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
                 place_holder_manager('error');
             } else {
                 place_holder_manager('delete');
@@ -26,10 +26,9 @@ function fetchHosts() {
 
                 updateOrCreateStatistics(data);
             }
-
         })
         .catch(error => {
-            ShowAlert('error', 'Error', `Error: ${error.message}`, 'error')
+            ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error');
             place_holder_manager('error');
         })//
         .finally(() => {

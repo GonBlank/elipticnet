@@ -7,17 +7,18 @@ function fetchTransports() {
     })
         .then(response => {
             if (!response.ok) {
+                ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
                 throw new Error(`[ERROR]: ${response.status}`);
             }
             return response.json();
         })
         .then(data => {
-            if (data.error){
-                ShowAlert(data.type, data.title, data.message, data.type);
+            if (data.error) {
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
                 setTimeout(() => {
                     window.location.href = 'home.php';
                 }, 2000);
-            }else{
+            } else {
                 removeLoadCurtain();
             }
             // Asegurarse de que los datos contienen transportes
@@ -57,7 +58,7 @@ function fetchTransports() {
             }
 
         })
-        .catch(error => console.error('Error al obtener los transportes:', error));
+        .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'));
 }
 
 // Llamar la función al cargar la página
@@ -68,9 +69,6 @@ const transportTypes = {
 };
 
 window.onload = fetchTransports;
-
-
-
 
 function createRowTransport(data) {
     const transport = document.createElement('article');

@@ -3,31 +3,26 @@ function get_host_by_id() {
     fetch(`../php/API/ping_agent_get_data.php?id=${hostId}`)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
+                throw new Error(`[Response error]: ${response.status}`);
             }
             return response.json();
         })
         .then(data => {
             if (!data.error) {
                 removeLoadCurtain();
-
                 load_host_data(data);
                 create_log_table(data.log);
                 threshold_notification(data.threshold, data.threshold_exceeded);
                 globalVariable_threshold = data.threshold; //Se usa para marcar el valor del threshold en el grafico de latencia
             } else {
-                ShowAlert(data.type, data.title, data.message, data.type);
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
                 setTimeout(() => {
                     window.location.href = 'home.php';
                 }, 2000);
             }
-
-
         })
-
-        .catch(error => {
-            ShowAlert('error', 'Error', `Failed to load host data: ${error}`, 'error');
-        });
+        .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'));
 }
 
 
