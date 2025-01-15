@@ -5,7 +5,7 @@ require_once '../env.php';
 function validate_transport_email_template($user_name, $hash)
 {
 
-    $validation_url = DOMAIN . "/aplication/public/transport_validator.html?validation_hash=" . $hash;
+    $validation_url = DOMAIN . "/aplication/public/transport_validator.php?validation_hash=" . $hash;
     $url = DOMAIN;
     $url_image = DOMAIN . "/aplication/img/public/email_check.png";
 

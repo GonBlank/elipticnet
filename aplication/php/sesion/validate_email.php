@@ -63,7 +63,7 @@ try {
         $interval = $current_time->diff($hash_time);
 
         if ($interval->h > 1 || $interval->days > 0) {
-            echo json_encode(["error" => true, "type" => "warning", "title" => "Validation Error", "message" => "Validation hash expired", "link_text" => "Resend the code", "link" => "resend_validation_code.html"]);
+            echo json_encode(["error" => true, "type" => "warning", "title" => "Validation Error", "message" => "Validation hash expired", "link_text" => "Resend the code", "link" => "resend_validation_code.php"]);
             exit;
         }
 

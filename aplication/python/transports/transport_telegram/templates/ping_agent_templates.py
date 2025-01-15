@@ -26,7 +26,7 @@ TIME = datetime.now(timezone.utc)
 
 def validate_transport(hash):
     validation_url = (
-        DOMAIN + "/aplication/public/transport_validator.html?validation_hash=" + hash
+        DOMAIN + "/aplication/public/transport_validator.php?validation_hash=" + hash
     )
 
     # Generar el mensaje
