@@ -5,13 +5,18 @@ function pingAgentEditGetData(id) {
     fetch(`../php/API/ping_agent_edit_get_data.php?id=${id}`)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                ShowAlert('error', 'Error', `Failed to fetch data:  ${response.status}`, 'error');
+                return null;
             }
             return response.json();
         })
         .then(data => {
-            if (data.error) {
-                ShowAlert(data.type, data.title, data.message, data.type);
+            if (!data.error) {
+                removeLoadCurtain();
+                load_ping_agent_data(data);
+            }
+            else {
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
                 setTimeout(() => {
                     window.location.href = 'home.php';
                 }, 2000);
@@ -20,7 +25,7 @@ function pingAgentEditGetData(id) {
             loadPingAgentData(data);
         })
         .catch(error => {
-            ShowAlert('error', 'Error', `Failed to load host data: ${error}`, 'error');
+            ShowAlert('error', 'Error', `Failed to fetch data:  ${error}`, 'error');
         });
 }
 

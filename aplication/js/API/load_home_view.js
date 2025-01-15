@@ -11,7 +11,7 @@ function fetchHosts() {
             removeLoadCurtain()
 
             if (data.error) {
-                ShowAlert(data.type, data.title, data.message, data.type);
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
                 place_holder_manager('error');
             } else {
                 place_holder_manager('delete');

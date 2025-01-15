@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const deleteHostButton = document.getElementById('delete-btn');
 
     function toggleButtonState(isLoading) {
@@ -19,26 +19,25 @@ document.addEventListener("DOMContentLoaded", function() {
             deleteHostButton.disabled = false;
         }
     }
-    
+
 
     // Referencias a los botones y al diálogo
     const deleteDialog = document.getElementById("delete-host");
     const deleteBtn = document.getElementById("delete-btn");
 
-    
+
     // Botón para confirmar la eliminación
     deleteBtn.addEventListener("click", async () => {
-        try {
-            // Mostrar el loader (si tienes una función para ello)
-            toggleButtonState(true);
-
-            // Realizar la solicitud de eliminación
-            const response = await fetch(`../php/API/ping_agent_delete.php?hostId=${hostId}`);
-
-            if (response.ok) {
-                // Llamar a la función ShowAlert
-                ShowAlert('success', 'Success', 'Host deleted successfully', 'success');
-
+        toggleButtonState(true)
+        fetch(`../php/API/ping_agent_delete.php?hostId=${hostId}`)
+            .then(response => {
+                if (!response.ok) {
+                    ShowAlert('error', 'Error', `Failed to delete the host:  ${response.status}`, 'error');
+                }
+                return response.json();
+            })
+            .then(data => {
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
                 // Esperar 2 segundos y luego redirigir al dashboard
                 setTimeout(() => {
                     window.location.href = "../public/home.php";
@@ -46,15 +45,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 // Cerrar el diálogo
                 deleteDialog.close();
-            } else {
-                const errorData = await response.json();
-                ShowAlert('error', 'Error', errorData.detail, 'error');
-            }
-        } catch (error) {
-            ShowAlert('error', 'Error', 'An error occurred while deleting the host.', 'error');
-        } finally {
-            // Ocultar el loader (si tienes una función para ello)
-            toggleButtonState(false);
-        }
+            })
+            .catch(error => {
+                ShowAlert('error', 'Error', `Failed to delete the host: ${error.message || error}`, 'error');
+            })
+            .finally(() => {
+                // Restaurar el estado del botón
+                toggleButtonState(false);
+            });
+
     });
+
+
+
+
+
+
 });
