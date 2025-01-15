@@ -9,7 +9,7 @@ function ShowAlert(image, title, message, type, link_text = null, link = null) {
 
     alertArticle.innerHTML = `
             <div class="alert-icon ${type}">
-                <img src="img/icons/${image}.png" alt="${title}">
+                <img src="../img/icons/${image}.png" alt="${title}">
             </div>
             <div class="alert-text">
                 <h1>${title}</h1>
