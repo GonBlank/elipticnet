@@ -9,7 +9,7 @@ function get_user_name($id)
 
         // Verificar conexión
         if ($conn->connect_error) {
-            error_log("[ERROR] get_user_name: " . $conn->connect_error);
+            error_log("[ERROR] " . __FILE__ . ": " . $conn->connect_error);
             return null;
         }
 
@@ -18,7 +18,7 @@ function get_user_name($id)
         // Preparar la consulta
         $stmt = $conn->prepare($sql);
         if (!$stmt) {
-            error_log("[ERROR] get_user_name: " . $conn->error);
+            error_log("[ERROR] " . __FILE__ . ": " . $conn->error);
             return null;
         }
 
@@ -34,7 +34,7 @@ function get_user_name($id)
             return null;
         }
     } catch (\Throwable $th) {
-        error_log("[ERROR] get_user_name: " . $th->getMessage());
+        error_log("[ERROR] " . __FILE__ . ": " . $th->getMessage());
         return null;
     } finally {
         // Asegurarse de cerrar conexiones y liberar recursos

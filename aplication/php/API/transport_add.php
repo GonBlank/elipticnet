@@ -41,8 +41,8 @@ try {
 
     // Verificar conexión
     if ($conn->connect_error) {
-        error_log("[ERROR] transport_add:" . $conn->connect_error);
-        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error:", "message" => $conn->connect_error]);
+        error_log("[ERROR] " . __FILE__ . ": " . $conn->connect_error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -51,8 +51,8 @@ try {
 
     $stmt = $conn->prepare($check_query);
     if (!$stmt) {
-        error_log("[ERROR] transport_add:" . $conn->error);
-        echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $conn->error]);
+        error_log("[ERROR] " . __FILE__ . ": " . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -72,8 +72,8 @@ try {
     $stmt = $conn->prepare($sql);
 
     if (!$stmt) {
-        error_log("[ERROR] transport_add:" . $conn->error);
-        echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $conn->error]);
+        error_log("[ERROR] " . __FILE__ . ": " . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -84,8 +84,8 @@ try {
 
 
     if (!$stmt->execute()) {
-        error_log("[ERROR] transport_add:" . $stmt->error);
-        echo json_encode(["error" => true, "type" => "error", "title" => "Insertion Error", "message" => $stmt->error]);
+        error_log("[ERROR] " . __FILE__ . ": " . $stmt->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
     sendValidationLink($user['username'], $type, $validation_hash, $transport_id);
@@ -93,8 +93,8 @@ try {
     echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Check the added transport to validate it"]);
     exit;
 } catch (Exception $e) {
-    error_log("[ERROR] transport_add:" . $e->getMessage());
-    echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
+    error_log("[ERROR] " . __FILE__ . ": " . $e->getMessage());
+    echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
 } finally {
     if (isset($stmt) && $stmt !== false) {
         $stmt->close();

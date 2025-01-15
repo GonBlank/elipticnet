@@ -15,7 +15,9 @@ function generate_random_hash($conn, $table, $parameter)
 
         $stmt = $conn->prepare($check_query);
         if (!$stmt) {
-            throw new Exception("Database error: " . $conn->error);
+            error_log("[ERROR] " . __FILE__ . ": " . $conn->error);
+            echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
+            return null;
         }
 
         $stmt->bind_param("s", $hash);

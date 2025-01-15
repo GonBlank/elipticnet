@@ -30,7 +30,8 @@ try {
 
     // Verificar conexión
     if ($conn->connect_error) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => $conn->connect_error]);
+        error_log("[ERROR] " . __FILE__ . ": " . $conn->connect_error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -40,7 +41,8 @@ try {
     // Preparar la consulta
     $stmt = $conn->prepare($delete_query);
     if (!$stmt) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Query Error", "message" => $conn->error]);
+        error_log("[ERROR] " . __FILE__ . ": " . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -56,7 +58,9 @@ try {
             echo json_encode(["error" => true, "type" => "warning", "title" => "Not Found", "message" => "Host not found."]);
         }
     } else {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Execution Error", "message" => $stmt->error]);
+        error_log("[ERROR] " . __FILE__ . ": " . $stmt->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
+        exit;
     }
 
     // Cerrar la consulta y la conexión
@@ -64,5 +68,13 @@ try {
     $conn->close();
 } catch (Exception $e) {
     // Manejo de errores generales
-    echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
+    error_log("[ERROR] " . __FILE__ . ": " . $e->getMessage());
+    echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
+} finally {
+    if (isset($stmt) && $stmt !== false) {
+        $stmt->close();
+    }
+    if (isset($conn) && $conn !== false) {
+        $conn->close();
+    }
 }

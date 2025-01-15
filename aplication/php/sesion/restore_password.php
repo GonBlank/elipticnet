@@ -60,7 +60,8 @@ try {
 
     // Verificar conexión
     if ($conn->connect_error) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => $conn->connect_error]);
+        error_log("[ERROR] " . __FILE__ . ": " . $conn->connect_error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -71,7 +72,8 @@ try {
     // Preparar la consulta
     $stmt = $conn->prepare($select_query);
     if (!$stmt) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Query Error", "message" => $conn->error]);
+        error_log("[ERROR] " . __FILE__ . ": " . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -88,7 +90,8 @@ try {
     // Verificar cuántos registros fueron encontrados
     if ($result->num_rows > 1) {
         //Se encontró mas de un registro
-        echo json_encode(["error" => true, "type" => "error", "title" => "Fatal error", "message" => "Fatal error, please contact", "link_text" => "support.", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
+        error_log("[ERROR] " . __FILE__ . ": Se encontró más de un registro asociado al validation_hash -" . $validation_hash . "-");
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     } elseif ($result->num_rows === 0) {
         // No se encontró ningún registro
@@ -116,7 +119,8 @@ try {
     $update_query = "UPDATE users SET password = ?, validation_hash = NULL, hash_date = NULL WHERE validation_hash = ?";
     $update_stmt = $conn->prepare($update_query);
     if (!$update_stmt) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Update Error", "message" => $conn->error]);
+        error_log("[ERROR] " . __FILE__ . ": " . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -136,7 +140,9 @@ try {
         echo json_encode(["error" => false, "type" => "success", "title" => "Password updated", "message" => "You can log in now."]);
         exit;
     } else {
-        echo json_encode(["error" => true, "type" => "error", "title" => "Update Failed", "message" => $conn->error]);
+        error_log("[ERROR] " . __FILE__ . ": " . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
+
         exit;
     }
 
@@ -144,6 +150,13 @@ try {
     $conn->close();
 } catch (Exception $e) {
     // Manejo de errores generales
-    echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
-    exit;
+    error_log("[ERROR] " . __FILE__ . ": " . $e->getMessage());
+    echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
+} finally {
+    if (isset($stmt) && $stmt !== false) {
+        $stmt->close();
+    }
+    if (isset($conn) && $conn !== false) {
+        $conn->close();
+    }
 }
