@@ -7,12 +7,15 @@ function fetchTransports() {
     })
         .then(response => {
             if (!response.ok) {
-                ShowAlert('error', 'Error', `Error: ${response.status}`, 'error')
-                throw new Error(`[ERROR]: ${response.status}`);
+                ShowAlert('error', 'Error', `Error: ${response.status}`, 'error');
             }
             return response.json();
         })
         .then(data => {
+            if (data.error){
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
+                return null;
+            }
             // Asegurarse de que los datos contienen transportes
             if (data.transports && data.transports.length > 0) {
                 const transportContainer = document.querySelector('.alert-transports');
@@ -22,7 +25,7 @@ function fetchTransports() {
                     transportContainer.appendChild(transportElement);
                 });
             } else {
-                console.log('Transports not found.');
+                ShowAlert('warning', 'Not found', 'No transports found', 'warning');
             }
         })
         .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//

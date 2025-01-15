@@ -27,7 +27,9 @@ try {
 
     // Verificar conexión
     if ($conn->connect_error) {
-        throw new Exception("Connection error: " . $conn->connect_error);
+        error_log("[ERROR]" . __FILE__ . ": " . $conn->connect_error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
+        exit;
     }
 
     // Consulta SQL para obtener el host con el id y owner correspondiente
@@ -35,7 +37,9 @@ try {
             FROM ping_agent_data WHERE id = ? AND owner = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
-        throw new Exception("Prepare statement error: " . $conn->error);
+        error_log("[ERROR]" . __FILE__ . ": " . $conn->error);
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
+        exit;
     }
 
     // Vincular parámetros
@@ -61,7 +65,8 @@ try {
     exit;
 } catch (Exception $e) {
     // Manejar errores
-    echo json_encode(["error" => true, "type" => "error", "title" => "Database Error", "message" => $e->getMessage()]);
+    error_log("[ERROR]" . __FILE__ . ": " . $e->getMessage());
+    echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
 } finally {
     if (isset($stmt) && $stmt !== false) {
         $stmt->close();
