@@ -20,7 +20,7 @@ if (!isset($_GET['hostId'])) {
     exit;
 }
 
-$hostId = $_GET['hostId'];
+$id = (int)$_GET['hostId'];
 
 
 
