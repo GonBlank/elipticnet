@@ -1,7 +1,7 @@
 export function toggleButtonState(buttonId, isLoading) {
     const button = document.getElementById(buttonId);
     if (!button) {
-        console.error(`No se encontró un botón con el id: ${buttonId}`);
+        ShowAlert('warning', 'Warning', `Button not found: ${buttonId}`, 'warning');
         return;
     }
     const textDiv = button.querySelector('.text');

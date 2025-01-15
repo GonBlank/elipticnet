@@ -88,8 +88,6 @@ document.addEventListener("DOMContentLoaded", function () {
             remember_me: rememberMeCheckbox.checked,
         };
 
-        console.log(User)
-
         // Enviar los datos al backend usando fetch
         fetch('../php/sesion/login.php', {
             method: 'POST',

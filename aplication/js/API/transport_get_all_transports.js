@@ -49,12 +49,12 @@ function fetchTransports() {
 
                             break;
                         default:
-                            console.warn(`Unsupported transport type: ${transport.type}`);
+                            ShowAlert('warning', 'Warning', `Unsupported transport type: ${transport.type}`, 'warning');
                             break;
                     }
                 });
             } else {
-                console.log('No transports found.');
+                ShowAlert('warning', 'Warning', 'Transports not found', 'warning');                
             }
 
         })

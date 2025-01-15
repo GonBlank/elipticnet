@@ -24,7 +24,6 @@ function get_host_statistics(time_range) {
             }
         })
         .catch(error => {
-            console.error('Error fetching host statistics:', error);
             ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error');
         });
 }

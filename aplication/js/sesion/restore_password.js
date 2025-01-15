@@ -89,8 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
             validation_hash: validationHash,
         };
 
-        console.log(password_vector);
-
         // Enviar los datos al backend usando fetch
         fetch('../php/sesion/restore_password.php', {
             method: 'POST',

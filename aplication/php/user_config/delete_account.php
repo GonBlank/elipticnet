@@ -8,6 +8,11 @@ require_once '../sesion/checkAuth.php';
 $user = checkAuth();
 $owner = $user['id'];
 
+// Validate request method
+if ($_SERVER["REQUEST_METHOD"] !== "DELETE") {
+    echo json_encode(["error" => true, "type" => "error", "title" => "Invalid request", "message" => "Data not set"]);
+    exit;
+}
 
 try {
     // Conectar a la base de datos

@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Enviar los datos al backend usando fetch
         fetch('../php/user_config/delete_account.php', {
-            method: 'POST',
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },

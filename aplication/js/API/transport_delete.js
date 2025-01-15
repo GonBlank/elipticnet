@@ -23,8 +23,7 @@ document.body.addEventListener('click', function (event) {
 
         // Validar si hay un ID de transporte
         if (!transportId) {
-            console.error('Error: No se encontró el ID del transporte.');
-            alert('Error: No se pudo identificar el transporte a eliminar.');
+            ShowAlert('error', 'Error', 'Error: transport not found', 'error');
             return;
         }
 
