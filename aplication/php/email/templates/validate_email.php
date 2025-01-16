@@ -5,9 +5,9 @@ require_once '../env.php';
 function validate_email_template($user_name, $hash)
 {
 
-    $validation_url = DOMAIN . "/aplication/public/login.php?validation_hash=" . $hash;
-    $url = DOMAIN;
-    $url_image = DOMAIN . "/aplication/img/public/user_check.png";
+    $validation_url = APP_LINK . "/aplication/public/login.php?validation_hash=" . $hash;
+    $url = APP_LINK;
+    $url_image = APP_LINK . "/aplication/img/public/user_check.png";
 
     return <<<HTML
 <!DOCTYPE html>

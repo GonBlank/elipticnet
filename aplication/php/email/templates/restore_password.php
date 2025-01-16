@@ -4,9 +4,9 @@ require_once '../env.php';
 
 function restore_password_template($hash)
 {
-    $validation_url = DOMAIN . "/aplication/public/restore_password.php?validation_hash=" . $hash;
-    $url = DOMAIN;
-    $url_image = DOMAIN . "/aplication/img/public/lock_reset.png";
+    $validation_url = APP_LINK . "/aplication/public/restore_password.php?validation_hash=" . $hash;
+    $url = APP_LINK;
+    $url_image = APP_LINK . "/aplication/img/public/lock_reset.png";
 
 
     return <<<HTML

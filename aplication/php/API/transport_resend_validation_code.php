@@ -97,7 +97,7 @@ try {
     $retries = ($row['retries'] ?? 0) + 1;
 
     if ($retries > 5) {
-        echo json_encode(["error" => true, "type" => "warning", "title" => "Validation failed", "message" => "It looks like you've sent a lot of validation links. Please contact our ", "link_text" => "support team", "link" => DOMAIN . "/aplication/public/support.php"]);
+        echo json_encode(["error" => true, "type" => "warning", "title" => "Validation failed", "message" => "It looks like you've sent a lot of validation links. Please contact our ", "link_text" => "support team", "link" => APP_LINK . "/aplication/public/support.php"]);
         exit;
     }
 

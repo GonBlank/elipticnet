@@ -4,8 +4,8 @@ require_once '../env.php';
 
 function delete_account_email_template($user_name)
 {
-    $url = DOMAIN;
-    $url_image = DOMAIN . "/aplication/img/public/delete.png";
+    $url = APP_LINK;
+    $url_image = APP_LINK . "/aplication/img/public/delete.png";
     
 
     return <<<HTML

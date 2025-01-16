@@ -4,8 +4,8 @@ require_once '../env.php';
 
 function password_updated_email_template($name)
 {
-    $url = DOMAIN;
-    $url_image = DOMAIN . "/aplication/img/public/lock_reset.png";
+    $url = APP_LINK;
+    $url_image = APP_LINK . "/aplication/img/public/lock_reset.png";
     
     return <<<HTML
 <!DOCTYPE html>

@@ -14,7 +14,7 @@ from global_functions.duration_format import duration_format
 with open("/var/www/elipticnet/aplication/config/config.json", "r") as file:
     config = json.load(file)
 
-DOMAIN = config["app"]["DOMAIN"]
+APP_LINK = config["app"]["LINK"]
 
 #TIME = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
 TIME = datetime.now(timezone.utc)
@@ -26,7 +26,7 @@ TIME = datetime.now(timezone.utc)
 
 def validate_transport(hash):
     validation_url = (
-        DOMAIN + "/aplication/public/transport_validator.php?validation_hash=" + hash
+        APP_LINK + "/aplication/public/transport_validator.php?validation_hash=" + hash
     )
 
     # Generar el mensaje
@@ -42,7 +42,7 @@ Once validated, you will be able to receive real-time notifications for any crit
 Thank you for ensuring the proper configuration!
 
 ---
-For any questions, feel free to [contact us]({DOMAIN}).
+For any questions, feel free to [contact us]({APP_LINK}).
 
 """
 
@@ -75,7 +75,7 @@ def ping_agent_up_template(owner, id, name, ip, last_down):
 🔹 *Resolved at*: {time_translate(TIME, owner)}
 🔹 *Duration*: {duration}
 
-💡 The agent's connectivity has been restored. If you need further details, [go to agent]({DOMAIN + "/aplication/public/ping_agent_view.php?id=" + id})
+💡 The agent's connectivity has been restored. If you need further details, [go to agent]({APP_LINK + "/aplication/public/ping_agent_view.php?id=" + id})
 """
 
 
@@ -94,7 +94,7 @@ def ping_agent_down_template(owner,id, name, ip, cause):
 🔹 *Root cause*: {cause}
 🔹 *Incident started at*: {time_translate(TIME, owner)}
 
-💡 The agent is currently down. If you need further details, [go to agent]({DOMAIN + "/aplication/public/ping_agent_view.php?id=" + id})
+💡 The agent is currently down. If you need further details, [go to agent]({APP_LINK + "/aplication/public/ping_agent_view.php?id=" + id})
 """
 
 
@@ -113,7 +113,7 @@ def ping_agent_latency_threshold_exceeded(owner, id, name, ip, latency, threshol
 🔹 *Threshold*: {threshold} ms
 🔹 *Incident started at*: {time_translate(TIME, owner)}
 
-💡 The latency has exceeded the set threshold. If you need further details, [go to agent]({DOMAIN + "/aplication/public/ping_agent_view.php?id=" + id})
+💡 The latency has exceeded the set threshold. If you need further details, [go to agent]({APP_LINK + "/aplication/public/ping_agent_view.php?id=" + id})
 """
 
 
@@ -132,5 +132,5 @@ def ping_agent_latency_threshold_restored(owner, id, name, ip, latency, threshol
 🔹 *Threshold*: {threshold} ms
 🔹 *Resolved at*: {time_translate(TIME, owner)}
 
-💡 The latency has returned to normal and is now within the set threshold. If you need further details, [go to agent]({DOMAIN + "/aplication/public/ping_agent_view.php?id=" + id})
+💡 The latency has returned to normal and is now within the set threshold. If you need further details, [go to agent]({APP_LINK + "/aplication/public/ping_agent_view.php?id=" + id})
 """
