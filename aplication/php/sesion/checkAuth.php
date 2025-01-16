@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../env.php';
+
 /*
 ╔════════════╗
 ║ Desarrollo ║
@@ -12,7 +14,7 @@ function checkAuth()
     $cookieParams = [
         'lifetime' => time() + 60 * 60, // Agregar 1 hora al tiempo actual
         'path' => '/',
-        'domain' => '', // Deja vacío o especifica un dominio si es necesario
+        'domain' => DOMAIN, // Deja vacío o especifica un dominio si es necesario
         'secure' => false, // true en producción (HTTPS), false en desarrollo (HTTP)
         'httponly' => true, // Protege contra XSS
         'samesite' => 'Strict' // Máxima protección contra CSRF
