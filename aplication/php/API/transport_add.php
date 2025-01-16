@@ -2,10 +2,10 @@
 // Cargar las variables de entorno
 require_once __DIR__ . '/../env.php';
 include __DIR__ . '/../sesion/checkAuth.php';
-include_once  __DIR__ . '/../functions/generate_random_hash.php';
+include_once __DIR__ . '/../functions/generate_random_hash.php';
 
-require_once  __DIR__ . '/../email/email.php';
-require_once  __DIR__ . '/../email/templates/validate_transport_email.php';
+require_once __DIR__ . '/../email/email.php';
+require_once __DIR__ . '/../email/templates/validate_transport_email.php';
 
 $user = checkAuth();
 $owner = $user['id'];
@@ -112,7 +112,7 @@ function sendValidationLink($user_name, $type, $validation_hash, $transport_id)
     switch ($type) {
         case 'email':
             // Enviar correo electrónico de validación
-            $body = validate_transport_email_template($user_name,$validation_hash);
+            $body = validate_transport_email_template($user_name, $validation_hash);
             send_email($body, "Verification required", $transport_id);
             break;
         case 'telegram':

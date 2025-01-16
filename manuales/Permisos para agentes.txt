@@ -1,0 +1,31 @@
+Permisos para agentes
+
+
+Añade la siguiente línea al final del archivo para permitir que el usuario elipticnet ejecute el comando python3 sin necesidad de contraseña:
+
+elipticnet ALL=(ALL) NOPASSWD: /usr/bin/python3
+
+Esto permitirá que el usuario elipticnet ejecute el comando python3 con sudo sin tener que ingresar la contraseña.
+
+Si solo quieres permitir que el script se ejecute sin contraseña, asegúrate de especificar la ruta completa del script, como en el siguiente ejemplo:
+
+elipticnet ALL=(ALL) NOPASSWD: /var/www/elipticnet/aplication/python/ping_agent.py
+
+
+2. Configurar el cron job
+Una vez que hayas configurado sudo para no pedir la contraseña, puedes configurar el cron job para ejecutar el script.
+
+Edita el crontab de tu usuario con:
+
+crontab -e
+
+* * * * * sudo /usr/bin/python3 /var/www/elipticnet/aplication/python/ping_agent.py >> /var/www/elipticnet/aplication/python/log/ping_agent.log 2>&1
+
+* * * * * /bin/bash -c 'source /var/www/elipticnet/aplication/python/elipticnet_env/bin/activate && sudo /var/www/elipticnet/aplication/python/elipticnet_env/bin/python /var/www/elipticnet/aplication/python/transports/transport_telegram/telegram_validator.py >> /var/www/elipticnet/aplication/python/log/telegram_validator.log 2>&1'
+3. Verificar los permisos
+Asegúrate de que el archivo ping_agent.py tenga permisos de ejecución para el usuario elipticnet. Si no lo tiene, puedes darle permisos con:
+
+chmod +x /var/www/elipticnet/aplication/python/ping_agent.py
+
+
+
