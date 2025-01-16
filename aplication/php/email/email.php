@@ -4,9 +4,9 @@ require_once __DIR__ . '/../env.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'PHPmailer/Exception.php';
-require 'PHPmailer/PHPMailer.php';
-require 'PHPmailer/SMTP.php';
+require __DIR__ . '/PHPmailer/Exception.php';
+require __DIR__ . '/PHPmailer/PHPMailer.php';
+require __DIR__ . '/PHPmailer/SMTP.php';
 
 function send_email($body, $subject, $client_email)
 {

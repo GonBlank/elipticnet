@@ -1,7 +1,7 @@
 <?php
 // Cargar las variables de entorno
-require_once '../env.php';
-include '../sesion/checkAuth.php';
+require_once __DIR__ . '/../env.php';
+include __DIR__ . '/../sesion/checkAuth.php';
 $user = checkAuth();
 $owner = $user['id'];
 

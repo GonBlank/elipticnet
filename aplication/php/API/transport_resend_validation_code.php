@@ -4,10 +4,10 @@
 #use function PHPSTORM_META\type;
 
 require_once __DIR__ . '/../env.php';
-include '../sesion/checkAuth.php';
-include_once '../functions/generate_random_hash.php';
-require_once '../email/email.php';
-require_once '../email/templates/validate_transport_email.php';
+include __DIR__ . '/../sesion/checkAuth.php';
+include_once __DIR__ . '/../functions/generate_random_hash.php';
+require_once __DIR__ . '/../email/email.php';
+require_once __DIR__ . '/../email/templates/validate_transport_email.php';
 $user = checkAuth();
 $owner = $user['id'];
 

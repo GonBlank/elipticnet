@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../env.php';
-require_once 'close_sesion.php';
+require_once __DIR__ . 'close_sesion.php';
 
 
 close_session();

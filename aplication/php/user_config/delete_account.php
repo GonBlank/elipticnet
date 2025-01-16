@@ -1,10 +1,10 @@
 <?php
 // Cargar las variables de entorno
-require_once '../env.php';
-require_once '../email/email.php';
-require_once '../email/templates/delete_account.php';
-require_once '../sesion/close_sesion.php';
-require_once '../sesion/checkAuth.php';
+require_once __DIR__ . '/../env.php';
+require_once __DIR__ . '/../email/email.php';
+require_once __DIR__ . '/../email/templates/delete_account.php';
+require_once __DIR__ . '/../sesion/close_sesion.php';
+require_once __DIR__ . '/../sesion/checkAuth.php';
 $user = checkAuth();
 $owner = $user['id'];
 

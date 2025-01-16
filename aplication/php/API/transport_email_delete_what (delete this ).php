@@ -1,8 +1,8 @@
 <?php
 // Cargar las variables de entorno
 require_once __DIR__ . '/../env.php';
-include '../sesion/checkAuth.php';
-include_once '../functions/generate_random_hash.php';
+include __DIR__ . '/../sesion/checkAuth.php';
+include_once __DIR__ . '/../functions/generate_random_hash.php';
 $user = checkAuth();
 $owner = $user['id'];
 

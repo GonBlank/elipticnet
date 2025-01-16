@@ -1,8 +1,8 @@
 <?php
 require_once __DIR__ . '/../env.php';
-require_once '../email/email.php';
-require_once '../email/templates/restore_password.php';
-include_once '../functions/generate_random_hash.php';
+require_once __DIR__ . '/../email/email.php';
+require_once __DIR__ . '/../email/templates/restore_password.php';
+include_once __DIR__ . '/../functions/generate_random_hash.php';
 
 
 // Validate request method
