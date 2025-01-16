@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 $user = json_decode(file_get_contents('php://input'), true);
 
 
-if (!isset($user['username']) || !isset($user['email']) || !isset($user['password']) || !isset($user['timeZone']) ) {
+if (!isset($user['username']) || !isset($user['email']) || !isset($user['password']) || !isset($user['timeZone']) || !isset($user['language']) ) {
     echo json_encode(["error" => true, "type" => "error", "title" => "Invalid request", "message" => "data no set"]);
     exit;
 }
@@ -24,7 +24,7 @@ $name = $user['username'];
 $email = $user['email'];
 $raw_password = $user['password'];
 $time_zone = $user['timeZone'];
-
+$language = $user['language'];
 
 // Validate password length
 $password_length = strlen($raw_password);
@@ -138,7 +138,7 @@ try {
     }
 
 
-    $sql = "INSERT INTO user_config (owner, time_zone) VALUES (?, ?)";
+    $sql = "INSERT INTO user_config (owner, time_zone, language) VALUES (?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
 
@@ -149,7 +149,7 @@ try {
     }
 
 
-    $stmt->bind_param("is", $user_id, $time_zone);
+    $stmt->bind_param("iss", $user_id, $time_zone, $language);
 
 
     if (!$stmt->execute()) {
