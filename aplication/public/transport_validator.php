@@ -28,7 +28,7 @@
 <body>
 
     <main class="dashboard">
-        <section class="form-container">
+        <section class="card form-container">
             <h1>Validating transport</h1>
 
             <div id="image">
@@ -46,7 +46,7 @@
 
     <script src="../js/page_transition.js"></script>
     <script src="../js/components/alert.js"></script>
-    <script src="../js/API/transport_validator.js"></script>
+    <script type="module" src="../js/API/transport_validator.js"></script>
 
 </body>
 
