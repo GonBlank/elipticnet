@@ -85,7 +85,7 @@
         </section>
     </main>
 
-    <script src="../js/show_alert.js"></script>
+    <script src="../js/sesion/restore_password.js"></script>
     <script src="../js/components/alert.js"></script>
 
 </body>
