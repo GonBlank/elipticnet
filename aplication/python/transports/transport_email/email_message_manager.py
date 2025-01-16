@@ -5,6 +5,16 @@ from transports.transport_email.templates.ping_agent_templates import (
     ping_agent_latency_threshold_restored,
 )
 
+# ╔═════════════╗
+# ║ LOG CONFIG  ║
+# ╚═════════════╝
+
+import log.log_config
+
+# Configurar el logger para este script
+logger = log.log_config.setup_logger("email_message_manager")
+
+
 
 def email_message_manager(data, message_type, details=None):
     """Genera el body del correo según el tipo."""
@@ -47,5 +57,6 @@ def email_message_manager(data, message_type, details=None):
             "subject": subject,
         }
     else:
-        print("Error: Unknown message type")
+        #print("Error: Unknown message type")
+        logger.warning("Unknown message type")
         return None

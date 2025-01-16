@@ -33,6 +33,19 @@ DB_CONFIG = {
     "ssl_disabled": config["database"]["SSL_DISABLED"],
 }
 
+# ╔═════════════╗
+# ║ LOG CONFIG  ║
+# ╚═════════════╝
+
+import log.log_config
+
+# Configurar el logger para este script
+logger = log.log_config.setup_logger("telegram_validator")
+
+# ╔════════════╗
+# ║ FUNCTIONS  ║
+# ╚════════════╝
+
 
 def fetch_telegrams_to_validate():
     connection = None
@@ -48,8 +61,9 @@ def fetch_telegrams_to_validate():
         results = cursor.fetchall()
         return results
 
-    except mysql.connector.Error as err:
-        print(f"Error: {err}")
+    except mysql.connector.Error as e:
+        #print(f"Error: {e}")
+        logger.warning(f"Error: {e}")
         return None
     finally:
         if cursor is not None:
@@ -68,7 +82,8 @@ def update_transport_telegram_state(telegram_id, owner):
         connection.commit()
 
     except mysql.connector.Error as e:
-        print(f"ERROR: {e}")
+        #print(f"ERROR: {e}")
+        logger.warning(f"Error: {e}")
     finally:
         cursor.close()
         connection.close()
@@ -84,15 +99,20 @@ if __name__ == "__main__":
 
     # Verificar si la lista está vacía
     if not telegram_list:
-        print("[INFO] No transports to validate")
+        #print("[INFO] No transports to validate")
+        logger.info("No transports to validate")
     else:
         for telegram in telegram_list:
-            print("[TRYING] Send validation to: " + telegram["transport_id"])
+            #print("[TRYING] Send validation to: " + telegram["transport_id"])
+            logger.info("[TRYING] Send validation to: " + telegram["transport_id"])
             try:
                 message = validate_transport(telegram["validation_hash"])
                 telegram_bot.send_message(telegram["transport_id"], message)
-                update_transport_telegram_state(telegram["transport_id"], telegram["owner"])
-                print("[SUCCESS]")
+                update_transport_telegram_state(
+                    telegram["transport_id"], telegram["owner"]
+                )
+                #print("[SUCCESS]")
+                logger.info("SUCCESS")
             except:
-                print("[FAIL]")
-
+                logger.error("SUCCESS")
+                #print("[FAIL]")

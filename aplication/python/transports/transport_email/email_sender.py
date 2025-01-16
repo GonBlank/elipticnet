@@ -9,9 +9,18 @@ with open(CONFIG_PATH, "r") as file:
 
 # Configuración SMTP
 smtp_host = config["email"]["SMTP_HOST"]
-smtp_port = 465  # o el puerto que prefieras
+smtp_port = 465
 smtp_user = config["email"]["SMTP_USER"]
 smtp_password = config["email"]["SMTP_PASS"]
+
+# ╔═════════════╗
+# ║ LOG CONFIG  ║
+# ╚═════════════╝
+
+import log.log_config
+
+# Configurar el logger para este script
+logger = log.log_config.setup_logger("email_sender")
 
 
 # Función para enviar correos
@@ -31,6 +40,8 @@ def send_email(to, subject, body):
             server.login(smtp_user, smtp_password)
             server.sendmail(smtp_user, to, msg.as_string())
 
-        print(f"Correo enviado a {to} con asunto: {subject}")
+        # print(f"Correo enviado a {to} con asunto: {subject}")
+        logger.info(f"Correo enviado a {to} con asunto: {subject}")
     except Exception as e:
-        print(f"Error enviando el correo a {to}: {e}")
+        # print(f"Error enviando el correo a {to}: {e}")
+        logger.error(f"Error enviando el correo a {to}: {e}")

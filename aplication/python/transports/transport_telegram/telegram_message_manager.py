@@ -6,6 +6,16 @@ from transports.transport_telegram.templates.ping_agent_templates import (
 )
 
 
+# ╔═════════════╗
+# ║ LOG CONFIG  ║
+# ╚═════════════╝
+
+import log.log_config
+
+# Configurar el logger para este script
+logger = log.log_config.setup_logger("telegram_message_manager")
+
+
 def telegram_message_manager(data, message_type, details=None):
     """Genera el mensaje de Telegram según el tipo."""
     id = str(data.get("id"))
@@ -31,5 +41,6 @@ def telegram_message_manager(data, message_type, details=None):
     if template_func:
         return template_func()
     else:
-        print("Error: Unknown message type")
+        #print("Error: Unknown message type")
+        logger.warning("Unknown message type")
         return None

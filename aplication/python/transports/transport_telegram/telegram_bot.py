@@ -3,6 +3,15 @@ import json
 import asyncio
 from telegram import Bot
 
+# ╔═════════════╗
+# ║ LOG CONFIG  ║
+# ╚═════════════╝
+
+import log.log_config
+
+# Configurar el logger para este script
+logger = log.log_config.setup_logger("telegram_bot")
+
 
 class TelegramBot:
     def __init__(self, config_path):
@@ -31,7 +40,8 @@ class TelegramBot:
         try:
             await self.bot.send_message(chat_id=user_id, text=message, parse_mode=parse_mode)
         except Exception as e:
-            print(f"Error al enviar mensaje: {e}")
+            #print(f"Error al enviar mensaje: {e}")
+            logger.warning(f"Error al enviar mensaje: {e} - {user_id}")
 
     def send_message(self, user_id, message):
         """
