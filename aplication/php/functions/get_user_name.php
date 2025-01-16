@@ -1,5 +1,5 @@
 <?php
-include "../env.php";
+require_once __DIR__ . '/../env.php';
 
 function get_user_name($id)
 {

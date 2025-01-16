@@ -1,5 +1,5 @@
 <?php
-require_once '../env.php';
+require_once __DIR__ . '/../env.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

@@ -1,6 +1,6 @@
 <?php
 // Cargar las variables de entorno
-require_once '../env.php';
+require_once __DIR__ . '/../env.php';
 include '../sesion/checkAuth.php';
 include_once '../functions/generate_random_hash.php';
 

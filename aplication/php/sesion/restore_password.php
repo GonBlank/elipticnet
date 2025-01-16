@@ -1,5 +1,5 @@
 <?php
-require_once '../env.php';
+require_once __DIR__ . '/../env.php';
 require_once '../email/email.php';
 require_once '../email/templates/password_updated.php';
 
