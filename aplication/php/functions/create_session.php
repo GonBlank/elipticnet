@@ -1,38 +1,27 @@
 <?php
-function create_session($id, $username, $email, $type, $languageCode = NULL, $time_zone = NULL, $remember_me = true)
+function create_session($id, $username, $email, $type, $languageCode = null, $time_zone = null, $remember_me = true)
 {
+    // Duración de la sesión: 30 días o 1 hora
+    $lifetime = $remember_me ? (30 * 24 * 3600) : 3600;
 
-    // Set session duration based on "remember me"
-    $lifetime = $remember_me ? (30 * 24 * 3600) : (time() + 60 * 60);  // 30 días  o 1 hora
+    // Configuración de cookies según el entorno
+    $cookieParams = [
+        'lifetime' => $lifetime,
+        'path' => '/',
+        'domain' => DOMAIN,
+        'secure' => ENV === 'production', // HTTPS solo en producción
+        'httponly' => true, // Protección contra XSS
+        'samesite' => ENV === 'production' ? 'Strict' : 'Lax' // CSRF según entorno
+    ];
 
-    //configuracion de cookies - Cambian dependiendo del entorno
-    if (ENV == 'development') {
-        $cookieParams = [
-            'lifetime' => $lifetime,
-            'path' => '/',
-            'domain' => DOMAIN, // Deja vacío o especifica un dominio si es necesario
-            'secure' => false, // No requiere HTTPS en desarrollo
-            'httponly' => true, // Protege contra XSS
-            'samesite' => 'Lax' // Mitiga CSRF en solicitudes de terceros
-        ];
-    } elseif (ENV == 'production') {
-        $cookieParams = [
-            'lifetime' => $lifetime,
-            'path' => '/',
-            'domain' => DOMAIN, // Deja vacío o especifica un dominio si es necesario
-            'secure' => true, // Requiere HTTPS en producción
-            'httponly' => true, // Protege contra XSS
-            'samesite' => 'Strict' // Máxima protección contra CSRF
-        ];
-    }
-
+    // Iniciar sesión solo si no está activa
     if (session_status() === PHP_SESSION_NONE) {
-        // La sesión no está iniciada, iniciar la sesión
         session_set_cookie_params($cookieParams);
         session_start();
-        session_regenerate_id(true); // Prevent session fixation
+        session_regenerate_id(true); // Regenera el ID para mayor seguridad
     }
 
+    // Almacenar información del usuario en la sesión
     $_SESSION['user'] = [
         'id' => $id,
         'username' => $username,

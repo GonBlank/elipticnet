@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Verificar si el usuario está autenticado
 if (isset($_SESSION['user'])) {
     // Redirige al login si no está autenticado
@@ -8,8 +9,6 @@ if (isset($_SESSION['user'])) {
 
 require __DIR__ . "/../php/env.php";
 require __DIR__ . "/../php/sesion/google/vendor/autoload.php";
-
-session_start();
 
 $client = new Google\Client;
 

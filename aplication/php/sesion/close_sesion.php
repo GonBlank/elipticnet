@@ -1,5 +1,4 @@
 <?php
-//require_once __DIR__ . '/../env.php';
 
 function close_session()
 {
@@ -14,6 +13,8 @@ function close_session()
     // Eliminar la cookie de sesión
     if (ini_get("session.use_cookies")) {
         $params = session_get_cookie_params();
+
+        // Forzar eliminación de la cookie
         setcookie(
             session_name(), // Nombre de la cookie de sesión
             '', // Valor vacío
@@ -25,7 +26,6 @@ function close_session()
         );
     }
 
-    // Destruir la sesión
+    // Destruir la sesión en el servidor
     session_destroy();
 }
-

@@ -10,45 +10,9 @@ require_once __DIR__ . '/../env.php';
 
 function checkAuth()
 {
-    // Configuración de la cookie según el entorno, con extensión de la duración de la sesión
-    $cookieParams = [
-       /*'lifetime' => time() + 60 * 60, // Agregar 1 hora al tiempo actual*/
-        'path' => '/',
-        'domain' => DOMAIN, // Deja vacío o especifica un dominio si es necesario
-        'secure' => false, // true en producción (HTTPS), false en desarrollo (HTTP)
-        'httponly' => true, // Protege contra XSS
-        'samesite' => 'Strict' // Máxima protección contra CSRF
-    ];
-
-    if (ENV == 'development') {
-        $cookieParams = [
-            /*'lifetime' => time() + 60 * 60, // Agregar 1 hora al tiempo actual*/
-            'path' => '/',
-            'domain' => DOMAIN, // Deja vacío o especifica un dominio si es necesario
-            'secure' => false, // No requiere HTTPS en desarrollo
-            'httponly' => true, // Protege contra XSS
-            'samesite' => 'Lax' // Mitiga CSRF en solicitudes de terceros
-        ];
-    } elseif (ENV == 'production') {
-        $cookieParams = [
-            'lifetime' => time() + 60 * 60, // Agregar 1 hora al tiempo actual
-            'path' => '/',
-            'domain' => DOMAIN, // Deja vacío o especifica un dominio si es necesario
-            'secure' => true, // Requiere HTTPS en producción
-            'httponly' => true, // Protege contra XSS
-            'samesite' => 'Strict' // Máxima protección contra CSRF
-        ];
-    }
-
-
-    // Establece los parámetros de la cookie y arranca la sesión
-    session_set_cookie_params($cookieParams);
-    session_start();
-
-    // Regenera el ID de sesión para proteger contra el secuestro de sesión
-    if (!isset($_SESSION['regenerated'])) {
-        session_regenerate_id(true);
-        $_SESSION['regenerated'] = true;
+    if (session_status() === PHP_SESSION_NONE) {
+        error_log("[DEBUG] " . __FILE__ . ": la sesion no estaba iniciada en checkauth");
+        session_start();
     }
 
     // Verificar si el usuario está autenticado
@@ -57,9 +21,6 @@ function checkAuth()
         header("Location: /aplication/public/login.php?error=checkAuth_auth_required");
         exit();
     }
-
-    // Extiende el tiempo de la sesión a 1 hora más cada vez que se ejecuta la función
-    setcookie(session_name(), session_id(), time() + 60 * 60, '/');
 
     // Retorna los datos del usuario autenticado
     return $_SESSION['user'];
