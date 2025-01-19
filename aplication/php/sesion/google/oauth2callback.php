@@ -16,6 +16,16 @@ if (! isset($_GET["code"])) {
     exit("Login failed");
 }
 
+/* Prueba de implementacion de state para segurizar los login por google*/
+if (! isset($_GET["state"])) {
+    error_log("[ERROR] " . __FILE__ . ": oauth_state no presente en link");
+} else {
+    session_start();
+    if ($_GET["state"] != $_SESSION['oauth_state']) {
+        error_log("[ERROR] " . __FILE__ . ": oauth_state no coincide");
+    }
+}
+
 $token = $client->fetchAccessTokenWithAuthCode($_GET["code"]);
 
 $client->setAccessToken($token["access_token"]);

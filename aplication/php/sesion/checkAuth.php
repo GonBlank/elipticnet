@@ -11,7 +11,6 @@ require_once __DIR__ . '/../env.php';
 function checkAuth()
 {
     if (session_status() === PHP_SESSION_NONE) {
-        error_log("[DEBUG] " . __FILE__ . ": la sesion no estaba iniciada en checkauth");
         session_start();
     }
 

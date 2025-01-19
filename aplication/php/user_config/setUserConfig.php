@@ -45,9 +45,7 @@ try {
     $stmt->bind_param("ssi", $time_zone, $language, $owner);
 
     // Ejecutar la consulta
-    if ($stmt->execute()) {
-        error_log("[INFO] " . __FILE__ . ": Updated user_data for user id " . $owner);
-    } else {
+    if (!$stmt->execute()) {
         // Capturar el error específico
         $error = $stmt->error;
         error_log("[ERROR] " . __FILE__ . ": Failed to update host user_data. Error: " . $error);
@@ -61,7 +59,6 @@ try {
         $_SESSION['user']['time_zone'] = $time_zone;
         $_SESSION['user']['languageCode'] = $language;
     }
-
 } catch (Exception $e) {
     // Manejo de errores
     error_log("[ERROR] " . __FILE__ . ": " . $e->getMessage());

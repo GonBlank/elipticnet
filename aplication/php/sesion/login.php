@@ -88,8 +88,6 @@ try {
 
     create_session($user_db['id'], $user_db['username'], $user_db['email'], $user_db['type'], $language, $timeZone, $remember_me);
     
-    error_log("[DEBUG] " . __FILE__ . ": el valor de la sesion en login.php es: " . $_SESSION['user']['username']);
-
     echo json_encode(["error" => false, "type" => "success", "title" => "Successful login", "message" => "success."]);
     
 } catch (Exception $e) {
