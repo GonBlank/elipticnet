@@ -86,6 +86,8 @@ document.addEventListener("DOMContentLoaded", function () {
             email: email.value,
             password: password.value,
             remember_me: rememberMeCheckbox.checked,
+            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            language: (navigator.language || navigator.userLanguage).split('-')[0],
         };
 
         // Enviar los datos al backend usando fetch

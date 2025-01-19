@@ -171,6 +171,12 @@ define('MENU_ALLOWED', true);
     <script src="../js/API/load_home_view.js"></script>
     <script src="../js/components/alert.js"></script>
 
+    <?php
+    if (!isset($user['time_zone']) || !isset($user['languageCode'])) {
+        echo '    <script src="../js/user_config/setUserConfig.js"></script>';
+    }
+    ?>
+
 </body>
 
 </html>

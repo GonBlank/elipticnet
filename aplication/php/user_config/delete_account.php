@@ -43,10 +43,6 @@ try {
     if ($stmt->execute()) {
         // Comprobar si realmente se eliminó una fila
         if ($stmt->affected_rows == 1) {
-            // Cerrar la consulta y la conexión
-            $stmt->close();
-            $conn->close();
-
             //Enviar correo
             $body = delete_account_email_template($user['username']);
             send_email($body, "Deleted account", $user['email']);

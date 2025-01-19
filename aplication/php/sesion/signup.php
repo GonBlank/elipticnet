@@ -7,7 +7,7 @@ include_once __DIR__ . '/../functions/generate_random_hash.php';
 
 //Validate request method
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    echo json_encode(["error" => true, "type" => "error", "title" => "Invalid request", "message" => "data no set"]);
+    echo json_encode(["error" => true, "type" => "error", "title" => "Invalid request", "message" => "Invalid request method"]);
     exit;
 }
 
@@ -96,9 +96,6 @@ try {
         exit;
     }
 
-    $validation_hash = generate_random_hash($conn, "transports", "validation_hash");
-    $hash_date = date('Y-m-d H:i:s');
-
     $stmt->bind_param("ssss", $name, $email, $hashed_password, $user_type);
 
 
@@ -110,7 +107,6 @@ try {
 
     // Obtener el ID del registro insertado
     $user_id = $conn->insert_id;
-
 
     /**/
     // Insert transport email con el ID del usuario como owner

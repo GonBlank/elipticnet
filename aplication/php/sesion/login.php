@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../env.php';
+require __DIR__ . "/../functions/create_session.php";
 
 // Validate request method
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
@@ -17,6 +18,8 @@ if (!isset($user['email']) || !isset($user['password'])) {
 $email = $user['email'];
 $raw_password = $user['password'];
 $remember_me = isset($user['remember_me']) && $user['remember_me'];
+$timeZone = $user['timeZone'];
+$language = $user['language'];
 
 // Validate password length
 $password_length = strlen($raw_password);
@@ -83,55 +86,9 @@ try {
         exit;
     }
 
-
-    // Set session duration based on "remember me"
-    $lifetime = $remember_me ? (30 * 24 * 3600) : 3600; // 30 days or 1 hour
-    // Configuración para ENTORNO DE DESARROLLO (HTTP)
-    session_set_cookie_params([
-        'lifetime' => $lifetime,
-        'path' => '/',
-        'secure' => false, // No requiere HTTPS en desarrollo
-        'httponly' => true, // Protege contra XSS
-        'samesite' => 'Lax' // Mitiga CSRF en solicitudes de terceros
-    ]);
-
-    /*
-// Configuración para PRODUCCIÓN (HTTPS)
-session_set_cookie_params([
-    'lifetime' => $lifetime,
-    'path' => '/',
-    'secure' => true, // Requiere HTTPS en producción
-    'httponly' => true, // Protege contra XSS
-    'samesite' => 'Strict' // Máxima protección contra CSRF
-]);
-*/
-
-    session_start();
-    session_regenerate_id(true); // Prevent session fixation
-
-    $_SESSION['user'] = [
-        'id' => $user_db['id'],
-        'username' => $user_db['username'],
-        'email' => $user_db['email'],
-        'type' => $user_db['type']
-    ];
-    /*
-// Optionally set a remember me cookie
-if ($remember_me) {
-    $cookie_hash = generate_random_hash($conn, "users", "cookie_hash");
-    try {
-        $stmt = $conn->prepare("UPDATE users SET cookie_hash = :cookie_hash WHERE id = :id");
-        $stmt->execute(['cookie_hash' => $cookie_hash, 'id' => $user['id']]);
-        setcookie('remember_me', $cookie_hash, time() + (30 * 24 * 3600), '/', '', true, true);
-    } catch (PDOException $e) {
-        error_log("[ERROR]:Update cookie hash login.php:" . $e->getMessage());
-    }
-}
-*/
-    //echo json_encode(['state' => true]);
+    create_session($user_db['id'], $user_db['username'], $user_db['email'], $user_db['type'], $language, $timeZone, $remember_me);
     echo json_encode(["error" => false, "type" => "success", "title" => "Successful login", "message" => "success."]);
-
-    exit;
+    
 } catch (Exception $e) {
     // Manejo de errores
     error_log("[ERROR] " . __FILE__ . ": " . $e->getMessage());

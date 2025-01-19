@@ -4,6 +4,6 @@ news.txt
 **/__pycache__/
 **/env.php
 **/config.json
+client_secret.json
 *.log
 aplication/python/elipticnet_env/
-

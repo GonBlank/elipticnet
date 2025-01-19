@@ -1,9 +1,12 @@
 <?php
-require_once __DIR__ . '/../env.php';
+//require_once __DIR__ . '/../env.php';
 
 function close_session()
 {
-    // Asegurarse de que la sesión esté iniciada
+    // Iniciar la sesión si no está iniciada
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
 
     // Limpiar todas las variables de sesión
     $_SESSION = [];
@@ -25,3 +28,4 @@ function close_session()
     // Destruir la sesión
     session_destroy();
 }
+

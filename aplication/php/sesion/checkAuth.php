@@ -12,13 +12,34 @@ function checkAuth()
 {
     // Configuración de la cookie según el entorno, con extensión de la duración de la sesión
     $cookieParams = [
-        'lifetime' => time() + 60 * 60, // Agregar 1 hora al tiempo actual
+       /*'lifetime' => time() + 60 * 60, // Agregar 1 hora al tiempo actual*/
         'path' => '/',
         'domain' => DOMAIN, // Deja vacío o especifica un dominio si es necesario
         'secure' => false, // true en producción (HTTPS), false en desarrollo (HTTP)
         'httponly' => true, // Protege contra XSS
         'samesite' => 'Strict' // Máxima protección contra CSRF
     ];
+
+    if (ENV == 'development') {
+        $cookieParams = [
+            /*'lifetime' => time() + 60 * 60, // Agregar 1 hora al tiempo actual*/
+            'path' => '/',
+            'domain' => DOMAIN, // Deja vacío o especifica un dominio si es necesario
+            'secure' => false, // No requiere HTTPS en desarrollo
+            'httponly' => true, // Protege contra XSS
+            'samesite' => 'Lax' // Mitiga CSRF en solicitudes de terceros
+        ];
+    } elseif (ENV == 'production') {
+        $cookieParams = [
+            'lifetime' => time() + 60 * 60, // Agregar 1 hora al tiempo actual
+            'path' => '/',
+            'domain' => DOMAIN, // Deja vacío o especifica un dominio si es necesario
+            'secure' => true, // Requiere HTTPS en producción
+            'httponly' => true, // Protege contra XSS
+            'samesite' => 'Strict' // Máxima protección contra CSRF
+        ];
+    }
+
 
     // Establece los parámetros de la cookie y arranca la sesión
     session_set_cookie_params($cookieParams);
@@ -33,7 +54,7 @@ function checkAuth()
     // Verificar si el usuario está autenticado
     if (!isset($_SESSION['user'])) {
         // Redirige al login si no está autenticado
-        header("Location: /aplication/public/login.php?error=auth_required");
+        header("Location: /aplication/public/login.php?error=checkAuth_auth_required");
         exit();
     }
 

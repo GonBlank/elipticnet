@@ -8,7 +8,7 @@ USE elipticnet;
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(15) NOT NULL,            -- Hasta 15 caracteres
+    username VARCHAR(100) NOT NULL,            -- Hasta 100 caracteres
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,            -- Guardará el hash de la contraseña
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, --No probado
@@ -22,7 +22,7 @@ CREATE TABLE users (
 
 CREATE TABLE user_config (
     owner INT NOT NULL PRIMARY KEY,
-    time_zone VARCHAR(50) NOT NULL,
+    time_zone VARCHAR(50) DEFAULT NULL,
     language VARCHAR(255) DEFAULT NULL,
     FOREIGN KEY (owner) REFERENCES users(id)
         ON DELETE CASCADE

@@ -58,16 +58,11 @@ try {
     if ($stmt->execute()) {
         $_SESSION['user']['username'] = $username;
         $data['state'] = true;
-        echo json_encode($data);
+        echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Updated username"]);
     } else {
         echo json_encode(["error" => true, "type" => "error", "title" => "Update Error", "message" => "Failed to update host."]);
     }
 
-    $stmt->close();
-
-
-    // Cerrar la conexión
-    $conn->close();
 } catch (Exception $e) {
     error_log("[ERROR] " . __FILE__ . ": " . $e->getMessage());
     echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
