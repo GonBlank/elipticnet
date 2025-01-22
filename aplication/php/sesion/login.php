@@ -88,7 +88,7 @@ try {
 
     create_session($user_db['id'], $user_db['username'], $user_db['email'], $user_db['type'], $language, $timeZone, $remember_me);
     
-    echo json_encode(["error" => false, "type" => "success", "title" => "Successful login", "message" => "success."]);
+    echo json_encode(["error" => false, "type" => "success", "title" => "Successful login", "message" => "Good to See You Again!"]);
     
 } catch (Exception $e) {
     // Manejo de errores

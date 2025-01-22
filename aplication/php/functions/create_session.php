@@ -18,7 +18,13 @@ function create_session($id, $username, $email, $type, $languageCode = null, $ti
     if (session_status() === PHP_SESSION_NONE) {
         session_set_cookie_params($cookieParams);
         session_start();
-        session_regenerate_id(true); // Regenera el ID para mayor seguridad
+        // Eliminar la cookie anterior solo si existe
+        if (isset($_COOKIE[session_name()])) {
+            setcookie(session_name(), '', time() - 42000, '/');
+        }
+
+        // Regenerar el ID de sesión
+        session_regenerate_id(true);
     }
 
     // Almacenar información del usuario en la sesión

@@ -2,12 +2,6 @@
 
 require_once __DIR__ . '/../env.php';
 
-/*
-╔════════════╗
-║ Desarrollo ║
-╚════════════╝
-*/
-
 function checkAuth()
 {
     if (session_status() === PHP_SESSION_NONE) {

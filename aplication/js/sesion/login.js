@@ -107,10 +107,11 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .then(data => {
                 ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
+
                 if (!data.error) {
                     email.value = '';
                     password.value = '';
-                    window.location.assign('home.php'); // Redirige a home.html
+                    window.location.assign('home.php');
                 }
 
             })

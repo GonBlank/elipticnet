@@ -285,3 +285,9 @@ dialog {
 .dialog-body form button {
     margin-top: 20px !important;
 }
+
+@media only screen and (max-width:400px) {
+    .card{
+        padding: 0px !important;
+    }
+}
