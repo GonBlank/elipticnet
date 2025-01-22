@@ -62,10 +62,6 @@ try {
         echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
-
-    // Cerrar la consulta y la conexión
-    $stmt->close();
-    $conn->close();
 } catch (Exception $e) {
     // Manejo de errores generales
     error_log("[ERROR] " . __FILE__ . ": " . $e->getMessage());
