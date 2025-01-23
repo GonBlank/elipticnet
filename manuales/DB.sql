@@ -80,7 +80,6 @@ CREATE TABLE ping_agent_data (
     last_check DATETIME DEFAULT NULL,
     last_down DATETIME DEFAULT NULL,
     last_up DATETIME DEFAULT NULL,
-    log JSON DEFAULT NULL,
     transports JSON,
     extra JSON DEFAULT NULL,
     FOREIGN KEY (owner) REFERENCES users(id)
@@ -88,6 +87,17 @@ CREATE TABLE ping_agent_data (
         ON UPDATE CASCADE
 );
 
+CREATE TABLE ping_agent_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ping_agent_id INT NOT NULL,
+    icon VARCHAR (255) DEFAULT NULL,
+    cause VARCHAR (255) DEFAULT NULL,
+    message VARCHAR (255) DEFAULT NULL,
+    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (ping_agent_id) REFERENCES ping_agent_data(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
 
 CREATE TABLE latency (
     id INT AUTO_INCREMENT PRIMARY KEY,

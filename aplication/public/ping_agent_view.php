@@ -58,7 +58,7 @@ define('MENU_ALLOWED', true);
             <h1>Waiting for the first check.</h1>
             <p>( it won't be long )</p>
         </div>
-        
+
         <div id="load-curtain">
             <svg class="spinner-circle" class="up-since" xmlns="http://www.w3.org/2000/svg"
                 height="24px" viewBox="0 -960 960 960" width="24px">
@@ -98,7 +98,7 @@ define('MENU_ALLOWED', true);
                             </svg>
                             Edit
                         </a>
-                        <button data-modal="delete-host" class="openModal">
+                        <button data-modal="pingAgentDeleteDialog" class="openModal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f83b3b"
                                 class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                 <path
@@ -110,19 +110,19 @@ define('MENU_ALLOWED', true);
                 </div>
                 <div class="time-interval">
                     <label>
-                        <input checked type="radio" name="timeRange" value="1"
-                            onclick="updateSelectedRange(this.value)">
+                        <input checked type="radio" name="timeRange" value="1">
                         <span>Last day</span>
                     </label>
                     <label>
-                        <input type="radio" name="timeRange" value="2" onclick="updateSelectedRange(this.value)">
+                        <input type="radio" name="timeRange" value="2">
                         <span>Last month</span>
                     </label>
                     <label>
-                        <input type="radio" name="timeRange" value="3" onclick="updateSelectedRange(this.value)">
+                        <input type="radio" name="timeRange" value="3">
                         <span>Last year</span>
                     </label>
                 </div>
+
             </article>
 
             <article id="ping_agent_status" class="status">
@@ -307,7 +307,7 @@ define('MENU_ALLOWED', true);
     </main>
 
 
-    <dialog id="delete-host">
+    <dialog id="pingAgentDeleteDialog">
         <div class="dialog-header">
             <h1>Delete Host?</h1>
             <button class="close-modal close-btn">
@@ -324,7 +324,7 @@ define('MENU_ALLOWED', true);
         </div>
         <div class="dialog-options">
             <button id="cancel-btn" class="close-btn">Cancel</button>
-            <button id="delete-btn">
+            <button id="pingAgentDeleteBtn">
 
                 <div class="text show">
                     Delete
@@ -348,14 +348,15 @@ define('MENU_ALLOWED', true);
     <script src="../js/modal.js"></script>
     <script src="../js/components/alert.js"></script>
 
-    <script src="../js/functions/get_url_param_id.js"></script>
+    <script src="../js/functions/get_url_param_id.js"></script> <!-- pronto deprecado -->
     <script src="../js/functions/remove_load_curtain.js"></script>
 
     <script src="../modules/echart/node_modules/echarts/dist/echarts.min.js"></script>
 
-    <script src="../js/API/ping_agent_get_data.js"></script>
-    <script src="../js/API/ping_agent_get_statistics.js"></script>
-    <script src="../js/API/ping_agent_delete.js"></script>
+    <script type="module" src="../js/API/ping_agent_get_data.js"></script>
+    <script type="module" src="../js/API/ping_agent_get_statistics.js"></script>
+    <script type="module" src="../js/API/ping_agent_get_log.js"></script>
+    <script type="module" src="../js/API/ping_agent_delete.js"></script>
 </body>
 
 </html>

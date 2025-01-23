@@ -33,7 +33,7 @@ try {
     }
 
     // Consulta SQL para obtener el host con el id y owner correspondiente
-    $sql = "SELECT id, ip, name, description, state, last_check, last_down, last_up, log, threshold, threshold_exceeded
+    $sql = "SELECT id, ip, name, description, state, last_check, last_down, last_up, threshold, threshold_exceeded
             FROM ping_agent_data WHERE id = ? AND owner = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
@@ -54,11 +54,6 @@ try {
 
     // Obtener el host
     $host = $result->fetch_assoc();
-
-    // Decodificar los campos JSON, si existen
-    if ($host['log']) {
-        $host['log'] = json_decode($host['log'], true); // Convertir a array
-    }
 
     // Devolver el host en formato JSON
     echo json_encode($host, JSON_PRETTY_PRINT);

@@ -1,5 +1,3 @@
-
-news.txt
 .tmp.driveupload/
 **/__pycache__/
 **/env.php
@@ -7,3 +5,4 @@ news.txt
 client_secret.json
 *.log
 aplication/python/elipticnet_env/
+vendor/

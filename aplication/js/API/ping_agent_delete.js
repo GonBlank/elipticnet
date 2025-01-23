@@ -1,60 +1,44 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const deleteHostButton = document.getElementById('delete-btn');
+import { getUrlParameter } from '../functions/getUrlParameter.js';
+import { toggleButtonState } from '../functions/toggleButtonState.js';
 
-    function toggleButtonState(isLoading) {
-        const textDiv = deleteHostButton.querySelector('.text');
-        const loaderDiv = deleteHostButton.querySelector('.loader-hourglass');
+document.addEventListener("DOMContentLoaded", function () {
+    const deleteDialog = document.getElementById("pingAgentDeleteDialog");
+    const deleteBtn = document.getElementById("pingAgentDeleteBtn");
+    const pingAgentId = getUrlParameter('id');
 
-        if (isLoading) {
-            textDiv.classList.remove('show');
-            textDiv.classList.add('hide');
-            loaderDiv.classList.remove('hide');
-            loaderDiv.classList.add('show');
-            deleteHostButton.disabled = true;
-        } else {
-            textDiv.classList.remove('hide');
-            textDiv.classList.add('show');
-            loaderDiv.classList.remove('show');
-            loaderDiv.classList.add('hide');
-            deleteHostButton.disabled = false;
-        }
-    }
-    
+    deleteBtn.addEventListener('click', function (event) {
 
-    // Referencias a los botones y al diálogo
-    const deleteDialog = document.getElementById("delete-host");
-    const deleteBtn = document.getElementById("delete-btn");
-
-    
-    // Botón para confirmar la eliminación
-    deleteBtn.addEventListener("click", async () => {
-        try {
-            // Mostrar el loader (si tienes una función para ello)
-            toggleButtonState(true);
-
-            // Realizar la solicitud de eliminación
-            const response = await fetch(`../php/API/ping_agent_delete.php?hostId=${hostId}`);
-
-            if (response.ok) {
-                // Llamar a la función ShowAlert
-                ShowAlert('success', 'Success', 'Host deleted successfully', 'success');
-
-                // Esperar 2 segundos y luego redirigir al dashboard
-                setTimeout(() => {
-                    window.location.href = "../public/home.php";
-                }, 2000);
-
-                // Cerrar el diálogo
+        toggleButtonState('pingAgentDeleteBtn' ,true);
+        const pingAgentData = {
+            id: pingAgentId
+        };
+        fetch('../php/API/ping_agent_delete.php', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(pingAgentData),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
+                    throw new Error(`[ERROR]: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
+                if (!data.error) {
+                    setTimeout(() => {
+                        window.location.href = 'home.php';
+                    }, 2000);
+                }
+            })
+            .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'))
+            .finally(() => {
+                toggleButtonState('pingAgentDeleteBtn' ,false);
                 deleteDialog.close();
-            } else {
-                const errorData = await response.json();
-                ShowAlert('error', 'Error', errorData.detail, 'error');
-            }
-        } catch (error) {
-            ShowAlert('error', 'Error', 'An error occurred while deleting the host.', 'error');
-        } finally {
-            // Ocultar el loader (si tienes una función para ello)
-            toggleButtonState(false);
-        }
+            });
+
     });
 });

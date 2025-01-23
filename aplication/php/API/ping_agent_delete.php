@@ -8,19 +8,22 @@ $owner = $user['id'];
 
 
 // Validate request method
-if ($_SERVER["REQUEST_METHOD"] !== "GET") {
+if ($_SERVER["REQUEST_METHOD"] !== "DELETE") {
     echo json_encode(["error" => true, "type" => "error", "title" => "Invalid request", "message" => "Method not allowed"]);
     exit;
 }
 
 
-// Verificar si se proporcionó el hostId en la URL (GET)
-if (!isset($_GET['hostId'])) {
-    echo json_encode(["error" => true, "type" => "error", "title" => "Validation Error", "message" => "Host ID is required"]);
+
+// Obtener los datos JSON enviados a través del POST
+$data = json_decode(file_get_contents('php://input'), true);
+
+if (!isset($data['id'])) {
+    echo json_encode(["error" => true, "type" => "error", "title" => "Validation Error", "message" => "Incomplete data."]);
     exit;
 }
 
-$id = (int)$_GET['hostId'];
+$ping_agent_id = (int)$data['id'];
 
 
 
@@ -47,15 +50,20 @@ try {
     }
 
     // Vincular los parámetros
-    $stmt->bind_param("is", $hostId, $owner);
+    $stmt->bind_param("is", $ping_agent_id, $owner);
 
     // Ejecutar la consulta
     if ($stmt->execute()) {
         // Comprobar si realmente se eliminó una fila
-        if ($stmt->affected_rows > 0) {
-            echo json_encode(["success" => true, "message" => "Host deleted successfully."]);
+        if ($stmt->affected_rows == 1) {
+            echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "The ping agent was successfully removed"]);
+            
+        } else if ($stmt->affected_rows == 0) {
+            echo json_encode(["error" => true, "type" => "warning", "title" => "Ping agent not found.", "message" => "The host you are trying to delete cannot be identified. Please ", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
+     
         } else {
-            echo json_encode(["error" => true, "type" => "warning", "title" => "Not Found", "message" => "Host not found."]);
+            error_log("[ERROR] " . __FILE__ . ": Se borro mas de un agente ping owner: $owner id: $hostId");
+            echo json_encode(["error" => true, "type" => "warning", "title" => "Deletion completed with problems", "message" => "Ping agent deleted. There were alerts in the process. Please ", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         }
     } else {
         error_log("[ERROR] " . __FILE__ . ": " . $stmt->error);

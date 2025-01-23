@@ -1,3 +1,5 @@
+import { globalVariable_threshold } from "./ping_agent_get_data.js";
+
 function get_host_statistics(time_range) {
     if (!hostId || isNaN(hostId)) {
         ShowAlert('error', 'Error', 'Invalid id', 'error');
@@ -236,10 +238,15 @@ function color_select(rang_color) {
 }
 
 let time_range = 1; // 1:1 DAY / 2:1 MONTH / 3:1 YEAR
-
+const radioButtons = document.querySelectorAll('input[name="timeRange"]');
+radioButtons.forEach((radio) => {
+    radio.addEventListener("click", (event) => {
+        updateSelectedRange(event.target.value);
+    });
+});
 function updateSelectedRange(selectedValue) {
-    time_range = parseInt(selectedValue); // Actualiza el valor de time_range
-    get_host_statistics(time_range); // Llama a la función con el nuevo rango de tiempo
+    time_range = parseInt(selectedValue);
+    get_host_statistics(time_range);
 }
 
 get_host_statistics(time_range);

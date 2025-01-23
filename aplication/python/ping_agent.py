@@ -33,6 +33,7 @@ notifier = NotificationManager(CONFIG_PATH, DB_CONFIG)
 # ╚═════════════╝
 
 import log.log_config
+
 # Configurar el logger para este script
 logger = log.log_config.setup_logger("ping_agent")
 
@@ -56,7 +57,7 @@ def fetch_ping_agent_data():
         return results
 
     except mysql.connector.Error as err:
-        #print(f"Error: {err}")
+        # print(f"Error: {err}")
         logger.error(f"Error: {err}")
         return None
     finally:
@@ -96,7 +97,7 @@ def update_host_latency(host_id, latency):
         # print("[INFO] Host latency updated successfully.")
 
     except mysql.connector.Error as e:
-        #print(f"ERROR: {e}")
+        # print(f"ERROR: {e}")
         logger.warning(f"Error: {e}")
 
     finally:
@@ -106,7 +107,7 @@ def update_host_latency(host_id, latency):
 
 def check_state(host, new_state):
     if host["state"] == True and new_state["state"] == False:
-        #print("[DOWN] DETECT HOST DOWN")
+        # print("[DOWN] DETECT HOST DOWN")
         logger.info("[DOWN] DETECT HOST DOWN")
         cause = log_message(new_state["response"])
         update_state(host, new_state["state"])
@@ -115,7 +116,7 @@ def check_state(host, new_state):
         update_last_up_down(False, host["id"])
         notifier.notifier(host, "ping_agent_down", details={"cause": cause})
     elif host["state"] == False and new_state["state"] == True:
-        #print("[INFO] DETECT HOST UP")
+        # print("[INFO] DETECT HOST UP")
         logger.info("[UP] DETECT HOST UP")
         update_state(host, new_state["state"])
         update_host_log(host, "host_up", "Recovered host", "The host is back online")
@@ -123,7 +124,7 @@ def check_state(host, new_state):
         notifier.notifier(host, "ping_agent_up")
 
     elif host["state"] == None:
-        #print("[UP] FIRST CHECK")
+        # print("[UP] FIRST CHECK")
         logger.info("[UP] FIRST CHECK")
         update_host_log(
             host, "host_start", "First check", "The host begins to be monitored"
@@ -154,59 +155,33 @@ def update_state(host, new_state):
         connection.commit()
 
     except mysql.connector.Error as e:
-        #print(f"ERROR: {e}")
+        # print(f"ERROR: {e}")
         logger.warning(f"Error: {e}")
     finally:
         cursor.close()
         connection.close()
 
-
 def update_host_log(host, icon, cause, message=None):
-    # print("[INFO] UPDATING HOST LOG")
-
-    # Convertir el log del host (si es una cadena JSON) a un objeto Python
-    if isinstance(host["log"], str):  # Si el log es una cadena JSON
-        try:
-            host["log"] = json.loads(host["log"])  # Convertir a lista de diccionarios
-        except json.JSONDecodeError as e:
-            #print(f"ERROR: No se pudo decodificar el log JSON: {e}")
-            logger.warning(f"ERROR: No se pudo decodificar el log JSON: {e}")
-            return
-
-    # Agregar el nuevo registro al log
-    host["log"].append(
-        {
-            "time": TIME,
-            "icon": icon,
-            "cause": cause,
-            "message": message,
-        }
-    )
 
     try:
-        # Conectar a la base de datos
         connection = mysql.connector.connect(**DB_CONFIG)
         cursor = connection.cursor()
 
-        # Actualizar el campo log en la base de datos
-        update_query = """
-        UPDATE ping_agent_data 
-        SET log = %s
-        WHERE id = %s
-        """
-        # Convertir log actualizado a JSON string antes de guardarlo en la base de datos
-        cursor.execute(update_query, (json.dumps(host["log"]), host["id"]))
+        # Usar %s para todos los tipos de datos en la consulta
+        update_query = """INSERT INTO ping_agent_log (ping_agent_id, icon, cause, message) VALUES (%s, %s, %s, %s)"""
+
+        cursor.execute(update_query, (host["id"], icon, cause, message))
         connection.commit()
-        #print("[INFO] HOST LOG UPDATED SUCCESSFULLY")
-        logger.info("HOST LOG UPDATED SUCCESSFULLY")
+
+        # print("[INFO] Host latency updated successfully.")
 
     except mysql.connector.Error as e:
-        #print(f"ERROR: {e}")
+        # print(f"ERROR: {e}")
         logger.warning(f"Error: {e}")
+
     finally:
         cursor.close()
         connection.close()
-
 
 def log_message(ping_response):
     if ping_response == False and type(ping_response) != float:
@@ -235,7 +210,7 @@ def update_last_up_down(state, id):
         connection.commit()
 
     except mysql.connector.Error as e:
-        #print(f"ERROR: {e}")
+        # print(f"ERROR: {e}")
         logger.warning(f"Error: {e}")
     finally:
         cursor.close()
@@ -248,7 +223,7 @@ def check_threshold(host, ping_response):
 
     if ping_response and threshold is not None:
         if ping_response > threshold and not threshold_exceeded:
-            #print("[WARN] THRESHOLD EXCEEDED")
+            # print("[WARN] THRESHOLD EXCEEDED")
             logger.info("THRESHOLD EXCEEDED")
             notifier.notifier(
                 host,
@@ -264,7 +239,7 @@ def check_threshold(host, ping_response):
             )
             # send_alert(host.get('transports'))
         elif ping_response < threshold and threshold_exceeded:
-            #print("[OK] THRESHOLD RESTORED")
+            # print("[OK] THRESHOLD RESTORED")
             logger.info("THRESHOLD RESTORED")
             notifier.notifier(
                 host,
@@ -292,7 +267,7 @@ def update_check_threshold(id, threshold_state):
         connection.commit()
 
     except mysql.connector.Error as e:
-        #print(f"ERROR: {e}")
+        # print(f"ERROR: {e}")
         logger.warning(f"Error: {e}")
     finally:
         cursor.close()
@@ -308,7 +283,7 @@ def update_last_check(id):
         connection.commit()
 
     except mysql.connector.Error as e:
-        #print(f"ERROR: {e}")
+        # print(f"ERROR: {e}")
         logger.warning(f"Error: {e}")
     finally:
         cursor.close()
@@ -323,7 +298,7 @@ if __name__ == "__main__":
     host_list = fetch_ping_agent_data()
 
     for host in host_list:
-        #print(f"[INFO] PINGING {host["ip"]}")
+        # print(f"[INFO] PINGING {host["ip"]}")
         logger.info(f"PINGING {host["ip"]}")
         new_state = ping_host(host)
         check_state(host, new_state)  # Actualizador

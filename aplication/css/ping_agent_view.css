@@ -542,7 +542,7 @@
     gap: 8px;
 }
 
-#delete-btn,
+#pingAgentDeleteBtn,
 #cancel-btn {
     padding: 5px;
     font-size: .9rem;
@@ -562,12 +562,12 @@
 
 }
 
-#delete-btn {
+#pingAgentDeleteBtn {
     background-color: var(--accent-red);
     flex: 1;
 }
 
-#delete-btn:hover {
+#pingAgentDeleteBtn:hover {
     background-color: var(--accent-red-hover);
 
 }
