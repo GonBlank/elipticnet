@@ -113,17 +113,9 @@ CREATE TABLE latency (
 -- ║ Usuario ║
 -- ╚═════════╝
 
-CREATE USER 'elipticnet'@'localhost' IDENTIFIED BY 'clark31n';
-GRANT ALL PRIVILEGES ON *.* TO 'elipticnet'@'localhost' WITH GRANT OPTION;
+CREATE USER 'USER'@'localhost' IDENTIFIED BY 'PASSWORD';
+GRANT ALL PRIVILEGES ON *.* TO 'USER'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
-
-
-
-
-
-
-
-
 
 -- ╔════════╗
 -- ║ Extras ║

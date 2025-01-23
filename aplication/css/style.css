@@ -1,7 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');*/
+
+@font-face {
+    font-family: 'Lexend Variable';
+    src: url('../fonts/Lexend-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900; /* Define el rango de pesos */
+    font-display: swap;   /* Mejor rendimiento en carga */
+}
 
 * {
-    font-family: "Lexend", sans-serif;
+    font-family: "Lexend Variable", sans-serif;
     box-sizing: border-box;
     padding: 0;
     margin: 0;
