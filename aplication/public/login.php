@@ -108,7 +108,7 @@ $authUrl = $client->createAuthUrl();
                         </div>
                     </div>
 
-                    <button id="login_btn" class="action_btn">
+                    <button id="login_btn" class="action_btn primary">
                         <div class="text show">
                             SIGN IN
                         </div>
@@ -220,7 +220,7 @@ $authUrl = $client->createAuthUrl();
                     </label>
                 </div>
 
-                <button id="sign_up_btn" type="submit" class="action_btn">
+                <button id="sign_up_btn" type="submit" class="action_btn primary">
                     <div class="text show">
                         SIGN UP
                     </div>
@@ -272,7 +272,7 @@ $authUrl = $client->createAuthUrl();
                     </label>
                 </div>
 
-                <button id="recovery_btn" type="submit" class="action_btn">
+                <button id="recovery_btn" type="submit" class="action_btn primary">
                     <div class="text show">
                         RECOVERY
                     </div>

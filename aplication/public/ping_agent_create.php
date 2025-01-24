@@ -27,6 +27,7 @@ define('MENU_ALLOWED', true);
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/palette.css" />
     <link rel="stylesheet" href="../css/components/alert.css" />
+    <link rel="stylesheet" href="../css/components/tooltip.css" />
     <link rel="stylesheet" href="../css/ping_agent.css" />
 
 </head>
@@ -183,7 +184,7 @@ define('MENU_ALLOWED', true);
                 </article> -->
 
                 <div class="add-transport">
-                    <a href="transports.html">
+                    <a href="transports.php">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-send-plus-fill" viewBox="0 0 16 16">
                             <path
@@ -194,7 +195,7 @@ define('MENU_ALLOWED', true);
                         ADD TRANSPORT</a>
                 </div>
             </section>
-            <button id="create_agent" class="create-agent">
+            <button id="create_agent" class="create-agent primary">
 
                 <div class="text show">
                     Create

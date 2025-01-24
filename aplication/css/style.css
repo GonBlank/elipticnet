@@ -3,8 +3,10 @@
 @font-face {
     font-family: 'Lexend Variable';
     src: url('../fonts/Lexend-VariableFont_wght.ttf') format('truetype');
-    font-weight: 100 900; /* Define el rango de pesos */
-    font-display: swap;   /* Mejor rendimiento en carga */
+    font-weight: 100 900;
+    /* Define el rango de pesos */
+    font-display: swap;
+    /* Mejor rendimiento en carga */
 }
 
 * {
@@ -14,7 +16,6 @@
     margin: 0;
     text-decoration: none;
     color: inherit;
-
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -38,95 +39,26 @@ button:active {
 
 button:disabled {
     cursor: not-allowed;
-    /* Cambia el cursor para indicar que está deshabilitado */
-    background-color: var(--button-primary-disabled);
     transform: none;
 }
 
-/*
-button:hover {
+button.primary {
+    background-color: var(--button-primary);
+    color: var(--text-color);
+    border-radius: 5px;
+}
+
+button.primary:disabled {
+    background-color: var(--button-primary-disabled);
+}
+
+button.primary:hover {
     background-color: var(--button-primary-hover);
 }
-*/
 
-/*
-button.small {
-    gap: 3px;
-    border-radius: 5px;
-    padding: 8px;
-    height: 30px;
-    width: fit-content;
-    font-size: 14px;
+button.primary:disabled {
+    background-color: var(--button-primary-disabled);
 }
-
-button.small svg {
-    width: 13px;
-}
-
-button.medium {
-    gap: 3px;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 8px;
-    height: 38px;
-    min-height: 38px;
-    min-width: 38px;
-    width: fit-content;
-    font-size: 14px;
-}
-
-button.medium svg {
-    width: 20px;
-}
-
-button.green {
-    background-color: var(--green-500);
-    color: var(--text-50);
-}
-
-button.green:active {
-    background-color: var(--green-600);
-    box-shadow: 0px 0px 7px 0px var(--green-800) inset;
-}
-
-button.green svg {
-    fill: var(--text-50);
-}
-
-button.blue {
-    background-color: var(--blue-500);
-}
-
-button.blue:hover {
-    background-color: var(--blue-400);
-}
-
-button.blue:active {
-    background-color: var(--blue-600);
-    box-shadow: 0px 0px 7px 0px var(--blue-800) inset;
-}
-
-button.blue svg {
-    fill: var(--text-50);
-}
-
-button.red {
-    background-color: var(--red-500);
-}
-
-button.red:hover {
-    background-color: var(--red-400);
-}
-
-button.red:active {
-    background-color: var(--red-600);
-    box-shadow: 0px 0px 7px 0px var(--red-800) inset;
-}
-
-button.red svg {
-    fill: var(--text-50);
-}
-    */
 
 body {
     width: 100%;
@@ -143,9 +75,7 @@ body {
     opacity: 0;
     transition: opacity 0.3s ease;
     /*Must match transition duration in JS*/
-
 }
-
 
 nav {
     display: flex;
@@ -169,8 +99,7 @@ nav h1 {
 }
 
 nav svg {
-    fill: #edf7f6;
-    /*var(--text-900)*/
+    fill: var(--text-color);
 }
 
 nav button {
@@ -188,7 +117,6 @@ nav button:hover {
 nav button:active {
     box-shadow: 0px 0px 14px 0px var(--background-200) inset;
 }
-
 
 main.dashboard {
     grid-area: dashboard;
@@ -505,107 +433,11 @@ html {
     align-items: center;
 }
 
-#load-curtain svg{
+#load-curtain svg {
     width: 50px;
     height: 50px;
     fill: var(--spinner-color);
 }
-
-
-/*
-╔════════╗
-║ Alerts ║
-╚════════╝
-Ya se paso a componentes, probar y borrar
-*/
-
-section.alert {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 10px;
-    gap: 5px;
-    position: fixed;
-    z-index: 100;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--alert-background);
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    cursor: context-menu;
-    width: fit-content;
-    box-sizing: border-box;
-    /* Asegura que el padding se incluya en el ancho */
-}
-
-section.alert .body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-section.alert.success {
-    border: 2px solid var(--alert-success);
-}
-
-section.alert.warning {
-    border: 2px solid var(--alert-warning);
-}
-
-section.alert.error {
-    border: 2px solid var(--alert-error);
-}
-
-.alert.show {
-    animation: SlideInTop .9s cubic-bezier(0.33, 1, 0.68, 1) forwards;
-}
-
-.alert.hide {
-    animation: SlideOutTop .9s cubic-bezier(0.33, 1, 0.68, 1) forwards;
-}
-
-section.alert .icon {
-    display: flex;
-    flex-direction: center;
-    width: fit-content;
-}
-
-section.alert .icon img {
-    max-width: 40px;
-}
-
-section.alert a {
-    color: var(--special-text-color);
-    text-decoration: underline;
-}
-
-@keyframes SlideInTop {
-    0% {
-        opacity: 0;
-        transform: translateY(-250px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes SlideOutTop {
-    0% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateY(-250px);
-    }
-}
-
-
 
 /*
 ╔════════╗
@@ -841,65 +673,4 @@ Pasar a componentes
 .fade-in {
     opacity: 0;
     transition: opacity 0.3s ease;
-}
-
-/*
-╔═════════╗
-║ Tooltip ║
-╚═════════╝
-Pasar a componentes
-*/
-
-/* Estilo para el contenedor del elemento */
-.tooltip {
-    position: relative;
-    /* Necesario para posicionar el tooltip */
-    /* display: inline-block;*/
-    display: flex;
-    cursor: pointer;
-}
-
-/* Estilo para el tooltip */
-.tooltip .tooltip-text {
-    visibility: hidden;
-    background-color: var(--tooltip-background);
-    /* Color de fondo */
-    color: var(--text-color);
-    /* Color del texto */
-    text-align: left;
-    padding: 8px;
-    border-radius: 5px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    /* Posición encima del elemento */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 150px;
-    /* Ancho del tooltip */
-    opacity: 0;
-    /* Transparencia inicial */
-    transition: opacity 0.3s;
-    /* Suaviza la aparición */
-    font-size: 0.7rem;
-}
-
-/* Flecha del tooltip */
-.tooltip .tooltip-text::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    /* Posicionada en la parte inferior */
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 5px;
-    border-style: solid;
-    border-color: var(--tooltip-background) transparent transparent transparent;
-    /* Flecha hacia arriba */
-}
-
-/* Mostrar el tooltip al hacer hover */
-.tooltip:hover .tooltip-text {
-    visibility: visible;
-    opacity: 1;
 }

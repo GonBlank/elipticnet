@@ -27,6 +27,7 @@ define('MENU_ALLOWED', true);
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/palette.css" />
     <link rel="stylesheet" href="../css/components/alert.css" />
+    <link rel="stylesheet" href="../css/components/tooltip.css" />
     <link rel="stylesheet" href="../css/transports.css" />
 
 
@@ -77,7 +78,7 @@ define('MENU_ALLOWED', true);
                         d="M15.834 12.244c0 1.168-.577 2.025-1.587 2.025-.503 0-1.002-.228-1.12-.648h-.043c-.118.416-.543.643-1.015.643-.77 0-1.259-.542-1.259-1.434v-.529c0-.844.481-1.4 1.26-1.4.585 0 .87.333.953.63h.03v-.568h.905v2.19c0 .272.18.42.411.42.315 0 .639-.415.639-1.39v-.118c0-1.277-.95-2.326-2.484-2.326h-.04c-1.582 0-2.64 1.067-2.64 2.724v.157c0 1.867 1.237 2.654 2.57 2.654h.045c.507 0 .935-.07 1.18-.18v.731c-.219.1-.643.175-1.237.175h-.044C10.438 16 9 14.82 9 12.646v-.214C9 10.36 10.421 9 12.485 9h.035c2.12 0 3.314 1.43 3.314 3.034zm-4.04.21v.227c0 .586.227.8.581.8.31 0 .564-.17.564-.743v-.367c0-.516-.275-.708-.572-.708-.346 0-.573.245-.573.791" />
                 </svg>
                 <h1>Email</h1>
-                <button data-modal="add_email" class="add_transport hide openModal">
+                <button data-modal="add_email" class="add_transport hide openModal primary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-plus" viewBox="0 0 16 16">
                         <path
@@ -185,7 +186,7 @@ define('MENU_ALLOWED', true);
                     </div>
                 </div>
                 -->
-                <button class="add_transport large openModal" data-modal="add_email">ADD</button>
+                <button class="add_transport primary large openModal" data-modal="add_email">ADD</button>
             </div>
         </section>
 
@@ -197,7 +198,7 @@ define('MENU_ALLOWED', true);
                         d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09" />
                 </svg>
                 <h1>Telegram</h1>
-                <button data-modal="add_telegram" class="add_transport hide openModal">
+                <button data-modal="add_telegram" class="add_transport primary hide openModal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-plus" viewBox="0 0 16 16">
                         <path
@@ -220,7 +221,7 @@ define('MENU_ALLOWED', true);
 
             </p>
             <div id="telegramTransportTable" class="table">
-                <button class="add_transport large openModal" data-modal="add_telegram">ADD</button>
+                <button class="add_transport primary large openModal" data-modal="add_telegram">ADD</button>
             </div>
         </section>
     </main>
@@ -268,7 +269,7 @@ define('MENU_ALLOWED', true);
                         </svg> Email</span>
                     <div class="error-message" id="transport-email-error"></div>
                 </label>
-                <button id="addEmailBtn" type="submit">
+                <button id="addEmailBtn" type="submit" class="primary">
                     <div class="text show">
                         ADD
                     </div>
@@ -293,7 +294,6 @@ define('MENU_ALLOWED', true);
                     <path
                         d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
                 </svg>
-
             </button>
         </div>
         <div class="dialog-body">
@@ -322,7 +322,7 @@ define('MENU_ALLOWED', true);
                         </svg> Telegram ID</span>
                     <div class="error-message" id="telegramId-error"></div>
                 </label>
-                <button id="addTelegramBtn" type="submit">
+                <button id="addTelegramBtn" type="submit" class="primary">
                     <div class="text show">
                         ADD
                     </div>
@@ -366,14 +366,9 @@ define('MENU_ALLOWED', true);
                             d="M320-160h320v-120q0-66-47-113t-113-47q-66 0-113 47t-47 113v120Zm160-360q66 0 113-47t47-113v-120H320v120q0 66 47 113t113 47ZM160-80v-80h80v-120q0-61 28.5-114.5T348-480q-51-32-79.5-85.5T240-680v-120h-80v-80h640v80h-80v120q0 61-28.5 114.5T612-480q51 32 79.5 85.5T720-280v120h80v80H160Z" />
                     </svg>
                 </div>
-
             </button>
         </div>
     </dialog>
-
-
-
-
 
     <script src="../js/page_transition.js"></script>
     <script src="../js/lateral_menu.js"></script>
@@ -385,8 +380,6 @@ define('MENU_ALLOWED', true);
     <script type="module" src="../js/API/transport_add_telegram.js"></script>
     <script src="../js/API/transport_delete.js"></script>
     <script src="../js/API/transport_resend_validation_code.js"></script>
-
-
 </body>
 
 </html>

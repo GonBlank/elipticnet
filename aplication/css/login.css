@@ -101,7 +101,6 @@ main {
 
 .action_btn {
     gap: 3px;
-    border-radius: 5px;
     padding: 5px;
     margin: 8px;
     height: 38px;
@@ -109,15 +108,10 @@ main {
     min-width: 38px;
     width: 100%;
     font-size: 14px;
-    background-color: var(--button-primary);
 }
 
 .action_btn svg {
     width: 20px;
-}
-
-.action_btn:not(.disable):hover {
-    background-color: var(--button-primary-hover);
 }
 
 

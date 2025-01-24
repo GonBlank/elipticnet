@@ -101,7 +101,7 @@ define('MENU_ALLOWED', true);
 
         <section class="monitored-hosts card">
             <div id="agents_menu_container" class="dropdown_menu_container">
-                <button id="dropdown_button" class="host-options dropdown-button">
+                <button id="dropdown_button" class="host-options dropdown-button primary">
                     NEW AGENT
                     <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
                         fill="#e8eaed">

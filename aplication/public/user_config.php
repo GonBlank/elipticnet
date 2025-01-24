@@ -34,7 +34,6 @@ define('MENU_ALLOWED', true);
 </head>
 
 <body>
-
     <nav>
         <button id="menu_button" onclick="open_menu()">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
@@ -49,13 +48,11 @@ define('MENU_ALLOWED', true);
             </svg>
         </div>
         <h1 id="nav-tittle"> Account</h1>
-
     </nav>
 
     <?php include '../php/global/lateral_menu/lateral_menu.php'; ?>
 
     <main class="dashboard">
-
         <section class="form-container">
             <div class="tittle">
                 <h1>
@@ -68,7 +65,7 @@ define('MENU_ALLOWED', true);
                 <p>We will use this name to personalize emails and notices.</p>
             </div>
 
-            <div class="input-form">
+            <form class="input-form">
                 <label class="label">
                     <input tabindex="1" type="text" placeholder=" " class="input" id="user-name" name="user-name"
                         autocomplete="name" minlength="3" maxlength="15" value="<?php echo htmlspecialchars($user['username']); ?>" required />
@@ -82,24 +79,20 @@ define('MENU_ALLOWED', true);
                         Name</span>
                     <div class="error-message" id="user-name-error"></div>
                 </label>
-            </div>
 
-            <button id="update-name-btn" class="update-btn">
-
-                <div class="text show">
-                    Update
-                </div>
-
-                <div class="loader-hourglass hide"> <!-- Cambiado a hide para que esté oculto por defecto -->
-                    <svg class="spinner-hourglass" xmlns="http://www.w3.org/2000/svg" height="24px"
-                        viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                        <path
-                            d="M320-160h320v-120q0-66-47-113t-113-47q-66 0-113 47t-47 113v120Zm160-360q66 0 113-47t47-113v-120H320v120q0 66 47 113t113 47ZM160-80v-80h80v-120q0-61 28.5-114.5T348-480q-51-32-79.5-85.5T240-680v-120h-80v-80h640v80h-80v120q0 61-28.5 114.5T612-480q51 32 79.5 85.5T720-280v120h80v80H160Z" />
-                    </svg>
-                </div>
-
-
-            </button>
+                <button id="update-name-btn" class="update-btn primary" style="margin-top: 10px;">
+                    <div class="text show">
+                        Update
+                    </div>
+                    <div class="loader-hourglass hide"> <!-- Cambiado a hide para que esté oculto por defecto -->
+                        <svg class="spinner-hourglass" xmlns="http://www.w3.org/2000/svg" height="24px"
+                            viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                            <path
+                                d="M320-160h320v-120q0-66-47-113t-113-47q-66 0-113 47t-47 113v120Zm160-360q66 0 113-47t47-113v-120H320v120q0 66 47 113t113 47ZM160-80v-80h80v-120q0-61 28.5-114.5T348-480q-51-32-79.5-85.5T240-680v-120h-80v-80h640v80h-80v120q0 61-28.5 114.5T612-480q51 32 79.5 85.5T720-280v120h80v80H160Z" />
+                        </svg>
+                    </div>
+                </button>
+            </form>
         </section>
 
         <section class="form-container">
@@ -114,7 +107,7 @@ define('MENU_ALLOWED', true);
                 </h1>
             </div>
 
-            <div class="input-form">
+            <form class="input-form">
                 <label class="label" for="actual-password">
                     <input type="password" placeholder=" " class="input" id="actual-password"
                         name="actual-password" autocomplete="password" required minlength="8"
@@ -143,7 +136,6 @@ define('MENU_ALLOWED', true);
                     <div class="error-message" id="new-password-error"></div>
                 </label>
 
-
                 <label class="label" for="repeat-new-password">
                     <input type="password" placeholder=" " class="input" id="repeat-new-password"
                         name="repeat-new-password" autocomplete="password" required minlength="8"
@@ -157,24 +149,22 @@ define('MENU_ALLOWED', true);
                         Repeat new password</span>
                     <div class="error-message" id="repeat-new-password-error"></div>
                 </label>
-            </div>
 
-            <button id="update-password-btn" class="update-btn">
+                <button id="update-password-btn" class="update-btn primary" style="margin-top: 10px;">
 
-                <div class="text show">
-                    Update
-                </div>
+                    <div class="text show">
+                        Update
+                    </div>
 
-                <div class="loader-hourglass hide"> <!-- Cambiado a hide para que esté oculto por defecto -->
-                    <svg class="spinner-hourglass" xmlns="http://www.w3.org/2000/svg" height="24px"
-                        viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                        <path
-                            d="M320-160h320v-120q0-66-47-113t-113-47q-66 0-113 47t-47 113v120Zm160-360q66 0 113-47t47-113v-120H320v120q0 66 47 113t113 47ZM160-80v-80h80v-120q0-61 28.5-114.5T348-480q-51-32-79.5-85.5T240-680v-120h-80v-80h640v80h-80v120q0 61-28.5 114.5T612-480q51 32 79.5 85.5T720-280v120h80v80H160Z" />
-                    </svg>
-                </div>
-
-
-            </button>
+                    <div class="loader-hourglass hide"> <!-- Cambiado a hide para que esté oculto por defecto -->
+                        <svg class="spinner-hourglass" xmlns="http://www.w3.org/2000/svg" height="24px"
+                            viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                            <path
+                                d="M320-160h320v-120q0-66-47-113t-113-47q-66 0-113 47t-47 113v120Zm160-360q66 0 113-47t47-113v-120H320v120q0 66 47 113t113 47ZM160-80v-80h80v-120q0-61 28.5-114.5T348-480q-51-32-79.5-85.5T240-680v-120h-80v-80h640v80h-80v120q0 61-28.5 114.5T612-480q51 32 79.5 85.5T720-280v120h80v80H160Z" />
+                        </svg>
+                    </div>
+                </button>
+            </form>
         </section>
 
         <section class="form-container">
@@ -189,7 +179,6 @@ define('MENU_ALLOWED', true);
                 </h1>
                 <p>Your data will be deleted along with all monitors with their associated data.</p>
             </div>
-
 
             <button id="delete-account-btn" class="openModal" data-modal="delete-account" class="openModal">
                 <div class="text show">
@@ -215,7 +204,6 @@ define('MENU_ALLOWED', true);
                     <path
                         d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
                 </svg>
-
             </button>
         </div>
         <div class="dialog-body">
@@ -238,15 +226,12 @@ define('MENU_ALLOWED', true);
         </div>
     </dialog>
 
-
     <script src="../js/page_transition.js"></script>
     <script src="../js/components/alert.js"></script>
     <script src="../js/modal.js"></script>
     <script src="../js/user_config/update_name.js"></script>
     <script src="../js/user_config/update_password.js"></script>
     <script src="../js/user_config/delete_account.js"></script>
-
-
 </body>
 
 </html>

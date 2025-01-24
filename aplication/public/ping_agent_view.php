@@ -27,6 +27,7 @@ define('MENU_ALLOWED', true);
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/palette.css" />
     <link rel="stylesheet" href="../css/components/alert.css" />
+    <link rel="stylesheet" href="../css/components/tooltip.css" />
     <link rel="stylesheet" href="../css/ping_agent_view.css" />
 
 </head>

@@ -330,11 +330,9 @@
 
 .dropdown-button {
     width: 140px;
-    background-color: var(--button-primary);
     color: var(--text-color);
     padding: 8px;
     border: none;
-    border-radius: 5px;
     font-weight: 400;
     cursor: pointer;
     font-size: clamp(.75rem, 1.5vw, .9rem);

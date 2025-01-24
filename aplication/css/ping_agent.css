@@ -163,24 +163,13 @@
 }
 
 .create-agent {
-    color: var(--text-color);
     display: flex;
     justify-content: center;
     gap: 8px;
     padding: 15px;
-    border-radius: 8px;
-    background-color: var(--button-primary);
     margin-top: auto;
     height: 60px;
     font-size: 1rem;
-}
-
-.create-agent:hover {
-    background-color: var(--button-primary-hover);
-}
-
-button.create-agent:disabled {
-    background-color: var(--button-primary-disabled);
 }
 
 .add-transport {
@@ -204,46 +193,6 @@ button.create-agent:disabled {
     border-bottom: 1px solid var(--text-color);
     transition: border-bottom .35s;
 }
-
-/*
-.comming-soon{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    cursor: context-menu;
-    text-wrap: nowrap ;
-}
-
-.comming-soon h1 {
-    font-size: clamp(1.5rem, 5.5vw, 2.5rem);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-    color: rgba(245, 245, 245, 0.253);
-    animation: blink 3s ease 0s infinite normal forwards;
-}
-
-.comming-soon svg{
-    width: clamp(1.5rem, 5.5vw, 2.5rem);
-    height: clamp(1.5rem, 5.5vw, 2.5rem);
-}
-
-@keyframes blink {
-	0% {
-		opacity: 1;
-	}
-
-	50% {
-		opacity: 0.2;
-	}
-
-	100% {
-		opacity: 1;
-	}
-}
-*/
 
 /*-checkbox-*/
 

@@ -6,7 +6,6 @@ main {
     gap: 25px;
 }
 
-
 .form-container {
     display: flex;
     flex-direction: column;
@@ -60,24 +59,13 @@ main {
 }
 
 .form-container .add_transport {
-    background-color: var(--button-primary);
     display: flex;
     justify-content: center;
     padding: 5px;
-    border-radius: 5px;
     margin-left: auto;
 }
 
-.form-container .add_transport:hover {
-    background-color: var(--button-primary-hover);
-}
-
-.form-container .add_transport:disabled {
-    background-color: var(--button-primary-disabled);
-}
-
 .form-container .add_transport.large {
-    background-color: var(--button-primary);
     width: 100%;
     height: 38px;
 }
@@ -149,7 +137,6 @@ fill: var(--alert-success);
     fill: var(--accent-red-hover);
 }
 
-
 .transport_options button.edit svg {
     fill: var(--accent-blue);
 }
@@ -168,7 +155,6 @@ fill: var(--alert-success);
     background-color: transparent;
 }
 
-
 /*
 DIALOGS
 */
@@ -186,13 +172,11 @@ DIALOGS
 }
 
 #addEmailBtn, #addTelegramBtn {
-    background-color: var(--button-primary);
     width: 100%;
     height: 38px;
     border-radius: 5px;
     margin-top: 15px;
 }
-
 
 .dialog-options {
     display: flex;
