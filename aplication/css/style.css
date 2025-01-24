@@ -596,66 +596,6 @@ dialog form button .text.show {
 }
 
 /*
-╔══════════╗
-║ Dropdown ║
-╚══════════╝
-Pasar a componentes
-*/
-
-/*Dropdown*/
-.dropdown_menu_container {
-    width: fit-content;
-    position: relative;
-    text-wrap: nowrap;
-
-}
-
-.dropdown_menu {
-    position: absolute;
-    z-index: 1;
-    width: fit-content;
-    /*height: ; Se especifica en cada pagina*/
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    overflow: hidden;
-    list-style: none;
-    transition: height .3s cubic-bezier(0, 0.55, 0.45, 1);
-    border-radius: 3px;
-}
-
-.dropdown_menu a,
-.dropdown_menu button {
-    background-color: var(--dropdownMenu-background);
-    width: 100%;
-    padding: 10px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    font-size: 1rem;
-    gap: 10px;
-
-}
-
-.dropdown_menu a:hover,
-.dropdown_menu button:hover {
-    background-color: var(--dropdownMenuItem-hover);
-
-}
-
-.dropdown_menu button:active {
-    transform: none;
-}
-
-.dropdown_menu.collapsed {
-    height: 0px;
-    border: 0px;
-}
-
-
-/*
 ╔══════════════════════════╗
 ║ Transicion entre páginas ║
 ╚══════════════════════════╝
