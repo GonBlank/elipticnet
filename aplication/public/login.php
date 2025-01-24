@@ -50,6 +50,10 @@ $authUrl = $client->createAuthUrl();
     <link rel="stylesheet" href="../css/components/alert.css" />
     <link rel="stylesheet" href="../css/components/googeBtn.css" />
     <link rel="stylesheet" href="../css/login.css" />
+
+    <!-- Re Captcha v3 -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6LdbfsIqAAAAAJC2-7BKJzl180BpsN1_Bqy1t_Yv"></script>
+
 </head>
 
 <body>
@@ -228,6 +232,13 @@ $authUrl = $client->createAuthUrl();
                         </svg>
                     </div>
                 </button>
+<!--
+                <button class="g-recaptcha"
+                    data-sitekey="6LdbfsIqAAAAAJC2-7BKJzl180BpsN1_Bqy1t_Yv"
+                    data-callback='onSubmit'
+                    data-action='submit'>Submit</button>
+-->
+
             </form>
         </div>
     </dialog>

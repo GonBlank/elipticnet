@@ -43,6 +43,11 @@ button:disabled {
     transform: none;
 }
 
+/*
+button:hover {
+    background-color: var(--button-primary-hover);
+}
+*/
 
 /*
 button.small {

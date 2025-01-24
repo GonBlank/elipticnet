@@ -291,3 +291,8 @@ dialog {
         padding: 0px !important;
     }
 }
+
+/*-esconde el recaptcha-*/
+.grecaptcha-badge{
+    display: none !important;
+}

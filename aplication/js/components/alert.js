@@ -25,9 +25,9 @@ function ShowAlert(image, title, message, type, link_text = null, link = null) {
 
     // Manejo del tiempo de visibilidad de la alerta
     setTimeout(() => {
-        alertArticle.classList.replace('show', 'hide'); // Reemplazar clase directamente
-        setTimeout(() => alertArticle.remove(), 900); // Remover tras la animación
-    }, 3900);
+        alertArticle.classList.replace('show', 'hide');
+        setTimeout(() => alertArticle.remove(), 2000); // Remuele el objeto del DOM luego de 3 segundos
+    }, 5500);//Tiempo que se muestra la alerta en pantalla
 }
 
 function selectAlertImage(image) {

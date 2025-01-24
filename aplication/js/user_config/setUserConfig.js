@@ -1,5 +1,3 @@
-
-
 // Crear un objeto FormData para enviar el parámetro por POST
 const formData = new FormData();
 formData.append('languageCode', (navigator.language || navigator.userLanguage).split('-')[0]);  // Aquí agregamos correctamente el valor del validation_hash

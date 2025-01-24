@@ -83,60 +83,76 @@ document.addEventListener("DOMContentLoaded", function () {
     signUpbtn.addEventListener('click', function (event) {
         event.preventDefault(); // Previene el comportamiento por defecto del botón
 
-        if (!validateUserData()) {
-            return; // No enviar datos si la validación falla
-        }
-
         // Cambiar el estado del botón para mostrar el loader
         toggleButtonState(true);
 
-        // Obtener los valores del formulario
-        const username = document.getElementById('register-username');
-        const email = document.getElementById('register-user-email');
-        const password = document.getElementById('register-user-password');
+        // Ejecutar reCAPTCHA primero
+        grecaptcha.ready(function () {
+            grecaptcha.execute('6LdbfsIqAAAAAJC2-7BKJzl180BpsN1_Bqy1t_Yv', { action: 'submit' })
+                .then(function (token) {
+                    // Token obtenido con éxito
+                    const captchaToken = token;
 
-        // Crear un objeto con los datos del nuevo host
-        // Crear un objeto con los datos del nuevo usuario
-        const newUser = {
-            username: username.value,
-            email: email.value,
-            password: password.value,
-            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            language: (navigator.language || navigator.userLanguage).split('-')[0],
-        };
+                    // Validar datos del formulario
+                    if (!validateUserData()) {
+                        toggleButtonState(false); // Restablecer el botón si falla la validación
+                        return;
+                    }
 
-        // Enviar los datos al backend usando fetch
-        fetch('../php/sesion/signup.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newUser),
-        })
-            .then(response => {
-                if (!response.ok) {
-                    ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
-                    throw new Error(`[Response error]: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
-                if (!data.error) {
-                    username.value = '';
-                    email.value = '';
-                    password.value = '';
+                    // Obtener los valores del formulario
+                    const username = document.getElementById('register-username');
+                    const email = document.getElementById('register-user-email');
+                    const password = document.getElementById('register-user-password');
 
-                }
-            })
-            .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'))
-            .finally(() => {
-                // Restablecer el estado del botón
-                toggleButtonState(false);
+                    // Crear un objeto con los datos del nuevo usuario
+                    const newUser = {
+                        username: username.value,
+                        email: email.value,
+                        password: password.value,
+                        captchaToken: captchaToken,
+                        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                        language: (navigator.language || navigator.userLanguage).split('-')[0],
+                    };
 
-                // Cerrar el diálogo
-                const dialog = document.getElementById('sign-up');
-                dialog.close(); // Cerrar el diálogo
-            });
+                    // Enviar los datos al backend usando fetch
+                    fetch('../php/sesion/signup.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(newUser),
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
+                                throw new Error(`[Response error]: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
+                            if (!data.error) {
+                                username.value = '';
+                                email.value = '';
+                                password.value = '';
+                            }
+                        })
+                        .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'))
+                        .finally(() => {
+                            // Restablecer el estado del botón
+                            toggleButtonState(false);
+
+                            // Cerrar el diálogo
+                            const dialog = document.getElementById('sign-up');
+                            dialog.close();
+                        });
+                })
+                .catch(error => {
+                    // Manejar errores de reCAPTCHA
+                    ShowAlert('error', 'reCAPTCHA Error', `Failed to execute reCAPTCHA: ${error.message || error}`, 'error');
+                    toggleButtonState(false);
+                });
+        });
     });
+
 });

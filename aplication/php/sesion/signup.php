@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 $user = json_decode(file_get_contents('php://input'), true);
 
 
-if (!isset($user['username']) || !isset($user['email']) || !isset($user['password']) || !isset($user['timeZone']) || !isset($user['language']) ) {
+if (!isset($user['username']) || !isset($user['email']) || !isset($user['password']) || !isset($user['timeZone']) || !isset($user['language']) || !isset($user['captchaToken'])) {
     echo json_encode(["error" => true, "type" => "error", "title" => "Invalid request", "message" => "data no set"]);
     exit;
 }
@@ -25,6 +25,34 @@ $email = $user['email'];
 $raw_password = $user['password'];
 $time_zone = $user['timeZone'];
 $language = $user['language'];
+
+//reCaptcha v3
+$token = $user['captchaToken'];
+
+$cu = curl_init();
+curl_setopt($cu, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
+curl_setopt($cu, CURLOPT_POST, 1);
+curl_setopt($cu, CURLOPT_POSTFIELDS, http_build_query(array('secret' => RECAPTCHA_SECRET, 'response' => $token)));
+curl_setopt($cu, CURLOPT_RETURNTRANSFER, true);
+$reponse = curl_exec($cu);
+curl_close($cu);
+$re_captcha = json_decode($reponse, true);
+
+// Validar respuesta de reCAPTCHA
+if (!$re_captcha['success'] || $re_captcha['score'] <= 0.5) {
+    $errorCodes = isset($re_captcha['error-codes']) ? implode(', ', $re_captcha['error-codes']) : 'Unknown error';
+    error_log("[ERROR] " . __FILE__ . "reCaptcha error: " . $errorCodes);
+
+    echo json_encode([
+        "error" => true,
+        "type" => "error",
+        "title" => "Invalid captcha",
+        "message" => "Your captcha score identifies you as non-human. If this is an error, please ",
+        "link_text" => "contact support",
+        "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."
+    ]);
+    exit;
+}
 
 // Validate password length
 $password_length = strlen($raw_password);
@@ -101,7 +129,7 @@ try {
 
     if (!$stmt->execute()) {
         error_log("[ERROR] " . __FILE__ . ": " . $e->getMessage());
-        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);        
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -117,7 +145,7 @@ try {
 
     if (!$stmt) {
         error_log("[ERROR] " . __FILE__ . ": " . $conn->error);
-        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);        
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -140,7 +168,7 @@ try {
 
     if (!$stmt) {
         error_log("[ERROR] " . __FILE__ . ": " . $conn->error);
-        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);        
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -150,7 +178,7 @@ try {
 
     if (!$stmt->execute()) {
         error_log("[ERROR] " . __FILE__ . ": " . $e->getMessage());
-        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);        
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 
@@ -168,7 +196,7 @@ try {
 } catch (Exception $e) {
     // Manejo de errores
     error_log("[ERROR] " . __FILE__ . ": " . $e->getMessage());
-    echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);        
+    echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
 } finally {
     if (isset($stmt) && $stmt !== false) {
         $stmt->close();
