@@ -1,6 +1,6 @@
 
 <?php
-require_once '../env.php';
+require_once __DIR__ . '/../../env.php';
 
 function validate_transport_email_template($user_name, $hash)
 {
@@ -46,7 +46,7 @@ function validate_transport_email_template($user_name, $hash)
         src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k4lvYw.woff2') format('woff2');
     }
 
-    body {
+    * {
         font-family: 'Lexend', Arial, sans-serif;
     }
 </style>

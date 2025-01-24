@@ -3,7 +3,11 @@ require __DIR__ . "/../../env.php";
 require __DIR__ . "/vendor/autoload.php";
 require __DIR__ . "/../../functions/create_session.php";
 
-//session_start(); // Asegúrate de iniciar la sesión
+require_once __DIR__ . '/../../email/email.php';
+require_once __DIR__ . '/../../email/templates/welcome_new_user.php';
+
+
+
 
 $client = new Google\Client;
 
@@ -33,15 +37,6 @@ $client->setAccessToken($token["access_token"]);
 $oauth = new Google\Service\Oauth2($client);
 
 $userinfo = $oauth->userinfo->get();
-
-/*
-var_dump(
-    $userinfo->email,
-    $userinfo->familyName,
-    $userinfo->givenName,
-    $userinfo->name
-);
-*/
 
 $email = $userinfo->email;
 $name = $userinfo->name;
@@ -208,13 +203,10 @@ try {
     ║ Enviar email de bienvenida ║
     ╚════════════════════════════╝
     */
-    error_log("[ERROR] " . __FILE__ . ": Enviar email");
+    $body = welcome_new_user_template($name);
+    send_email($body, "Welcome to Elipticnet!", $email);
+
     header("Location: " . APP_LINK . "/aplication/public/home.php");
-    /*
-    $body = validate_email_template($name, $validation_hash);
-    send_email($body, "Verify your email", $email);
-    echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Check your email to finish registration"]);
-    */
 
     /* Loguearse */
 } catch (Exception $e) {
@@ -229,11 +221,3 @@ try {
         $conn->close();
     }
 }
-
-//$verified_email = $userinfo->verified_email;
-/* Verificar si el usuario ya existe en la base de datos
- * Si existe en la base de datos, darle acceso a la web
- * Si no existe en la base de datos, crear el registro en usuarios - user_config y transports. 
- * Ver si la cuenta está verificada.
- * Si está verificada enviarle correo de bienvenida.
- * Si no esta verificada enviarle correo de validacion.*/

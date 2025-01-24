@@ -71,7 +71,7 @@ def ping_agent_up_template(owner, id, name, ip, last_down):
         src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k4lvYw.woff2') format('woff2');
     }}
 
-    body {{
+    * {{
          font-family: 'Lexend', Arial, sans-serif;
     }}
 
@@ -227,7 +227,7 @@ def ping_agent_down_template(owner, id, name, ip, cause):
         src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k4lvYw.woff2') format('woff2');
     }}
 
-    body {{
+    * {{
          font-family: 'Lexend', Arial, sans-serif;
     }}
 
@@ -382,7 +382,7 @@ def ping_agent_latency_threshold_exceeded(owner, id, name, ip, latency, threshol
         src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k4lvYw.woff2') format('woff2');
     }}
 
-    body {{
+    * {{
          font-family: 'Lexend', Arial, sans-serif;
     }}
 
@@ -544,7 +544,7 @@ def ping_agent_latency_threshold_restored(owner, id, name, ip, latency, threshol
         src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k4lvYw.woff2') format('woff2');
     }}
 
-    body {{
+    * {{
          font-family: 'Lexend', Arial, sans-serif;
     }}
 

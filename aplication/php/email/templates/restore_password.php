@@ -1,6 +1,6 @@
 
 <?php
-require_once '../env.php';
+require_once __DIR__ . '/../../env.php';
 
 function restore_password_template($hash)
 {
@@ -46,7 +46,7 @@ function restore_password_template($hash)
         src: url('https://fonts.gstatic.com/s/lexend/v35/wlpzgwfFfC1xl7r4k4lvYw.woff2') format('woff2');
     }
 
-    body {
+    * {
         font-family: 'Lexend', Arial, sans-serif;
     }
 </style>
