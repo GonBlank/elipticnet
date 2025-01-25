@@ -5,4 +5,3 @@
 client_secret.json
 *.log
 aplication/python/elipticnet_env/
-vendor/
