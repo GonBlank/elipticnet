@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Enviar los datos al backend usando fetch
         fetch('../php/user_config/update_password.php', {
-            method: 'POST',
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
             },

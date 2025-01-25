@@ -168,9 +168,9 @@ define('MENU_ALLOWED', true);
     <script src="../js/modal.js"></script>
     <script src="../js/page_transition.js"></script>
     <script src="../js/functions/remove_load_curtain.js"></script>
-    <script src="../js/drop_down_new.js"></script>
     <script src="../js/API/load_home_view.js"></script>
     <script src="../js/components/alert.js"></script>
+    <script src="../js/components/linkDropDown.js"></script>
 
     <?php
     if (!isset($user['time_zone']) || !isset($user['languageCode'])) {

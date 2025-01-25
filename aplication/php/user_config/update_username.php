@@ -6,13 +6,11 @@ $user = checkAuth();
 $owner = $user['id'];
 
 // Validar método
-if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+if ($_SERVER['REQUEST_METHOD'] != 'PATCH') {
     echo json_encode(["error" => true, "type" => "error", "title" => "Invalid Request", "message" => "Invalid request method or missing id"]);
     exit;
 }
 
-
-// Obtener los datos JSON enviados a través del POST
 $data = json_decode(file_get_contents('php://input'), true);
 
 if (!isset($data['username'])) {

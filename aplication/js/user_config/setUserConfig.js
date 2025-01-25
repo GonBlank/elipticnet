@@ -1,14 +1,14 @@
-// Crear un objeto FormData para enviar el parámetro por POST
-const formData = new FormData();
-formData.append('languageCode', (navigator.language || navigator.userLanguage).split('-')[0]);  // Aquí agregamos correctamente el valor del validation_hash
-formData.append('time_zone', Intl.DateTimeFormat().resolvedOptions().timeZone);  // Aquí agregamos correctamente el valor del validation_hash
+/*
+ * Configura la zona horaria y el idioma que tiene el navegador del cliente
+ * Actúa para usuarios que se registran usando google
+ */
+
 
 const configData = {
     timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     language: (navigator.language || navigator.userLanguage).split('-')[0],
 };
 
-// Enviar el parámetro a validate_email.php mediante POST
 fetch('../php/user_config/setUserConfig.php', {
     method: 'POST',
     headers: {

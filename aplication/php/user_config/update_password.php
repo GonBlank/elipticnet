@@ -9,7 +9,7 @@ $owner = $user['id'];
 
 
 // Validar el método de la solicitud
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+if ($_SERVER["REQUEST_METHOD"] !== "PATCH") {
     echo json_encode(["error" => true, "type" => "error", "title" => "Invalid request", "message" => "Invalid request method"]);
     exit;
 }
