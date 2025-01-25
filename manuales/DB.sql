@@ -52,6 +52,7 @@ CREATE TABLE transports (
     transport_id VARCHAR(255) NOT NULL,         -- Almacena el contacto del usuario
     valid BOOLEAN NOT NULL DEFAULT False,          -- Estado de validación, 0 = no validado, 1 = validado
     retries INT DEFAULT NULL,           -- Reenvio de mensajes de validación
+    message_counter INT DEFAULT 0,   -- Contador de mensajes enviados
     validation_sent BOOLEAN DEFAULT NULL, -- True si se envio notificacion para validar el transporte
     validation_hash CHAR(24),         -- Hash de validación de 24 caracteres en hexadecimal
     hash_date DATETIME,               -- Fecha y hora de creación del hash
