@@ -77,7 +77,7 @@ def ping_agent_up_template(owner, id, name, ip, last_down):
 
     p {{
         font-weight: 300;
-        font-size: 13px;
+        font-size: 16px;
     }}
 
     h1 {{
@@ -162,7 +162,7 @@ def ping_agent_up_template(owner, id, name, ip, last_down):
                             <!-- Botón -->
                             <div style="text-align: center;">
                                 <a href="{APP_LINK + "/aplication/public/ping_agent_view.php?id=" + id}"
-                                    style="display: inline-block; padding: 12px 20px; background-color: #7230f7; color: white; text-decoration: none; border-radius: 8px; font-size: 16px; margin: 25px 0;">
+                                    style="display: inline-block; padding: 12px 20px; background-color: #7230f7; color: #F5F0FE; font-weight: 400; text-decoration: none; border-radius: 8px; font-size: 16px; margin: 25px 0;">
                                     GO TO AGENT
                                 </a>
                             </div>
@@ -174,8 +174,8 @@ def ping_agent_up_template(owner, id, name, ip, last_down):
 
                     <footer style="margin-top: 10px; text-align: center;">
                         <small style="color: black; font-size: 12px; margin-top: 20px; display: inline-block;">
-                            This email was sent by <a href="{APP_LINK}">elipticnet.com</a>. You can update your
-                            alert preferences in the <a href="{APP_LINK + "/aplication/public/ping_agent_edit.php?id=" + id}">agent</a>.
+                            This email was sent by <a href="{APP_LINK}" style="font-weight: 600; color: #7230f7; text-decoration: none;">elipticnet.com</a>. You can update your
+                            alert preferences in the <a href="{APP_LINK + '/aplication/public/ping_agent_edit.php?id=' + id}" style="font-weight: 600; color: #7230f7; text-decoration: none;"> agent </a>.
                         </small>
                     </footer>
 
@@ -233,7 +233,7 @@ def ping_agent_down_template(owner, id, name, ip, cause):
 
     p {{
         font-weight: 300;
-        font-size: 13px;
+        font-size: 16px;
     }}
 
     h1 {{
@@ -317,7 +317,7 @@ def ping_agent_down_template(owner, id, name, ip, cause):
                             <!-- Botón -->
                             <div style="text-align: center;">
                                 <a href="{APP_LINK + "/aplication/public/ping_agent_view.php?id=" + id}"
-                                    style="display: inline-block; padding: 12px 20px; background-color: #7230f7; color: white; text-decoration: none; border-radius: 8px; font-size: 16px; margin: 25px 0;">
+                                    style="display: inline-block; padding: 12px 20px; background-color: #7230f7; color: #F5F0FE; font-weight: 400; text-decoration: none; border-radius: 8px; font-size: 16px; margin: 25px 0;">
                                     GO TO AGENT
                                 </a>
                             </div>
@@ -329,8 +329,8 @@ def ping_agent_down_template(owner, id, name, ip, cause):
 
                     <footer style="margin-top: 10px; text-align: center;">
                         <small style="color: black; font-size: 12px; margin-top: 20px; display: inline-block;">
-                            This email was sent by <a href="{APP_LINK}">elipticnet.com</a>. You can update your
-                            alert preferences in the <a href="{APP_LINK + "/aplication/public/ping_agent_edit.php?id=" + id}">agent</a>.
+                            This email was sent by <a href="{APP_LINK}" style="font-weight: 600; color: #7230f7; text-decoration: none;">elipticnet.com</a>. You can update your
+                            alert preferences in the <a href="{APP_LINK + '/aplication/public/ping_agent_edit.php?id=' + id}" style="font-weight: 600; color: #7230f7; text-decoration: none;">agent</a>.
                         </small>
                     </footer>
 
@@ -388,7 +388,7 @@ def ping_agent_latency_threshold_exceeded(owner, id, name, ip, latency, threshol
 
     p {{
         font-weight: 300;
-        font-size: 13px;
+        font-size: 16px;
     }}
 
     h1 {{
@@ -480,7 +480,7 @@ def ping_agent_latency_threshold_exceeded(owner, id, name, ip, latency, threshol
                             <!-- Botón -->
                             <div style="text-align: center;">
                                 <a href="{APP_LINK + "/aplication/public/ping_agent_view.php?id=" + id}"
-                                    style="display: inline-block; padding: 12px 20px; background-color: #7230f7; color: white; text-decoration: none; border-radius: 8px; font-size: 16px; margin: 25px 0;">
+                                    style="display: inline-block; padding: 12px 20px; background-color: #7230f7; color: #F5F0FE; font-weight: 400; text-decoration: none; border-radius: 8px; font-size: 16px; margin: 25px 0;">
                                     GO TO AGENT
                                 </a>
                             </div>
@@ -492,8 +492,8 @@ def ping_agent_latency_threshold_exceeded(owner, id, name, ip, latency, threshol
 
                     <footer style="margin-top: 10px; text-align: center;">
                         <small style="color: black; font-size: 12px; margin-top: 20px; display: inline-block;">
-                            This email was sent by <a href="{APP_LINK}">elipticnet.com</a>. You can update your
-                            alert preferences in the <a href="{APP_LINK + "/aplication/public/ping_agent_edit.php?id=" + id}">agent</a>.
+                            This email was sent by <a href="{APP_LINK}" style="font-weight: 600; color: #7230f7; text-decoration: none;">elipticnet.com</a>. You can update your
+                            alert preferences in the <a href="{APP_LINK + '/aplication/public/ping_agent_edit.php?id=' + id}" style="font-weight: 600; color: #7230f7; text-decoration: none;">agent</a>.
                         </small>
                     </footer>
 
@@ -550,7 +550,7 @@ def ping_agent_latency_threshold_restored(owner, id, name, ip, latency, threshol
 
     p {{
         font-weight: 300;
-        font-size: 13px;
+        font-size: 16px;
     }}
 
     h1 {{
@@ -639,7 +639,7 @@ def ping_agent_latency_threshold_restored(owner, id, name, ip, latency, threshol
                             <!-- Botón -->
                             <div style="text-align: center;">
                                 <a href="{APP_LINK + "/aplication/public/ping_agent_view.php?id=" + id}"
-                                    style="display: inline-block; padding: 12px 20px; background-color: #7230f7; color: white; text-decoration: none; border-radius: 8px; font-size: 16px; margin: 25px 0;">
+                                    style="display: inline-block; padding: 12px 20px; background-color: #7230f7; color: #F5F0FE; font-weight: 400; text-decoration: none; border-radius: 8px; font-size: 16px; margin: 25px 0;">
                                     GO TO AGENT
                                 </a>
                             </div>
@@ -651,8 +651,8 @@ def ping_agent_latency_threshold_restored(owner, id, name, ip, latency, threshol
 
                     <footer style="margin-top: 10px; text-align: center;">
                         <small style="color: black; font-size: 12px; margin-top: 20px; display: inline-block;">
-                            This email was sent by <a href="{APP_LINK}">elipticnet.com</a>. You can update your
-                            alert preferences in the <a href="{APP_LINK + "/aplication/public/ping_agent_edit.php?id=" + id}"agent</a>.
+                            This email was sent by <a href="{APP_LINK}" style="font-weight: 600; color: #7230f7; text-decoration: none;">elipticnet.com</a>. You can update your
+                            alert preferences in the <a href="{APP_LINK + '/aplication/public/ping_agent_edit.php?id=' + id}" style="font-weight: 600; color: #7230f7; text-decoration: none;" >agent</a>.
                         </small>
                     </footer>
 
