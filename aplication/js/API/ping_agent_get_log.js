@@ -24,7 +24,6 @@ function ping_agent_get_log() {
             if (data.error) {
                 ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
             } else {
-                console.log(data);
                 create_log_table(data);
             }
         })

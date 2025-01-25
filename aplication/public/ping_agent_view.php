@@ -28,6 +28,7 @@ define('MENU_ALLOWED', true);
     <link rel="stylesheet" href="../css/palette.css" />
     <link rel="stylesheet" href="../css/components/alert.css" />
     <link rel="stylesheet" href="../css/components/tooltip.css" />
+    <link rel="stylesheet" href="../css/components/link_drop_down.css" />
     <link rel="stylesheet" href="../css/ping_agent_view.css" />
 
 </head>
@@ -344,13 +345,16 @@ define('MENU_ALLOWED', true);
     </dialog>
 
 
-    <script src="../js/drop_down_new.js"></script>
+    
     <script src="../js/page_transition.js"></script>
-    <script src="../js/modal.js"></script>
     <script src="../js/components/alert.js"></script>
-
     <script src="../js/functions/get_url_param_id.js"></script> <!-- pronto deprecado -->
     <script src="../js/functions/remove_load_curtain.js"></script>
+    
+    <script src="../js/modal.js"></script>
+    <script src="../js/components/linkDropDown.js"></script>
+
+
 
     <script src="../modules/echart/node_modules/echarts/dist/echarts.min.js"></script>
 

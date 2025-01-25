@@ -8,10 +8,10 @@ with open(CONFIG_PATH, "r") as file:
     config = json.load(file)
 
 # Configuración SMTP
-smtp_host = config["email"]["SMTP_HOST"]
-smtp_port = 465
-smtp_user = config["email"]["SMTP_USER"]
-smtp_password = config["email"]["SMTP_PASS"]
+smtp_host = config["email"]["alerts"]["SMTP_HOST"]
+smtp_port = config["email"]["alerts"]["SMTP_PORT"]
+smtp_user = config["email"]["alerts"]["SMTP_USER"]
+smtp_password = config["email"]["alerts"]["SMTP_PASS"]
 
 # ╔═════════════╗
 # ║ LOG CONFIG  ║
@@ -28,7 +28,12 @@ def send_email(to, subject, body):
     try:
         # Crear el mensaje
         msg = MIMEMultipart()
-        msg["From"] = smtp_user
+
+        # Aquí configuramos el nombre del remitente y la dirección de correo
+        msg["From"] = (
+            "Elipticnet Alert <" + smtp_user + ">"
+        )  # Modificado para incluir el nombre
+
         msg["To"] = to
         msg["Subject"] = subject
 

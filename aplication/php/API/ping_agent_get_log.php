@@ -58,7 +58,9 @@ try {
     $result = $stmt->get_result();
 
     if ($result->num_rows == 0) {
-        echo json_encode(["error" => true, "type" => "error", "title" => "We cannot identify the requested agent, if you continue receiving this error, ", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
+        // Si no hay resultados, devolver un mensaje vacío
+        header('Content-Type: application/json');
+        echo json_encode([]);
         exit;
     }
 
