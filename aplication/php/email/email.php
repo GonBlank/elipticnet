@@ -7,13 +7,7 @@ require "vendor/autoload.php";
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
-/*
-require __DIR__ . '/PHPmailer/Exception.php';
-require __DIR__ . '/PHPmailer/PHPMailer.php';
-require __DIR__ . '/PHPmailer/SMTP.php';
-*/
 
-send_email("Prueba de correo desde PHPMailer", "Estoy probando que el correo se pueda mandar con la nueva version de composer que baje", "blanco.gonzalo.v@gmail.com");
 function send_email($body, $subject, $client_email)
 {
     $mail = new PHPMailer(true);
