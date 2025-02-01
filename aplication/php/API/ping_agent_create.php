@@ -98,7 +98,7 @@ try {
     ╚══════════════╝
     */
 
-    echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Hostess created successfully"]);
+    echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "Agent created successfully"]);
     exit;
 } catch (Exception $e) {
     error_log("[ERROR] " . __FILE__ . ": " . $e->getMessage());
