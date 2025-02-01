@@ -60,19 +60,19 @@ document.addEventListener("DOMContentLoaded", function () {
         // Cambiar el estado del botón para mostrar el loader
         toggleButtonState('createAgent', true);
 
-        const url = document.getElementById('url').value;
-        let alias = document.getElementById('alias').value;
-        let requestTimeout = document.getElementById('requestTimeout').value;
+        const url = document.getElementById('url');
+        let alias = document.getElementById('alias');
+        let requestTimeout = document.getElementById('requestTimeout');
         const sslExpiry = document.getElementById('sslExpiry-checkbox').checked;
         const domainExpiry = document.getElementById('domainExpiry-checkbox').checked;
         const checkSslError = document.getElementById('checkSslError-checkbox').checked;
 
-        if (!alias) {
-            alias = url;
+        if (!alias.value) {
+            alias.value = url.value;
         }
 
-        if (!requestTimeout) {
-            requestTimeout = 30; //expresado en segundos
+        if (!requestTimeout.value) {
+            requestTimeout.value = 30; //expresado en segundos
         }
 
         // Seleccionar el contenedor de transportes
@@ -86,9 +86,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Crear un objeto con los datos del nuevo agente
         const newWebAgent = {
-            url: url,
-            alias: alias,
-            requestTimeout: requestTimeout,
+            url: url.value,
+            alias: alias.value,
+            requestTimeout: requestTimeout.value,
             sslExpiry: sslExpiry,
             domainExpiry: domainExpiry,
             checkSslError: checkSslError,
@@ -96,22 +96,21 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         console.log(newWebAgent);
-        /*
-        fetch('../php/API/ping_agent_create.php', {
+        
+        fetch('../php/API/web_agent/web_agent_create.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(newHost),
+            body: JSON.stringify(newWebAgent),
         })
             .then(response => response.json())
             .then(data => {
                 ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
                 if (!data.error) {
-                    hostName.value = '';
-                    hostIp.value = '';
-                    description.value = '';
-                    threshold.value = '';
+                    url.value = '';
+                    alias.value = '';
+                    requestTimeout.value = '';
                     setTimeout(() => {
                         window.location.href = 'home.php';
                     }, 2000);
@@ -122,6 +121,5 @@ document.addEventListener("DOMContentLoaded", function () {
                 toggleButtonState('createAgent', false);
 
             });
-            */
     });
 });

@@ -112,11 +112,14 @@ CREATE TABLE latency (
 CREATE TABLE web_agent_data (
     id INT AUTO_INCREMENT PRIMARY KEY,
     owner INT NOT NULL,
-    url VARCHAR,
-    alias VARCHAR NOT NULL,
-    state_code INT NULL,
+    url VARCHAR(512),
+    alias VARCHAR(512) NOT NULL,
+    state_code INT DEFAULT NULL,
     last_check DATETIME DEFAULT NULL,
     request_timeout INT DEFAULT NULL,
+    ssl_expiry BOOLEAN DEFAULT False, 
+    domain_expiry BOOLEAN DEFAULT False, 
+    check_sslError BOOLEAN DEFAULT False, 
     transports JSON,
     FOREIGN KEY (owner) REFERENCES users(id)
         ON DELETE CASCADE
