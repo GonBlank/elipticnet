@@ -1,0 +1,127 @@
+import { toggleButtonState } from '../../functions/toggleButtonState.js';
+
+document.addEventListener("DOMContentLoaded", function () {
+    const createAgentButton = document.getElementById('createAgent');
+
+
+    function validateHostData() {
+        // Limpiar errores anteriores
+        const inputs = document.querySelectorAll('.input');
+        inputs.forEach(input => {
+            input.classList.remove('error');
+            const errorMessage = document.getElementById(`${input.id}Error`);
+            if (errorMessage) errorMessage.textContent = '';
+        });
+
+        // Obtener los valores del formulario
+        const url = document.getElementById('url').value;
+        const alias = document.getElementById('alias').value;
+        const requestTimeout = document.getElementById('requestTimeout').value;
+        let isValid = true;
+
+
+        // Validar los datos del formulario
+        if (!url) {
+            isValid = false;
+            document.getElementById('url').classList.add('error');
+            document.getElementById('urlError').textContent = 'Url is required.';
+        }
+
+        try {
+            new URL(url); // Si no es una URL válida, lanzará un error
+        } catch {
+            isValid = false;
+            document.getElementById('url').classList.add('error');
+            document.getElementById('urlError').textContent = 'Invalid URL.';
+        }
+
+        if (alias.length > 25) {
+            isValid = false;
+            document.getElementById('alias').classList.add('error');
+            document.getElementById('aliasError').textContent = 'Alias must be less than 25 characters.';
+        }
+
+        if (requestTimeout > 60) {
+            isValid = false;
+            document.getElementById('requestTimeout').classList.add('error');
+            document.getElementById('requestTimeoutError').textContent = 'Timeout must be less than 60 sec.';
+        }
+
+        return isValid;
+    }
+
+    createAgentButton.addEventListener('click', function (event) {
+        event.preventDefault(); // Previene el comportamiento por defecto del botón
+
+        if (!validateHostData()) {
+            return; // No enviar datos si la validación falla
+        }
+
+        // Cambiar el estado del botón para mostrar el loader
+        toggleButtonState('createAgent', true);
+
+        const url = document.getElementById('url').value;
+        let alias = document.getElementById('alias').value;
+        let requestTimeout = document.getElementById('requestTimeout').value;
+        const sslExpiry = document.getElementById('sslExpiry-checkbox').checked;
+        const domainExpiry = document.getElementById('domainExpiry-checkbox').checked;
+        const checkSslError = document.getElementById('checkSslError-checkbox').checked;
+
+        if (!alias) {
+            alias = url;
+        }
+
+        if (!requestTimeout) {
+            requestTimeout = 30; //expresado en segundos
+        }
+
+        // Seleccionar el contenedor de transportes
+        const transportSection = document.querySelector('.alert-transports');
+
+        // Seleccionar solo los checkboxes dentro de .alert-transports que estén marcados
+        const selectedCheckboxes = transportSection.querySelectorAll('.checkbox-wrapper-13 input[type="checkbox"]:checked');
+
+        // Obtener los IDs de los checkboxes seleccionados
+        const TransportsSelected = Array.from(selectedCheckboxes).map(checkbox => checkbox.id);
+
+        // Crear un objeto con los datos del nuevo agente
+        const newWebAgent = {
+            url: url,
+            alias: alias,
+            requestTimeout: requestTimeout,
+            sslExpiry: sslExpiry,
+            domainExpiry: domainExpiry,
+            checkSslError: checkSslError,
+            transports: TransportsSelected
+        };
+
+        console.log(newWebAgent);
+        /*
+        fetch('../php/API/ping_agent_create.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newHost),
+        })
+            .then(response => response.json())
+            .then(data => {
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
+                if (!data.error) {
+                    hostName.value = '';
+                    hostIp.value = '';
+                    description.value = '';
+                    threshold.value = '';
+                    setTimeout(() => {
+                        window.location.href = 'home.php';
+                    }, 2000);
+                }
+            })
+            .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'))
+            .finally(() => {
+                toggleButtonState('createAgent', false);
+
+            });
+            */
+    });
+});

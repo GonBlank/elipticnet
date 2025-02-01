@@ -42,8 +42,6 @@ CREATE TABLE pre_release (
 -- ║ Transports ║
 -- ╚════════════╝
 
-
-
 CREATE TABLE transports (
     id INT AUTO_INCREMENT PRIMARY KEY,
     owner INT NOT NULL,
@@ -82,7 +80,6 @@ CREATE TABLE ping_agent_data (
     last_down DATETIME DEFAULT NULL,
     last_up DATETIME DEFAULT NULL,
     transports JSON,
-    extra JSON DEFAULT NULL,
     FOREIGN KEY (owner) REFERENCES users(id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
@@ -108,6 +105,22 @@ CREATE TABLE latency (
     FOREIGN KEY (host_id) REFERENCES ping_agent_data(id)
     ON DELETE CASCADE
     ON UPDATE CASCADE
+);
+
+
+
+CREATE TABLE web_agent_data (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    owner INT NOT NULL,
+    url VARCHAR,
+    alias VARCHAR NOT NULL,
+    state_code INT NULL,
+    last_check DATETIME DEFAULT NULL,
+    request_timeout INT DEFAULT NULL,
+    transports JSON,
+    FOREIGN KEY (owner) REFERENCES users(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 -- ╔═════════╗

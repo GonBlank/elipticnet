@@ -155,7 +155,7 @@ Pasar a componentes
     padding-left: 10px;
     text-align: left;
     height: 40px;
-    width: 100%;
+    /* width: 100%; */
     border-radius: 5px;
     border: 1px solid var(--input-border);
     cursor: pointer;
@@ -594,6 +594,13 @@ dialog form button .text.show {
     flex-direction: row;
     gap: 10px;
 }
+
+@media only screen and (max-width:700px) {
+    .input-row-group{
+        flex-wrap: wrap;
+    }
+}
+
 
 /*
 ╔══════════════════════════╗
