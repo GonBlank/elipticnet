@@ -265,6 +265,7 @@ input[type="number"] {
     font-size: 0.675em;
     margin-top: 0.25rem;
     text-wrap: nowrap;
+    height: 0px;
 }
 
 

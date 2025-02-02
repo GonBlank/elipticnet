@@ -1,25 +1,7 @@
+import { toggleButtonState } from '../functions/toggleButtonState.js';
+
 document.addEventListener("DOMContentLoaded", function () {
-    const updateAgentButton = document.getElementById('update_agent');
-
-    // Animación de carga del formulario
-    function toggleButtonState(isLoading) {
-        const textDiv = updateAgentButton.querySelector('.text');
-        const loaderDiv = updateAgentButton.querySelector('.loader-hourglass');
-
-        if (isLoading) {
-            textDiv.classList.remove('show');
-            textDiv.classList.add('hide');
-            loaderDiv.classList.remove('hide');
-            loaderDiv.classList.add('show');
-            updateAgentButton.disabled = true;
-        } else {
-            textDiv.classList.remove('hide');
-            textDiv.classList.add('show');
-            loaderDiv.classList.remove('show');
-            loaderDiv.classList.add('hide');
-            updateAgentButton.disabled = false;
-        }
-    }
+    const updateAgentButton = document.getElementById('updateAgent');
 
     function validateHostData() {
         // Limpiar errores anteriores
@@ -31,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Obtener los valores del formulario
-        const hostName = document.getElementById('host-name').value;
+        const hostName = document.getElementById('alias').value;
         const threshold_check = document.getElementById('threshold-checkbox').checked;
         const threshold_value = document.getElementById('threshold_value').value;
         let isValid = true;
@@ -45,10 +27,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Validar los datos del formulario
-        if (!hostName) {
+        if (hostName.length > 25) {
             isValid = false;
-            document.getElementById('host-name').classList.add('error');
-            document.getElementById('host-name-error').textContent = 'Host name is required.';
+            document.getElementById('alias').classList.add('error');
+            document.getElementById('alias-error').textContent = 'Alias must be less than 25 characters.';
         }
 
         return isValid;
@@ -62,14 +44,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Cambiar el estado del botón para mostrar el loader
-        toggleButtonState(true);
+        toggleButtonState('updateAgent', true);
 
         // Obtener los valores del formulario
-        const hostName = document.getElementById('host-name');
+        const hostName = document.getElementById('alias');
         const description = document.getElementById('host-description');
         const threshold_check = document.getElementById('threshold-checkbox').checked;
         const threshold = document.getElementById('threshold_value');
 
+        if (!hostName.value) {
+            hostName.value = hostIp.value;
+        }
         // Seleccionar el contenedor de transportes
         const transportSection = document.querySelector('.alert-transports');
 
@@ -117,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'))
             .finally(() => {
-                toggleButtonState(false);
+                toggleButtonState('updateAgent', false);
             });
     });
 });
