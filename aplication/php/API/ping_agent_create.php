@@ -65,7 +65,7 @@ try {
     }
 
     // Insertar el host en la base de datos
-    $sql = "INSERT INTO ping_agent_data (owner, ip, name, description, threshold, threshold_exceeded, transports) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO ping_agent_data (owner, ip, alias, description, threshold, threshold_exceeded, transports) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
 

@@ -33,7 +33,7 @@ try {
     }
 
     // Consulta SQL para obtener el host con el id y owner correspondiente
-    $sql = "SELECT ip, name, description, transports, threshold 
+    $sql = "SELECT ip, alias, description, transports, threshold 
             FROM ping_agent_data WHERE id = ? AND owner = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
