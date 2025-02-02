@@ -100,7 +100,7 @@ CREATE TABLE ping_agent_log (
     ON UPDATE CASCADE
 );
 
-CREATE TABLE latency (
+CREATE TABLE ping_agent_latency (
     id INT AUTO_INCREMENT PRIMARY KEY,
     host_id INT NOT NULL,
     latency FLOAT,

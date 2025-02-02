@@ -65,7 +65,7 @@ try {
     }
 
     // Insertar el host en la base de datos
-    $sql = "INSERT INTO ping_agent_data (owner, ip, name, description, threshold, threshold_exceeded, log, transports) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
+    $sql = "INSERT INTO ping_agent_data (owner, ip, name, description, threshold, threshold_exceeded, transports) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
 
@@ -77,14 +77,13 @@ try {
 
 
     // Convertir los valores JSON
-    $log_json = json_encode([]);
     $transports_json = json_encode($data['transports']);
     $threshold = isset($data['threshold']) && is_numeric($data['threshold']) ? (int) $data['threshold'] : null;
     $threshold_exceeded = $threshold !== null ? 0 : null; // false si threshold tiene un valor
 
 
     // Bind parameters
-    $stmt->bind_param("isssisss", $owner, $data['ip'], $data['name'], $data['description'], $threshold, $threshold_exceeded, $log_json, $transports_json);
+    $stmt->bind_param("isssiss", $owner, $data['ip'], $data['name'], $data['description'], $threshold, $threshold_exceeded, $transports_json);
 
     if (!$stmt->execute()) {
         error_log("[ERROR] " . __FILE__ . ": " . $stmt->error);
