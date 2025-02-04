@@ -9,6 +9,8 @@ require 'PHPmailer/Exception.php';
 require 'PHPmailer/PHPMailer.php';
 require 'PHPmailer/SMTP.php';
 
+send_email("Prueba desde el server", "Revisando que esté todo ok", "blanco.gonzalo.v@gmail.com");
+
 function send_email($body, $subject, $client_email)
 {
 
@@ -16,7 +18,7 @@ function send_email($body, $subject, $client_email)
 
     try {
         //Server settings
-        $mail->SMTPDebug  = 0;
+        $mail->SMTPDebug  = 1;
         $mail->isSMTP();
         $mail->Host       = SMTP_SERVER;
         $mail->SMTPAuth   = true;
