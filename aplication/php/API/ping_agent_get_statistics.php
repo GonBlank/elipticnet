@@ -86,7 +86,7 @@ function sql_data_range($time_range)
             2
             ) AS uptime_percentage
             FROM 
-            latency l
+            ping_agent_latency l
             JOIN 
             ping_agent_data h 
             ON 
@@ -122,7 +122,7 @@ FROM (
         SUM(CASE WHEN l.latency IS NOT NULL THEN 1 ELSE 0 END) AS up_count,
         COUNT(*) AS total_count
     FROM 
-        latency l
+        ping_agent_latency l
     JOIN 
         ping_agent_data h 
     ON 
@@ -162,7 +162,7 @@ FROM (
         SUM(CASE WHEN l.latency IS NOT NULL THEN 1 ELSE 0 END) AS up_count,
         COUNT(*) AS total_count
     FROM 
-        latency l
+        ping_agent_latency l
     JOIN 
         ping_agent_data h 
     ON 
@@ -196,7 +196,7 @@ FROM (
             2
             ) AS uptime_percentage
             FROM 
-            latency l
+            ping_agent_latency l
             JOIN 
             ping_agent_data h 
             ON 

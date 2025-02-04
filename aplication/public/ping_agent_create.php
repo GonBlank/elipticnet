@@ -72,18 +72,20 @@ define('MENU_ALLOWED', true);
             <div class="input-form">
                 <div class="input-row-group">
 
-                    <label class="label">
-                        <input tabindex="1" type="text" placeholder=" " class="input" id="host-name" name="host-name"
-                            autocomplete="name" maxlength="20" required />
-                        <span class="label__name">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                                fill="#e8eaed">
-                                <path
-                                    d="M300-720q-25 0-42.5 17.5T240-660q0 25 17.5 42.5T300-600q25 0 42.5-17.5T360-660q0-25-17.5-42.5T300-720Zm0 400q-25 0-42.5 17.5T240-260q0 25 17.5 42.5T300-200q25 0 42.5-17.5T360-260q0-25-17.5-42.5T300-320ZM160-840h640q17 0 28.5 11.5T840-800v280q0 17-11.5 28.5T800-480H160q-17 0-28.5-11.5T120-520v-280q0-17 11.5-28.5T160-840Zm40 80v200h560v-200H200Zm-40 320h640q17 0 28.5 11.5T840-400v280q0 17-11.5 28.5T800-80H160q-17 0-28.5-11.5T120-120v-280q0-17 11.5-28.5T160-440Zm40 80v200h560v-200H200Zm0-400v200-200Zm0 400v200-200Z" />
-                            </svg>
-                            Host name</span>
-                        <div class="error-message" id="host-name-error"></div>
-                    </label>
+                    <span style="width: 100%;" class="tooltip">
+                        <label class="label">
+                            <input tabindex="1" type="text" placeholder=" " class="input" id="alias" name="alias"
+                                autocomplete="name" maxlength="25" />
+                            <span class="label__name">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-quote-fill" viewBox="0 0 16 16">
+                                    <path d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M7.194 6.766a1.7 1.7 0 0 0-.227-.272 1.5 1.5 0 0 0-.469-.324l-.008-.004A1.8 1.8 0 0 0 5.734 6C4.776 6 4 6.746 4 7.667c0 .92.776 1.666 1.734 1.666.343 0 .662-.095.931-.26-.137.389-.39.804-.81 1.22a.405.405 0 0 0 .011.59c.173.16.447.155.614-.01 1.334-1.329 1.37-2.758.941-3.706a2.5 2.5 0 0 0-.227-.4zM11 9.073c-.136.389-.39.804-.81 1.22a.405.405 0 0 0 .012.59c.172.16.446.155.613-.01 1.334-1.329 1.37-2.758.942-3.706a2.5 2.5 0 0 0-.228-.4 1.7 1.7 0 0 0-.227-.273 1.5 1.5 0 0 0-.469-.324l-.008-.004A1.8 1.8 0 0 0 10.07 6c-.957 0-1.734.746-1.734 1.667 0 .92.777 1.666 1.734 1.666.343 0 .662-.095.931-.26z" />
+                                </svg>
+                                Alias</span>
+                            <div class="error-message" id="alias-error"></div>
+                        </label>
+                        <span class="tooltip-text"> <span style="font-weight: 600;">(Optional)</span> The alias is an alternative way to identify this agent.</span>
+                    </span>
+
 
                     <label class="label">
                         <input tabindex="2" type="text" placeholder=" " class="input" id="host-ip" name="host-ip"
@@ -195,7 +197,7 @@ define('MENU_ALLOWED', true);
                         ADD TRANSPORT</a>
                 </div>
             </section>
-            <button id="create_agent" class="create-agent primary">
+            <button id="createAgent" class="create-agent primary">
 
                 <div class="text show">
                     Create
@@ -216,7 +218,7 @@ define('MENU_ALLOWED', true);
 
     <script src="../js/modal.js"></script>
     <script src="../js/API/get_transports.js"></script>
-    <script src="../js/API/ping_agent_create.js"></script>
+    <script type="module" src="../js/API/ping_agent_create.js"></script>
     <script src="../js/page_transition.js"></script>
     <script src="../js/components/alert.js"></script>
 </body>

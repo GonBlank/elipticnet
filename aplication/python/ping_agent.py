@@ -89,7 +89,7 @@ def update_host_latency(host_id, latency):
         cursor = connection.cursor()
 
         # Usar %s para todos los tipos de datos en la consulta
-        update_query = """INSERT INTO latency (host_id, latency) VALUES (%s, %s)"""
+        update_query = """INSERT INTO ping_agent_latency (host_id, latency) VALUES (%s, %s)"""
 
         cursor.execute(update_query, (host_id, latency))
         connection.commit()

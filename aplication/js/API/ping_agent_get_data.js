@@ -67,7 +67,7 @@ function load_host_data(host) {
     const last_check = document.getElementById('last_check');
 
     host_ip.textContent = 'Ping agent for ' + host.ip;
-    host_name.textContent = host.name;
+    host_name.textContent = host.alias;
     host_description.textContent = host.description;
 
     // Construir la URL base con los parámetros id, ip, name y description

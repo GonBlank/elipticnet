@@ -19,7 +19,7 @@
 .input-form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
 }
 
 .form-container textarea {
@@ -141,7 +141,6 @@
     padding: 10px;
     border-radius: 8px;
     width: 100%;
-
 }
 
 .transport a {
@@ -294,9 +293,6 @@
 
 .checkbox-wrapper-13 * {
     box-sizing: inherit;
-
-
-
 }
 
 .checkbox-wrapper-13 *:before,
@@ -308,5 +304,12 @@
     display: flex;
     align-items: center;
     gap: 5px;
+}
 
+.checkbox-wrapper-13{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-wrap: nowrap;
+    text-overflow: clip;
 }

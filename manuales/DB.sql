@@ -70,8 +70,8 @@ CREATE TABLE ping_agent_data (
     id INT AUTO_INCREMENT PRIMARY KEY,
     owner INT NOT NULL,
     ip VARCHAR(39),
-    name CHAR(25) NOT NULL,
-    description VARCHAR(200),
+    alias CHAR(25) DEFAULT NULL,
+    description VARCHAR(200) DEFAULT NULL,
     state BOOLEAN DEFAULT NULL,
     threshold INT DEFAULT NULL,
     threshold_exceeded BOOLEAN DEFAULT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE ping_agent_log (
     ON UPDATE CASCADE
 );
 
-CREATE TABLE latency (
+CREATE TABLE ping_agent_latency (
     id INT AUTO_INCREMENT PRIMARY KEY,
     host_id INT NOT NULL,
     latency FLOAT,

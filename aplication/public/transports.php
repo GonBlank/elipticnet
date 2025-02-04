@@ -300,7 +300,7 @@ define('MENU_ALLOWED', true);
             <form>
                 <label class="label">
                     <input tabindex="1" type="text" placeholder=" " class="input" id="telegramAlias"
-                        name="telegramAlias" autocomplete="name" maxlength="20" required />
+                        name="telegramAlias" autocomplete="name" maxlength="15" required />
                     <span class="label__name">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-person-badge"
                             viewBox="0 0 16 16">

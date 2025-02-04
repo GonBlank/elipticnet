@@ -32,7 +32,7 @@ try {
     }
 
     // Actualizar el host en la base de datos
-    $sql = "UPDATE ping_agent_data SET name = ?, description = ?, threshold = ?, threshold_exceeded = ?, transports = ? WHERE id = ? AND owner = ? ";
+    $sql = "UPDATE ping_agent_data SET alias = ?, description = ?, threshold = ?, threshold_exceeded = ?, transports = ? WHERE id = ? AND owner = ? ";
 
     $stmt = $conn->prepare($sql);
 
@@ -42,9 +42,6 @@ try {
         exit;
     }
 
-
-    // Convertir los valores JSON
-    $log_json = json_encode([]);
     $transports_json = json_encode($data['transports']);
     $threshold = isset($data['threshold']) && is_numeric($data['threshold']) ? (int) $data['threshold'] : null;
     $threshold_exceeded = $threshold !== null ? 0 : null; // false si threshold tiene un valor

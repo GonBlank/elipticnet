@@ -17,7 +17,7 @@ try {
     }
 
     // Consulta SQL para obtener los hosts del usuario
-    $sql = "SELECT id, ip, name, state, last_check, last_up, threshold_exceeded FROM ping_agent_data WHERE owner = ?";
+    $sql = "SELECT id, ip, alias, state, last_check, last_up, threshold_exceeded FROM ping_agent_data WHERE owner = ?";
 
     // Preparar la consulta
     $stmt = $conn->prepare($sql);
@@ -48,7 +48,7 @@ try {
         $hosts[] = array(
             "id" => $row['id'],
             "ip" => $row['ip'],
-            "name" => $row['name'],
+            "name" => $row['alias'],
             'state' => $row['state'], // ($row['state'] == 1) ? true : false Para que java interprete bien los estados
             "last_up" => $row['last_up'],
             "last_check" => $row['last_check'],

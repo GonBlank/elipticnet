@@ -25,11 +25,11 @@ function ping_agent_edit_get_data() {
 ping_agent_edit_get_data();
 
 function load_ping_agent_data(ping_agent) {
-    const host_name = document.getElementById('host-name');
+    const host_name = document.getElementById('alias');
     const host_ip = document.getElementById('host-ip');
     const host_description = document.getElementById('host-description');
 
-    host_name.value = ping_agent.name;
+    host_name.value = ping_agent.alias;
     host_ip.value = ping_agent.ip;
     host_description.value = ping_agent.description;
 

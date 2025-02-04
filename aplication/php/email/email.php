@@ -7,7 +7,6 @@ require "vendor/autoload.php";
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
-
 function send_email($body, $subject, $client_email)
 {
     $mail = new PHPMailer(true);
