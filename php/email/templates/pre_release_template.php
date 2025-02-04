@@ -4,13 +4,13 @@ require_once __DIR__ . '/../../env.php';
 //$url_image_logo = "https://elipticnet.com/img/favicon/android-chrome-192x192.png";
 function pre_release_template_eng($hash_id, $email)
 {
-    $url = DOMAIN;
-    $url_unsuscribe = DOMAIN . "/unsuscribe.html?id=" . $hash_id . "&email=" . $email;
-    $url_image_logo = DOMAIN . "/img/email/logo.png";
-    $url_image_access = DOMAIN . "/img/email/access.png";
-    $url_image_calendar = DOMAIN . "/img/email/calendar.png";
-    $url_image_notification = DOMAIN . "/img/email/notification.png";
-    $url_image_discount = DOMAIN . "/img/email/discount.png";
+    $url = APP_LINK;
+    $url_unsuscribe = APP_LINK . "/unsuscribe.html?id=" . $hash_id . "&email=" . $email;
+    $url_image_logo = APP_LINK . "/img/email/logo.png";
+    $url_image_access = APP_LINK . "/img/email/access.png";
+    $url_image_calendar = APP_LINK . "/img/email/calendar.png";
+    $url_image_notification = APP_LINK . "/img/email/notification.png";
+    $url_image_discount = APP_LINK . "/img/email/discount.png";
 
     return <<<HTML
 <!DOCTYPE html>
