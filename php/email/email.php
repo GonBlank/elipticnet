@@ -1,50 +1,44 @@
 <?php
 require_once __DIR__ . '/../env.php';
 
-require "vendor/autoload.php";
-
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\SMTP;
+
+require 'PHPmailer/Exception.php';
+require 'PHPmailer/PHPMailer.php';
+require 'PHPmailer/SMTP.php';
 
 function send_email($body, $subject, $client_email)
 {
+
     $mail = new PHPMailer(true);
 
     try {
-        // Configuración del servidor SMTP
-        $mail->SMTPDebug  = 2; // Cambiar a 2 para más detalles en el debug
+        //Server settings
+        $mail->SMTPDebug  = 0;
         $mail->isSMTP();
         $mail->Host       = SMTP_SERVER;
         $mail->SMTPAuth   = true;
         $mail->Username   = SMTP_USERNAME;
         $mail->Password   = SMTP_PASSWORD;
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Cambiar a SMTPS para puerto 465
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = SMTP_PORT;
 
-        // Configuración de remitente y destinatarios
-        $mail->setFrom(SMTP_USERNAME, 'Elipticnet notifications'); // Remitente
-        $mail->addReplyTo(SMTP_USERNAME, 'Elipticnet notifications');
-        $mail->Sender = SMTP_USERNAME;
-        $mail->addAddress($client_email);           // Destinatario
-        $mail->isHTML(true);                        // Activar HTML
+        //Recipients
+        $mail->setFrom(SMTP_USERNAME, 'Elipticnet');
+        $mail->addAddress($client_email);
+
+        //Mail content
+        $mail->isHTML(true);
+        $mail->CharSet = 'UTF-8'; // Configuración de codificación
         $mail->Subject = $subject;
         $mail->Body    = $body;
 
-        // Enviar correo
         $mail->send();
     } catch (Exception $e) {
-        // Manejo de errores
-        error_log("[ERROR] " . __FILE__ . ": " . $e->getMessage());
-        echo json_encode([
-            "error" => true,
-            "type" => "error",
-            "title" => "Connection Error",
-            "message" => "We are experiencing problems, please try again later or",
-            "link_text" => "contact support",
-            "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."
-        ]);
+        error_log("[ERROR]: email.php:" . $e->getMessage());
+        echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         exit;
     }
 }
