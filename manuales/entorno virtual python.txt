@@ -12,7 +12,8 @@ pip install ping3
 pip install python-telegram-bot
 pip install pytz
 pip install logging
-
+pip install requests
+pip install bs4
 
 //Config para cron
 sudo visudo
