@@ -1,5 +1,5 @@
 User-agent: *
-Disallow: 
-Disallow: /cgi-bin/
 Disallow: /config/
+Disallow: /cgi-bin/
+Disallow: /*?*
 Sitemap: https://elipticnet.com/sitemap.xml
