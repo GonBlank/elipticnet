@@ -54,7 +54,7 @@ try {
     $stmt->close();
 
     if ($count > 0) {
-        echo json_encode(["error" => true, "type" => "warning", "title" => "Duplicated email", "message" => "$email already exist in the pre-release list."]);
+        echo json_encode(["error" => true, "type" => "warning", "title" => "Duplicated email", "message" => "$email already exist in the early access list."]);
         exit;
     }
 

@@ -1,9 +1,16 @@
-@import url(https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap);
+@font-face {
+    font-family: 'Lexend Variable';
+    src: url('../fonts/Lexend-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    /* Define el rango de pesos */
+    font-display: swap;
+    /* Mejor rendimiento en carga */
+}
 
 * {
     margin: 0;
     padding: 0;
-    font-family: "Lexend Deca", sans-serif;
+    font-family: "Lexend Variable", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
     cursor: context-menu;
