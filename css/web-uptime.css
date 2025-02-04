@@ -34,7 +34,6 @@ body {
     backdrop-filter: blur(15px);
     position: relative;
     height: 100vh;
-    overflow: hidden;
 }
 
 main {
