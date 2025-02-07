@@ -107,6 +107,7 @@ main {
     margin-top: 20px;
     padding: 10px;
     font-size: 1rem;
+    gap: 15px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -195,8 +196,8 @@ section.features {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: space-evenly;
+    align-content: flex-start;
     gap: 10px;
     padding: 8px;
 }
@@ -215,10 +216,18 @@ section.features {
     gap: 15px;
     text-align: center;
     height: fit-content;
+
 }
 
 .card.feature h1 {
-    font-size: clamp(1.2rem, 1.8vw, 1.7rem)
+    font-size: clamp(1.2rem, 1.8vw, 1.7rem);
+    display: flex;
+    flex-direction: column;
+}
+
+.card.feature h1 span {
+    font-size: .7rem;
+    font-weight: 400;
 }
 
 .card.feature p {
@@ -234,32 +243,6 @@ section.features {
     width: clamp(15px, 1.8vw, 20px);
     height: clamp(15px, 1.8vw, 20px)
 }
-
-
-/*
-footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 20px;
-    background-color: var(--background);
-    padding: 8px;
-    gap: 20px;
-}
-
-footer a {
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 5px;
-    font-size: .8rem;
-}
-
-footer p{
-    font-size: .8rem;
-}
-*/
 
 footer {
     display: flex;
