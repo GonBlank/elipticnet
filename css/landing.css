@@ -134,6 +134,13 @@ main h2 {
     color: var(--alert-success);
     animation: pulse_regular 2s ease 0s infinite normal forwards;
     font-size: clamp(1.5rem, 3vw, 2.2rem);
+    display: flex;
+    flex-direction: column;
+}
+
+main h2 span {
+    color: inherit;
+    font-size: clamp(.7rem, 2vw, 1rem);
 }
 
 @keyframes pulse_regular {
@@ -228,6 +235,8 @@ section.features {
     height: clamp(15px, 1.8vw, 20px)
 }
 
+
+/*
 footer {
     display: flex;
     flex-direction: row;
@@ -246,6 +255,43 @@ footer a {
     gap: 5px;
     font-size: .8rem;
 }
+
+footer p{
+    font-size: .8rem;
+}
+*/
+
+footer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    background-color: var(--background);
+    align-items: center;
+    gap: 5px;
+}
+
+footer .links{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+footer .links a{
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5px;
+    font-size: .8rem;
+}
+
+footer .details{
+    display: flex;
+}
+
+footer .details p{
+    font-size: .8rem;
+}
+
 
 ::-webkit-scrollbar {
     width: 12px
