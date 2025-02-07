@@ -268,6 +268,7 @@ footer {
     background-color: var(--background);
     align-items: center;
     gap: 5px;
+    padding: 10px;
 }
 
 footer .links{
