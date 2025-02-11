@@ -46,28 +46,14 @@
 
 .update-btn,
 #delete-account-btn {
-    color: var(--text-color);
-    display: flex;
+     display: flex;
     justify-content: center;
     gap: 8px;
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 5px;
     height: fit-content;
     width: fit-content;
     font-size: .8rem;
-}
-
-
-.update-btn {
-    background-color: var(--button-primary);
-}
-
-.update-btn:hover {
-    background-color: var(--button-primary-hover);
-}
-
-.update-btn:disabled {
-    background-color: var(--button-primary-disabled);
 }
 
 .dialog-body {

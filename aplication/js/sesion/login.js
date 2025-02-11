@@ -86,9 +86,9 @@ document.addEventListener("DOMContentLoaded", function () {
             email: email.value,
             password: password.value,
             remember_me: rememberMeCheckbox.checked,
+            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            language: (navigator.language || navigator.userLanguage).split('-')[0],
         };
-
-        console.log(User)
 
         // Enviar los datos al backend usando fetch
         fetch('../php/sesion/login.php', {
@@ -98,22 +98,24 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: JSON.stringify(User),
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
+                    throw new Error(`[Response error]: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
-                if (data.state) {
-                    // Capturar el ID y el mensaje de respuesta
-                    ShowAlert('success', 'Success', 'Successful login', 'success');
-  
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
+
+                if (!data.error) {
                     email.value = '';
                     password.value = '';
-
-                    window.location.assign('home.php'); // Redirige a home.html
-
-                } else if (data.error) {
-                    ShowAlert(data.type, data.title, data.message, data.type);
+                    window.location.assign('home.php');
                 }
+
             })
-            .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
+            .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'))
             .finally(() => {
                 // Restablecer el estado del botón y cerrar el diálogo
                 toggleButtonState(false);

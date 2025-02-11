@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transport validator || Elipticnet</title>
+
+    <!--Favicon-->
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="../img/favicon/safari-pinned-tab.svg" color="#2b2d42">
+    <link rel="shortcut icon" href="../img/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b2d42">
+    <meta name="msapplication-config" content="../img/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#2b2d42">
+
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/palette.css" />
+    <link rel="stylesheet" href="../css/components/alert.css" />
+    <link rel="stylesheet" href="../css/transport_validator.css" />
+
+</head>
+
+<body>
+
+    <main class="dashboard">
+        <section class="card form-container">
+            <h1>Validating transport</h1>
+
+            <div id="image">
+                <svg class="spinner-circle"class="up-since"
+                    xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                    <path
+                        d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q17 0 28.5 11.5T520-840q0 17-11.5 28.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-17 11.5-28.5T840-520q17 0 28.5 11.5T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Z" />
+                </svg>
+            </div>
+
+            <div id="message">
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/page_transition.js"></script>
+    <script src="../js/components/alert.js"></script>
+    <script type="module" src="../js/API/transport_validator.js"></script>
+
+</body>
+
+</html>

@@ -5,9 +5,11 @@ body {
     background-size: cover;
     background-position: center;
     backdrop-filter: blur(15px);
+    opacity: 1;
     width: 100vw;
     height: 100vh;
     color: var(--text-color);
+    display: block;
 }
 
 main {
@@ -21,16 +23,12 @@ main {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--form-background);
     display: flex;
     flex-direction: row;
     gap: 15px;
     cursor: context-menu;
 }
 
-.card {
-    padding: 0px;
-}
 
 .tittle {
     display: flex;
@@ -103,7 +101,6 @@ main {
 
 .action_btn {
     gap: 3px;
-    border-radius: 5px;
     padding: 5px;
     margin: 8px;
     height: 38px;
@@ -111,16 +108,12 @@ main {
     min-width: 38px;
     width: 100%;
     font-size: 14px;
-    background-color: var(--button-primary);
 }
 
 .action_btn svg {
     width: 20px;
 }
 
-.action_btn:hover {
-    background-color: var(--button-primary-hover);
-}
 
 .divisor {
     position: relative;
@@ -285,4 +278,15 @@ dialog {
 
 .dialog-body form button {
     margin-top: 20px !important;
+}
+
+@media only screen and (max-width:400px) {
+    .card{
+        padding: 0px !important;
+    }
+}
+
+/*-esconde el recaptcha-*/
+.grecaptcha-badge{
+    display: none !important;
 }

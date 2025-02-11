@@ -1,18 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');*/
+
+@font-face {
+    font-family: 'Lexend Variable';
+    src: url('../fonts/Lexend-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    /* Define el rango de pesos */
+    font-display: swap;
+    /* Mejor rendimiento en carga */
+}
 
 * {
-    font-family: "Lexend", sans-serif;
+    font-family: "Lexend Variable", sans-serif;
     box-sizing: border-box;
     padding: 0;
     margin: 0;
     text-decoration: none;
     color: inherit;
-
     -webkit-tap-highlight-color: transparent;
 }
 
 
-
+/* Pasar a componentes*/
 button {
     display: flex;
     flex-direction: row;
@@ -31,90 +39,26 @@ button:active {
 
 button:disabled {
     cursor: not-allowed;
-    /* Cambia el cursor para indicar que está deshabilitado */
-    background-color: var(--button-primary-disabled);
     transform: none;
 }
 
-
-/*
-button.small {
-    gap: 3px;
+button.primary {
+    background-color: var(--button-primary);
+    color: var(--text-color);
     border-radius: 5px;
-    padding: 8px;
-    height: 30px;
-    width: fit-content;
-    font-size: 14px;
 }
 
-button.small svg {
-    width: 13px;
+button.primary:disabled {
+    background-color: var(--button-primary-disabled);
 }
 
-button.medium {
-    gap: 3px;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 8px;
-    height: 38px;
-    min-height: 38px;
-    min-width: 38px;
-    width: fit-content;
-    font-size: 14px;
+button.primary:hover {
+    background-color: var(--button-primary-hover);
 }
 
-button.medium svg {
-    width: 20px;
+button.primary:disabled {
+    background-color: var(--button-primary-disabled);
 }
-
-button.green {
-    background-color: var(--green-500);
-    color: var(--text-50);
-}
-
-button.green:active {
-    background-color: var(--green-600);
-    box-shadow: 0px 0px 7px 0px var(--green-800) inset;
-}
-
-button.green svg {
-    fill: var(--text-50);
-}
-
-button.blue {
-    background-color: var(--blue-500);
-}
-
-button.blue:hover {
-    background-color: var(--blue-400);
-}
-
-button.blue:active {
-    background-color: var(--blue-600);
-    box-shadow: 0px 0px 7px 0px var(--blue-800) inset;
-}
-
-button.blue svg {
-    fill: var(--text-50);
-}
-
-button.red {
-    background-color: var(--red-500);
-}
-
-button.red:hover {
-    background-color: var(--red-400);
-}
-
-button.red:active {
-    background-color: var(--red-600);
-    box-shadow: 0px 0px 7px 0px var(--red-800) inset;
-}
-
-button.red svg {
-    fill: var(--text-50);
-}
-    */
 
 body {
     width: 100%;
@@ -131,9 +75,7 @@ body {
     opacity: 0;
     transition: opacity 0.3s ease;
     /*Must match transition duration in JS*/
-
 }
-
 
 nav {
     display: flex;
@@ -157,8 +99,7 @@ nav h1 {
 }
 
 nav svg {
-    fill: #edf7f6;
-    /*var(--text-900)*/
+    fill: var(--text-color);
 }
 
 nav button {
@@ -177,51 +118,29 @@ nav button:active {
     box-shadow: 0px 0px 14px 0px var(--background-200) inset;
 }
 
-
 main.dashboard {
     grid-area: dashboard;
     grid-column: 1 / -1;
     color: var(--text-color);
     padding: 20px;
     min-width: 340px;
+    overflow: auto;
 }
 
+.card {
+    padding: 15px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px 0px var(--card-shadow);
+}
 
 /*
-.card {
-    padding: 8px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 5px 0px var(--background-200);
-}
+╔════════╗
+║ inputs ║
+╚════════╝
+
+Pasar a componentes
 */
-
-/* WebKit-based browsers (Chrome, Safari, Edge) */
-::-webkit-scrollbar {
-    width: 12px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--scrolBar-background);
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: var(--scrolBar-bar);
-    border-radius: 10px;
-    border: 2px solid var(--scrolBar-background);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background-color: var(--scrolBar-hover);
-}
-
-/* Firefox */
-html {
-    scrollbar-width: thin;
-    scrollbar-color: var(--scrolBar-bar) var(--scrolBar-background);
-}
-
-
-/*inputs*/
 
 .label {
     width: 100%;
@@ -246,6 +165,12 @@ html {
 
 .input:disabled {
     cursor: not-allowed;
+    background-color: var(--input-disabled-bg);
+    color: var(--text-color-label_name);
+}
+
+.input:disabled:hover {
+    border-color: var(--input-border);
 }
 
 .input:hover {
@@ -270,7 +195,7 @@ html {
     transition: .2s;
     cursor: pointer;
     justify-self: start;
-    color: var(--text-color);
+    color: var(--text-color-label_name);
     margin-left: 8px;
     pointer-events: none;
     font-size: clamp(.75rem, 1.5vw, .8rem);
@@ -301,7 +226,6 @@ span.textarea {
     transition: opacity .3s;
 }
 
-
 textarea {
     border: 1px solid var(--input-border)
 }
@@ -315,7 +239,42 @@ textarea:focus {
     border: 1px solid var(--input-focus);
 }
 
-/* General scroll bar */
+/* Ocultar flechas para input number
+ para todos los navegadores */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    /* Firefox */
+}
+
+.input.error {
+    border: 2px solid var(--accent-red);
+}
+
+.input.error:focus-visible {
+    outline: 0px;
+}
+
+.error-message {
+    color: var(--accent-red);
+    font-size: 0.675em;
+    margin-top: 0.25rem;
+    text-wrap: nowrap;
+    height: 0px;
+}
+
+
+/*
+╔════════════╗
+║ Scroll bar ║
+╚════════════╝
+*/
+
 .scrollable-content::-webkit-scrollbar {
     width: 12px;
     height: 12px;
@@ -335,6 +294,37 @@ textarea:focus {
     background-color: var(--primary-200);
 }
 
+
+/* WebKit-based browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrolBar-background);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrolBar-bar);
+    border-radius: 10px;
+    border: 2px solid var(--scrolBar-background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrolBar-hover);
+}
+
+/* Firefox */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrolBar-bar) var(--scrolBar-background);
+}
+
+/*
+╔═════════╗
+║ Loaders ║
+╚═════════╝
+*/
 
 /* Loader hourglass */
 .loader-hourglass {
@@ -428,89 +418,38 @@ textarea:focus {
 
 /*<div class="placeholder-text loader"></div>*/
 
-/*Alert*/
 
-section.alert {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 10px;
-    gap: 5px;
-    position: fixed;
-    z-index: 100;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--alert-background);
+#load-curtain {
+    top: 0;
     left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    cursor: context-menu;
-    width: fit-content;
-    box-sizing: border-box;
-    /* Asegura que el padding se incluya en el ancho */
-}
-
-section.alert.success {
-    border: 2px solid var(--alert-success);
-}
-
-section.alert.warn {
-    border: 2px solid var(--alert-warn);
-}
-
-section.alert.error {
-    border: 2px solid var(--alert-error);
-}
-
-.alert.show {
-    animation: SlideInTop .9s cubic-bezier(0.33, 1, 0.68, 1) forwards;
-}
-
-.alert.hide {
-    animation: SlideOutTop .9s cubic-bezier(0.33, 1, 0.68, 1) forwards;
-}
-
-section.alert .icon {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.486);
+    backdrop-filter: blur(8px);
+    z-index: 4;
     display: flex;
-    flex-direction: center;
-    width: fit-content;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-section.alert .icon img {
-    max-width: 40px;
+#load-curtain svg {
+    width: 50px;
+    height: 50px;
+    fill: var(--spinner-color);
 }
 
-@keyframes SlideInTop {
-    0% {
-        opacity: 0;
-        transform: translateY(-250px);
-    }
+/*
+╔════════╗
+║ Modals ║
+╚════════╝
+*/
 
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes SlideOutTop {
-    0% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateY(-250px);
-    }
-}
-
-
-/*MODAL*/
 dialog {
     position: relative;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     background-color: var(--dialog-background);
     top: 50%;
     left: 50%;
@@ -546,6 +485,12 @@ dialog::backdrop {
     gap: 8px;
 }
 
+.dialog-header h1 svg {
+    fill: var(--text-color);
+    width: 26px;
+    height: 26px;
+}
+
 .close-modal {
     border-radius: 50%;
     height: 20px;
@@ -574,6 +519,9 @@ dialog::backdrop {
 ╔════════════════╗
 ║ LOGOUT DIALOG  ║
 ╚════════════════╝
+Pasarlo al css del menu lateral
+Unificar el modal par que todos tengan la misma base.
+Luego pasar el de #logout al css de menu lateral
 */
 #logout .dialog-body {
     padding: 20px;
@@ -621,8 +569,12 @@ dialog::backdrop {
 
 }
 
-/**/
+button svg {
+    pointer-events: none;
+}
+
 button .text {
+    pointer-events: none;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -638,80 +590,11 @@ dialog form button .text.show {
     display: contents;
 }
 
-
-.input.error {
-    border: 2px solid var(--red-500);
-}
-
-.input.error:focus-visible {
-    outline: 0px;
-}
-
-.error-message {
-    color: var(--red-500);
-    font-size: 0.675em;
-    margin-top: 0.25rem;
-    text-wrap: nowrap;
-}
-
 .input-row-group {
     display: flex;
     flex-direction: row;
     gap: 10px;
 }
-
-/*Dropdown*/
-.dropdown_menu_container {
-    width: fit-content;
-    position: relative;
-    text-wrap: nowrap;
-
-}
-
-.dropdown_menu {
-    position: absolute;
-    z-index: 1;
-    width: fit-content;
-    /*height: ; Se especifica en cada pagina*/
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    overflow: hidden;
-    list-style: none;
-    transition: height .3s cubic-bezier(0, 0.55, 0.45, 1);
-    border-radius: 3px;
-}
-
-.dropdown_menu a,
-.dropdown_menu button {
-    background-color: var(--dropdownMenu-background);
-    width: 100%;
-    padding: 10px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    font-size: 1rem;
-    gap: 10px;
-
-}
-
-.dropdown_menu a:hover,
-.dropdown_menu button:hover {
-    background-color: var(--dropdownMenuItem-hover);
-
-}
-
-.dropdown_menu button:active {
-    transform: none;
-}
-
-.dropdown_menu.collapsed {
-    height: 0px;
-    border: 0px;
-}
-
 
 /*
 ╔══════════════════════════╗
@@ -719,7 +602,6 @@ dialog form button .text.show {
 ╚══════════════════════════╝
 */
 
-/* Transición de desvanecimiento */
 .fade-out {
     opacity: 1;
     transition: opacity 0.3s ease;
@@ -729,7 +611,6 @@ dialog form button .text.show {
     opacity: 0;
 }
 
-/* Transición de desvanecimiento al cargar la nueva página */
 .fade-in {
     opacity: 0;
     transition: opacity 0.3s ease;

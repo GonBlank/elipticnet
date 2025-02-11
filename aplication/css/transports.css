@@ -6,14 +6,10 @@ main {
     gap: 25px;
 }
 
-
 .form-container {
     display: flex;
     flex-direction: column;
-    background-color: var(--form-background);
     gap: 8px;
-    padding: 20px;
-    border-radius: 8px;
     width: 90%;
     height: fit-content;
 }
@@ -28,7 +24,7 @@ main {
     flex-direction: row;
     gap: 8px;
     align-items: center;
-    
+    cursor: context-menu;
 }
 
 .form-container .tittle svg {
@@ -39,27 +35,37 @@ main {
 .form-container .subtittle{
     font-size: .85rem;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: context-menu;
+}
+
+.subtittle a{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    cursor: pointer;
+    border: 1px solid var(--border-content-color);
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    align-items: center;
+}
+
+.subtittle a:active {
+    transform: scale(.95);
 }
 
 .form-container .add_transport {
-    background-color: var(--button-primary);
     display: flex;
     justify-content: center;
     padding: 5px;
-    border-radius: 5px;
     margin-left: auto;
 }
 
-.form-container .add_transport:hover {
-    background-color: var(--button-primary-hover);
-}
-
-.form-container .add_transport:disabled {
-    background-color: var(--button-primary-disabled);
-}
-
-.form-container .add_transport.solo {
-    background-color: var(--button-primary);
+.form-container .add_transport.large {
     width: 100%;
     height: 38px;
 }
@@ -92,9 +98,16 @@ main {
     font-weight: 500;
 }
 
-.row h1.transport_alias {
+.row .transport_alias {
     flex: 1;
     max-width: 150px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.row .transport_alias.validated svg{
+fill: var(--alert-success);
 }
 
 .row h1.transport_id {
@@ -124,7 +137,6 @@ main {
     fill: var(--accent-red-hover);
 }
 
-
 .transport_options button.edit svg {
     fill: var(--accent-blue);
 }
@@ -133,6 +145,15 @@ main {
     fill: var(--accent-blue-hover);
 }
 
+.transport_options button.resend svg {
+    fill: var(--text-color);
+    width: 16px;
+    height: 16px;
+}
+
+.transport_options button.resend:disabled {
+    background-color: transparent;
+}
 
 /*
 DIALOGS
@@ -150,14 +171,12 @@ DIALOGS
     gap: 3px;
 }
 
-dialog .add_email{
-    background-color: var(--button-primary);
+#addEmailBtn, #addTelegramBtn {
     width: 100%;
     height: 38px;
     border-radius: 5px;
     margin-top: 15px;
 }
-
 
 .dialog-options {
     display: flex;

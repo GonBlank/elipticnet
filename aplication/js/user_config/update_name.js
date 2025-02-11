@@ -40,10 +40,10 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('user-name-error').textContent = 'Username is required.';
         } else {
             const usernameLength = username.value.length;
-            if (usernameLength < 8 || usernameLength > 20) {
+            if (usernameLength < 3 || usernameLength > 15) {
                 isValid = false;
                 document.getElementById('user-name').classList.add('error');
-                document.getElementById('user-name-error').textContent = 'Username must be between 8 and 20 characters.';
+                document.getElementById('user-name-error').textContent = 'Username must be between 3 and 15 characters.';
             }
         }
         return isValid;
@@ -66,30 +66,28 @@ document.addEventListener("DOMContentLoaded", function () {
             username: username.value,
         };
 
-        console.log(updatedUser);
-
-
         // Enviar los datos al backend usando fetch
         fetch('../php/user_config/update_username.php', {
-            method: 'POST',
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(updatedUser),
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    ShowAlert('error', 'Error', `Response error: ${response.status}`, 'error');
+                    throw new Error(`[Response error]: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
-                if (data.state) {
-                    // Capturar el ID y el mensaje de respuesta
-                    ShowAlert('success', 'Success', 'Name updated successfully', 'success');
-
-                   document.getElementById('lateralMenu-username').textContent = username.value;
-
-                } else if (data.error) {
-                    ShowAlert(data.type, data.title, data.message, data.type);
+                ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
+                if (!data.error) {
+                    document.getElementById('lateralMenu-username').textContent = username.value;
                 }
             })
-            .catch(error => ShowAlert('error', 'Error', `Error: ${error.message}`, 'error'))//
+            .catch(error => ShowAlert('error', 'Error', `Fetch error: ${error.message || error}`, 'error'))
             .finally(() => {
                 // Restablecer el estado del botón y cerrar el diálogo
                 toggleButtonState(false);

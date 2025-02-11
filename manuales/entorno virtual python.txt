@@ -1,0 +1,37 @@
+python3 -m venv elipticnet_env
+source elipticnet_env/bin/activate  # Linux/MacOS
+myenv\Scripts\activate     # Windows
+pip install python-telegram-bot
+pip freeze > requirements.txt
+pip install -r requirements.txt
+which python
+
+
+pip install mysql-connector-python
+pip install ping3
+pip install python-telegram-bot
+pip install pytz
+pip install logging
+
+
+//Config para cron
+sudo visudo
+elipticnet ALL=(ALL) NOPASSWD: /var/www/elipticnet/aplication/python/elipticnet_env/bin/python
+
+crontab -e
+* * * * * /bin/bash -c 'source /var/www/elipticnet/aplication/python/elipticnet_env/bin/activate && sudo /var/www/elipticnet/aplication/python/elipticnet_env/bin/python /var/www/elipticnet/aplication/python/ping_agent.py >> /var/www/elipticnet/aplication/python/log/ping_agent.log 2>&1'
+
+
+
+
+Para los requerimientos:
+-Crea este archivo para listar las dependencias del proyecto:
+
+pip freeze > requirements.txt
+
+-Ahora, cualquier colaborador puede recrear el entorno virtual con:
+
+python3 -m venv elipticnet_env
+source elipticnet_env/bin/activate  # En Linux/macOS
+elipticnet_env\Scripts\activate     # En Windows
+pip install -r requirements.txt

@@ -1,0 +1,74 @@
+body {
+    background-image: url('../img/background/login_background.jpg');
+    background-color: var(--background);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(15px);
+    opacity: 1;
+    width: 100vw;
+    height: 100vh;
+    color: var(--text-color);
+    display: block;
+}
+
+main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 700px;
+    height: 100%;
+    align-items: center;
+}
+
+.form-container h1 {
+    font-size: 1.5rem;
+    text-wrap: nowrap;
+}
+
+.form-container a {
+    text-wrap: nowrap;
+    color: #b499ff;
+    text-decoration: underline;
+}
+
+#image{
+    display: flex;
+    align-items: center;
+}
+
+#image svg{
+    width: 25px;
+    height: 25px;
+}
+
+#image .spinner-circle{
+    fill: var(--alert-success);
+}
+
+#image .success{
+    fill: var(--alert-success);
+}
+
+#image .error{
+    fill: var(--alert-error);
+}
+
+#image .warning{
+    fill: var(--alert-warning);
+}
+
+#message{
+ display: flex;
+ flex-direction: column;
+ gap: 8px;
+ align-items:  center;
+ text-align: center;
+}
