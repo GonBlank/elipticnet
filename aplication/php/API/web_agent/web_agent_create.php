@@ -40,6 +40,10 @@ if (!isset($data['alias']) || empty($data['alias'])) {
     $data['alias'] = $data['url'];
 }
 
+$ttfbThresholdValue = (float) $data['ttfbThresholdValue'] ?? null;
+$responseTimeThresholdValue = (float) $data['responseTimeThresholdValue'] ?? null;
+$requestTimeout = $data['requestTimeout'] ?? 30;
+$alias = $data['alias'] ?? $data['url'];
 
 try {
     // Conectar a la base de datos
@@ -74,7 +78,7 @@ try {
     }
 
     // Insertar el host en la base de datos
-    $sql = "INSERT INTO web_agent_data (owner, url, alias, request_timeout,  ssl_expiry, domain_expiry, check_sslError, transports) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO web_agent_data (owner, url, alias, request_timeout,  ssl_expiry, domain_expiry, response_time_threshold, ttfb_threshold, check_sslError, transports) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
 
@@ -88,7 +92,7 @@ try {
 
 
     // Bind parameters
-    $stmt->bind_param("issiiiis", $owner, $data['url'], $data['alias'], $data['requestTimeout'], $data['sslExpiry'], $data['domainExpiry'], $data['checkSslError'], $transports_json);
+    $stmt->bind_param("issiiiddis", $owner, $data['url'], $alias, $requestTimeout, $data['sslExpiry'], $data['domainExpiry'], $responseTimeThresholdValue, $ttfbThresholdValue, $data['checkSslError'], $transports_json);
 
     if (!$stmt->execute()) {
         error_log("[ERROR] " . __FILE__ . ": " . $stmt->error);
@@ -98,7 +102,7 @@ try {
 
     /*
     ╔══════════════╗
-    ║ HOST CREADO  ║
+    ║ AGENTE CREADO  ║
     ╚══════════════╝
     */
 

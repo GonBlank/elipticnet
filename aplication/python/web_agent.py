@@ -1,4 +1,5 @@
 import requests
+import http
 import time
 from bs4 import BeautifulSoup
 import mysql.connector
@@ -22,7 +23,6 @@ DB_CONFIG = {
 }
 
 TIME = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
-
 
 def fetch_web_agent_data():
     connection = None
@@ -103,9 +103,21 @@ def monitor_web(url, timeout=10):
 # print(data)
 
 
+def get_http_status_description(code):
+    """
+    Returns the description of an HTTP status code.
+    """
+    return (
+        f"{code} {http.HTTPStatus(code).phrase}"
+        if code in http.HTTPStatus._value2member_map_
+        else f"{code} Unknown code"
+    )
+
+
 def update_web_agent_data(data):
     connection = None
     cursor = None
+    status_code_description = get_http_status_description(data["status_code"])
     try:
         connection = mysql.connector.connect(**DB_CONFIG)
         cursor = connection.cursor()
@@ -128,7 +140,7 @@ def update_web_agent_data(data):
         cursor.execute(
             query,
             (
-                data["status_code"],
+                status_code_description,
                 data["response_time"],
                 data["ttfb"],
                 data["state"],
@@ -188,6 +200,16 @@ def insert_web_agent_record(data):
             connection.close()
 
 
+def detect_web_down(web, data):
+    if data["state"] == False and web["state"] == True:
+        print("Web caida")
+        # Enviar notificación
+    elif data["state"] == True and web["state"] == False:
+        print("Web recuperada")
+        # Enviar notificación
+    return
+
+
 if __name__ == "__main__":
     web_list = fetch_web_agent_data()
 
@@ -196,4 +218,5 @@ if __name__ == "__main__":
         data["id"] = web["id"]
         update_web_agent_data(data)
         insert_web_agent_record(data)
-        print(data)
+        detect_web_down(web, data)
+        # print(web, data)

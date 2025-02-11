@@ -17,8 +17,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const url = document.getElementById('url').value;
         const alias = document.getElementById('alias').value;
         const requestTimeout = document.getElementById('requestTimeout').value;
-        let isValid = true;
+        const ttfbThresholdCheck = document.getElementById('ttfbThresholdCheckbox').checked;
+        const ttfbThresholdValue = document.getElementById('ttfbThresholdValue').value;
 
+        const responseTimeThresholdCheckbox = document.getElementById('responseTimeThresholdCheckbox').checked;
+        const responseTimeThresholdValue = document.getElementById('responseTimeThresholdValue').value;
+
+        let isValid = true;
 
         // Validar los datos del formulario
         if (!url) {
@@ -35,6 +40,22 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('urlError').textContent = 'Invalid URL.';
         }
 
+        if (ttfbThresholdCheck) {
+            if (!ttfbThresholdValue) {
+                isValid = false;
+                document.getElementById('ttfbThresholdValue').classList.add('error');
+                document.getElementById('ttfbThresholdValueError').textContent = 'Value required.';
+            }
+        }
+
+        if (responseTimeThresholdCheckbox) {
+            if (!responseTimeThresholdValue) {
+                isValid = false;
+                document.getElementById('responseTimeThresholdValue').classList.add('error');
+                document.getElementById('responseTimeThresholdValueError').textContent = 'Value required.';
+            }
+        }
+
         if (alias.length > 25) {
             isValid = false;
             document.getElementById('alias').classList.add('error');
@@ -46,7 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('requestTimeout').classList.add('error');
             document.getElementById('requestTimeoutError').textContent = 'Timeout must be less than 60 sec.';
         }
-
         return isValid;
     }
 
@@ -66,14 +86,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const sslExpiry = document.getElementById('sslExpiry-checkbox').checked;
         const domainExpiry = document.getElementById('domainExpiry-checkbox').checked;
         const checkSslError = document.getElementById('checkSslError-checkbox').checked;
+        const ttfbThresholdValue = document.getElementById('ttfbThresholdValue').value;
+        const responseTimeThresholdValue = document.getElementById('responseTimeThresholdValue').value;
 
-        if (!alias.value) {
-            alias.value = url.value;
-        }
-
-        if (!requestTimeout.value) {
-            requestTimeout.value = 30; //expresado en segundos
-        }
 
         // Seleccionar el contenedor de transportes
         const transportSection = document.querySelector('.alert-transports');
@@ -92,11 +107,13 @@ document.addEventListener("DOMContentLoaded", function () {
             sslExpiry: sslExpiry,
             domainExpiry: domainExpiry,
             checkSslError: checkSslError,
-            transports: TransportsSelected
+            transports: TransportsSelected,
+            ttfbThresholdValue: parseFloat(ttfbThresholdValue),
+            responseTimeThresholdValue: parseFloat(responseTimeThresholdValue)
         };
 
         console.log(newWebAgent);
-        
+
         fetch('../php/API/web_agent/web_agent_create.php', {
             method: 'POST',
             headers: {

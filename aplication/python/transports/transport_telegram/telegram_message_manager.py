@@ -19,7 +19,7 @@ logger = log.log_config.setup_logger("telegram_message_manager")
 def telegram_message_manager(data, message_type, details=None):
     """Genera el mensaje de Telegram según el tipo."""
     id = str(data.get("id"))
-    name = data.get("name")
+    name = data.get("alias")
     ip = data.get("ip")
     last_down = data.get("last_down")
     threshold = data.get("threshold")

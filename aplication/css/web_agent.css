@@ -13,7 +13,6 @@
     min-width: 330px;
     max-width: 600px;
     width: 60%;
-    height: 100%;
 }
 
 .input-form {
@@ -97,7 +96,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 10px;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
 }
 
@@ -172,4 +171,43 @@
 .add-transport a:hover {
     border-bottom: 1px solid var(--text-color);
     transition: border-bottom .35s;
+}
+
+
+.threshold {
+    border: 1px solid var(--border-content-color);
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    gap: 10px;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    transition: height 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+    overflow: hidden;
+}
+
+.threshold.init {
+    height: 40px;
+}
+
+.threshold.expand {
+    height: 105px;
+}
+
+.threshold .label__name {
+    justify-content: center;
+    width: 100%;
+    margin-left: 0px;
+}
+
+.threshold .input {
+    text-align: center;
+    width: 100px;
+    padding-left: 0px;
+}
+
+.threshold .label {
+    width: auto;
+    min-width: 0px;
 }
