@@ -42,8 +42,6 @@ CREATE TABLE pre_release (
 -- ║ Transports ║
 -- ╚════════════╝
 
-
-
 CREATE TABLE transports (
     id INT AUTO_INCREMENT PRIMARY KEY,
     owner INT NOT NULL,
@@ -82,7 +80,6 @@ CREATE TABLE ping_agent_data (
     last_down DATETIME DEFAULT NULL,
     last_up DATETIME DEFAULT NULL,
     transports JSON,
-    extra JSON DEFAULT NULL,
     FOREIGN KEY (owner) REFERENCES users(id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
@@ -106,6 +103,48 @@ CREATE TABLE ping_agent_latency (
     latency FLOAT,
     time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (host_id) REFERENCES ping_agent_data(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+
+
+CREATE TABLE web_agent_data (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    owner INT NOT NULL,
+    url VARCHAR(512),
+    alias VARCHAR(512) NOT NULL,
+    request_timeout INT DEFAULT NULL,
+    state BOOLEAN DEFAULT NULL,
+    status_code INT DEFAULT NULL,
+    response_time FLOAT DEFAULT NULL,
+    ttfb FLOAT DEFAULT NULL,
+    redirects JSON,
+    content_length FLOAT DEFAULT NULL,
+    content_type VARCHAR(255) DEFAULT NULL,
+    content_encoding VARCHAR(255) DEFAULT NULL,
+    server VARCHAR(255) DEFAULT NULL,
+    page_title VARCHAR(255) DEFAULT NULL,
+    last_check DATETIME DEFAULT NULL,
+    last_down DATETIME DEFAULT NULL,
+    last_up DATETIME DEFAULT NULL,
+    ssl_expiry BOOLEAN DEFAULT False, 
+    domain_expiry BOOLEAN DEFAULT False, 
+    check_sslError BOOLEAN DEFAULT False, 
+    transports JSON,
+    FOREIGN KEY (owner) REFERENCES users(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE web_agent_record (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    web_id INT NOT NULL,
+    status_code INT,
+    response_time FLOAT,
+    ttfb FLOAT,
+    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (web_id) REFERENCES web_agent_data(id)
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );

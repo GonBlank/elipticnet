@@ -597,6 +597,14 @@ dialog form button .text.show {
 }
 
 /*
+@media only screen and (max-width:700px) {
+    .input-row-group{
+        flex-wrap: wrap;
+    }
+}
+*/
+
+/*
 ╔══════════════════════════╗
 ║ Transicion entre páginas ║
 ╚══════════════════════════╝
