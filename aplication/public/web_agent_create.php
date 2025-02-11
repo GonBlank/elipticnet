@@ -65,7 +65,7 @@ define('MENU_ALLOWED', true);
                     </svg>
                     Web agent
                 </h1>
-                <p>The web monitoring agent sends periodic HTTP HEAD requests and verifies if the response status is 2xx or 3xx. Otherwise, it triggers an alert. It also monitors domain expiration and SSL certificate validity.</p>
+                <p>The web monitoring agent sends periodic HTTP requests and verifies if the response status is lower than 400. Otherwise, it triggers an alert. It also monitors domain expiration and SSL certificate validity.</p>
             </div>
             <div class="input-form">
                 <label class="label">

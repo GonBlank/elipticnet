@@ -21,6 +21,7 @@ elipticnet ALL=(ALL) NOPASSWD: /var/www/elipticnet/aplication/python/elipticnet_
 
 crontab -e
 * * * * * /bin/bash -c 'source /var/www/elipticnet/aplication/python/elipticnet_env/bin/activate && sudo /var/www/elipticnet/aplication/python/elipticnet_env/bin/python /var/www/elipticnet/aplication/python/ping_agent.py >> /var/www/elipticnet/aplication/python/log/ping_agent.log 2>&1'
+* * * * * /bin/bash -c 'source /var/www/elipticnet/aplication/python/elipticnet_env/bin/activate && sudo /var/www/elipticnet/aplication/python/elipticnet_env/bin/python /var/www/elipticnet/aplication/python/web_agent.py >> /var/www/elipticnet/aplication/python/log/web_agent.log 2>&1'
 
 
 

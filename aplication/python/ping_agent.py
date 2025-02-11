@@ -126,8 +126,8 @@ def check_state(host, new_state):
         notifier.notifier(host, "ping_agent_up")
 
     elif host["state"] == None:
-        # print("[UP] FIRST CHECK")
-        logger.info("[UP] FIRST CHECK")
+        # print("[INFO] FIRST CHECK")
+        logger.info("[INFO] FIRST CHECK")
         update_host_log(
             host, "host_start", "First check", "The host begins to be monitored"
         )

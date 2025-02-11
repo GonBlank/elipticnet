@@ -62,10 +62,10 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('aliasError').textContent = 'Alias must be less than 25 characters.';
         }
 
-        if (requestTimeout > 60) {
+        if (0 < requestTimeout && requestTimeout > 60) {
             isValid = false;
             document.getElementById('requestTimeout').classList.add('error');
-            document.getElementById('requestTimeoutError').textContent = 'Timeout must be less than 60 sec.';
+            document.getElementById('requestTimeoutError').textContent = 'Timeout must be between 1 and 60 sec.';
         }
         return isValid;
     }
@@ -89,7 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const ttfbThresholdValue = document.getElementById('ttfbThresholdValue').value;
         const responseTimeThresholdValue = document.getElementById('responseTimeThresholdValue').value;
 
-
         // Seleccionar el contenedor de transportes
         const transportSection = document.querySelector('.alert-transports');
 
@@ -103,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const newWebAgent = {
             url: url.value,
             alias: alias.value,
-            requestTimeout: requestTimeout.value,
+            requestTimeout: requestTimeout.value.trim() === "" ? null : requestTimeout.value,
             sslExpiry: sslExpiry,
             domainExpiry: domainExpiry,
             checkSslError: checkSslError,

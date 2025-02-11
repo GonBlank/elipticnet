@@ -23,7 +23,6 @@ define('MENU_ALLOWED', true);
     <meta name="msapplication-config" content="../img/favicon/browserconfig.xml">
     <meta name="theme-color" content="#2b2d42">
 
-
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/palette.css" />
     <link rel="stylesheet" href="../css/components/alert.css" />
@@ -163,17 +162,50 @@ define('MENU_ALLOWED', true);
                     <h1><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-data-fill" viewBox="0 0 16 16">
                             <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z" />
                             <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zM10 8a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0zm4-3a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1" />
-                        </svg> Statistics</h1>
+                        </svg>Statistics</h1>
                     <div class="details">
-                        <p><span id="statusCode">Status Code:</span>404</p>
-                        <p><span id="statusCode">Response time:</span>404</p>
-                        <p><span id="statusCode">TTFB:</span>404</p>
-                        <p><span id="statusCode">Redirects:</span>404</p>
-                        <p><span id="statusCode">Content Length:</span>404</p>
-                        <p><span id="statusCode">Content Type:</span>404</p>
-                        <p><span id="statusCode">Content Encoding:</span>404</p>
-                        <p><span id="statusCode">Server:</span>404</p>
-                        <p><span id="statusCode">Page Title:</span>404</p>
+
+                        <div style="grid-column: span 4 / span 4;">
+                            <p>Page Title</p>
+                            <p id="pageTitle">Titulo de la página web</p>
+                        </div>
+
+                        <div>
+                            <p>Status Code</p>
+                            <p id="statusCode">404</p>
+                        </div>
+
+                        <div>
+                            <p>Response time</p>
+                            <p id="responseTime">12ms</p>
+                        </div>
+
+                        <div>
+                            <p>TTFB</p>
+                            <p id="ttfb">12ms</p>
+                        </div>
+
+                        <div>
+                            <p>Content Length</p>
+                            <p id="contentLength">200Kb</p>
+                        </div>
+
+                        <div style="grid-column: span 4 / span 4;">
+                            <p>Content Type</p>
+                            <p id="contentType">HTML/XML redundant compilance</p>
+                        </div>
+
+                        <div style="grid-column: span 4 / span 4;">
+                            <p>Content Encoding</p>
+                            <p id="contentEncoding">HTML/XML redundant compilance</p>
+                        </div>
+
+                        <div style="grid-column: span 4 / span 4;">
+                            <p>Server</p>
+                            <p id="contentEncoding">Apache</p>
+                        </div>
+
+                        <!--<p><span id="statusCode">Redirects:</span>JSON de redireccion de web</p> -->
                     </div>
                 </article>
                 <!--

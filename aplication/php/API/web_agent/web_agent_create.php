@@ -42,7 +42,7 @@ if (!isset($data['alias']) || empty($data['alias'])) {
 
 $ttfbThresholdValue = (float) $data['ttfbThresholdValue'] ?? null;
 $responseTimeThresholdValue = (float) $data['responseTimeThresholdValue'] ?? null;
-$requestTimeout = $data['requestTimeout'] ?? 30;
+$requestTimeout = $data['requestTimeout'] ?? 10;
 $alias = $data['alias'] ?? $data['url'];
 
 try {

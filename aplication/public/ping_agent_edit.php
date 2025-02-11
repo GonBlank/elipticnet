@@ -129,7 +129,7 @@ define('MENU_ALLOWED', true);
                     <div id="threshold-box" class="threshold init">
                         <div class="checkbox-wrapper-13">
                             <input id="threshold-checkbox" name="threshold" type="checkbox" onchange="toggleInput(this)">
-                            <label for="threshold-checkbox">Threshold</label>
+                            <label for="threshold-checkbox">Latency threshold</label>
                         </div>
 
                         <label class="label" id="threshold-input-wrapper" style="display: none;">
