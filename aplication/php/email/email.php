@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../env.php';
-require "vendor/autoload.php";
+require  __DIR__ ."/vendor/autoload.php";
 
 
 use PHPMailer\PHPMailer\PHPMailer;
