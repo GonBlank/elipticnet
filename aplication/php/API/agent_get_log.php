@@ -12,12 +12,21 @@ if ($_SERVER["REQUEST_METHOD"] !== "GET") {
     exit;
 }
 
-if (!isset($_GET['id'])) {
+if (!isset($_GET['id']) || !isset($_GET['table'])) {
     echo json_encode(["error" => true, "type" => "error", "title" => "Validation Error", "message" => "Incomplete data."]);
     exit;
 }
 
-$ping_agent_id = (int)$_GET['id'];
+$agent_id = (int)$_GET['id'];
+
+$allowed_tables = ['ping_agent_log', 'web_agent_log']; // Lista blanca de tablas permitidas
+$table = $_GET['table'];
+
+if (!in_array($table, $allowed_tables)) {
+    error_log("[ERROR] " . __FILE__ . ": Se intento setear una tabla no permitida");
+    echo json_encode(["error" => true, "type" => "error", "title" => "Connection Error", "message" => "We are experiencing problems, please try again later or", "link_text" => "contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
+    exit;
+}
 
 
 try {
@@ -31,19 +40,11 @@ try {
         exit;
     }
 
-    $sql = "SELECT 
-                pal.icon, 
-                pal.cause, 
-                pal.message, 
-                pal.time
-            FROM 
-                ping_agent_log pal
-            INNER JOIN 
-                ping_agent_data pad
-            ON 
-                pal.ping_agent_id = pad.id
-            WHERE 
-                pad.id = ? AND pad.owner = ?;";
+    $sql = "SELECT pal.icon, pal.cause, pal.message, pal.time
+    FROM $table pal
+    INNER JOIN ping_agent_data pad
+    ON pal.ping_agent_id = pad.id
+    WHERE pad.id = ? AND pad.owner = ?;";
 
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
@@ -53,7 +54,7 @@ try {
     }
 
     // Vincular parámetros
-    $stmt->bind_param("ii", $ping_agent_id, $owner);
+    $stmt->bind_param("ii", $agent_id, $owner);
     $stmt->execute();
     $result = $stmt->get_result();
 

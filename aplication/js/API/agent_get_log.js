@@ -1,12 +1,9 @@
 
 import { getUrlParameter } from '../functions/getUrlParameter.js';
 import { logTimeFormatter } from '../functions/logTimeFormatter.js';
-ping_agent_get_log();
-setInterval(ping_agent_get_log, 60000);
-
-function ping_agent_get_log() {
-    const pingAgentId = getUrlParameter('id');
-    fetch(`../php/API/ping_agent_get_log.php?id=${pingAgentId}`, {
+export function agent_get_log(table) {
+    const AgentId = getUrlParameter('id');
+    fetch(`../php/API/agent_get_log.php?id=${AgentId}&table=${table}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

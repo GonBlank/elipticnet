@@ -153,6 +153,18 @@ CREATE TABLE web_agent_record (
     ON UPDATE CASCADE
 );
 
+CREATE TABLE web_agent_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    web_agent_id INT NOT NULL,
+    icon VARCHAR (255) DEFAULT NULL,
+    cause VARCHAR (255) DEFAULT NULL,
+    message VARCHAR (255) DEFAULT NULL,
+    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (web_agent_id) REFERENCES web_agent_data(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
 -- ╔═════════╗
 -- ║ Usuario ║
 -- ╚═════════╝

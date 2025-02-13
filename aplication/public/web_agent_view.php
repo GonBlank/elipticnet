@@ -165,11 +165,6 @@ define('MENU_ALLOWED', true);
                         </svg>Statistics</h1>
                     <div class="details">
 
-                        <div style="grid-column: span 4 / span 4;">
-                            <p>Page Title</p>
-                            <p id="pageTitle">Titulo de la página web</p>
-                        </div>
-
                         <div>
                             <p>Status Code</p>
                             <p id="statusCode">404</p>
@@ -188,21 +183,6 @@ define('MENU_ALLOWED', true);
                         <div>
                             <p>Content Length</p>
                             <p id="contentLength">200Kb</p>
-                        </div>
-
-                        <div style="grid-column: span 4 / span 4;">
-                            <p>Content Type</p>
-                            <p id="contentType">HTML/XML redundant compilance</p>
-                        </div>
-
-                        <div style="grid-column: span 4 / span 4;">
-                            <p>Content Encoding</p>
-                            <p id="contentEncoding">HTML/XML redundant compilance</p>
-                        </div>
-
-                        <div style="grid-column: span 4 / span 4;">
-                            <p>Server</p>
-                            <p id="contentEncoding">Apache</p>
                         </div>
 
                         <!--<p><span id="statusCode">Redirects:</span>JSON de redireccion de web</p> -->

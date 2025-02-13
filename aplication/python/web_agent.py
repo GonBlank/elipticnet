@@ -224,20 +224,29 @@ def detect_web_state(web, data):
     if data["state"] == False and web["state"] == True:
         notifier.notifier(web, "web_agent_down", details={"status_code": get_http_status_description(data["status_code"])})
         update_last_up_down(False, web["id"])
+        update_web_log(web["id"], "web_down", "Web down", get_http_status_description(data["status_code"]))
         print("[INFO] web agent DOWN")
     elif data["state"] == True and web["state"] == False:
         notifier.notifier(web, "web_agent_up", details={"status_code": get_http_status_description(data["status_code"])})
         update_last_up_down(True, web["id"])
+        update_web_log(web["id"], "web_up", "Web up", get_http_status_description(data["status_code"]))
         print("[INFO] web agent RESTORED")
     elif web["state"] == None:
         print("[INFO] FIRST CHECK")
         #logger.info("[INFO] FIRST CHECK")
+        update_web_log(web["id"], "web_start", "First check", "The web begins to be monitored")
         if data["state"] == True:
             update_last_up_down(True, web["id"])
+            update_web_log(web["id"], "web_up", "Web up", get_http_status_description(data["status_code"]))
         else:
             update_last_up_down(False, web["id"])
+            update_web_log(web["id"], "web_down", "Web down", get_http_status_description(data["status_code"]))
     return
 
+def detect_response_code_change(web, data):
+    if web["status_code"] != get_http_status_description(data["status_code"]):
+        update_web_log(web["id"], "web_info", "Status code change", f"{web["status_code"]} => {get_http_status_description(data["status_code"])}")
+        print ("Cambio el codigo de respuesta")
 
 def threshold_exceeded(threshold_set, threshold_real, threshold_exceeded):
     """
@@ -272,19 +281,23 @@ def handle_threshold(web, data):
         if threshold_exceeded(web["response_time_threshold"],data["response_time"], web["response_time_threshold_exceeded"]):
             notifier.notifier(web, "web_agent_threshold_exceeded_template", details={"value": data["response_time"], "threshold_type": "Response time", "threshold_set": web["response_time_threshold"]})
             update_check_threshold(web["id"], True, "response_time_threshold_exceeded")
+            update_web_log(web["id"], "web_alert", "High response time", f"The response time is above {web["response_time_threshold"]} ms.")
             print("Humbral de tiempo de respuesta excedido")
         elif (threshold_exceeded(web["response_time_threshold"], data["response_time"], web["response_time_threshold_exceeded"]) == False):
             notifier.notifier(web, "web_agent_threshold_restored", details={"value": data["response_time"], "threshold_type": "Response time", "threshold_set": web["response_time_threshold"]})
             update_check_threshold(web["id"], False, "response_time_threshold_exceeded")
+            update_web_log(web["id"], "web_check", " Response time threshold recovered", f"The response time is now below {web["response_time_threshold"]} ms.")
             print("Umbral de tiempo de respuesta restaurado")
     if web["ttfb_threshold"]:
         if threshold_exceeded(web["ttfb_threshold"], data["ttfb"], web["ttfb_threshold_exceeded"]):
-            update_check_threshold(web["id"], True, "ttfb_threshold_exceeded")
             notifier.notifier(web, "web_agent_threshold_exceeded_template", details={"value": data["ttfb"], "threshold_type": "TTFB", "threshold_set": web["ttfb_threshold"]})
+            update_check_threshold(web["id"], True, "ttfb_threshold_exceeded")
+            update_web_log(web["id"], "web_alert", "High TTFB", f"The TTFB is above {web["ttfb_threshold"]} ms.")
             print("Humbral de tiempo de TTFB excedido")
         elif (threshold_exceeded(web["ttfb_threshold"], data["ttfb"], web["ttfb_threshold_exceeded"]) == False):
             notifier.notifier(web, "web_agent_threshold_restored", details={"value": data["ttfb"], "threshold_type": "TTFB", "threshold_set": web["ttfb_threshold"]})
             update_check_threshold(web["id"], False, "ttfb_threshold_exceeded")
+            update_web_log(web["id"], "web_check", " TTFB threshold recovered", f"The TTFB is now below {web["ttfb_threshold"]} ms.")
             print("Umbral de TTFB restaurado")
 
 def update_last_up_down(state, id):
@@ -310,6 +323,30 @@ def update_last_up_down(state, id):
         connection.close()
 
 
+def update_web_log(id, icon, cause, message=None):
+
+    try:
+        connection = mysql.connector.connect(**DB_CONFIG)
+        cursor = connection.cursor()
+
+        # Usar %s para todos los tipos de datos en la consulta
+        update_query = """INSERT INTO web_agent_log (web_agent_id, icon, cause, message) VALUES (%s, %s, %s, %s)"""
+
+        cursor.execute(update_query, (id, icon, cause, message))
+        connection.commit()
+
+        # print("[INFO] Host latency updated successfully.")
+
+    except mysql.connector.Error as e:
+        print(f"ERROR: {e}")
+        #logger.warning(f"Error: {e}")
+
+    finally:
+        cursor.close()
+        connection.close()
+
+
+
 if __name__ == "__main__":
     web_list = fetch_web_agent_data()
     print("STARTING")
@@ -324,9 +361,10 @@ if __name__ == "__main__":
             try:
                 data = future.result()
                 data["id"] = web["id"]
+                detect_web_state(web, data)
                 update_web_agent_data(data)
                 insert_web_agent_record(data)
-                detect_web_state(web, data)
+                detect_response_code_change(web, data)
                 # notifier.notifier(web, "web_agent_up")
                 if data["state"]:
                     handle_threshold(web, data)

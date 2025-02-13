@@ -345,12 +345,12 @@ define('MENU_ALLOWED', true);
     </dialog>
 
 
-    
+
     <script src="../js/page_transition.js"></script>
     <script src="../js/components/alert.js"></script>
     <script src="../js/functions/get_url_param_id.js"></script> <!-- pronto deprecado -->
     <script src="../js/functions/remove_load_curtain.js"></script>
-    
+
     <script src="../js/modal.js"></script>
     <script src="../js/components/linkDropDown.js"></script>
 
@@ -360,8 +360,15 @@ define('MENU_ALLOWED', true);
 
     <script type="module" src="../js/API/ping_agent_get_data.js"></script>
     <script type="module" src="../js/API/ping_agent_get_statistics.js"></script>
-    <script type="module" src="../js/API/ping_agent_get_log.js"></script>
+    <script type="module" src="../js/API/agent_get_log.js"></script>
     <script type="module" src="../js/API/ping_agent_delete.js"></script>
+
+    <script type="module">
+    import {agent_get_log } from "../js/API/agent_get_log.js";
+    agent_get_log('ping_agent_log');
+    setInterval(() => agent_get_log('ping_agent_log'), 60000);
+    </script>
+
 </body>
 
 </html>
