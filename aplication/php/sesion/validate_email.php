@@ -95,9 +95,6 @@ try {
         echo json_encode(["error" => true, "type" => "error", "title" => "Error", "message" => "Invalid validation hash"]);
     }
 
-    // Cerrar la consulta y la conexión
-    $stmt->close();
-    $conn->close();
 } catch (Exception $e) {
     // Manejo de errores generales
     error_log("[ERROR] " . __FILE__ . ": " . $e->getMessage());
