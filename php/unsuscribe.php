@@ -49,6 +49,7 @@ try {
         // Comprobar si realmente se eliminó una fila
         if ($stmt->affected_rows == 1) {
             echo json_encode(["error" => false, "type" => "success", "title" => "Success", "message" => "You will no longer receive messages from the early access list."]);
+            error_log("[INFO] unsuscribe: El cliente $email se elimino de la base de datos");
         } else if ($stmt->affected_rows == 0) {
             echo json_encode(["error" => true, "type" => "error", "title" => "Not Found", "message" => "We couldn't find your email on the early access list. ", "link_text" => "Contact support", "link" => "mailto:support@elipticnet.com?subject=Support%20Request&body=Please%20provide%20details%20about%20your%20issue."]);
         } else if ($stmt->affected_rows > 1) {

@@ -1,0 +1,302 @@
+@font-face {
+    font-family: 'Lexend Variable';
+    src: url('../fonts/Lexend-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    /* Define el rango de pesos */
+    font-display: swap;
+    /* Mejor rendimiento en carga */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Lexend Variable", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    cursor: context-menu;
+    box-sizing: border-box;
+    color: var(--text-color);
+}
+
+svg,
+a p,
+a small {
+    pointer-events: none;
+}
+
+body {
+    background-image: url(../img/background/background.jpg);
+    background-color: var(--background);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(15px);
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+}
+
+.black_curtain {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / .397);
+    z-index: -1;
+}
+
+section.webpage {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-y: auto;
+}
+
+nav {
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .title_logo {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    font-size: clamp(.95rem, 3vw, 1.3rem);
+}
+
+nav .title_logo img {
+    width: clamp(30px, 4vw, 50px);
+    height: auto;
+    /* Mantener proporción */
+}
+
+nav .access_platform {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+nav .access_platform a.login {
+    border-radius: 5px;
+    padding: 10px;
+    transition: transform 0.2s cubic-bezier(.33, 1, .68, 1);
+    cursor: pointer;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    font-size: clamp(.85rem, 3vw, 1.1rem);
+}
+
+nav .access_platform a.login:active {
+    transform: scale(.95)
+}
+
+
+main {
+    flex: 1;
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 1rem;
+    gap: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+    justify-content: space-around;
+}
+
+main .title {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+main .title h1 {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+
+}
+
+main .title p {
+    font-size: clamp(.7rem, 2vw, 1rem);
+}
+
+main h2 {
+    color: var(--alert-success);
+    animation: pulse_regular 2s ease 0s infinite normal forwards;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    display: flex;
+    flex-direction: column;
+}
+
+main h2 span {
+    color: inherit;
+    font-size: clamp(.7rem, 2vw, 1rem);
+}
+
+@keyframes pulse_regular {
+    0% {
+        transform: scale(1)
+    }
+
+    50% {
+        transform: scale(1.1)
+    }
+
+    100% {
+        transform: scale(1)
+    }
+}
+
+
+main a {
+    margin-top: 20px;
+    background-color: var(--button-primary);
+    border-radius: 10px;
+    padding: 10px 25px 10px 25px;
+    transition: transform 0.2s cubic-bezier(.33, 1, .68, 1), box-shadow 0.2s cubic-bezier(.33, 1, .68, 1);
+    cursor: pointer;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0px 0px 25px 0px var(--background);
+}
+
+main a p {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-weight: 700;
+}
+
+main a small {
+    font-weight: 200;
+    font-size: clamp(.6rem, 2vw, .8rem);
+            /*clamp(.6rem, 3vw, .8rem)*/
+}
+
+main a:active {
+    transform: scale(.95);
+    box-shadow: none
+}
+
+section.features {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: flex-start;
+    gap: 10px;
+    padding: 8px;
+}
+
+.card {
+    padding: 15px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 0 15px 0 var(--card-shadow)
+}
+
+.card.feature {
+    border: 1px solid var(--soft-green);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    height: fit-content;
+
+}
+
+.card.feature h1 {
+    font-size: clamp(1.2rem, 1.8vw, 1.7rem);
+    display: flex;
+    flex-direction: column;
+}
+
+.card.feature h1 span {
+    font-size: .7rem;
+    font-weight: 400;
+}
+
+.card.feature p {
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: clamp(.7rem, 2vw, 1rem)
+}
+
+.card.feature p svg {
+    fill: var(--text-color);
+    width: clamp(15px, 1.8vw, 20px);
+    height: clamp(15px, 1.8vw, 20px)
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    background-color: var(--background);
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+}
+
+footer .links{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+footer .links a{
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5px;
+    font-size: .8rem;
+}
+
+footer .details{
+    display: flex;
+}
+
+footer .details p{
+    font-size: .8rem;
+}
+
+
+::-webkit-scrollbar {
+    width: 12px
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrolBar-background)
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrolBar-bar);
+    border-radius: 10px;
+    border: 2px solid var(--scrolBar-background)
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrolBar-hover)
+}
+
+html,
+section {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrolBar-bar) var(--scrolBar-background)
+}
