@@ -11,7 +11,7 @@ CREATE TABLE users (
     username VARCHAR(100) NOT NULL,            -- Hasta 100 caracteres
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,            -- Guardará el hash de la contraseña
-    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, --No probado
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- No probado
     validation_hash CHAR(24) DEFAULT NULL,         -- Hash de validación de 24 caracteres en hexadecimal
     hash_date DATETIME DEFAULT NULL,               -- Fecha y hora de creación del hash
     enable BOOLEAN NOT NULL DEFAULT True,           -- Estado de validación, 0 = no validado, 1 = validado
