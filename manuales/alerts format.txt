@@ -1,0 +1,24 @@
+SIN LINK
+
+echo json_encode(["error" => true, "type" => "warning", "title" => "Validation Error", "message" => "Validation hash expired"]);
+
+CON LINK
+
+echo json_encode(["error" => true, "type" => "warning", "title" => "Validation Error", "message" => "Validation hash expired", "link_text"=> "Resend the code", "link"=>"resend_validation_code.html"]);
+ShowAlert(data.type, data.title, data.message, data.type, data.link_text, data.link);
+
+
+
+Nueva alerta:
+
+<!--
+        <article class="alert">
+            <div class="alert-icon success">
+                <img src="img/icons/success.png">
+            </div>
+            <div class="alert-text">
+                <h1>TITTLE</h1>
+                <p>message <a href="#">mensaje especial</a> </p>
+            </div>
+        </article>
+-->

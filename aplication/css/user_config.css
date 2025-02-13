@@ -1,0 +1,99 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    position: relative;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--form-background);
+    gap: 8px;
+    padding: 20px;
+    border-radius: 8px;
+    width: 75%;
+    max-width: 700px;
+    height: fit-content;
+}
+
+.tittle {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 5px;
+    cursor: context-menu;
+}
+
+.tittle h1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    font-size: clamp(1.2rem, 2vw, 1.7rem);
+}
+
+.tittle p {
+    font-size: clamp(.6em, 2vw, .75rem);
+}
+
+.tittle h1 svg {
+    fill: var(--accent-green);
+    width: 20px;
+    height: 20px;
+}
+
+.update-btn,
+#delete-account-btn {
+     display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 5px;
+    height: fit-content;
+    width: fit-content;
+    font-size: .8rem;
+}
+
+.dialog-body {
+    padding: 20px;
+    font-size: .9rem;
+    text-align: center;
+}
+
+.dialog-options {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    gap: 8px;
+}
+
+#delete-btn,
+#cancel-btn {
+    padding: 5px;
+    font-size: .9rem;
+    border-radius: 8px;
+    color: var(--text-color);
+}
+
+#cancel-btn {
+    background-color: transparent;
+    border: 1px solid var(--text-color);
+    flex: 1;
+}
+
+#cancel-btn:hover {
+    background-color: var(--text-color);
+    color: var(--dialog-background);
+}
+
+#delete-btn, #delete-account-btn {
+    background-color: var(--accent-red);
+    flex: 1;
+}
+
+#delete-btn:hover, #delete-account-btn:hover {
+    background-color: var(--accent-red-hover);
+
+}

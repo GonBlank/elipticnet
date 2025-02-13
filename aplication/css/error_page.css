@@ -1,0 +1,58 @@
+body {
+    background-image: url('../img/background/login_background.jpg');
+    background-color: var(--background);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(15px);
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    color: var(--text-color);
+}
+
+main {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+.error-container {
+    cursor: context-menu;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--form-background);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+.title{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.2rem;
+}
+
+.title svg{
+    width: 25px;
+    height: 25px;
+    fill: var(--accent-red);
+}
+
+.subtitle{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: .85rem;
+}
+
+.subtitle a{
+    color: var(--special-text-color);
+}

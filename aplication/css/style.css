@@ -1,0 +1,617 @@
+/*@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');*/
+
+@font-face {
+    font-family: 'Lexend Variable';
+    src: url('../fonts/Lexend-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    /* Define el rango de pesos */
+    font-display: swap;
+    /* Mejor rendimiento en carga */
+}
+
+* {
+    font-family: "Lexend Variable", sans-serif;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/* Pasar a componentes*/
+button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+button:active {
+    transform: scale(.95);
+}
+
+button:disabled {
+    cursor: not-allowed;
+    transform: none;
+}
+
+button.primary {
+    background-color: var(--button-primary);
+    color: var(--text-color);
+    border-radius: 5px;
+}
+
+button.primary:disabled {
+    background-color: var(--button-primary-disabled);
+}
+
+button.primary:hover {
+    background-color: var(--button-primary-hover);
+}
+
+button.primary:disabled {
+    background-color: var(--button-primary-disabled);
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    position: relative;
+    color: var(--text-900);
+    background-color: var(--background);
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 60px 1fr;
+    grid-template-areas:
+        "nav nav"
+        "lateral-menu dashboard";
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    /*Must match transition duration in JS*/
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    background-color: var(--nav-background);
+    color: var(--text-color);
+    padding: 10px;
+    grid-area: nav;
+}
+
+nav h1 {
+    cursor: context-menu;
+}
+
+.nav-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav svg {
+    fill: var(--text-color);
+}
+
+nav button {
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+nav button:hover {
+    background-color: var(--primary-200);
+}
+
+nav button:active {
+    box-shadow: 0px 0px 14px 0px var(--background-200) inset;
+}
+
+main.dashboard {
+    grid-area: dashboard;
+    grid-column: 1 / -1;
+    color: var(--text-color);
+    padding: 20px;
+    min-width: 340px;
+    overflow: auto;
+}
+
+.card {
+    padding: 15px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px 0px var(--card-shadow);
+}
+
+/*
+╔════════╗
+║ inputs ║
+╚════════╝
+
+Pasar a componentes
+*/
+
+.label {
+    width: 100%;
+    display: grid;
+    grid-template-areas: "input";
+    text-wrap: nowrap;
+    min-width: 125px;
+}
+
+.input {
+    grid-area: input;
+    padding-left: 10px;
+    text-align: left;
+    height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid var(--input-border);
+    cursor: pointer;
+    background-color: var(--input-background);
+    transition: border-color .3s;
+}
+
+.input:disabled {
+    cursor: not-allowed;
+    background-color: var(--input-disabled-bg);
+    color: var(--text-color-label_name);
+}
+
+.input:disabled:hover {
+    border-color: var(--input-border);
+}
+
+.input:hover {
+    border-color: var(--input-border-hover);
+}
+
+.input:not(.error):focus {
+    border: 1px solid var(--input-focus);
+}
+
+.input:not(.error):focus-visible {
+    outline: 1px solid var(--input-focus-visible);
+}
+
+.label__name {
+    grid-area: input;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    transition: .2s;
+    cursor: pointer;
+    justify-self: start;
+    color: var(--text-color-label_name);
+    margin-left: 8px;
+    pointer-events: none;
+    font-size: clamp(.75rem, 1.5vw, .8rem);
+}
+
+.label__name svg {
+    fill: var(--text-color);
+    width: 18px;
+}
+
+span.textarea {
+    height: fit-content;
+    padding-top: 5px;
+}
+
+.input:focus+.label__name,
+.input:not(:placeholder-shown)+.label__name {
+    transform: none;
+    opacity: 0;
+    transition: opacity .3s;
+}
+
+
+.input.textarea:focus+.label__name,
+.input.textarea:not(:placeholder-shown)+.label__name {
+    transform: none;
+    opacity: 0;
+    transition: opacity .3s;
+}
+
+textarea {
+    border: 1px solid var(--input-border)
+}
+
+textarea:focus-visible {
+    outline: 1px solid var(--input-focus-visible);
+
+}
+
+textarea:focus {
+    border: 1px solid var(--input-focus);
+}
+
+/* Ocultar flechas para input number
+ para todos los navegadores */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    /* Firefox */
+}
+
+.input.error {
+    border: 2px solid var(--accent-red);
+}
+
+.input.error:focus-visible {
+    outline: 0px;
+}
+
+.error-message {
+    color: var(--accent-red);
+    font-size: 0.675em;
+    margin-top: 0.25rem;
+    text-wrap: nowrap;
+    height: 0px;
+}
+
+
+/*
+╔════════════╗
+║ Scroll bar ║
+╚════════════╝
+*/
+
+.scrollable-content::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+    background-color: var(--primary-800);
+    border-radius: 6px;
+}
+
+.scrollable-content::-webkit-scrollbar-track {
+    background-color: var(--primary-200);
+    border-radius: 6px;
+}
+
+.scrollable-content::-webkit-scrollbar-corner {
+    background-color: var(--primary-200);
+}
+
+
+/* WebKit-based browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrolBar-background);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrolBar-bar);
+    border-radius: 10px;
+    border: 2px solid var(--scrolBar-background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrolBar-hover);
+}
+
+/* Firefox */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrolBar-bar) var(--scrolBar-background);
+}
+
+/*
+╔═════════╗
+║ Loaders ║
+╚═════════╝
+*/
+
+/* Loader hourglass */
+.loader-hourglass {
+    display: none;
+    /* Oculto por defecto */
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Mostrar el loader svg hourglass */
+.loader-hourglass.show {
+    display: flex;
+    gap: 5px;
+    /* Mostrar cuando esté activo */
+}
+
+/* Animación de giro para loader hourglass */
+.spinner-hourglass {
+    animation: spin 1s cubic-bezier(0.33, 1, 0.68, 1) infinite;
+}
+
+.spinner-circle {
+    animation: spin 1s linear infinite;
+}
+
+.loader-hourglass.small {
+    width: 25px;
+    height: 25px;
+}
+
+/*spin loader*/
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid var(--accent-500);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner.medium {
+    width: 40px;
+    height: 40px;
+}
+
+/*<div class="spinner loader" id="loading_spinner"></div>*/
+
+
+/*place holder*/
+
+.placeholder-text {
+    border-radius: 8px;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+.placeholder-text.medium {
+    width: 200px;
+    height: 20px;
+}
+
+.placeholder-text.small {
+    width: 100px;
+    height: 10px;
+}
+
+@keyframes pulse {
+    0% {
+        background-color: var(--accent-200);
+    }
+
+    50% {
+        background-color: var(--accent-300);
+    }
+
+    100% {
+        background-color: var(--accent-200);
+    }
+}
+
+/*<div class="placeholder-text loader"></div>*/
+
+
+#load-curtain {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.486);
+    backdrop-filter: blur(8px);
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#load-curtain svg {
+    width: 50px;
+    height: 50px;
+    fill: var(--spinner-color);
+}
+
+/*
+╔════════╗
+║ Modals ║
+╚════════╝
+*/
+
+dialog {
+    position: relative;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--dialog-background);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    cursor: context-menu;
+    animation: showModal 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    min-width: 250px;
+    color: var(--text-color);
+}
+
+dialog::backdrop {
+    position: fixed;
+    z-index: -1;
+    backdrop-filter: blur(3px);
+    background-color: rgba(0, 0, 0, 0.527);
+}
+
+.dialog-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--dialog-header-background);
+    font-size: .7rem;
+
+}
+
+.dialog-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dialog-header h1 svg {
+    fill: var(--text-color);
+    width: 26px;
+    height: 26px;
+}
+
+.close-modal {
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+}
+
+.close-modal:hover {
+    background-color: var(--dialog-background);
+    transition: background-color .2s;
+}
+
+@keyframes showModal {
+    from {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+
+/*
+╔════════════════╗
+║ LOGOUT DIALOG  ║
+╚════════════════╝
+Pasarlo al css del menu lateral
+Unificar el modal par que todos tengan la misma base.
+Luego pasar el de #logout al css de menu lateral
+*/
+#logout .dialog-body {
+    padding: 20px;
+    font-size: .9rem;
+    text-align: center;
+}
+
+#logout .dialog-options {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    gap: 8px;
+}
+
+#logout-btn,
+#cancel-btn {
+    padding: 5px;
+    font-size: .9rem;
+    border-radius: 8px;
+    color: var(--text-color);
+}
+
+#cancel-btn {
+    background-color: transparent;
+    border: 1px solid var(--text-color);
+    flex: 1;
+}
+
+#cancel-btn:hover {
+    background-color: var(--text-color);
+    color: var(--dialog-background);
+
+}
+
+#logout-btn {
+    background-color: var(--accent-red);
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#logout-btn:hover {
+    background-color: var(--accent-red-hover);
+
+}
+
+button svg {
+    pointer-events: none;
+}
+
+button .text {
+    pointer-events: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+dialog form button .text.hide,
+button .text.hide {
+    display: none;
+}
+
+dialog form button .text.show {
+    display: contents;
+}
+
+.input-row-group {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+/*
+╔══════════════════════════╗
+║ Transicion entre páginas ║
+╚══════════════════════════╝
+*/
+
+.fade-out {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.fade-out.hidden {
+    opacity: 0;
+}
+
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}

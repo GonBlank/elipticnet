@@ -1,0 +1,1 @@
+net use E: \\192.168.0.189\www /user:elipticnet clark31n

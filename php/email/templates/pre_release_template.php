@@ -1,4 +1,3 @@
-
 <?php
 require_once __DIR__ . '/../../env.php';
 //$url_image_logo = "https://elipticnet.com/img/favicon/android-chrome-192x192.png";
@@ -193,6 +192,4 @@ function pre_release_template_spa($hash_id, $email)
 
 HTML;
 }
-
-
 ?>
