@@ -82,7 +82,6 @@ CREATE TABLE ping_agent_data (
     last_down DATETIME DEFAULT NULL,
     last_up DATETIME DEFAULT NULL,
     transports JSON,
-    extra JSON DEFAULT NULL,
     FOREIGN KEY (owner) REFERENCES users(id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
