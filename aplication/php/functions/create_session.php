@@ -7,13 +7,13 @@ function create_session($id, $username, $email, $type, $languageCode = null, $ti
     // Configuración de cookies según el entorno
     $cookieParams = [
         'lifetime' => $lifetime,
-        'path' => '/',
-        'domain' => DOMAIN,
-        'secure' => ENV === 'production', // HTTPS solo en producción
-        'httponly' => true, // Protección contra XSS
-        'samesite' => ENV === 'production' ? 'Strict' : 'Lax' // CSRF según entorno
+        'path' => '/', // Asegura que la cookie esté disponible en todo el dominio
+        //'domain' => 'elipticnet.com', // si lo descomento no anda en produccion el login
+        'secure' => ENV === 'production', // Solo se enviará por HTTPS en producción
+        'httponly' => true, // Evita el acceso a la cookie desde JavaScript (previene XSS)
+        'samesite' => 'Strict', // Previene CSRF en producción
+        'version' => 1 // Versión de la cookie (opcional, pero útil si necesitas compatibilidad con navegadores antiguos)
     ];
-
     // Iniciar sesión solo si no está activa
     if (session_status() === PHP_SESSION_NONE) {
         session_set_cookie_params($cookieParams);

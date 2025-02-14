@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../env.php';
-
-require "vendor/autoload.php";
+require  __DIR__ ."/vendor/autoload.php";
 
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -13,7 +12,7 @@ function send_email($body, $subject, $client_email)
 
     try {
         // Configuración del servidor SMTP
-        $mail->SMTPDebug  = 2; // Cambiar a 2 para más detalles en el debug
+        $mail->SMTPDebug  = 0; // Cambiar a 2 para más detalles en el debug
         $mail->isSMTP();
         $mail->Host       = SMTP_SERVER;
         $mail->SMTPAuth   = true;
@@ -28,6 +27,7 @@ function send_email($body, $subject, $client_email)
         $mail->Sender = SMTP_USERNAME;
         $mail->addAddress($client_email);           // Destinatario
         $mail->isHTML(true);                        // Activar HTML
+        $mail->CharSet = 'UTF-8';                   // Asegurar que el charset es UTF-8
         $mail->Subject = $subject;
         $mail->Body    = $body;
 

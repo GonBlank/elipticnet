@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Favicon-->
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#2b2d42">
+    <link rel="shortcut icon" href="img/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b2d42">
+    <meta name="msapplication-config" content="img/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#2b2d42">
+
+    <!--Others-->
+    <meta name="description"
+        content="Elipticnet is an easy-to-use and affordable alternative to UptimeRobot and Uptime Kuma. Monitor your website, server, or API uptime with no installation required. Join our early access list today.">
+    <meta name="keywords"
+        content="UptimeRobot alternative, Uptime Kuma alternative, website monitoring, server monitoring, uptime monitoring, API monitoring, Elipticnet, early access, monitoring tool, no installation, network monitoring">
+    <meta name="author" content="Elipticnet">
+
+    <meta name="robots" content="index, follow, noarchive">
+
+    <meta property="og:title" content="Elipticnet – A Simple Alternative to UptimeRobot and Uptime Kuma (Early Access)">
+    <meta property="og:description"
+        content="Discover Elipticnet, the easy-to-use and affordable uptime monitoring solution. Sign up for early access and start monitoring your site without installation.">
+    <meta property="og:image" content="https://elipticnet.com/assets/preview.jpg">
+    <meta property="og:url" content="https://elipticnet.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Elipticnet – A Simple Uptime Monitoring Solution (Early Access)">
+    <meta name="twitter:description"
+        content="Elipticnet is launching soon. Get early access to the best uptime monitoring tool that’s easy, fast, and affordable.">
+    <meta name="twitter:image" content="https://elipticnet.com/assets/preview.jpg">
+    <title>Elipticnet – Affordable & Easy-to-Use Uptime Monitoring Alternative (Early Access)</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/palette.css">
+    <link rel="stylesheet" href="css/web-uptime.css">
+    <link rel="stylesheet" href="css/alert.css">
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VF5RD3YQ4P"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-VF5RD3YQ4P');
+</script>
+
+<body>
+    <main>
+        <header id="joinNow" class="title">
+            <h1>Monitor Your Network
+            </h1>
+            <h1> Without High Costs</h1>
+            <div class="coming_soon">
+                <h2> Early access: <span> March, 2025 </span></h2>
+
+                <section class="register-form">
+                    <form class="email-form">
+                        <label class="label" for="user-email">
+                            <input type="email" placeholder=" " class="input" id="user-email" name="user-email"
+                                autocomplete="email" required />
+                            <span class="label__name">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                                    width="24px" fill="#e8eaed">
+                                    <path
+                                        d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480v58q0 59-40.5 100.5T740-280q-35 0-66-15t-52-43q-29 29-65.5 43.5T480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480v58q0 26 17 44t43 18q26 0 43-18t17-44v-58q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93h200v80H480Zm0-280q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Z" />
+                                </svg> Email</span>
+                        </label>
+                        <button id="sendEmailBtn">
+                            <div style="pointer-events: none;" class="textButton show">
+                                Notify Me
+                            </div>
+                            <div class="loaderButton hide" style="pointer-events: none;">
+                                <!-- Cambiado a hide para que esté oculto por defecto -->
+                                <svg class="spinner-circle" xmlns="http://www.w3.org/2000/svg" height="24px"
+                                    viewBox="0 -960 960 960" width="24px">
+                                    <path
+                                        d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-155.5t86-127Q252-817 325-848.5T480-880q17 0 28.5 11.5T520-840q0 17-11.5 28.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-17 11.5-28.5T840-520q17 0 28.5 11.5T880-480q0 82-31.5 155t-86 127.5q-54.5 54.5-127 86T480-80Z" />
+                                </svg>
+                            </div>
+                        </button>
+                    </form>
+                    <div class="error-message" id="user-email-error"></div>
+                </section>
+            </div>
+        </header>
+        <section id="news">
+            <article id="web_agent">
+                <h1>Keep Your Network Under Control</h1>
+
+                <p>Ensure your servers and devices stay online and responsive with Elipticnet Ping Monitor, a smart
+                    solution that continuously tracks network performance in real time.
+                </p>
+                <h2>Our ping monitoring agent constantly tracks and provides detailed reports on:
+                </h2>
+
+                <ul>
+                    <li>
+                        <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                            </svg>Host Status:</h3>
+                        <p>Detects whether your server or device is responding to ICMP requests (ping).</p>
+                    </li>
+                    <li>
+                        <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                            </svg>Response time:</h3>
+                        <p> Measures the round-trip time (RTT) for a ping request to be answered.</p>
+                    </li>
+                    <li>
+                        <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                            </svg>Latency Threshold:</h3>
+                        <p> Set a custom latency threshold to receive alerts when response times exceed acceptable
+                            limits.</p>
+                    </li>
+                    <li>
+                        <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                            </svg>Uptime:</h3>
+                        <p> Logs how long your host remains reachable without interruptions.</p>
+                    </li>
+                    <li>
+                        <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                            </svg>Latency Stability:</h3>
+                        <p> Monitors fluctuations in response times to detect potential network congestion or
+                            performance issues.</p>
+                    </li>
+                </ul>
+
+                <div class="gallery">
+                    <div>
+                        <img src="img/blog/home_view.webp" alt="Home view">
+                    </div>
+                    <div>
+                        <img src="img/blog/ping_agent_view.webp" alt="Web agent view">
+                    </div>
+                </div>
+
+
+
+            </article>
+            <article id="transports">
+                <h1>Instant Alerts When Issues Arise</h1>
+
+                <p>When your website goes down or starts showing signs of trouble, you need to know immediately. With
+                    Elipticnet Web Monitor, you’ll receive instant notifications via your preferred channels:</p>
+
+                <h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2zm-2 9.8V4.698l5.803 3.546zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.5 4.5 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586zM16 9.671V4.697l-5.803 3.546.338.208A4.5 4.5 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671" />
+                        <path
+                            d="M15.834 12.244c0 1.168-.577 2.025-1.587 2.025-.503 0-1.002-.228-1.12-.648h-.043c-.118.416-.543.643-1.015.643-.77 0-1.259-.542-1.259-1.434v-.529c0-.844.481-1.4 1.26-1.4.585 0 .87.333.953.63h.03v-.568h.905v2.19c0 .272.18.42.411.42.315 0 .639-.415.639-1.39v-.118c0-1.277-.95-2.326-2.484-2.326h-.04c-1.582 0-2.64 1.067-2.64 2.724v.157c0 1.867 1.237 2.654 2.57 2.654h.045c.507 0 .935-.07 1.18-.18v.731c-.219.1-.643.175-1.237.175h-.044C10.438 16 9 14.82 9 12.646v-.214C9 10.36 10.421 9 12.485 9h.035c2.12 0 3.314 1.43 3.314 3.034zm-4.04.21v.227c0 .586.227.8.581.8.31 0 .564-.17.564-.743v-.367c0-.516-.275-.708-.572-.708-.346 0-.573.245-.573.791" />
+                    </svg>
+                    Email Notifications
+                </h2>
+                <p>If your website experiences downtime, you’ll receive a detailed email with key information about the
+                    incident:</p>
+                <ul>
+                    <li>
+                        <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-dot" viewBox="0 0 16 16">
+                                <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                            </svg>Exact time of failure</h3>
+                    </li>
+                    <li>
+                        <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-dot" viewBox="0 0 16 16">
+                                <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                            </svg>Error code received</h3>
+                    </li>
+                    <li>
+                        <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-dot" viewBox="0 0 16 16">
+                                <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                            </svg>Last valid response recorded</h3>
+                    </li>
+                    <li>
+                        <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-dot" viewBox="0 0 16 16">
+                                <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                            </svg>Latency statistics before failure </h3></span>
+                    </li>
+                </ul>
+
+                <p>You can also configure multiple recipients to keep your entire team informed.</p>
+
+                <h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-telegram" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09" />
+                    </svg>
+                    Telegram Alerts
+                </h2>
+                <p>With our Telegram bot, you’ll stay informed without checking your inbox. Get automatic messages when
+                    your site encounters issues and check its status at any time.</p>
+                <ul>
+                    <li>
+                        <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-dot" viewBox="0 0 16 16">
+                                <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                            </svg>
+                            Instant notifications when your site goes down
+                        </h3>
+                    </li>
+                    <li>
+                        <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-dot" viewBox="0 0 16 16">
+                                <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                            </svg>Recent event history for better monitoring
+                        </h3>
+                    </li>
+                </ul>
+            </article>
+            <article>
+                <h1>An Affordable Alternative to Other Platforms</h1>
+
+                <p>Forget about the high costs of services like UptimeRobot. Elipticnet Web Monitor offers a more
+                    budget-friendly option without compromising monitoring quality.</p>
+
+                <p>Looking for a simpler solution than Uptime Kuma? With Elipticnet Web Monitor, there's no need for
+                    installation—just sign up and start monitoring in less than 5 minutes!</p>
+            </article>
+
+            <article>
+                <h1>Join the Waitlist</h1>
+                <p>Elipticnet is currently in development and will be available soon. Be the first to know about its
+                    launch and gain early access!</p>
+            </article>
+
+            <article>
+                <a href="#joinNow">
+                    <p>Get Started Now</p>
+                    <small>(no credit card required)</small>
+                </a>
+            </article>
+
+        </section>
+
+        <footer>
+            <a href="mailto:support@elipticnet.com?subject=Hello!&body=Tell%20us%20how%20we%20can%20help%20you.">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-envelope-at" viewBox="0 0 16 16">
+                    <path
+                        d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2zm3.708 6.208L1 11.105V5.383zM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2z" />
+                    <path
+                        d="M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648m-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z" />
+                </svg>
+                Contact us</a>
+
+            <a href="https://www.paypal.com/donate/?hosted_button_id=64KQFFAMZABMU">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-paypal"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M14.06 3.713c.12-1.071-.093-1.832-.702-2.526C12.628.356 11.312 0 9.626 0H4.734a.7.7 0 0 0-.691.59L2.005 13.509a.42.42 0 0 0 .415.486h2.756l-.202 1.28a.628.628 0 0 0 .62.726H8.14c.429 0 .793-.31.862-.731l.025-.13.48-3.043.03-.164.001-.007a.35.35 0 0 1 .348-.297h.38c1.266 0 2.425-.256 3.345-.91q.57-.403.993-1.005a4.94 4.94 0 0 0 .88-2.195c.242-1.246.13-2.356-.57-3.154a2.7 2.7 0 0 0-.76-.59l-.094-.061ZM6.543 8.82a.7.7 0 0 1 .321-.079H8.3c2.82 0 5.027-1.144 5.672-4.456l.003-.016q.326.186.548.438c.546.623.679 1.535.45 2.71-.272 1.397-.866 2.307-1.663 2.874-.802.57-1.842.815-3.043.815h-.38a.87.87 0 0 0-.863.734l-.03.164-.48 3.043-.024.13-.001.004a.35.35 0 0 1-.348.296H5.595a.106.106 0 0 1-.105-.123l.208-1.32z" />
+                </svg>
+                Support the project</a>
+        </footer>
+    </main>
+
+
+</body>
+<script src="js/send_email.js"></script>
+<script src="js/show_alert.js"></script>
+
+</html>

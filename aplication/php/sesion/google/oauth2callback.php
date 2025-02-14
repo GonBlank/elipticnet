@@ -203,8 +203,13 @@ try {
     ║ Enviar email de bienvenida ║
     ╚════════════════════════════╝
     */
-    $body = welcome_new_user_template($name);
-    send_email($body, "Welcome to Elipticnet!", $email);
+    try {
+        $body = welcome_new_user_template($name);
+        send_email($body, "Welcome to Elipticnet!", $email);
+    } catch (Exception $e) {
+        // Registrar el error en el log de PHP
+        error_log("Error al enviar el email de bienvenida: " . $e->getMessage());
+    }
 
     header("Location: " . APP_LINK . "/aplication/public/home.php");
 
